@@ -286,60 +286,103 @@
       return null;
     }
 
-    async function loadEvents() {
+    // 1. CARICAMENTO CON METODO JSONP (Infallibile su GitHub Pages, scavalca ogni blocco)
+    function loadEvents() {
       const titleLabel = document.getElementById('calendarTitle');
       titleLabel.innerText = "Sincronizzazione Google Fogli...";
+
+      // Endpoint ufficiale di visualizzazione dati di Google Fogli (Formato JSONP)
+      const url = `https://google.com{SPREADSHEET_ID}/gviz/tq?tqx=responseHandler:handleGoogleResponse&sheet=${encodeURIComponent(SHEET_NAME)}`;
       
-      // NUOVO INDIRIZZO DI ESPORTAZIONE DIRETTO E PUBBLICO
-      const url = `https://google.com{SPREADSHEET_ID}/pub?output=csv&sheet=${encodeURIComponent(SHEET_NAME)}`;
+      const script = document.createElement('script');
+      script.src = url;
       
-      try {
-        const response = await fetch(url);
-        if (!response.ok) throw new Error();
-        const csvText = await response.text();
-        
-        Papa.parse(csvText, {
-          header: true,
-          skipEmptyLines: true,
-          complete: function(results) {
-            processRows(results.data);
-          }
-        });
-      } catch (e) {
-        console.log("Browser in modalità Locale Offline. Attivazione paracadute dati.");
-        rawEvents = [...backupEvents];
-        currentActiveEvents = [...rawEvents];
-        switchView('year');
-        titleLabel.innerText = "Calendario Tornei (Anteprima Offline)";
-      }
+      // Se Google non risponde o l'ID è errato, scatta il paracadute locale
+      script.onerror = function() {
+        console.log("Errore di rete. Attivazione paracadute dati.");
+        activateBackupData();
+      };
+      
+      document.body.appendChild(script);
     }
 
-    function processRows(data) {
-      rawEvents = data.map(row => {
-        const get = (k) => {
-          for(let field in row) { if(field.toLowerCase().trim().replace(' ','_') === k) return String(row[field]).trim(); }
-          return "";
+    // 2. RICEZIONE E SCOMPOSIZIONE DATI DI GOOGLE
+    function handleGoogleResponse(response) {
+      const titleLabel = document.getElementById('calendarTitle');
+      
+      if (!response || !response.table || !response.table.rows) {
+        activateBackupData();
+        return;
+      }
+
+      const cols = response.table.cols;
+      const rows = response.table.rows;
+      
+      // Mappa la posizione esatta delle colonne leggendo i nomi della riga 1
+      const headersMap = {};
+      cols.forEach((col, index) => {
+        if (col && col.label) {
+          headersMap[col.label.toLowerCase().trim().replace(' ', '_')] = index;
+        }
+      });
+
+      // Mappatura dinamica delle righe
+      rawEvents = rows.map(row => {
+        const c = row.c;
+        const getVal = (headerName) => {
+          const index = headersMap[headerName];
+          if (index === undefined || !c[index]) return "";
+          // Estrae il valore reale (v) o il testo formattato (f) dalla cella di Google
+          return c[index].v !== null && c[index].v !== undefined ? String(c[index].v).trim() : (c[index].f ? String(c[index].f).trim() : "");
         };
-        return {
-          title: get('title'),
-          className: get('classname').toLowerCase().replace(' ', '-'),
-          start: get('start'),
-          end_date: get('end_date'),
-          sede: get('sede'),
-          premio: get('premio'),
-          iscrizione: get('iscrizione'),
-          specialita: get('specialita'),
-          categorie: get('categorie'),
-          separate: (get('separate') || 'NO').toUpperCase(),
-          handicap: (get('handicap') || 'NO').toUpperCase(),
-          arbitri: (get('arbitri') || 'NO').toUpperCase(),
-          locandina: get('locandina')
+
+        const evt = {
+          title: getVal('title'),
+          className: getVal('classname').toLowerCase().trim().replace(' ', '-'),
+          start: getVal('start'),
+          end_date: getVal('end_date'),
+          sede: getVal('sede'),
+          premio: getVal('premio'),
+          iscrizione: getVal('iscrizione'),
+          specialita: getVal('specialita'),
+          categorie: getVal('categorie'),
+          separate: (getVal('separate') || 'NO').toUpperCase(),
+          handicap: (getVal('handicap') || 'NO').toUpperCase(),
+          arbitri: (getVal('arbitri') || 'NO').toUpperCase(),
+          locandina: getVal('locandina')
         };
-      }).filter(e => e.title && e.start);
+
+        // Se Google restituisce le date come oggetto stringa "Date(2026,9,12)" le ripulisce
+        if (evt.start && evt.start.includes("Date(")) { evt.start = cleanGoogleDate(evt.start); }
+        if (evt.end_date && evt.end_date.includes("Date(")) { evt.end_date = cleanGoogleDate(evt.end_date); }
+
+        return evt;
+      }).filter(evt => evt.title && evt.start); // Salva solo le righe con titolo e data
 
       currentActiveEvents = [...rawEvents];
       switchView('year');
-      document.getElementById('calendarTitle').innerText = "Tabellone Gare Ufficiale";
+      titleLabel.innerText = "Tabellone Gare Ufficiale";
+    }
+
+    // Funzione ausiliaria per attivare i dati locali in caso di emergenza
+    function activateBackupData() {
+      rawEvents = [...backupEvents];
+      currentActiveEvents = [...rawEvents];
+      switchView('year');
+      document.getElementById('calendarTitle').innerText = "Calendario Tornei (Anteprima Offline)";
+    }
+
+    // Converte il formato data di Google "Date(2026,9,12)" nello standard "2026-10-12"
+    function cleanGoogleDate(dateStr) {
+      const matches = dateStr.match(/\d+/g);
+      if (matches && matches.length >= 3) {
+        const y = matches[0];
+        // I mesi in JavaScript e nelle risposte grezze di Google partono da 0, quindi aggiungiamo 1
+        const m = String(parseInt(matches[1], 10) + 1).padStart(2, '0');
+        const d = String(matches[2]).padStart(2, '0');
+        return `${y}-${m}-${d}`;
+      }
+      return dateStr;
     }
 
     function switchView(viewType) {
