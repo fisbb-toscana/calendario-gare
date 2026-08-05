@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendario Tornei e Gare</title>
+  
+  <!-- Caricatore CSV integrato -->
+  <script src="https://cloudflare.com"></script>
+  
+  <style>
+    /* STILI STRUTTURALI COMPLETI ED INCORPORATI */
+    *, ::after, ::before { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, -apple-system, sans-serif; background-color: #f8fafc; color: #334155; }
+    .container-fluid { display: flex; flex-direction: column; min-height: 100vh; }
+    
+    @media (min-width: 768px) { .container-fluid { flex-direction: row; } }
+
+    /* Barra Laterale Filtri */
+    .sidebar { width: 100%; background: #ffffff; padding: 2rem; border-bottom: 1px solid #e2e8f0; }
+    @media (min-width: 768px) {
+      .sidebar { width: 280px; min-height: 100vh; border-bottom: none; border-right: 1px solid #e2e8f0; position: sticky; top: 0; }
+    }
+    
+    .brand { display: flex; align-items: center; margin-bottom: 2rem; }
+    .brand-icon { background: #2563eb; color: white; padding: 10px; border-radius: 12px; font-weight: bold; margin-right: 12px; font-size: 1.2rem; line-height: 1; }
+    .brand-title { font-size: 1.25rem; font-weight: 700; color: #0f172a; margin: 0; }
+    .brand-sub { font-size: 0.75rem; color: #64748b; margin: 0; font-weight: 600; }
+
+    .filter-title { font-size: 0.75rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 1rem; }
+    .filter-group { display: flex; flex-direction: column; gap: 0.5rem; }
+    .filter-label { display: flex; align-items: center; padding: 0.5rem; border-radius: 8px; cursor: pointer; transition: background 0.2s; font-size: 0.875rem; font-weight: 500; }
+    .filter-label:hover { background: #f1f5f9; }
+    .filter-checkbox-style { margin-right: 10px; width: 16px; height: 16px; accent-color: #2563eb; cursor: pointer; }
+    .color-dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; margin-right: 8px; flex-shrink: 0; }
+
+    /* Contenitore Principale Calendario */
+    .main-content { flex: 1; padding: 1.5rem; overflow-y: auto; max-height: 100vh; }
+    @media (min-width: 768px) { .main-content { padding: 2rem; } }
+    .calendar-container { background: white; border: 1px solid #e2e8f0; border-radius: 16px; padding: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.02); }
+    
+    /* Griglia Annuale */
+    .year-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
+    .month-box { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px; box-shadow: 0 2px 4px rgba(0,0,0,0.01); }
+    .month-title { font-size: 1rem; font-weight: 700; color: #1e293b; margin: 0 0 12px 0; border-bottom: 2px solid #f1f5f9; padding-bottom: 6px; text-transform: capitalize; }
+    .event-list { display: flex; flex-direction: column; gap: 6px; min-height: 40px; }
+    
+    /* Righe dei Singoli Tornei */
+    .event-item { display: flex; align-items: center; padding: 6px 8px; background: #f8fafc; border-radius: 6px; cursor: pointer; transition: background 0.2s, transform 0.1s; }
+    .event-item:hover { background: #f1f5f9; transform: translateX(2px); }
+    .event-day { font-weight: 700; font-size: 0.75rem; color: #64748b; width: 50px; flex-shrink: 0; }
+    .event-name { font-weight: 600; font-size: 0.8rem; color: #0f172a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; }
+    
+    /* Formattazione Professionale Vista Elenco */
+    .table-calendar { width: 100%; border-collapse: collapse; margin-top: 0.5rem; font-size: 0.9rem; }
+    .table-calendar th { background-color: #f8fafc; padding: 12px 16px; text-align: left; font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid #e2e8f0; }
+    .table-calendar td { padding: 16px; border-bottom: 1px solid #edf2f7; color: #334155; vertical-align: middle; }
+    .table-calendar tr.event-row:hover { background-color: #f8fafc; transition: background-color 0.2s ease; }
+    button#btnYear, button#btnMonth, button#btnList { font-family: system-ui, -apple-system, sans-serif; }
+
+    /* Griglia Mensile a Caselle */
+    .grid-day-cell { background: #ffffff; min-height: 100px; padding: 6px; display: flex; flex-direction: column; gap: 4px; }
+    .grid-day-cell.empty { background: #f8fafc; }
+    .grid-day-number { font-size: 0.75rem; font-weight: 700; color: #64748b; margin-bottom: 2px; }
+    .grid-event-badge { font-size: 0.7rem; font-weight: 600; padding: 3px 6px; border-radius: 4px; color: white; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; transition: transform 0.1s; }
+    .grid-event-badge:hover { transform: scale(1.02); filter: brightness(0.95); }
+
+    /* Finestra Modale Pop-up (Nativa HTML5) */
+    dialog { border: none; border-radius: 16px; padding: 0; max-width: 620px; width: 100%; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); animation: fadeIn 0.2s ease-out; }
+    dialog::backdrop { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); }
+    .modal-layout { display: flex; flex-direction: column; }
+    @media (min-width: 576px) { .modal-layout { flex-direction: row; } }
+    .modal-img-side { background: #f1f5f9; padding: 1.5rem; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid #e2e8f0; }
+    @media (min-width: 576px) { .modal-img-side { width: 220px; border-bottom: none; border-right: 1px solid #e2e8f0; } }
+    .modal-img-side img { max-height: 260px; max-width: 100%; object-fit: contain; border-radius: 8px; background: white; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+    .modal-main-side { flex: 1; padding: 1.5rem; position: relative; }
+    .btn-close { position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.25rem; cursor: pointer; color: #94a3b8; padding: 4px; }
+    .btn-close:hover { color: #475569; }
+    
+    .badge-type { display: inline-block; padding: 4px 8px; border-radius: 6px; color: white; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+    .grid-info { display: grid; gap: 1rem; margin: 1.25rem 0; padding-bottom: 1rem; border-bottom: 1px solid #e2e8f0; font-size: 0.85rem; }
+    .info-block span { display: block; color: #94a3b8; font-size: 0.725rem; font-weight: 600; margin-bottom: 2px; text-transform: uppercase; }
+    .info-block strong { color: #1e293b; font-weight: 600; }
+    
+    .tech-badges { display: flex; gap: 0.5rem; background: #f8fafc; padding: 10px; border-radius: 12px; border: 1px solid #e2e8f0; justify-content: space-around; text-align: center; font-size: 0.725rem; margin-top: 1rem; }
+    .tech-badges span { display: block; font-weight: 700; margin-top: 2px; padding: 2px 8px; border-radius: 20px; }
+    .tech-si { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+    .tech-no { background: #f1f5f9; color: #64748b; border: 1px solid #e2e8f0; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+  </style>
+</head>
+<body>
+
+  <div class="container-fluid">
+    <!-- BARRA LATERALE FILTRI COMPLETA -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">🏆</div>
+        <div>
+          <h1 class="brand-title">GestioneGare</h1>
+          <p class="brand-sub">Calendario Ufficiale</p>
+        </div>
+      </div>
+      
+      <!-- 1. Filtro per Tipologia -->
+      <div class="filter-title">Filtra per Tipologia</div>
+      <div class="filter-group">
+        <label class="filter-label">
+          <input type="checkbox" value="gara-libera" checked class="filter-checkbox">
+          <span class="color-dot" style="background-color: #DC2626;"></span> Gara Libera
+        </label>
+        <label class="filter-label">
+          <input type="checkbox" value="istituzionale" checked class="filter-checkbox">
+          <span class="color-dot" style="background-color: #1E3A8A;"></span> Istituzionale
+        </label>
+        <label class="filter-label">
+          <input type="checkbox" value="coppie-base" checked class="filter-checkbox">
+          <span class="color-dot" style="background-color: #059669;"></span> Coppie di Base
+        </label>
+        <label class="filter-label">
+          <input type="checkbox" value="seniores" checked class="filter-checkbox">
+          <span class="color-dot" style="background-color: #4F46E5;"></span> Seniores
+        </label>
+        <label class="filter-label">
+          <input type="checkbox" value="nbc" checked class="filter-checkbox">
+          <span class="color-dot" style="background-color: #D97706;"></span> NBC
+        </label>
+      </div>
+
+      <!-- 2. Filtro per Categorie Ammesse -->
+      <div class="filter-title" style="margin-top: 2rem;">Filtra per Categoria</div>
+      <div class="filter-group">
+        <label class="filter-label">
+          <input type="checkbox" value="Terza" checked class="filter-cat-checkbox filter-checkbox-style"> Terza Categoria
+        </label>
+        <label class="filter-label">
+          <input type="checkbox" value="Seconda" checked class="filter-cat-checkbox filter-checkbox-style"> Seconda Categoria
+        </label>
+        <label class="filter-label">
+          <input type="checkbox" value="Prima" checked class="filter-cat-checkbox filter-checkbox-style"> Prima Categoria
+        </label>
+        <label class="filter-label">
+          <input type="checkbox" value="Master" checked class="filter-cat-checkbox filter-checkbox-style"> Master
+        </label>
+        <label class="filter-label">
+          <input type="checkbox" value="Nazionale" checked class="filter-cat-checkbox filter-checkbox-style"> Nazionale / Naz. Pro
+        </label>
+      </div>
+
+      <!-- 3. Filtro per Handicap -->
+      <div class="filter-title" style="margin-top: 2rem;">Filtra per Handicap</div>
+      <div class="filter-group">
+        <label class="filter-label">
+          <input type="checkbox" value="SI" checked class="filter-handicap-checkbox filter-checkbox-style"> Con Handicap (SI)
+        </label>
+        <label class="filter-label">
+          <input type="checkbox" value="NO" checked class="filter-handicap-checkbox filter-checkbox-style"> Senza Handicap (NO)
+        </label>
+      </div>
+    </aside>
+
+    <!-- AREA PRINCIPALE CALENDARIO -->
+    <main class="main-content">
+      <div class="calendar-container">
+        
+        <!-- Barra Superiore Navigazione -->
+        <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem; border-bottom: 1px solid #e2e8f0; padding-bottom: 1rem; align-items: start;">
+          <div style="display: flex; justify-content: space-between; width: 100%; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            <h2 id="calendarTitle" style="font-size: 1.25rem; font-weight: 700; margin: 0; color: #0f172a;">Tabellone Gare</h2>
+            <div id="universalNavigation" style="display: flex; align-items: center; gap: 0.5rem; background: #f1f5f9; padding: 4px; border-radius: 8px;">
+              <button onclick="navigateCalendar(-1)" style="border: none; background: #ffffff; padding: 4px 10px; border-radius: 6px; cursor: pointer; font-weight: bold; box-shadow: 0 1px 2px rgba(0,0,0,0.05); font-family: sans-serif;">◀</button>
+              <span id="currentCalendarLabel" style="font-size: 0.85rem; font-weight: 700; color: #334155; min-width: 140px; text-align: center; display: inline-block;"></span>
+              <button onclick="navigateCalendar(1)" style="border: none; background: #ffffff; padding: 4px 10px; border-radius: 6px; cursor: pointer; font-weight: bold; box-shadow: 0 1px 2px rgba(0,0,0,0.05); font-family: sans-serif;">▶</button>
+            </div>
+          </div>
+          <div style="display: flex; gap: 0.5rem; background: #f1f5f9; padding: 4px; border-radius: 8px;">
+            <button id="btnYear" onclick="switchView('year')" style="border: none; padding: 6px 12px; font-size: 0.85rem; font-weight: 600; border-radius: 6px; cursor: pointer; transition: all 0.2s;">📅 Vista Annuale</button>
+            <button id="btnMonth" onclick="switchView('month')" style="border: none; padding: 6px 12px; font-size: 0.85rem; font-weight: 600; border-radius: 6px; cursor: pointer; transition: all 0.2s;">🔲 Vista Mensile</button>
+            <button id="btnList" onclick="switchView('list')" style="border: none; padding: 6px 12px; font-size: 0.85rem; font-weight: 600; border-radius: 6px; cursor: pointer; transition: all 0.2s;">📋 Vista Elenco</button>
+          </div>
+        </div>
+        
+        <!-- VISTA 1: Annuale -->
+        <div id="viewYear" class="year-grid"></div>
+
+        <!-- VISTA 2: Mensile -->
+        <div id="viewMonth" style="display: none;">
+          <div style="display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; font-weight: 700; font-size: 0.75rem; color: #64748b; text-transform: uppercase; margin-bottom: 0.5rem; letter-spacing: 0.5px;">
+            <div>Lun</div><div>Mar</div><div>Mer</div><div>Gio</div><div>Ven</div><div>Sab</div><div>Dom</div>
+          </div>
+          <div id="monthDaysGrid" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; background: #e2e8f0; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;"></div>
+        </div>
+
+        <!-- VISTA 3: Elenco -->
+        <div id="viewList" style="display: none; overflow-x: auto;">
+          <table class="table-calendar">
+            <thead>
+              <tr>
+                <th style="width: 15%;">Tipologia</th>
+                <th style="width: 40%;">Titolo Torneo</th>
+                <th style="width: 30%;">Sede Gara</th>
+                <th style="width: 15%;">Data Finale</th>
+              </tr>
+            </thead>
+            <tbody id="eventTableBody"></tbody>
+          </table>
+        </div>
+
+      </div>
+    </main>
+  </div>
+    
+  <!-- POP-UP DI DETTAGLIO NATIVO -->
+  <dialog id="eventDialog">
+    <div class="modal-layout">
+      <div class="modal-img-side">
+        <img id="modalLocandina" src="" alt="Locandina">
+      </div>
+      <div class="modal-main-side">
+        <button class="btn-close" onclick="document.getElementById('eventDialog').close()">✕</button>
+        <span id="modalTipologia" class="badge-type" style="margin-bottom: 0.5rem;"></span>
+        <h3 id="modalTitle" style="margin: 0 0 1rem 0; font-size: 1.25rem; font-weight: 700; color: #0f172a; padding-right: 20px;"></h3>
+        <div class="grid-info" style="grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));">
+          <div class="info-block"><span>Sede</span><strong id="modalSede"></strong></div>
+          <div class="info-block"><span>1° Premio</span><strong id="modalPremio" style="color: #16a34a;"></strong></div>
+          <div class="info-block"><span>Iscrizione</span><strong id="modalIscrizione" style="color: #dc2626;"></strong></div>
+          <div class="info-block"><span>Data Inizio</span><strong id="modalInizio"></strong></div>
+          <div class="info-block"><span>Data Finale</span><strong id="modalFinale"></strong></div>
+        </div>
+        <div style="font-size: 0.85rem; margin-bottom: 1rem;">
+          <span>Specialità</span><br><strong id="modalSpecialita" style="background:#f1f5f9; padding:4px 8px; border-radius:6px; font-weight:600; color:#334155;"></strong>
+        </div>
+        <div style="font-size: 0.85rem;">
+          <span>Categorie Ammesse</span><div id="modalCategorie" style="display:flex; flex-wrap:wrap; gap:4px; margin-top:4px;"></div>
+        </div>
+        <div class="tech-badges">
+          <div><span>Cat. Separate</span><span id="badgeSeparate"></span></div>
+          <div><span>Handicap</span><span id="badgeHandicap"></span></div>
+          <div><span>Arbitri</span><span id="badgeArbitri"></span></div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- LOGICA JAVASCRIPT DEFINITIVA: DATA SICURA E FUNZIONANTE -->
+  <script>
+    const SPREADSHEET_ID = "1iZH8laDrJ42qPwl7SzQZsLpzm_rm4-QPRPnMApsKfhE";
+    const SHEET_NAME = "Gare";
+
+    // DATABASE PARACADUTE COMPATIBILE CON TUTTI I BROWSER
+    const backupEvents = [
+      { title: "Gran Premio Nazionale Open", className: "gara-libera", start: "2026-08-10", end_date: "2026-08-16", sede: "ASD Biliardo Club Firenze", premio: "€ 3.500", iscrizione: "€ 50", specialita: "Singola - 5 Birilli", categorie: "Prima, Master, Nazionale", separate: "NO", handicap: "NO", arbitri: "SI", locandina: "" },
+      { title: "Campionato Regionale a Squadre", className: "istituzionale", start: "2026-08-18", end_date: "2026-08-20", sede: "Palasport Roma", premio: "Trofeo + Avanzamento", iscrizione: "Gratuito", specialita: "Squadre - Goriziana", categorie: "Terza, Seconda, Prima", separate: "SI", handicap: "SI", arbitri: "SI", locandina: "" },
+      { title: "Torneo Estivo Coppie di Base", className: "coppie-base", start: "2026-08-24", end_date: "2026-08-25", sede: "Club Golden Diana (Milano)", premio: "€ 1.200", iscrizione: "€ 30 a coppia", specialita: "Coppie - Tutti ai 9", categorie: "Terza, Seconda", separate: "SI", handicap: "NO", arbitri: "NO", locandina: "" },
+      { title: "Trofeo d'Autunno NBC (Locale)", className: "nbc", start: "2026-10-05", end_date: "2026-10-12", sede: "ASD Club Diamante", premio: "€ 2.500", iscrizione: "€ 40", specialita: "Singola - 5 Birilli", categorie: "Terza, Seconda, Prima", separate: "SI", handicap: "NO", arbitri: "SI", locandina: "" }
+    ];
+
+    const typeColors = { 'gara-libera': '#DC2626', 'istituzionale': '#1E3A8A', 'coppie-base': '#059669', 'seniores': '#4F46E5', 'nbc': '#D97706' };
+    const monthNamesLong = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"];
+    
+    // Rilevamento automatico e reale del giorno corrente
+    const today = new Date();
+    const currentRealMonth = today.getMonth(); 
+    const currentRealYear = today.getFullYear();
+    
+    let activeViewType = 'year';
+    let seasonStartYear = (currentRealMonth >= 8) ? currentRealYear : currentRealYear - 1;
+    let currentGridYear = currentRealYear;
+    let currentGridMonth = currentRealMonth; 
+    
+    let rawEvents = [];
+    let currentActiveEvents = [];
+
+    // ESTRATTORE DATA UNIVERSALE: Taglia le stringhe evitando i bug degli oggetti Date dei browser
+    function parseDateSafe(dateString) {
+      if (!dateString || dateString.trim() === "") return null;
+      const parts = dateString.trim().split('-');
+      if (parts.length === 3) {
+        return {
+          year: parseInt(parts[0], 10),
+          month: parseInt(parts[1], 10) - 1,
+          day: parseInt(parts[2], 10)
+        };
+      }
+      return null;
+    }
+
+    async function loadEvents() {
+      const titleLabel = document.getElementById('calendarTitle');
+      titleLabel.innerText = "Sincronizzazione Google Fogli...";
+      
+      const url = `https://google.com{SPREADSHEET_ID}/export?format=csv&sheet=${encodeURIComponent(SHEET_NAME)}`;
+      
+      try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error();
+        const csvText = await response.text();
+        
+        Papa.parse(csvText, {
+          header: true,
+          skipEmptyLines: true,
+          complete: function(results) {
+            processRows(results.data);
+          }
+        });
+      } catch (e) {
+        console.log("Browser in modalità Locale Offline. Attivazione paracadute dati.");
+        rawEvents = [...backupEvents];
+        currentActiveEvents = [...rawEvents];
+        switchView('year');
+        titleLabel.innerText = "Calendario Tornei (Anteprima Offline)";
+      }
+    }
+
+    function processRows(data) {
+      rawEvents = data.map(row => {
+        const get = (k) => {
+          for(let field in row) { if(field.toLowerCase().trim().replace(' ','_') === k) return String(row[field]).trim(); }
+          return "";
+        };
+        return {
+          title: get('title'),
+          className: get('classname').toLowerCase().replace(' ', '-'),
+          start: get('start'),
+          end_date: get('end_date'),
+          sede: get('sede'),
+          premio: get('premio'),
+          iscrizione: get('iscrizione'),
+          specialita: get('specialita'),
+          categorie: get('categorie'),
+          separate: (get('separate') || 'NO').toUpperCase(),
+          handicap: (get('handicap') || 'NO').toUpperCase(),
+          arbitri: (get('arbitri') || 'NO').toUpperCase(),
+          locandina: get('locandina')
+        };
+      }).filter(e => e.title && e.start);
+
+      currentActiveEvents = [...rawEvents];
+      switchView('year');
+      document.getElementById('calendarTitle').innerText = "Tabellone Gare Ufficiale";
+    }
+
+    function switchView(viewType) {
+      activeViewType = viewType;
+      const viewYear = document.getElementById('viewYear');
+      const viewMonth = document.getElementById('viewMonth');
+      const viewList = document.getElementById('viewList');
+      const navBlock = document.getElementById('universalNavigation');
+
+      ['btnYear', 'btnMonth', 'btnList'].forEach(id => {
+        document.getElementById(id).style.background = 'transparent';
+        document.getElementById(id).style.color = '#64748b';
+      });
+
+      viewYear.style.display = 'none'; viewMonth.style.display = 'none'; viewList.style.display = 'none';
+      navBlock.style.display = 'flex';
+
+      document.getElementById('btn' + viewType.charAt(0).toUpperCase() + viewType.slice(1)).style.background = '#ffffff';
+      document.getElementById('btn' + viewType.charAt(0).toUpperCase() + viewType.slice(1)).style.color = '#0f172a';
+
+      if (viewType === 'year') { viewYear.style.display = 'grid'; } 
+      else if (viewType === 'month') { viewMonth.style.display = 'block'; } 
+      else { viewList.style.display = 'block'; navBlock.style.display = 'none'; }
+      
+      updateNavigationLabel();
+      filterAndRenderEvents();
+    }
+
+    function navigateCalendar(direction) {
+      if (activeViewType === 'year') { seasonStartYear += direction; renderYearCalendar(currentActiveEvents); } 
+      else if (activeViewType === 'month') {
+        currentGridMonth += direction;
+        if (currentGridMonth > 11) { currentGridMonth = 0; currentGridYear++; }
+        else if (currentGridMonth < 0) { currentGridMonth = 11; currentGridYear--; }
+        renderMonthGridCalendar(currentActiveEvents);
+      }
+      updateNavigationLabel();
+    }
+
+    function updateNavigationLabel() {
+      const label = document.getElementById('currentCalendarLabel');
+      if (activeViewType === 'year') { label.innerText = "Stagione " + seasonStartYear + " / " + (seasonStartYear + 1); } 
+      else if (activeViewType === 'month') { label.innerText = monthNamesLong[currentGridMonth] + " " + currentGridYear; }
+    }
+
+    function updateAllViews(eventsToDisplay) {
+      renderYearCalendar(eventsToDisplay);
+      renderMonthGridCalendar(eventsToDisplay);
+      renderListCalendar(eventsToDisplay);
+    }
+
+    function renderYearCalendar(eventsToDisplay) {
+      const grid = document.getElementById('viewYear');
+      grid.innerHTML = '';
+      for (let i = 0; i < 12; i++) {
+        let m = (8 + i) % 12;
+        let targetYear = (m < 8) ? seasonStartYear + 1 : seasonStartYear;
+
+        const monthBox = document.createElement('div');
+        monthBox.className = 'month-box';
+        monthBox.innerHTML = `<h3 class="month-title">${monthNamesLong[m]} ${targetYear}</h3>`;
+        const eventList = document.createElement('div');
+        eventList.className = 'event-list';
+
+        const monthEvents = eventsToDisplay.filter(evt => {
+          const p = parseDateSafe(evt.end_date || evt.start);
+          return p && p.year === targetYear && p.month === m;
+        });
+
+        if (monthEvents.length === 0) {
+          eventList.innerHTML = `<p style="font-size: 0.75rem; color: #94a3b8; margin: 4px 0; font-style: italic;">Nessun torneo</p>`;
+        } else {
+          monthEvents.sort((a, b) => parseDateSafe(a.end_date || a.start).day - parseDateSafe(b.end_date || b.start).day);
+          monthEvents.forEach(evt => {
+            const parsedData = parseDateSafe(evt.end_date || evt.start);
+            const color = typeColors[evt.className] || '#64748b';
+            const item = document.createElement('div');
+            item.className = 'event-item';
+            item.style.borderLeft = `4px solid ${color}`;
+            item.onclick = () => openDialog(evt);
+            item.innerHTML = `<span class="event-day">Fin. ${parsedData.day}</span><span class="event-name">${evt.title}</span>`;
+            eventList.appendChild(item);
+          });
+        }
+        monthBox.appendChild(eventList); grid.appendChild(monthBox);
+      }
+    }
+
+    function renderMonthGridCalendar(eventsToDisplay) {
+      const gridBody = document.getElementById('monthDaysGrid');
+      if (!gridBody) return;
+      gridBody.innerHTML = '';
+
+      const firstDayIndex = new Date(currentGridYear, currentGridMonth, 1).getDay();
+      const startOffset = firstDayIndex === 0 ? 6 : firstDayIndex - 1;
+      const totalDays = new Date(currentGridYear, currentGridMonth + 1, 0).getDate();
+
+      for (let i = 0; i < startOffset; i++) {
+        const emptyCell = document.createElement('div');
+        emptyCell.className = 'grid-day-cell empty';
+        gridBody.appendChild(emptyCell);
+      }
+
+      for (let day = 1; day <= totalDays; day++) {
+        const cell = document.createElement('div');
+        cell.className = 'grid-day-cell';
+        cell.innerHTML = `<div class="grid-day-number">${day}</div>`;
+
+        const dayEvents = eventsToDisplay.filter(evt => {
+          const p = parseDateSafe(evt.end_date || evt.start);
+          return p && p.year === currentGridYear && p.month === currentGridMonth && p.day === day;
+        });
+
+        dayEvents.forEach(evt => {
+          const badge = document.createElement('div');
+          badge.className = 'grid-event-badge';
+          badge.style.backgroundColor = typeColors[evt.className] || '#64748b';
+          badge.innerText = evt.title;
+          badge.onclick = (e) => { e.stopPropagation(); openDialog(evt); };
+          cell.appendChild(badge);
+        });
+        gridBody.appendChild(cell);
+      }
+
+      const totalCellsGenerated = startOffset + totalDays;
+      const remainingCells = (7 - (totalCellsGenerated % 7)) % 7;
+      for (let i = 0; i < remainingCells; i++) {
+        const emptyCell = document.createElement('div');
+        emptyCell.className = 'grid-day-cell empty';
+        gridBody.appendChild(emptyCell);
+      }
+    }
+
+    function renderListCalendar(eventsToDisplay) {
+      const tbody = document.getElementById('eventTableBody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      if (eventsToDisplay.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#94a3b8; padding:2rem; font-style:italic;">Nessun torneo corrisponde ai filtri</td></tr>`;
+        return;
+      }
+
+      eventsToDisplay.sort((a, b) => {
+        const pA = parseDateSafe(a.end_date || a.start); const pB = parseDateSafe(b.end_date || b.start);
+        if(!pA || !pB) return 0;
+        return new Date(pA.year, pA.month, pA.day) - new Date(pB.year, pB.month, pB.day);
+      });
+
+      eventsToDisplay.forEach(evt => {
+        const tr = document.createElement('tr');
+        tr.className = 'event-row';
+        tr.onclick = () => openDialog(evt);
+
+        const labelText = evt.className ? evt.className.replace('-', ' ') : 'torneo';
+        const color = typeColors[evt.className] || '#64748b';
+        const p = parseDateSafe(evt.end_date || evt.start);
+        const formattedDate = p ? `${p.day}/${p.month + 1}/${p.year}` : evt.start;
+
+        tr.innerHTML = `
+          <td><span class="badge-type" style="background-color:${color}">${labelText}</span></td>
+          <td style="font-weight:600; color:#1e293b;">${evt.title}</td>
+          <td>${evt.sede}</td>
+          <td style="color:#64748b; font-weight:600;">${formattedDate}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function openDialog(evt) {
+      document.getElementById('modalTitle').innerText = evt.title;
+      document.getElementById('modalSede').innerText = evt.sede || '-';
+      document.getElementById('modalPremio').innerText = evt.premio || '-';
+      document.getElementById('modalIscrizione').innerText = evt.iscrizione || 'Non specificata';
+      document.getElementById('modalSpecialita').innerText = evt.specialita || '-';
+      
+      const pStart = parseDateSafe(evt.start);
+      document.getElementById('modalInizio').innerText = pStart ? `${pStart.day} ${monthNamesLong[pStart.month]} ${pStart.year}` : evt.start;
+      const pEnd = parseDateSafe(evt.end_date);
+      document.getElementById('modalFinale').innerText = pEnd ? `${pEnd.day} ${monthNamesLong[pEnd.month]} ${pEnd.year}` : 'Stesso giorno';
+
+      const typeBadge = document.getElementById('modalTipologia');
+      typeBadge.innerText = evt.className ? evt.className.replace('-', ' ') : 'Torneo';
+      typeBadge.style.backgroundColor = typeColors[evt.className] || '#64748b';
+
+      const catContainer = document.getElementById('modalCategorie');
+      catContainer.innerHTML = '';
+      if (evt.categorie) {
+        evt.categorie.split(',').forEach(cat => {
+          const span = document.createElement('span');
+          span.style.cssText = "background:#f1f5f9; color:#475569; padding:2px 6px; border-radius:4px; font-weight:500; font-size:0.75rem; border:1px solid #e2e8f0;";
+          span.innerText = cat.trim();
+          catContainer.appendChild(span);
+        });
+      }
+
+      setTechLabel('badgeSeparate', evt.separate);
+      setTechLabel('badgeHandicap', evt.handicap);
+      setTechLabel('badgeArbitri', evt.arbitri);
+
+      const imgEl = document.getElementById('modalLocandina');
+      imgEl.src = (evt.locandina && evt.locandina.trim() !== "") ? evt.locandina : "https://placehold.co";
+
+      document.getElementById('eventDialog').showModal();
+    }
+
+    function setTechLabel(id, val) {
+      const el = document.getElementById(id);
+      if(!el) return;
+      const clean = val ? val.trim().toUpperCase() : 'NO';
+      el.innerText = clean === 'SI' ? 'SI' : 'NO';
+      el.className = clean === 'SI' ? 'tech-si' : 'tech-no';
+    }
+
+    function filterAndRenderEvents() {
+      const activeTypes = Array.from(document.querySelectorAll('.filter-checkbox:checked')).map(c => c.value.trim().toLowerCase());
+      const activeCats = Array.from(document.querySelectorAll('.filter-cat-checkbox:checked')).map(c => c.value.trim().toLowerCase());
+      const activeHandicaps = Array.from(document.querySelectorAll('.filter-handicap-checkbox:checked')).map(c => c.value.trim().toUpperCase());
+
+      currentActiveEvents = rawEvents.filter(evt => {
+        const matchType = activeTypes.includes(evt.className);
+        const matchHandicap = activeHandicaps.includes(evt.handicap);
+        
+        let matchCategory = false;
+        if (evt.categorie) {
+          matchCategory = evt.categorie.split(',').some(cat => {
+            const trimmedCat = cat.trim().toLowerCase();
+            if (trimmedCat.includes("nazionale")) return activeCats.includes("nazionale");
+            return activeCats.includes(trimmedCat);
+          });
+        } else { matchCategory = true; }
+        return matchType && matchHandicap && matchCategory;
+      });
+
+      updateAllViews(currentActiveEvents);
+    }
+
+    document.querySelectorAll('.filter-checkbox, .filter-cat-checkbox, .filter-handicap-checkbox').forEach(cb => {
+      cb.addEventListener('change', filterAndRenderEvents);
+    });
+
+    // Avvio e sintonizzazione iniziale automatica
+    switchView('year');
+    loadEvents();
+  </script>
+</body>
+</html>
