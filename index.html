@@ -306,7 +306,7 @@
       document.body.appendChild(script);
     }
 
-    // 2. RICEZIONE E SCOMPOSIZIONE DATI DI GOOGLE
+    // 2. RICEZIONE E SCOMPOSIZIONE DATI DI GOOGLE (Metodo infallibile basato sulla posizione delle colonne)
     function handleGoogleResponse(response) {
       const titleLabel = document.getElementById('calendarTitle');
       
@@ -315,52 +315,43 @@
         return;
       }
 
-      const cols = response.table.cols;
       const rows = response.table.rows;
-      
-      // Mappa la posizione esatta delle colonne leggendo i nomi della riga 1
-      const headersMap = {};
-      cols.forEach((col, index) => {
-        if (col && col.label) {
-          headersMap[col.label.toLowerCase().trim().replace(' ', '_')] = index;
-        }
-      });
 
-      // Mappatura dinamica delle righe
+      // Conversione delle righe di Google basata sulla posizione fisica delle colonne (A=0, B=1, C=2...)
       rawEvents = rows.map(row => {
         const c = row.c;
-        const getVal = (headerName) => {
-          const index = headersMap[headerName];
-          if (index === undefined || !c[index]) return "";
-          // Estrae il valore reale (v) o il testo formattato (f) dalla cella di Google
+        
+        // Funzione interna per estrarre in sicurezza il testo dalla colonna indicata (0, 1, 2...)
+        const getValByIndex = (index) => {
+          if (!c || index === undefined || !c[index]) return "";
           return c[index].v !== null && c[index].v !== undefined ? String(c[index].v).trim() : (c[index].f ? String(c[index].f).trim() : "");
         };
 
         const evt = {
-          title: getVal('title'),
-          className: getVal('classname').toLowerCase().trim().replace(' ', '-'),
-          start: getVal('start'),
-          end_date: getVal('end_date'),
-          sede: getVal('sede'),
-          premio: getVal('premio'),
-          iscrizione: getVal('iscrizione'),
-          specialita: getVal('specialita'),
-          categorie: getVal('categorie'),
-          separate: (getVal('separate') || 'NO').toUpperCase(),
-          handicap: (getVal('handicap') || 'NO').toUpperCase(),
-          arbitri: (getVal('arbitri') || 'NO').toUpperCase(),
-          locandina: getVal('locandina')
+          title: getValByIndex(0),       // Colonna A: title
+          className: getValByIndex(1).toLowerCase().trim().replace(' ', '-'), // Colonna B: classname
+          start: getValByIndex(2),       // Colonna C: start
+          end_date: getValByIndex(3),    // Colonna D: end_date
+          sede: getValByIndex(4),        // Colonna E: sede
+          premio: getValByIndex(5),      // Colonna F: premio
+          iscrizione: getValByIndex(6),  // Colonna G: iscrizione
+          specialita: getValByIndex(7),  // Colonna H: specialita
+          categorie: getValByIndex(8),   // Colonna I: categorie
+          separate: (getValByIndex(9) || 'NO').toUpperCase(),   // Colonna J: separate
+          handicap: (getValByIndex(10) || 'NO').toUpperCase(),  // Colonna K: handicap
+          arbitri: (getValByIndex(11) || 'NO').toUpperCase(),   // Colonna L: arbitri
+          locandina: getValByIndex(12)   // Colonna M: locandina
         };
 
-        // Se Google restituisce le date come oggetto stringa "Date(2026,9,12)" le ripulisce
+        // Se Google restituisce le date come oggetto speciale le ripulisce
         if (evt.start && evt.start.includes("Date(")) { evt.start = cleanGoogleDate(evt.start); }
         if (evt.end_date && evt.end_date.includes("Date(")) { evt.end_date = cleanGoogleDate(evt.end_date); }
 
         return evt;
-      }).filter(evt => evt.title && evt.start); // Salva solo le righe con titolo e data
+      }).filter(evt => evt.title && evt.start); // Salva la gara solo se ha un nome e una data di inizio
 
       currentActiveEvents = [...rawEvents];
-      switchView('year');
+      switchView(activeViewType);
       titleLabel.innerText = "Tabellone Gare Ufficiale";
     }
 
