@@ -243,23 +243,12 @@
     </div>
   </dialog>
 
-  <!-- LOGICA JAVASCRIPT DEFINITIVA: DATA SICURA E FUNZIONANTE -->
+  <!-- LOGICA JAVASCRIPT: LETTURA DATI DA FILE JSON LOCALE -->
   <script>
-    const SPREADSHEET_ID = "1iZH8laDrJ42qPwl7SzQZsLpzm_rm4-QPRPnMApsKfhE";
-    const SHEET_NAME = "Gare";
-
-    // DATABASE PARACADUTE COMPATIBILE CON TUTTI I BROWSER
-    const backupEvents = [
-      { title: "Gran Premio Nazionale Open", className: "gara-libera", start: "2026-08-10", end_date: "2026-08-16", sede: "ASD Biliardo Club Firenze", premio: "€ 3.500", iscrizione: "€ 50", specialita: "Singola - 5 Birilli", categorie: "Prima, Master, Nazionale", separate: "NO", handicap: "NO", arbitri: "SI", locandina: "" },
-      { title: "Campionato Regionale a Squadre", className: "istituzionale", start: "2026-08-18", end_date: "2026-08-20", sede: "Palasport Roma", premio: "Trofeo + Avanzamento", iscrizione: "Gratuito", specialita: "Squadre - Goriziana", categorie: "Terza, Seconda, Prima", separate: "SI", handicap: "SI", arbitri: "SI", locandina: "" },
-      { title: "Torneo Estivo Coppie di Base", className: "coppie-base", start: "2026-08-24", end_date: "2026-08-25", sede: "Club Golden Diana (Milano)", premio: "€ 1.200", iscrizione: "€ 30 a coppia", specialita: "Coppie - Tutti ai 9", categorie: "Terza, Seconda", separate: "SI", handicap: "NO", arbitri: "NO", locandina: "" },
-      { title: "Trofeo d'Autunno NBC (Locale)", className: "nbc", start: "2026-10-05", end_date: "2026-10-12", sede: "ASD Club Diamante", premio: "€ 2.500", iscrizione: "€ 40", specialita: "Singola - 5 Birilli", categorie: "Terza, Seconda, Prima", separate: "SI", handicap: "NO", arbitri: "SI", locandina: "" }
-    ];
-
     const typeColors = { 'gara-libera': '#DC2626', 'istituzionale': '#1E3A8A', 'coppie-base': '#059669', 'seniores': '#4F46E5', 'nbc': '#D97706' };
     const monthNamesLong = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"];
     
-    // Rilevamento automatico e reale del giorno corrente
+    // Rilevamento automatico della data odierna
     const today = new Date();
     const currentRealMonth = today.getMonth(); 
     const currentRealYear = today.getFullYear();
@@ -272,108 +261,41 @@
     let rawEvents = [];
     let currentActiveEvents = [];
 
-    // ESTRATTORE DATA UNIVERSALE: Taglia le stringhe evitando i bug degli oggetti Date dei browser
     function parseDateSafe(dateString) {
-      if (!dateString || dateString.trim() === "") return null;
+      if (!dateString) return null;
       const parts = dateString.trim().split('-');
-      if (parts.length === 3) {
-        return {
-          year: parseInt(parts[0], 10),
-          month: parseInt(parts[1], 10) - 1,
-          day: parseInt(parts[2], 10)
-        };
-      }
+      if (parts.length === 3) return { year: parseInt(parts[0], 10), month: parseInt(parts[1], 10) - 1, day: parseInt(parts[2], 10) };
       return null;
     }
 
-    // 1. CARICAMENTO CON METODO JSONP (Infallibile su GitHub Pages, scavalca ogni blocco)
-    function loadEvents() {
+    // 1. CARICAMENTO DATI DAL FILE JSON (Immediato, sicuro e senza blocchi CORS)
+    async function loadEvents() {
       const titleLabel = document.getElementById('calendarTitle');
-      titleLabel.innerText = "Sincronizzazione Google Fogli...";
-
-      // Endpoint ufficiale di visualizzazione dati di Google Fogli (Formato JSONP)
-      const url = `https://google.com{SPREADSHEET_ID}/gviz/tq?tqx=responseHandler:handleGoogleResponse&sheet=${encodeURIComponent(SHEET_NAME)}`;
+      titleLabel.innerText = "Caricamento in corso...";
       
-      const script = document.createElement('script');
-      script.src = url;
+      // Essendo nello stesso spazio web di GitHub, basta chiamare direttamente il nome del file!
+      const url = "gare.json";
       
-      // Se Google non risponde o l'ID è errato, scatta il paracadute locale
-      script.onerror = function() {
-        console.log("Errore di rete. Attivazione paracadute dati.");
-        activateBackupData();
-      };
-      
-      document.body.appendChild(script);
-    }
-
-    // 2. RICEZIONE E SCOMPOSIZIONE DATI DI GOOGLE (Metodo infallibile basato sulla posizione delle colonne)
-    function handleGoogleResponse(response) {
-      const titleLabel = document.getElementById('calendarTitle');
-      
-      if (!response || !response.table || !response.table.rows) {
-        activateBackupData();
-        return;
-      }
-
-      const rows = response.table.rows;
-
-      // Conversione delle righe di Google basata sulla posizione fisica delle colonne (A=0, B=1, C=2...)
-      rawEvents = rows.map(row => {
-        const c = row.c;
+      try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error("File JSON non trovato");
+        rawEvents = await response.json();
         
-        // Funzione interna per estrarre in sicurezza il testo dalla colonna indicata (0, 1, 2...)
-        const getValByIndex = (index) => {
-          if (!c || index === undefined || !c[index]) return "";
-          return c[index].v !== null && c[index].v !== undefined ? String(c[index].v).trim() : (c[index].f ? String(c[index].f).trim() : "");
-        };
+        // Pulisce preventivamente i testi da spazi o maiuscole errate
+        rawEvents.forEach(evt => {
+          if (evt.className) evt.className = evt.className.toLowerCase().trim();
+          if (evt.separate) evt.separate = evt.separate.toUpperCase().trim();
+          if (evt.handicap) evt.handicap = evt.handicap.toUpperCase().trim();
+          if (evt.arbitri) evt.arbitri = evt.arbitri.toUpperCase().trim();
+        });
 
-        const evt = {
-          title: getValByIndex(0),       // Colonna A: title
-          className: getValByIndex(1).toLowerCase().trim().replace(' ', '-'), // Colonna B: classname
-          start: getValByIndex(2),       // Colonna C: start
-          end_date: getValByIndex(3),    // Colonna D: end_date
-          sede: getValByIndex(4),        // Colonna E: sede
-          premio: getValByIndex(5),      // Colonna F: premio
-          iscrizione: getValByIndex(6),  // Colonna G: iscrizione
-          specialita: getValByIndex(7),  // Colonna H: specialita
-          categorie: getValByIndex(8),   // Colonna I: categorie
-          separate: (getValByIndex(9) || 'NO').toUpperCase(),   // Colonna J: separate
-          handicap: (getValByIndex(10) || 'NO').toUpperCase(),  // Colonna K: handicap
-          arbitri: (getValByIndex(11) || 'NO').toUpperCase(),   // Colonna L: arbitri
-          locandina: getValByIndex(12)   // Colonna M: locandina
-        };
-
-        // Se Google restituisce le date come oggetto speciale le ripulisce
-        if (evt.start && evt.start.includes("Date(")) { evt.start = cleanGoogleDate(evt.start); }
-        if (evt.end_date && evt.end_date.includes("Date(")) { evt.end_date = cleanGoogleDate(evt.end_date); }
-
-        return evt;
-      }).filter(evt => evt.title && evt.start); // Salva la gara solo se ha un nome e una data di inizio
-
-      currentActiveEvents = [...rawEvents];
-      switchView(activeViewType);
-      titleLabel.innerText = "Tabellone Gare Ufficiale";
-    }
-
-    // Funzione ausiliaria per attivare i dati locali in caso di emergenza
-    function activateBackupData() {
-      rawEvents = [...backupEvents];
-      currentActiveEvents = [...rawEvents];
-      switchView('year');
-      document.getElementById('calendarTitle').innerText = "Calendario Tornei (Anteprima Offline)";
-    }
-
-    // Converte il formato data di Google "Date(2026,9,12)" nello standard "2026-10-12"
-    function cleanGoogleDate(dateStr) {
-      const matches = dateStr.match(/\d+/g);
-      if (matches && matches.length >= 3) {
-        const y = matches[0];
-        // I mesi in JavaScript e nelle risposte grezze di Google partono da 0, quindi aggiungiamo 1
-        const m = String(parseInt(matches[1], 10) + 1).padStart(2, '0');
-        const d = String(matches[2]).padStart(2, '0');
-        return `${y}-${m}-${d}`;
+        currentActiveEvents = [...rawEvents];
+        switchView('year');
+        titleLabel.innerText = "Tabellone Gare Ufficiale";
+      } catch (e) {
+        console.error(e);
+        titleLabel.innerText = "Errore nel caricamento del file gare.json";
       }
-      return dateStr;
     }
 
     function switchView(viewType) {
@@ -615,8 +537,7 @@
       cb.addEventListener('change', filterAndRenderEvents);
     });
 
-    // Avvio e sintonizzazione iniziale automatica
-    switchView('year');
+    // Avvio e configurazione iniziale automatica da file JSON localizzato
     loadEvents();
   </script>
 </body>
