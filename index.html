@@ -290,7 +290,8 @@
       const titleLabel = document.getElementById('calendarTitle');
       titleLabel.innerText = "Sincronizzazione Google Fogli...";
       
-      const url = `https://google.com{SPREADSHEET_ID}/export?format=csv&sheet=${encodeURIComponent(SHEET_NAME)}`;
+      // NUOVO INDIRIZZO DI ESPORTAZIONE DIRETTO E PUBBLICO
+      const url = `https://google.com{SPREADSHEET_ID}/pub?output=csv&sheet=${encodeURIComponent(SHEET_NAME)}`;
       
       try {
         const response = await fetch(url);
