@@ -1,5 +1,20 @@
 [
   {
+    "title": "1^ Prova National Billiard CHALLENGE - RHO (MI)",
+    "className": "nbc",
+    "start": "2025-10-17",
+    "end_date": "2025-10-26",
+    "sede": "ASD RHO PALABILIARDO",
+    "premio": "€ 5.000",
+    "iscrizione": "€ 40",
+    "specialita": "Tutti Doppi a 500 punti (2 set su 3)",
+    "categorie": "Nazionale / Naz. Pro, Master, Prima, Seconda, Terza",
+    "separate": "NO",
+    "handicap": "NO",
+    "arbitri": "SI",
+    "locandina": "https://trello.com/1/cards/6a7347ecce31d5adbc98f375/attachments/6a73486f299141282b86d732/download/DOC0009863809000001.jpg"
+  },
+  {
     "title": "1° TROFEO 'NETWIN NEWS' - 25° ANNIVERSARIO MARAMEO",
     "className": "gara-libera",
     "start": "2025-09-25",
