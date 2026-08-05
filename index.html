@@ -113,7 +113,7 @@
         </label>
         <label class="filter-label">
           <input type="checkbox" value="istituzionale" checked class="filter-checkbox">
-          <span class="color-dot" style="background-color: #1E3A8A;"></span> Istituzionale
+          <span class="color-dot" style="background-color: #0066cc;"></span> Istituzionale
         </label>
         <label class="filter-label">
           <input type="checkbox" value="coppie-base" checked class="filter-checkbox">
@@ -122,6 +122,10 @@
         <label class="filter-label">
           <input type="checkbox" value="seniores" checked class="filter-checkbox">
           <span class="color-dot" style="background-color: #D97706;"></span> Seniores
+        </label>
+        <label class="filter-label">
+          <input type="checkbox" value="seniores" checked class="filter-checkbox">
+          <span class="color-dot" style="background-color: #FF69B4;"></span> Femminile
         </label>
         <label class="filter-label">
           <input type="checkbox" value="gara-libera" checked class="filter-checkbox">
@@ -246,7 +250,7 @@
 
   <!-- LOGICA JAVASCRIPT: LETTURA DATI DA FILE JSON LOCALE -->
   <script>
-    const typeColors = { 'gara-libera': '#DC2626', 'istituzionale': '#1E3A8A', 'coppie-base': '#059669', 'seniores': '#4F46E5', 'nbc': '#D97706' };
+    const typeColors = { 'nbc': '#DC2626', 'istituzionale': '#0066cc', 'coppie-base': '#4F46E5', 'seniores': '#D97706', 'femminile': '#FF69B4', 'gara-libera': '#059669' };
     const monthNamesLong = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"];
     
     // Rilevamento automatico della data odierna
