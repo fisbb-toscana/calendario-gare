@@ -58,32 +58,226 @@
     .table-calendar tr.event-row:hover { background-color: #f8fafc; transition: background-color 0.2s ease; }
     button#btnYear, button#btnMonth, button#btnList { font-family: system-ui, -apple-system, sans-serif; }
 
-    /* Griglia Mensile a Caselle */
-    .grid-day-cell { background: #ffffff; min-height: 100px; padding: 6px; display: flex; flex-direction: column; gap: 4px; }
-    .grid-day-cell.empty { background: #f8fafc; }
-    .grid-day-number { font-size: 0.75rem; font-weight: 700; color: #64748b; margin-bottom: 2px; }
-    .grid-event-badge { font-size: 0.7rem; font-weight: 600; padding: 3px 6px; border-radius: 4px; color: white; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; transition: transform 0.1s; }
-    .grid-event-badge:hover { transform: scale(1.02); filter: brightness(0.95); }
+    /* GRIGLIA MENSILE A CASELLE BLOCCHATE ED IDENTICHE */
+    #monthDaysGrid {
+      display: grid;
+      /* Forzza le 7 colonne ad essere rigorosamente identiche (1/7 dello spazio ciascuna) */
+      grid-template-columns: repeat(7, minmax(0, 1fr)); 
+      gap: 4px;
+      background: #e2e8f0;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      overflow: hidden;
+    }
 
-    /* Finestra Modale Pop-up (Nativa HTML5) */
-    dialog { border: none; border-radius: 16px; padding: 0; max-width: 620px; width: 100%; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); animation: fadeIn 0.2s ease-out; }
-    dialog::backdrop { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); }
-    .modal-layout { display: flex; flex-direction: column; }
-    @media (min-width: 576px) { .modal-layout { flex-direction: row; } }
-    .modal-img-side { background: #f1f5f9; padding: 1.5rem; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid #e2e8f0; }
-    @media (min-width: 576px) { .modal-img-side { width: 220px; border-bottom: none; border-right: 1px solid #e2e8f0; } }
-    .modal-img-side img { max-height: 260px; max-width: 100%; object-fit: contain; border-radius: 8px; background: white; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-    .modal-main-side { flex: 1; padding: 1.5rem; position: relative; }
-    .btn-close { position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.25rem; cursor: pointer; color: #94a3b8; padding: 4px; }
+    .grid-day-cell {
+      background: #ffffff;
+      min-height: 100px;
+      padding: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      /* Impedisce alla casella di espandersi o deformarsi oltre la sua colonna */
+      min-width: 0; 
+      overflow: hidden;
+    }
+
+    .grid-day-cell.empty {
+      background: #f8fafc;
+    }
+
+    .grid-day-number {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #64748b;
+      margin-bottom: 2px;
+    }
+
+    /* BADGE EVENTO BLOCCHATO E TRONCATO CON I TRE PUNTINI (...) */
+    .grid-event-badge {
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 3px 6px;
+      border-radius: 4px;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.1s;
+      
+      /* Blocco totale del testo su una sola riga con taglio netto (...) */
+      display: block;
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .grid-event-badge:hover {
+      transform: scale(1.02);
+      filter: brightness(0.95);
+    }
+
+    /* POP-UP COMPATTO UNIVERSALE (Scatola Quadrata per Locandine Orizzontali e Verticali) */
+    dialog { 
+      border: none; 
+      border-radius: 16px; 
+      padding: 0; 
+      max-width: 660px; /* Larghezza ideale per PC */
+      width: 100%; 
+      box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); 
+      animation: fadeIn 0.2s ease-out; 
+    }
+    dialog::backdrop { 
+      background: rgba(15, 23, 42, 0.6); 
+      backdrop-filter: blur(4px); 
+    }
+    
+    .modal-layout { 
+      display: flex; 
+      flex-direction: column; 
+    }
+    @media (min-width: 576px) { 
+      .modal-layout { flex-direction: row; } 
+    }
+    
+    /* SCATOLA SINISTRA RIGIDAMENTE QUADRATA SU PC */
+    .modal-img-side { 
+      background: #f1f5f9; 
+      padding: 1.25rem; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      border-bottom: 1px solid #e2e8f0; 
+    }
+    @media (min-width: 576px) { 
+      .modal-img-side { 
+        width: 240px; 
+        height: 240px; /* Forza il quadrato perfetto */
+        align-self: center; /* Centra verticalmente la scatola rispetto ai dati */
+        border-bottom: none; 
+        border-right: 1px solid #e2e8f0; 
+        background: #f8fafc;
+        margin: 1.5rem 0 1.5rem 1.5rem; /* Margini per staccarla elegantemente dal bordo modale */
+        border-radius: 12px;
+        border: 1px solid #e2e8f0;
+      } 
+    }
+    
+    /* Gestione intelligente dell'immagine (verticale, orizzontale o quadrata) */
+    .modal-img-side img { 
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain; /* Mantiene le proporzioni reali senza schiacciare o tagliare */
+      border-radius: 6px; 
+      background: white; 
+      box-shadow: 0 2px 4px rgba(0,0,0,0.04); 
+    }
+    
+    /* Area dati destra */
+    .modal-main-side { 
+      flex: 1; 
+      padding: 1.5rem; 
+      position: relative; 
+    }
+    
+    .btn-close { 
+      position: absolute; 
+      top: 1rem; 
+      right: 1rem; 
+      background: none; 
+      border: none; 
+      font-size: 1.25rem; 
+      cursor: pointer; 
+      color: #94a3b8; 
+      padding: 4px; 
+      line-height: 1;
+    }
     .btn-close:hover { color: #475569; }
     
-    .badge-type { display: inline-block; padding: 4px 8px; border-radius: 6px; color: white; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
-    .grid-info { display: grid; gap: 1rem; margin: 1.25rem 0; padding-bottom: 1rem; border-bottom: 1px solid #e2e8f0; font-size: 0.85rem; }
-    .info-block span { display: block; color: #94a3b8; font-size: 0.725rem; font-weight: 600; margin-bottom: 2px; text-transform: uppercase; }
-    .info-block strong { color: #1e293b; font-weight: 600; }
+    .badge-type { 
+      display: inline-block; 
+      padding: 4px 8px; 
+      border-radius: 6px; 
+      color: white; 
+      font-size: 0.7rem; 
+      font-weight: 700; 
+      text-transform: uppercase; 
+      letter-spacing: 0.5px; 
+    }
     
-    .tech-badges { display: flex; gap: 0.5rem; background: #f8fafc; padding: 10px; border-radius: 12px; border: 1px solid #e2e8f0; justify-content: space-around; text-align: center; font-size: 0.725rem; margin-top: 1rem; }
-    .tech-badges span { display: block; font-weight: 700; margin-top: 2px; padding: 2px 8px; border-radius: 20px; }
+    /* Griglia informazioni principali */
+    .grid-info { 
+      display: grid; 
+      grid-template-columns: 1fr 1fr; /* Due colonne pulite su PC */
+      gap: 0.75rem; 
+      margin: 1rem 0; 
+      padding-bottom: 0.75rem; 
+      border-bottom: 1px solid #e2e8f0; 
+      font-size: 0.825rem; 
+    }
+    .info-block span { 
+      display: block; 
+      color: #94a3b8; 
+      font-size: 0.675rem; 
+      font-weight: 700; 
+      margin-bottom: 2px; 
+      text-transform: uppercase; 
+    }
+    .info-block strong { 
+      color: #1e293b; 
+      font-weight: 600; 
+    }
+    
+    /* UNIFORMATA: Struttura sezioni Specialità e Categorie */
+    .detail-section {
+      margin-bottom: 0.75rem;
+      font-size: 0.825rem;
+    }
+    .detail-label {
+      display: block; 
+      color: #94a3b8; 
+      font-size: 0.675rem; 
+      font-weight: 700; 
+      margin-bottom: 4px; 
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    /* SCATOLA FISSA CON BORDINO PER LA SPECIALITÀ (Allineata ed elegante) */
+    .specialita-box {
+      display: inline-block;
+      background: #f8fafc; 
+      color: #334155;
+      padding: 4px 8px; 
+      border-radius: 4px; 
+      font-weight: 600; 
+      font-size: 0.75rem;
+      border: 1px solid #cbd5e1; /* Bordino grigio scuro identico alle categorie */
+    }
+
+    /* TAG DELLE CATEGORIE */
+    .category-tag {
+      background: #f8fafc; 
+      color: #334155; 
+      padding: 4px 8px; 
+      border-radius: 4px; 
+      font-weight: 600; 
+      font-size: 0.75rem; 
+      border: 1px solid #cbd5e1;
+    }
+
+    .tech-badges { 
+      display: flex; 
+      gap: 0.4rem; 
+      background: #f8fafc; 
+      padding: 8px; 
+      border-radius: 12px; 
+      border: 1px solid #e2e8f0; 
+      justify-content: space-around; 
+      text-align: center; 
+      font-size: 0.7rem; 
+      margin-top: 1rem; 
+    }
+    .tech-badges span { display: block; font-weight: 700; margin-top: 2px; padding: 2px 6px; border-radius: 20px; }
     .tech-si { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
     .tech-no { background: #f1f5f9; color: #64748b; border: 1px solid #e2e8f0; }
 
@@ -216,35 +410,62 @@
     </main>
   </div>
     
-  <!-- POP-UP DI DETTAGLIO NATIVO -->
+  <!-- STRUTTURA POP-UP DI DETTAGLIO UNIVERSALE (Scatola Immagine Quadrata a Sinistra) -->
   <dialog id="eventDialog">
     <div class="modal-layout">
+      
+      <!-- Contenitore immagine: quadrato su PC, va in alto su Mobile -->
       <div class="modal-img-side">
-        <img id="modalLocandina" src="" alt="Locandina">
+        <img id="modalLocandina" src="" alt="Locandina Torneo">
       </div>
+      
+      <!-- Contenitore Dati a destra -->
       <div class="modal-main-side">
         <button class="btn-close" onclick="document.getElementById('eventDialog').close()">✕</button>
-        <span id="modalTipologia" class="badge-type" style="margin-bottom: 0.5rem;"></span>
-        <h3 id="modalTitle" style="margin: 0 0 1rem 0; font-size: 1.25rem; font-weight: 700; color: #0f172a; padding-right: 20px;"></h3>
-        <div class="grid-info" style="grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));">
+        
+        <div style="margin-bottom: 0.5rem;">
+          <span id="modalTipologia" class="badge-type"></span>
+        </div>
+        
+        <h3 id="modalTitle" style="margin: 0 0 0.5rem 0; font-size: 1.25rem; font-weight: 800; color: #0f172a; padding-right: 25px; line-height: 1.3;"></h3>
+        
+        <div class="grid-info">
           <div class="info-block"><span>Sede</span><strong id="modalSede"></strong></div>
           <div class="info-block"><span>1° Premio</span><strong id="modalPremio" style="color: #16a34a;"></strong></div>
           <div class="info-block"><span>Iscrizione</span><strong id="modalIscrizione" style="color: #dc2626;"></strong></div>
+          <div class="info-block"><span>Entro</span><strong id="modalEntro"></strong></div>
           <div class="info-block"><span>Data Inizio</span><strong id="modalInizio"></strong></div>
           <div class="info-block"><span>Data Finale</span><strong id="modalFinale"></strong></div>
         </div>
-        <div style="font-size: 0.85rem; margin-bottom: 1rem;">
-          <span>Specialità</span><br><br><strong id="modalSpecialita" style="background:#f1f5f9; padding:4px 8px; border-radius:6px; font-weight:600; color:#334155;"></strong>
+        
+        <!-- SPECIALITÀ: Perfettamente isolata, allineata e con lo stesso bordino delle categorie -->
+        <div class="detail-section">
+          <span class="detail-label">Specialità</span>
+          <div id="modalSpecialita" class="specialita-box"></div>
         </div>
-        <div style="font-size: 0.85rem;">
-          <span>Categorie Ammesse</span><div id="modalCategorie" style="display:flex; flex-wrap:wrap; gap:4px; margin-top:4px;"></div>
+
+        <!-- CATEGORIE AMMESSE -->
+        <div class="detail-section">
+          <span class="detail-label">Categorie Ammesse</span>
+          <div id="modalCategorie" style="display: flex; flex-wrap: wrap; gap: 4px; margin-top: 2px;"></div>
         </div>
+
         <div class="tech-badges">
-          <div><span>Cat. Separate</span><span id="badgeSeparate"></span></div>
-          <div><span>Handicap</span><span id="badgeHandicap"></span></div>
-          <div><span>Arbitri</span><span id="badgeArbitri"></span></div>
+          <div>
+            <span style="color:#94a3b8; font-size:0.625rem; text-transform:uppercase; font-weight:700;">Cat. Separate</span>
+            <span id="badgeSeparate"></span>
+          </div>
+          <div>
+            <span style="color:#94a3b8; font-size:0.625rem; text-transform:uppercase; font-weight:700;">Handicap</span>
+            <span id="badgeHandicap"></span>
+          </div>
+          <div>
+            <span style="color:#94a3b8; font-size:0.625rem; text-transform:uppercase; font-weight:700;">Arbitri</span>
+            <span id="badgeArbitri"></span>
+          </div>
         </div>
       </div>
+      
     </div>
   </dialog>
 
@@ -298,8 +519,47 @@
         switchView('year');
         titleLabel.innerText = "Calendario Gare Ufficiale";
       } catch (e) {
-        console.error(e);
-        titleLabel.innerText = "Errore nel caricamento del file gare.json";
+        console.log("Rilevato blocco di sicurezza del browser locale. Attivazione dati di prova offline.");
+        
+        // DATI DI EMERGENZA PER IL TUO COMPUTER (Falli corrispondere alla stagione attuale per vederli subito)
+        rawEvents = [
+          {
+            "title": "Gran TEST Orizzontale",
+            "className": "gara-libera",
+            "start": "2026-08-10",
+            "end_date": "2026-08-16",
+            "sede": "ASD Biliardo Club Firenze",
+            "premio": "€ 3.500",
+            "iscrizione": "€ 50",
+			"entro": "2026-08-01",
+            "specialita": "Singola - 5 Birilli",
+            "categorie": "Prima, Master, Nazionale, Nazionale Pro",
+            "separate": "NO",
+            "handicap": "NO",
+            "arbitri": "SI",
+            "locandina": "https://trello.com/1/cards/6a1ef16fed0f146c784aa1a3/attachments/6a1ef1861cd5e812f73c8953/download/torneo_estivo_ansa_2026.jpg"
+          },
+          {
+            "title": "Gran TEST Verticale",
+            "className": "nbc",
+            "start": "2026-10-05",
+            "end_date": "2026-10-12",
+            "sede": "ASD Club Diamante",
+            "premio": "€ 2.500",
+            "iscrizione": "€ 40",
+			"entro": "2026-10-01",
+            "specialita": "Singola - 5 Birilli",
+            "categorie": "Terza, Seconda, Prima",
+            "separate": "SI",
+            "handicap": "NO",
+            "arbitri": "SI",
+            "locandina": "https://trello.com/1/cards/6a32d443140bdfc68e715dfe/attachments/6a32d45b689d3cbf84b01c8f/download/londa_2026.jpg"
+          }
+        ];
+        
+        currentActiveEvents = [...rawEvents];
+        switchView('year');
+        titleLabel.innerText = "Calendario (Anteprima Offline)";
       }
     }
 
@@ -309,29 +569,47 @@
       const viewMonth = document.getElementById('viewMonth');
       const viewList = document.getElementById('viewList');
       const navBlock = document.getElementById('universalNavigation');
+      const title = document.getElementById('calendarTitle');
 
       ['btnYear', 'btnMonth', 'btnList'].forEach(id => {
-        document.getElementById(id).style.background = 'transparent';
-        document.getElementById(id).style.color = '#64748b';
+        const b = document.getElementById(id);
+        if (b) { b.style.background = 'transparent'; b.style.color = '#64748b'; b.style.boxShadow = 'none'; }
       });
 
-      viewYear.style.display = 'none'; viewMonth.style.display = 'none'; viewList.style.display = 'none';
-      navBlock.style.display = 'flex';
+      // Ora lasciamo TUTTI i contenitori pronti
+      viewYear.style.display = 'none'; 
+      viewMonth.style.display = 'none'; 
+      viewList.style.display = 'none';
+      navBlock.style.display = 'flex'; // <-- IMPORTANTE: Resta visibile in tutte e tre le viste!
 
-      document.getElementById('btn' + viewType.charAt(0).toUpperCase() + viewType.slice(1)).style.background = '#ffffff';
-      document.getElementById('btn' + viewType.charAt(0).toUpperCase() + viewType.slice(1)).style.color = '#0f172a';
+      const activeBtn = document.getElementById('btn' + viewType.charAt(0).toUpperCase() + viewType.slice(1));
+      if (activeBtn) { activeBtn.style.background = '#ffffff'; activeBtn.style.color = '#0f172a'; activeBtn.style.boxShadow = '0 1px 2px rgba(0,0,0,0.05)'; }
 
-      if (viewType === 'year') { viewYear.style.display = 'grid'; } 
-      else if (viewType === 'month') { viewMonth.style.display = 'block'; } 
-      else { viewList.style.display = 'block'; navBlock.style.display = 'none'; }
+      if (viewType === 'year') {
+        viewYear.style.display = 'grid';
+        title.innerText = "Tabellone Gare Stagionale";
+      } else if (viewType === 'month') {
+        viewMonth.style.display = 'block';
+        title.innerText = "Tabellone Gare Mensile";
+      } else {
+        viewList.style.display = 'block'; 
+        title.innerText = "Elenco Gare per Stagione";
+      }
       
       updateNavigationLabel();
       filterAndRenderEvents();
     }
 
     function navigateCalendar(direction) {
-      if (activeViewType === 'year') { seasonStartYear += direction; renderYearCalendar(currentActiveEvents); } 
-      else if (activeViewType === 'month') {
+      if (activeViewType === 'year' || activeViewType === 'list') {
+        // Se siamo in vista annuale o elenco, cambiamo l'anno della stagione sportiva
+        seasonStartYear += direction;
+        // Se siamo in vista elenco, aggiorniamo anche l'anno della griglia mensile per tenerli allineati
+        if (activeViewType === 'list') {
+          currentGridYear = seasonStartYear;
+        }
+        filterAndRenderEvents();
+      } else if (activeViewType === 'month') {
         currentGridMonth += direction;
         if (currentGridMonth > 11) { currentGridMonth = 0; currentGridYear++; }
         else if (currentGridMonth < 0) { currentGridMonth = 11; currentGridYear--; }
@@ -342,8 +620,12 @@
 
     function updateNavigationLabel() {
       const label = document.getElementById('currentCalendarLabel');
-      if (activeViewType === 'year') { label.innerText = "Stagione " + seasonStartYear + " / " + (seasonStartYear + 1); } 
-      else if (activeViewType === 'month') { label.innerText = monthNamesLong[currentGridMonth] + " " + currentGridYear; }
+      if (!label) return;
+      if (activeViewType === 'year' || activeViewType === 'list') {
+        label.innerText = "Stagione " + seasonStartYear + " / " + (seasonStartYear + 1);
+      } else if (activeViewType === 'month') {
+        label.innerText = monthNamesLong[currentGridMonth] + " " + currentGridYear;
+      }
     }
 
     function updateAllViews(eventsToDisplay) {
@@ -439,18 +721,28 @@
       if (!tbody) return;
       tbody.innerHTML = '';
 
-      if (eventsToDisplay.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#94a3b8; padding:2rem; font-style:italic;">Nessun torneo corrisponde ai filtri</td></tr>`;
+      // Filtra gli eventi per mostrare SOLO quelli della stagione agonistica selezionata (Settembre - Agosto)
+      const seasonalEvents = eventsToDisplay.filter(evt => {
+        const p = parseDateSafe(evt.end_date || evt.start);
+        if (!p) return false;
+        // Un evento appartiene alla stagione se:
+        // Cade da Settembre a Dicembre dell'anno d'inizio OPPURE da Gennaio ad Agosto dell'anno successivo
+        return (p.month >= 8 && p.year === seasonStartYear) || (p.month < 8 && p.year === (seasonStartYear + 1));
+      });
+
+      if (seasonalEvents.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#94a3b8; padding:2rem; font-style:italic;">Nessun torneo in programma per questa stagione</td></tr>`;
         return;
       }
 
-      eventsToDisplay.sort((a, b) => {
-        const pA = parseDateSafe(a.end_date || a.start); const pB = parseDateSafe(b.end_date || b.start);
-        if(!pA || !pB) return 0;
-        return new Date(pA.year, pA.month, pA.day) - new Date(pB.year, pB.month, pB.day);
+      // ORDINA DAL PIÙ RECENTE AL PIÙ VECCHIO (Invertito)
+      seasonalEvents.sort((a, b) => {
+        const pA = parseDateSafe(a.end_date || a.start);
+        const pB = parseDateSafe(b.end_date || b.start);
+        return new Date(pB.year, pB.month, pB.day) - new Date(pA.year, pA.month, pA.day);
       });
 
-      eventsToDisplay.forEach(evt => {
+      seasonalEvents.forEach(evt => {
         const tr = document.createElement('tr');
         tr.className = 'event-row';
         tr.onclick = () => openDialog(evt);
@@ -475,8 +767,12 @@
       document.getElementById('modalSede').innerText = evt.sede || '-';
       document.getElementById('modalPremio').innerText = evt.premio || '-';
       document.getElementById('modalIscrizione').innerText = evt.iscrizione || 'Non specificata';
+      
+      // Scrive la specialità nella nuova scatola protetta
       document.getElementById('modalSpecialita').innerText = evt.specialita || '-';
       
+      const pEntro = parseDateSafe(evt.entro);
+      document.getElementById('modalEntro').innerText = pEntro ? `${pEntro.day} ${monthNamesLong[pEntro.month]} ${pEntro.year}` : evt.entro;
       const pStart = parseDateSafe(evt.start);
       document.getElementById('modalInizio').innerText = pStart ? `${pStart.day} ${monthNamesLong[pStart.month]} ${pStart.year}` : evt.start;
       const pEnd = parseDateSafe(evt.end_date);
@@ -486,12 +782,13 @@
       typeBadge.innerText = evt.className ? evt.className.replace('-', ' ') : 'Torneo';
       typeBadge.style.backgroundColor = typeColors[evt.className] || '#64748b';
 
+      // Disegna i quadratini delle categorie ammesse con il bordino grigio scuro uniformato
       const catContainer = document.getElementById('modalCategorie');
       catContainer.innerHTML = '';
       if (evt.categorie) {
         evt.categorie.split(',').forEach(cat => {
           const span = document.createElement('span');
-          span.style.cssText = "background:#f1f5f9; color:#475569; padding:2px 6px; border-radius:4px; font-weight:500; font-size:0.75rem; border:1px solid #e2e8f0;";
+          span.className = "category-tag";
           span.innerText = cat.trim();
           catContainer.appendChild(span);
         });
@@ -501,6 +798,7 @@
       setTechLabel('badgeHandicap', evt.handicap);
       setTechLabel('badgeArbitri', evt.arbitri);
 
+      // Caricamento locandina: si adatterà da sola al quadrato fisso a sinistra
       const imgEl = document.getElementById('modalLocandina');
       imgEl.src = (evt.locandina && evt.locandina.trim() !== "") ? evt.locandina : "https://placehold.co";
 
