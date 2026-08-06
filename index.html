@@ -16,10 +16,61 @@
     
     @media (min-width: 768px) { .container-fluid { flex-direction: row; } }
 
-    /* Barra Laterale Filtri */
-    .sidebar { width: 100%; background: #ffffff; padding: 2rem; border-bottom: 1px solid #e2e8f0; }
+    /* GESTIONE BARRA LATERALE RESPONSIVE (Fissa su PC, Offcanvas su Mobile) */
+    .sidebar { 
+      position: fixed;
+      top: 0;
+      left: -290px; /* Completamente nascosta a sinistra di default su smartphone */
+      width: 280px; 
+      height: 100vh; 
+      background: #ffffff; 
+      padding: 2rem; 
+      box-shadow: 4px 0 25px rgba(15, 23, 42, 0.15);
+      z-index: 999;
+      overflow-y: auto;
+      transition: left 0.3s ease; /* Effetto scivolamento fluido */
+    }
+    
+    /* Quando la barra ha la classe "active" viene spinta dentro lo schermo */
+    .sidebar.active {
+      left: 0;
+    }
+
+    /* Pulsante di chiusura interno alla sidebar (Nascondi su PC) */
+    .sidebar-close-btn {
+      display: block;
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.25rem;
+      color: #94a3b8;
+      cursor: pointer;
+    }
+    .sidebar-close-btn:hover { color: #0f172a; }
+
+    /* MODIFICHE PER SCHERMI GRANDI (PC / TABLET DA 768px IN SU) */
     @media (min-width: 768px) {
-      .sidebar { width: 280px; min-height: 100vh; border-bottom: none; border-right: 1px solid #e2e8f0; position: sticky; top: 0; }
+      .sidebar { 
+        position: sticky; /* Torna fissa nella struttura del PC */
+        left: 0;
+        border-bottom: none; 
+        border-right: 1px solid #e2e8f0; 
+        box-shadow: none;
+        z-index: 10;
+        height: 100vh;
+      }
+      #menuToggle, .sidebar-close-btn {
+        display: none !important; /* Nasconde l'hamburger e la X di chiusura su PC */
+      }
+    }
+    
+    /* Mostra l'hamburger solo su smartphone */
+    @media (max-width: 767px) {
+      #menuToggle {
+        display: flex !important;
+      }
     }
     
     .brand { display: flex; align-items: center; margin-bottom: 2rem; }
@@ -29,7 +80,7 @@
 
     .filter-title { font-size: 0.75rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 1rem; }
     .filter-group { display: flex; flex-direction: column; gap: 0.5rem; }
-    .filter-label { display: flex; align-items: center; padding: 0.5rem; border-radius: 8px; cursor: pointer; transition: background 0.2s; font-size: 0.875rem; font-weight: 500; }
+    .filter-label { display: flex; align-items: center; padding: 0.4rem; border-radius: 8px; cursor: pointer; transition: background 0.2s; font-size: 0.875rem; font-weight: 500; }
     .filter-label:hover { background: #f1f5f9; }
     .filter-checkbox-style { margin-right: 10px; width: 13px; height: 13px; accent-color: #0066cc; cursor: pointer; }
     .color-dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; margin-right: 8px; flex-shrink: 0; }
@@ -287,9 +338,18 @@
 <body>
 
   <div class="container-fluid">
-    <!-- BARRA LATERALE FILTRI COMPLETA -->
-    <aside class="sidebar">
-      <!-- Intestazione Verticale con Logo Federazione Grande -->
+  
+    <!-- PULSANTE HAMBURGER: Visibile SOLO su smartphone per aprire i filtri -->
+    <button id="menuToggle" onclick="toggleSidebar(true)" style="display: none; border: none; background: #002855; color: white; padding: 12px 16px; font-size: 0.9rem; font-weight: 700; border-radius: 8px; cursor: pointer; margin: 1rem 1rem 0 1rem; align-items: center; gap: 8px; font-family: system-ui, sans-serif; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+      <span>☰</span> Filtra Tornei
+    </button>
+  
+    <!-- BARRA LATERALE FILTRI: Diventa a scomparsa su Mobile e fissa su PC -->
+    <aside class="sidebar" id="sidebarMenu">
+    
+      <!-- Pulsante di chiusura (✕) visibile SOLO su smartphone dentro i filtri -->
+      <button class="sidebar-close-btn" onclick="toggleSidebar(false)">✕</button>
+
       <div class="brand" style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 2.5rem; width: 100%;">
         <img src="REGIONE-29-piccolo.png" alt="Logo Federazione" style="width: 100%; max-width: 180px; height: auto; object-fit: contain; margin-bottom: 12px;">
         <div>
@@ -297,67 +357,56 @@
           <p class="brand-sub" style="font-size: 0.75rem; color: #64748b; margin: 4px 0 0 0; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Calendario Ufficiale</p>
         </div>
       </div>
-      
+    
       <!-- 1. Filtro per Tipologia -->
       <div class="filter-title">Filtra per Tipologia</div>
-      <div class="filter-group">
-        <label class="filter-label">
-          <input type="checkbox" value="nbc" checked class="filter-checkbox">
-          <span class="color-dot" style="background-color: #DC2626;"></span> NBC
-        </label>
-        <label class="filter-label">
-          <input type="checkbox" value="istituzionale" checked class="filter-checkbox">
-          <span class="color-dot" style="background-color: #0066cc;"></span> Istituzionale
-        </label>
-        <label class="filter-label">
-          <input type="checkbox" value="coppie-base" checked class="filter-checkbox">
-          <span class="color-dot" style="background-color: #4F46E5;"></span> Coppie di Base
-        </label>
-        <label class="filter-label">
-          <input type="checkbox" value="seniores" checked class="filter-checkbox">
-          <span class="color-dot" style="background-color: #D97706;"></span> Seniores
-        </label>
-        <label class="filter-label">
-          <input type="checkbox" value="seniores" checked class="filter-checkbox">
-          <span class="color-dot" style="background-color: #FF69B4;"></span> Femminile
-        </label>
-        <label class="filter-label">
-          <input type="checkbox" value="gara-libera" checked class="filter-checkbox">
-          <span class="color-dot" style="background-color: #059669;"></span> Gara Libera
-        </label>
-      </div>
+        <div class="filter-group">
+          <label class="filter-label">
+            <input type="checkbox" value="nbc" checked class="filter-checkbox">
+            <span class="color-dot" style="background-color: #DC2626;"></span> NBC
+          </label>
+          <label class="filter-label">
+            <input type="checkbox" value="istituzionale" checked class="filter-checkbox">
+            <span class="color-dot" style="background-color: #0066cc;"></span> Istituzionale
+          </label>
+          <label class="filter-label">
+            <input type="checkbox" value="coppie-base" checked class="filter-checkbox">
+            <span class="color-dot" style="background-color: #4F46E5;"></span> Coppie di Base
+          </label>
+          <label class="filter-label">
+            <input type="checkbox" value="seniores" checked class="filter-checkbox">
+            <span class="color-dot" style="background-color: #D97706;"></span> Seniores
+          </label>
+          <label class="filter-label">
+            <input type="checkbox" value="seniores" checked class="filter-checkbox">
+            <span class="color-dot" style="background-color: #FF69B4;"></span> Femminile
+          </label>
+          <label class="filter-label">
+            <input type="checkbox" value="gara-libera" checked class="filter-checkbox">
+            <span class="color-dot" style="background-color: #059669;"></span> Gara Libera
+          </label>
+        </div>
 
       <!-- 2. Filtro per Categorie Ammesse -->
       <div class="filter-title" style="margin-top: 2rem;">Filtra per Categoria</div>
       <div class="filter-group">
-        <label class="filter-label">
-          <input type="checkbox" value="Terza" checked class="filter-cat-checkbox filter-checkbox-style"> Terza Categoria
-        </label>
-        <label class="filter-label">
-          <input type="checkbox" value="Seconda" checked class="filter-cat-checkbox filter-checkbox-style"> Seconda Categoria
-        </label>
-        <label class="filter-label">
-          <input type="checkbox" value="Prima" checked class="filter-cat-checkbox filter-checkbox-style"> Prima Categoria
-        </label>
-        <label class="filter-label">
-          <input type="checkbox" value="Master" checked class="filter-cat-checkbox filter-checkbox-style"> Master
-        </label>
-        <label class="filter-label">
-          <input type="checkbox" value="Nazionale" checked class="filter-cat-checkbox filter-checkbox-style"> Nazionale / Naz. Pro
-        </label>
+        <label class="filter-label"><input type="checkbox" value="Terza" checked class="filter-cat-checkbox"> Terza Categoria</label>
+        <label class="filter-label"><input type="checkbox" value="Seconda" checked class="filter-cat-checkbox"> Seconda Categoria</label>
+        <label class="filter-label"><input type="checkbox" value="Prima" checked class="filter-cat-checkbox"> Prima Categoria</label>
+        <label class="filter-label"><input type="checkbox" value="Master" checked class="filter-cat-checkbox"> Master</label>
+        <label class="filter-label"><input type="checkbox" value="Nazionale" checked class="filter-cat-checkbox"> Nazionale / Naz. Pro</label>
       </div>
 
       <!-- 3. Filtro per Handicap -->
       <div class="filter-title" style="margin-top: 2rem;">Filtra per Handicap</div>
       <div class="filter-group">
-        <label class="filter-label">
-          <input type="checkbox" value="SI" checked class="filter-handicap-checkbox filter-checkbox-style"> Con Handicap
-        </label>
-        <label class="filter-label">
-          <input type="checkbox" value="NO" checked class="filter-handicap-checkbox filter-checkbox-style"> Senza Handicap
-        </label>
+        <label class="filter-label"><input type="checkbox" value="SI" checked class="filter-handicap-checkbox"> Con Handicap</label>
+        <label class="filter-label"><input type="checkbox" value="NO" checked class="filter-handicap-checkbox"> Senza Handicap</label>
       </div>
     </aside>
+
+    <!-- Lo sfondo scuro coprente (Overlay) che compare quando i filtri sono aperti su Mobile -->
+    <div id="sidebarOverlay" onclick="toggleSidebar(false)" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(2px); z-index: 998;"></div>
 
     <!-- AREA PRINCIPALE CALENDARIO -->
     <main class="main-content">
@@ -842,6 +891,35 @@
 
     // Avvio e configurazione iniziale automatica da file JSON localizzato
     loadEvents();
+
+    // FUNZIONE INTERATTIVA PER APRIRE/CHIUDERE I FILTRI SU SMARTPHONE
+    function toggleSidebar(open) {
+      const sidebar = document.getElementById('sidebarMenu');
+      const overlay = document.getElementById('sidebarOverlay');
+      
+      // Eseguiamo il controllo solo se siamo su schermi mobili (sotto i 768px)
+      if (window.innerWidth < 768) {
+        if (open) {
+          sidebar.classList.add('active');
+          overlay.style.display = 'block';
+          document.body.style.overflow = 'hidden'; // Blocca lo scorrimento della pagina sotto
+        } else {
+          sidebar.classList.remove('active');
+          overlay.style.display = 'none';
+          document.body.style.overflow = ''; // Riattiva lo scorrimento
+        }
+      }
+    }
+
+    // Se l'utente clicca un filtro da mobile, chiudiamo automaticamente il menu per fargli vedere il risultato
+    document.querySelectorAll('.filter-checkbox, .filter-cat-checkbox, .filter-handicap-checkbox').forEach(cb => {
+      cb.addEventListener('change', () => {
+        if (window.innerWidth < 768) {
+          // Un piccolo delay di 200 millisecondi per dare il tempo visivo di vedere la spunta
+          setTimeout(() => toggleSidebar(false), 200);
+        }
+      });
+    });
   </script>
 </body>
 </html>
