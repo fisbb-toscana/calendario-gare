@@ -105,7 +105,7 @@
     "categorie": "Master",
     "separate": "NO",
     "handicap": "NO",
-    "arbitri": "SI",
+    "arbitri": "SI"
   },
   {
     "title": "CAMPIONATO REGIONALE FEMMINILE 2026",
@@ -117,11 +117,11 @@
     "categorie": "Seconda, Terza",
     "separate": "NO",
     "handicap": "NO",
-    "arbitri": "SI",
+    "arbitri": "SI"
   },
   {
     "title": "POULE FINALE REGIONALE COPPIE 2026",
-    "className": "istituzionale",
+    "className": "coppie-base",
     "start": "2026-05-23",
     "end_date": "2026-05-23",
     "sede": "BASSA MAREA (FI)",
@@ -129,11 +129,11 @@
     "categorie": "Prima, Seconda, Terza",
     "separate": "NO",
     "handicap": "NO",
-    "arbitri": "SI",
+    "arbitri": "SI"
   },
   {
     "title": "POULE FINALE REGIONALE SENIORES 2026",
-    "className": "istituzionale",
+    "className": "seniores",
     "start": "2026-05-30",
     "end_date": "2026-05-30",
     "sede": "BASSA MAREA (FI)",
@@ -141,7 +141,7 @@
     "categorie": "Nazionale / Naz. Pro, Master, Prima, Seconda, Terza",
     "separate": "NO",
     "handicap": "NO",
-    "arbitri": "SI",
+    "arbitri": "SI"
   },
   {
     "title": "POULE FINALI REGIONALI 2026",
@@ -153,7 +153,7 @@
     "categorie": "Prima, Seconda, Terza",
     "separate": "NO",
     "handicap": "NO",
-    "arbitri": "SI",
+    "arbitri": "SI"
   },
   {
     "title": "3° PROVA di QUALIFICAZIONE ai CAMPIONATI ITALIANI Seniores",
