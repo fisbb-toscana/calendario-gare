@@ -568,7 +568,7 @@
         switchView('year');
         titleLabel.innerText = "Calendario Gare Ufficiale";
       } catch (e) {
-        console.log("Rilevato blocco di sicurezza del browser locale. Attivazione dati di prova offline.");
+        console.error("Errore:", e);
         
         // DATI DI EMERGENZA PER IL TUO COMPUTER (Falli corrispondere alla stagione attuale per vederli subito)
         rawEvents = [
