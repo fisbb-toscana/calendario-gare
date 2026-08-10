@@ -795,11 +795,14 @@
       const url = `https://github.com{githubConfig.username}/${githubConfig.repo}/contents/gare.json`;
       
       try {
-        // 1. RECUPERO DELLO SHA (Corretto con lo standard Bearer)
+        // 1. RECUPERO DELLO SHA CON INTESTAZIONI CORS COMPLETE
         const getRes = await fetch(url, {
+          method: "GET",
+          mode: "cors",
           headers: { 
-            "Authorization": `Bearer ${githubConfig.token}`, // <-- CORREZIONE STRATEGICA
-            "Accept": "application/vnd.github.v3+json" 
+            "Authorization": `Bearer ${githubConfig.token}`,
+            "Accept": "application/vnd.github.v3+json",
+            "Cache-Control": "no-cache"
           }
         });
         
@@ -814,7 +817,7 @@
         const getData = await getRes.json();
         githubConfig.sha = getData.sha;
 
-        // 2. PREPARAZIONE PAYLOAD
+        // 2. PREPARAZIONE PAYLOAD BASE64 LEGIBILE
         const jsonString = JSON.stringify(updatedArray, null, 2);
         const base64Payload = btoa(unescape(encodeURIComponent(jsonString)));
 
@@ -824,11 +827,12 @@
         };
         if (githubConfig.sha) putBody.sha = githubConfig.sha;
 
-        // 3. TENTATIVO DI SALVATAGGIO (Corretto con lo standard Bearer)
+        // 3. TENTATIVO DI SALVATAGGIO CON PARAMETRI DI RETE COMPLETI
         const putRes = await fetch(url, {
           method: "PUT",
+          mode: "cors",
           headers: {
-            "Authorization": `Bearer ${githubConfig.token}`, // <-- CORREZIONE STRATEGICA
+            "Authorization": `Bearer ${githubConfig.token}`,
             "Content-Type": "application/json",
             "Accept": "application/vnd.github.v3+json"
           },
@@ -843,12 +847,18 @@
           return;
         }
 
+        // Se arriviamo qui il caricamento è andato a buon fine!
         titleLabel.innerText = originalTitle;
-        alert("🎉 Database sincronizzato con successo su GitHub!");
+        alert("🎉 Database sincronizzato con successo su GitHub! Le modifiche saranno visibili online tra pochi istanti.");
+        
+        // Forza il ricaricamento dei dati aggiornati nell'applicazione locale
+        rawEvents = [...updatedArray];
+        filterAndRenderEvents();
+
       } catch (err) {
-        console.error("Errore:", err);
+        console.error("Errore di rete intercettato:", err);
         titleLabel.innerText = originalTitle;
-        alert(`❌ ERRORE DI CONNESSIONE:\n${err.name} - ${err.message}\n\nSe vedi ancora questo messaggio da smartphone con rete 4G/5G, verifica di non avere spazi vuoti nel Token.`);
+        alert(`❌ ERRORE DI RETE:\n${err.name} - ${err.message}\n\nSe l'errore persiste, controlla che il tuo Token non contenga spazi vuoti e che sia scritto esattamente in minuscolo il nome del file 'gare.json'.`);
       }
     }
 
