@@ -838,7 +838,15 @@
       } catch (err) {
         console.error("Errore durante il salvataggio remoto:", err);
         titleLabel.innerText = originalTitle;
-        alert("⚠️ Errore nel salvataggio remoto su GitHub: " + err.message + "\n\nControlla la correttezza del token, dell'utente o dei permessi del tuo repository.");
+        
+        // MOSTRA L'ERRORE DETTAGLIATO DIRETTAMENTE SULLO SCHERMO DEL TELEFONO
+        alert("⚠️ ERRORE DETTAGLIATO GITHUB:\n" + 
+              "Messaggio: " + err.message + "\n\n" +
+              "Verifica:\n" +
+              "1. Di essere sotto rete dati 4G/5G (no Wi-Fi aziendale)\n" +
+              "2. Che il nome utente sia: fisbb-toscana\n" +
+              "3. Che il repository sia: calendario-gare\n" +
+              "4. Che il file si chiami esattamente: gare.json");
       }
     }
 
