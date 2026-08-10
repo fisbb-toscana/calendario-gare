@@ -785,7 +785,6 @@
       alert("Disconnessione effettuata. Il calendario è tornato in sola lettura.");
     }
 
-    // VERSIONE DIAGNOSTICA AVANZATA PER TROVARE IL BLOCCO SU SMARTPHONE
     async function pushToGitHub(updatedArray) {
       if (!isAdminAuthenticated) return;
       
@@ -796,16 +795,18 @@
       const url = `https://github.com{githubConfig.username}/${githubConfig.repo}/contents/gare.json`;
       
       try {
-        // 1. TENTATIVO DI RECUPERO DELLO SHA
+        // 1. RECUPERO DELLO SHA (Corretto con lo standard Bearer)
         const getRes = await fetch(url, {
-          headers: { "Authorization": `token ${githubConfig.token}`, "Accept": "application/vnd.github.v3+json" }
+          headers: { 
+            "Authorization": `Bearer ${githubConfig.token}`, // <-- CORREZIONE STRATEGICA
+            "Accept": "application/vnd.github.v3+json" 
+          }
         });
         
-        // Se la chiamata fallisce ma il server risponde, analizziamo il codice di errore
         if (!getRes.ok) {
-          const errStatus = getRes.status; // es. 401, 403, 404
+          const errStatus = getRes.status;
           const errText = await getRes.text();
-          alert(`⚠️ GITHUB API ALERT (Fase SHA):\nCodice Stato: ${errStatus}\nRisposta server: ${errText}`);
+          alert(`⚠️ GITHUB API ALERT (Fase SHA):\nCodice Stato: ${errStatus}\nRisposta: ${errText}`);
           titleLabel.innerText = originalTitle;
           return;
         }
@@ -813,7 +814,7 @@
         const getData = await getRes.json();
         githubConfig.sha = getData.sha;
 
-        // 2. PREPARAZIONE PAYLOAD BASE64
+        // 2. PREPARAZIONE PAYLOAD
         const jsonString = JSON.stringify(updatedArray, null, 2);
         const base64Payload = btoa(unescape(encodeURIComponent(jsonString)));
 
@@ -823,12 +824,13 @@
         };
         if (githubConfig.sha) putBody.sha = githubConfig.sha;
 
-        // 3. TENTATIVO DI SALVATAGGIO
+        // 3. TENTATIVO DI SALVATAGGIO (Corretto con lo standard Bearer)
         const putRes = await fetch(url, {
           method: "PUT",
           headers: {
-            "Authorization": `token ${githubConfig.token}`,
-            "Content-Type": "application/json"
+            "Authorization": `Bearer ${githubConfig.token}`, // <-- CORREZIONE STRATEGICA
+            "Content-Type": "application/json",
+            "Accept": "application/vnd.github.v3+json"
           },
           body: JSON.stringify(putBody)
         });
@@ -836,7 +838,7 @@
         if (!putRes.ok) {
           const putStatus = putRes.status;
           const putText = await putRes.text();
-          alert(`⚠️ GITHUB API ALERT (Fase PUT):\nCodice Stato: ${putStatus}\nRisposta server: ${putText}`);
+          alert(`⚠️ GITHUB API ALERT (Fase PUT):\nCodice Stato: ${putStatus}\nRisposta: ${putText}`);
           titleLabel.innerText = originalTitle;
           return;
         }
@@ -846,9 +848,7 @@
       } catch (err) {
         console.error("Errore:", err);
         titleLabel.innerText = originalTitle;
-        
-        // Se arriviamo qui, la connessione è stata interrotta fisicamente prima di toccare GitHub
-        alert(`❌ BLOCCO DI RETE RILEVATO:\nIl browser ha interrotto la chiamata.\n\nDettaglio tecnico: ${err.name} - ${err.message}\n\nConsiglio: Assicurati che lo smartphone non sia agganciato al Wi-Fi dell'ufficio o a una VPN aziendale.`);
+        alert(`❌ ERRORE DI CONNESSIONE:\n${err.name} - ${err.message}\n\nSe vedi ancora questo messaggio da smartphone con rete 4G/5G, verifica di non avere spazi vuoti nel Token.`);
       }
     }
 
