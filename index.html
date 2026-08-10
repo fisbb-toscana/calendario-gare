@@ -785,7 +785,7 @@
       alert("Disconnessione effettuata. Il calendario è tornato in sola lettura.");
     }
 
-    // FUNZIONE DI SCRITTURA SU GITHUB (Sincronizzazione Remota)
+    // VERSIONE DIAGNOSTICA AVANZATA PER TROVARE IL BLOCCO SU SMARTPHONE
     async function pushToGitHub(updatedArray) {
       if (!isAdminAuthenticated) return;
       
@@ -796,29 +796,34 @@
       const url = `https://github.com{githubConfig.username}/${githubConfig.repo}/contents/gare.json`;
       
       try {
-        // Passo A: Recuperiamo lo SHA più recente del file per evitare conflitti di sovrascrittura
+        // 1. TENTATIVO DI RECUPERO DELLO SHA
         const getRes = await fetch(url, {
           headers: { "Authorization": `token ${githubConfig.token}`, "Accept": "application/vnd.github.v3+json" }
         });
         
-        if (getRes.ok) {
-          const getData = await getRes.json();
-          githubConfig.sha = getData.sha;
+        // Se la chiamata fallisce ma il server risponde, analizziamo il codice di errore
+        if (!getRes.ok) {
+          const errStatus = getRes.status; // es. 401, 403, 404
+          const errText = await getRes.text();
+          alert(`⚠️ GITHUB API ALERT (Fase SHA):\nCodice Stato: ${errStatus}\nRisposta server: ${errText}`);
+          titleLabel.innerText = originalTitle;
+          return;
         }
-
-        // Passo B: Convertiamo la base dati in stringa JSON formattata in modo leggibile
-        const jsonString = JSON.stringify(updatedArray, null, 2);
         
-        // Conversione UTF-8 compatibile a stringa Base64 (richiesta dalle API di GitHub)
+        const getData = await getRes.json();
+        githubConfig.sha = getData.sha;
+
+        // 2. PREPARAZIONE PAYLOAD BASE64
+        const jsonString = JSON.stringify(updatedArray, null, 2);
         const base64Payload = btoa(unescape(encodeURIComponent(jsonString)));
 
-        // Passo C: Eseguiamo la chiamata PUT per aggiornare il file sul repository remoto
         const putBody = {
           message: "Aggiornamento calendario gare da pannello di amministrazione",
           content: base64Payload
         };
         if (githubConfig.sha) putBody.sha = githubConfig.sha;
 
+        // 3. TENTATIVO DI SALVATAGGIO
         const putRes = await fetch(url, {
           method: "PUT",
           headers: {
@@ -829,24 +834,21 @@
         });
 
         if (!putRes.ok) {
-          const errData = await putRes.json();
-          throw new Error(errData.message || "Errore nella richiesta di upload");
+          const putStatus = putRes.status;
+          const putText = await putRes.text();
+          alert(`⚠️ GITHUB API ALERT (Fase PUT):\nCodice Stato: ${putStatus}\nRisposta server: ${putText}`);
+          titleLabel.innerText = originalTitle;
+          return;
         }
 
         titleLabel.innerText = originalTitle;
-        alert("🎉 Database sincronizzato con successo su GitHub! Le modifiche saranno visibili a tutti tra pochi istanti.");
+        alert("🎉 Database sincronizzato con successo su GitHub!");
       } catch (err) {
-        console.error("Errore durante il salvataggio remoto:", err);
+        console.error("Errore:", err);
         titleLabel.innerText = originalTitle;
         
-        // MOSTRA L'ERRORE DETTAGLIATO DIRETTAMENTE SULLO SCHERMO DEL TELEFONO
-        alert("⚠️ ERRORE DETTAGLIATO GITHUB:\n" + 
-              "Messaggio: " + err.message + "\n\n" +
-              "Verifica:\n" +
-              "1. Di essere sotto rete dati 4G/5G (no Wi-Fi aziendale)\n" +
-              "2. Che il nome utente sia: fisbb-toscana\n" +
-              "3. Che il repository sia: calendario-gare\n" +
-              "4. Che il file si chiami esattamente: gare.json");
+        // Se arriviamo qui, la connessione è stata interrotta fisicamente prima di toccare GitHub
+        alert(`❌ BLOCCO DI RETE RILEVATO:\nIl browser ha interrotto la chiamata.\n\nDettaglio tecnico: ${err.name} - ${err.message}\n\nConsiglio: Assicurati che lo smartphone non sia agganciato al Wi-Fi dell'ufficio o a una VPN aziendale.`);
       }
     }
 
