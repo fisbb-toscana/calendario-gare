@@ -334,6 +334,71 @@
     .tech-no { background: #f1f5f9; color: #64748b; border: 1px solid #e2e8f0; }
 
     @keyframes fadeIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+
+    /* --- STILI AGGIUNTIVI PER GESTIONE AMMINISTRATORE --- */
+    /* Di default, nascondiamo tutti gli elementi di gestione */
+    .admin-only {
+      display: none !important;
+    }
+    
+    /* Quando la pagina ha la classe 'is-admin', mostriamo gli elementi dedicati */
+    body.is-admin .admin-only {
+      display: inline-block !important;
+    }
+    body.is-admin .admin-only-flex {
+      display: flex !important;
+    }
+    body.is-admin .admin-only-block {
+      display: block !important;
+    }
+
+    /* Stile per i campi di input all'interno del modulo di modifica */
+    .modal-main-side input, .modal-main-side select, .modal-main-side textarea {
+      width: 100%;
+      padding: 6px 10px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-family: inherit;
+      color: #1e293b;
+      background-color: #f8fafc;
+    }
+    .modal-main-side input:focus, .modal-main-side select:focus {
+      outline: none;
+      border-color: #0066cc;
+      background-color: #ffffff;
+    }
+
+    /* Pulsanti d'azione amministrativa */
+    .admin-actions-bar {
+      display: flex;
+      gap: 10px;
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid #e2e8f0;
+    }
+    .btn-admin {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-admin-save { background: #16a34a; color: white; }
+    .btn-admin-save:hover { background: #15803d; }
+    .btn-admin-delete { background: #dc2626; color: white; }
+    .btn-admin-delete:hover { background: #b91c1c; }
+
+    /* Rende cliccabili le celle vuote solo per l'admin */
+    body.is-admin .grid-day-cell, body.is-admin .month-box {
+      cursor: pointer;
+    }
+    body.is-admin .grid-day-cell:hover, body.is-admin .month-box:hover {
+      background-color: #f0fdf4 !important; /* Evidenzia in verde tenue al passaggio */
+    }
   </style>
 </head>
 <body>
@@ -423,10 +488,12 @@
               <button onclick="navigateCalendar(1)" style="border: none; background: #ffffff; padding: 4px 10px; border-radius: 6px; cursor: pointer; font-weight: bold; box-shadow: 0 1px 2px rgba(0,0,0,0.05); font-family: sans-serif;">▶</button>
             </div>
           </div>
-          <div style="display: flex; gap: 0.5rem; background: #f1f5f9; padding: 4px; border-radius: 8px;">
+          <div style="display: flex; gap: 0.5rem; background: #f1f5f9; padding: 4px; border-radius: 8px; align-items: center; flex-wrap: wrap;">
             <button id="btnYear" onclick="switchView('year')" style="border: none; padding: 6px 12px; font-size: 0.85rem; font-weight: 600; border-radius: 6px; cursor: pointer; transition: all 0.2s;">📅 Vista Annuale</button>
             <button id="btnMonth" onclick="switchView('month')" style="border: none; padding: 6px 12px; font-size: 0.85rem; font-weight: 600; border-radius: 6px; cursor: pointer; transition: all 0.2s;">🔲 Vista Mensile</button>
             <button id="btnList" onclick="switchView('list')" style="border: none; padding: 6px 12px; font-size: 0.85rem; font-weight: 600; border-radius: 6px; cursor: pointer; transition: all 0.2s;">📋 Vista Elenco</button>
+            <!-- Pulsante Aggiungi Gara visibile SOLO all'amministratore -->
+            <button class="admin-only btn-admin-save" onclick="createNewEventForm()" style="border: none; padding: 6px 12px; font-size: 0.85rem; font-weight: 700; border-radius: 6px; cursor: pointer; color: white;">➕ Nuova Gara</button>
           </div>
         </div>
         
@@ -460,62 +527,121 @@
     </main>
   </div>
     
-  <!-- STRUTTURA POP-UP DI DETTAGLIO -->
+  <!-- STRUTTURA POP-UP DI DETTAGLIO MODIFICATA PER EDITING -->
   <dialog id="eventDialog">
+    <!-- Un campo nascosto per tracciare l'ID del torneo correntemente aperto -->
+    <input type="hidden" id="editEventId">
+    
     <div class="modal-layout">
       
-      <!-- Contenitore immagine: quadrato su PC, va in alto su Mobile -->
-      <div class="modal-img-side">
+      <!-- Contenitore immagine: quadrato su PC -->
+      <div class="modal-img-side" style="flex-direction: column; justify-content: center; gap: 8px;">
         <img id="modalLocandina" src="" alt="Locandina Torneo">
+        <div class="admin-only-block" style="width: 100%; margin-top: 8px;">
+          <label class="detail-label" style="font-size:0.6rem;">URL Immagine Locandina</label>
+          <input type="text" id="editLocandina" placeholder="https://url-immagine.jpg" oninput="document.getElementById('modalLocandina').src = this.value || 'https://placehold.co'">
+        </div>
       </div>
       
       <!-- Contenitore Dati a destra -->
       <div class="modal-main-side">
         <button class="btn-close" onclick="document.getElementById('eventDialog').close()">✕</button>
         
+        <!-- Tipologia Gara -->
         <div style="margin-bottom: 0.5rem;">
           <span id="modalTipologia" class="badge-type"></span>
+          <div class="admin-only-block" style="margin-top: 4px;">
+            <select id="editClassName" onchange="updateModalBadgePreview(this.value)">
+              <option value="nbc">NBC</option>
+              <option value="istituzionale">Istituzionale</option>
+              <option value="coppie-base">Coppie di Base</option>
+              <option value="seniores">Seniores</option>
+              <option value="femminile">Femminile</option>
+              <option value="gara-libera">Gara Libera</option>
+            </select>
+          </div>
         </div>
         
-        <h3 id="modalTitle" style="margin: 0 0 0.5rem 0; font-size: 1.25rem; font-weight: 800; color: #0f172a; padding-right: 25px; line-height: 1.3;"></h3>
+        <!-- Titolo Torneo -->
+        <div style="margin-bottom: 0.5rem;">
+          <h3 id="modalTitle" style="margin: 0 0 0.5rem 0; font-size: 1.25rem; font-weight: 800; color: #0f172a; padding-right: 25px; line-height: 1.3;"></h3>
+          <div class="admin-only-block"><input type="text" id="editTitle" placeholder="Titolo del torneo" style="font-weight:700;"></div>
+        </div>
         
+        <!-- Griglia informazioni principali -->
         <div class="grid-info">
-          <div class="info-block"><span>Sede</span><strong id="modalSede"></strong></div>
-          <div class="info-block"><span>1° Premio</span><strong id="modalPremio" style="color: #16a34a;"></strong></div>
-          <div class="info-block"><span>Iscrizione</span><strong id="modalIscrizione" style="color: #dc2626;"></strong></div>
-          <div class="info-block"><span>Entro</span><strong id="modalEntro"></strong></div>
-          <div class="info-block"><span>Data Inizio</span><strong id="modalInizio"></strong></div>
-          <div class="info-block"><span>Data Finale</span><strong id="modalFinale"></strong></div>
+          <div class="info-block">
+            <span>Sede</span>
+            <strong id="modalSede" class="visitor-text"></strong>
+            <input type="text" id="editSede" class="admin-only">
+          </div>
+          <div class="info-block">
+            <span>1° Premio</span>
+            <strong id="modalPremio" class="visitor-text" style="color: #16a34a;"></strong>
+            <input type="text" id="editPremio" class="admin-only">
+          </div>
+          <div class="info-block">
+            <span>Iscrizione</span>
+            <strong id="modalIscrizione" class="visitor-text" style="color: #dc2626;"></strong>
+            <input type="text" id="editIscrizione" class="admin-only">
+          </div>
+          <div class="info-block">
+            <span>Entro</span>
+            <strong id="modalEntro" class="visitor-text"></strong>
+            <input type="date" id="editEntro" class="admin-only">
+          </div>
+          <div class="info-block">
+            <span>Data Inizio</span>
+            <strong id="modalInizio" class="visitor-text"></strong>
+            <input type="date" id="editStart" class="admin-only">
+          </div>
+          <div class="info-block">
+            <span>Data Finale</span>
+            <strong id="modalFinale" class="visitor-text"></strong>
+            <input type="date" id="editEndDate" class="admin-only">
+          </div>
         </div>
         
-        <!-- SPECIALITÀ: Perfettamente isolata, allineata e con lo stesso bordino delle categorie -->
+        <!-- Specialità -->
         <div class="detail-section">
           <span class="detail-label">Specialità</span>
-          <div id="modalSpecialita" class="specialita-box"></div>
+          <div id="modalSpecialita" class="specialita-box visitor-text"></div>
+          <input type="text" id="editSpecialita" class="admin-only" placeholder="es. Singola - 5 Birilli">
         </div>
 
-        <!-- CATEGORIE AMMESSE -->
+        <!-- Categorie Ammesse -->
         <div class="detail-section">
           <span class="detail-label">Categorie Ammesse</span>
-          <div id="modalCategorie" style="display: flex; flex-wrap: wrap; gap: 4px; margin-top: 2px;"></div>
+          <div id="modalCategorie" class="visitor-text" style="display: flex; flex-wrap: wrap; gap: 4px; margin-top: 2px;"></div>
+          <input type="text" id="editCategorie" class="admin-only" placeholder="es. Terza, Seconda, Prima (separate da virgola)">
         </div>
 
+        <!-- Badge Tecnici -->
         <div class="tech-badges">
           <div>
             <span style="color:#94a3b8; font-size:0.625rem; text-transform:uppercase; font-weight:700;">Cat. Separate</span>
-            <span id="badgeSeparate"></span>
+            <span id="badgeSeparate" class="visitor-text"></span>
+            <select id="editSeparate" class="admin-only"><option value="SI">SI</option><option value="NO">NO</option></select>
           </div>
           <div>
             <span style="color:#94a3b8; font-size:0.625rem; text-transform:uppercase; font-weight:700;">Handicap</span>
-            <span id="badgeHandicap"></span>
+            <span id="badgeHandicap" class="visitor-text"></span>
+            <select id="editHandicap" class="admin-only"><option value="SI">SI</option><option value="NO">NO</option></select>
           </div>
           <div>
             <span style="color:#94a3b8; font-size:0.625rem; text-transform:uppercase; font-weight:700;">Arbitri</span>
-            <span id="badgeArbitri"></span>
+            <span id="badgeArbitri" class="visitor-text"></span>
+            <select id="editArbitri" class="admin-only"><option value="SI">SI</option><option value="NO">NO</option></select>
           </div>
         </div>
+
+        <!-- AZIONI AMMINISTRATORE DI SALVATAGGIO / ELIMINAZIONE -->
+        <div class="admin-actions-bar admin-only-flex">
+          <button class="btn-admin btn-admin-delete" onclick="deleteCurrentEvent()">🗑️ Elimina Gara</button>
+          <button class="btn-admin btn-admin-save" onclick="saveEventData()">💾 Salva Gara</button>
+        </div>
+
       </div>
-      
     </div>
   </dialog>
 
@@ -536,6 +662,138 @@
     
     let rawEvents = [];
     let currentActiveEvents = [];
+
+    // --- VARIABILI GLOBALI E COSTRUTTI PER L'AMMINISTRAZIONE ---
+    let isAdminAuthenticated = false;
+    let githubConfig = { token: "", username: "", repo: "", sha: "" };
+
+    // Ascolto della combinazione segreta di tasti (Ctrl + Shift + A) per aprire il Login
+    window.addEventListener('keydown', function(e) {
+      if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === 'A') {
+        e.preventDefault();
+        document.getElementById('adminLoginDialog').showModal();
+        // Pre-compila se ci sono già dati salvati localmente
+        document.getElementById('cfgUsername').value = localStorage.getItem('fb_git_user') || '';
+        document.getElementById('cfgRepo').value = localStorage.getItem('fb_git_repo') || '';
+        document.getElementById('cfgToken').value = localStorage.getItem('fb_git_token') || '';
+      }
+    });
+
+    // Inizializzazione automatica dello stato Admin al caricamento della pagina
+    function checkAdminSession() {
+      const storedToken = localStorage.getItem('fb_git_token');
+      const storedUser = localStorage.getItem('fb_git_user');
+      const storedRepo = localStorage.getItem('fb_git_repo');
+      
+      if (storedToken && storedUser && storedRepo) {
+        githubConfig.token = storedToken;
+        githubConfig.username = storedUser;
+        githubConfig.repo = storedRepo;
+        isAdminAuthenticated = true;
+        document.body.classList.add('is-admin');
+        console.log("🛠️ Modalità Amministratore Attiva con successo.");
+      }
+    }
+
+    function saveAdminConfiguration() {
+      const u = document.getElementById('cfgUsername').value.trim();
+      const r = document.getElementById('cfgRepo').value.trim();
+      const t = document.getElementById('cfgToken').value.trim();
+      
+      if(!u || !r || !t) {
+        alert("Tutti i campi sono obbligatori per connettersi a GitHub!");
+        return;
+      }
+      
+      localStorage.setItem('fb_git_user', u);
+      localStorage.setItem('fb_git_repo', r);
+      localStorage.setItem('fb_git_token', t);
+      
+      githubConfig.username = u;
+      githubConfig.repo = r;
+      githubConfig.token = t;
+      isAdminAuthenticated = true;
+      
+      document.body.classList.add('is-admin');
+      document.getElementById('adminLoginDialog').close();
+      filterAndRenderEvents(); // Riesegue il render per mostrare le funzioni interattive
+      alert("Autenticazione salvata nel browser. Modalità amministratore abilitata!");
+    }
+
+    function logoutAdmin() {
+      localStorage.removeItem('fb_git_user');
+      localStorage.removeItem('fb_git_repo');
+      localStorage.removeItem('fb_git_token');
+      isAdminAuthenticated = false;
+      document.body.classList.remove('is-admin');
+      document.getElementById('adminLoginDialog').close();
+      filterAndRenderEvents();
+      alert("Disconnessione effettuata. Il calendario è tornato in sola lettura.");
+    }
+
+    // FUNZIONE DI SCRITTURA SU GITHUB (Sincronizzazione Remota)
+    async function pushToGitHub(updatedArray) {
+      if (!isAdminAuthenticated) return;
+      
+      const titleLabel = document.getElementById('calendarTitle');
+      const originalTitle = titleLabel.innerText;
+      titleLabel.innerText = "🔄 Sincronizzazione con GitHub in corso...";
+
+      const url = `https://github.com{githubConfig.username}/${githubConfig.repo}/contents/gare.json`;
+      
+      try {
+        // Passo A: Recuperiamo lo SHA più recente del file per evitare conflitti di sovrascrittura
+        const getRes = await fetch(url, {
+          headers: { "Authorization": `token ${githubConfig.token}`, "Accept": "application/vnd.github.v3+json" }
+        });
+        
+        if (getRes.ok) {
+          const getData = await getRes.json();
+          githubConfig.sha = getData.sha;
+        }
+
+        // Passo B: Convertiamo la base dati in stringa JSON formattata in modo leggibile
+        const jsonString = JSON.stringify(updatedArray, null, 2);
+        
+        // Conversione UTF-8 compatibile a stringa Base64 (richiesta dalle API di GitHub)
+        const base64Payload = btoa(unescape(encodeURIComponent(jsonString)));
+
+        // Passo C: Eseguiamo la chiamata PUT per aggiornare il file sul repository remoto
+        const putBody = {
+          message: "Aggiornamento calendario gare da pannello di amministrazione",
+          content: base64Payload
+        };
+        if (githubConfig.sha) putBody.sha = githubConfig.sha;
+
+        const putRes = await fetch(url, {
+          method: "PUT",
+          headers: {
+            "Authorization": `token ${githubConfig.token}`,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(putBody)
+        });
+
+        if (!putRes.ok) {
+          const errData = await putRes.json();
+          throw new Error(errData.message || "Errore nella richiesta di upload");
+        }
+
+        titleLabel.innerText = originalTitle;
+        alert("🎉 Database sincronizzato con successo su GitHub! Le modifiche saranno visibili a tutti tra pochi istanti.");
+      } catch (err) {
+        console.error("Errore durante il salvataggio remoto:", err);
+        titleLabel.innerText = originalTitle;
+        alert("⚠️ Errore nel salvataggio remoto su GitHub: " + err.message + "\n\nControlla la correttezza del token, dell'utente o dei permessi del tuo repository.");
+      }
+    }
+
+    // Aggiornamento grafico dinamico del badge colore nel modale se l'admin cambia la selezione
+    function updateModalBadgePreview(value) {
+      const typeBadge = document.getElementById('modalTipologia');
+      typeBadge.innerText = value.replace('-', ' ');
+      typeBadge.style.backgroundColor = typeColors[value] || '#64748b';
+    }
 
     function parseDateSafe(dateString) {
       if (!dateString) return null;
@@ -611,6 +869,7 @@
         switchView('year');
         titleLabel.innerText = "Calendario (Anteprima Offline)";
       }
+      checkAdminSession();
     }
 
     function switchView(viewType) {
@@ -692,6 +951,12 @@
         let targetYear = (m < 8) ? seasonStartYear + 1 : seasonStartYear;
 
         const monthBox = document.createElement('div');
+        monthBox.onclick = (e) => {
+          if (isAdminAuthenticated && e.target === monthBox || e.target.tagName === 'H3' || e.target.className === 'event-list') {
+            const padMonth = String(m + 1).padStart(2, '0');
+            createNewEventForm(`${targetYear}-${padMonth}-01`);
+          }
+        };
         monthBox.className = 'month-box';
         monthBox.innerHTML = `<h3 class="month-title">${monthNamesLong[m]} ${targetYear}</h3>`;
         const eventList = document.createElement('div');
@@ -738,6 +1003,13 @@
 
       for (let day = 1; day <= totalDays; day++) {
         const cell = document.createElement('div');
+        cell.onclick = (e) => {
+          if (isAdminAuthenticated && e.target.className.includes('grid-day-cell') || e.target.className.includes('grid-day-number')) {
+            const padMonth = String(currentGridMonth + 1).padStart(2, '0');
+            const padDay = String(day).padStart(2, '0');
+            createNewEventForm(`${currentGridYear}-${padMonth}-${padDay}`);
+          }
+        };
         cell.className = 'grid-day-cell';
         cell.innerHTML = `<div class="grid-day-number">${day}</div>`;
 
@@ -921,6 +1193,166 @@
         }
       });
     });
+    // PREPARAZIONE MODULO PER NUOVA GARA (Svuota il Dialog e lo imposta in scrittura)
+    function createNewEventForm(defaultDate = "") {
+      document.getElementById('editEventId').value = "NEW_" + Date.now();
+      document.getElementById('modalTitle').innerText = "Inserimento Nuova Gara";
+      document.getElementById('editTitle').value = "";
+      document.getElementById('editSede').value = "";
+      document.getElementById('editPremio').value = "€ ";
+      document.getElementById('editIscrizione').value = "€ ";
+      
+      const todayISO = defaultDate || new Date().toISOString().split('T')[0];
+      document.getElementById('editEntro').value = todayISO;
+      document.getElementById('editStart').value = todayISO;
+      document.getElementById('editEndDate').value = todayISO;
+      
+      document.getElementById('editSpecialita').value = "Singola - 5 Birilli";
+      document.getElementById('editCategorie').value = "Terza, Seconda, Prima";
+      
+      document.getElementById('editClassName').value = "nbc";
+      updateModalBadgePreview("nbc");
+      
+      document.getElementById('editSeparate').value = "NO";
+      document.getElementById('editHandicap').value = "NO";
+      document.getElementById('editArbitri').value = "SI";
+      document.getElementById('editLocandina').value = "";
+      document.getElementById('modalLocandina').src = "https://placehold.co";
+
+      // Nascondiamo i testi fissi per i visitatori se siamo admin
+      document.querySelectorAll('.visitor-text').forEach(el => el.style.display = 'none');
+      document.getElementById('eventDialog').showModal();
+    }
+
+    // SALVATAGGIO: DETERMINA SE FARE AGGIORNAMENTO O INSERIMENTO
+    function saveEventData() {
+      const id = document.getElementById('editEventId').value;
+      const title = document.getElementById('editTitle').value.trim();
+      if (!title) { alert("Il titolo del torneo è obbligatorio!"); return; }
+
+      const updatedEvent = {
+        "id": id.startsWith("NEW_") ? Date.now() : parseInt(id, 10), // Assegna o conserva l'id univoco
+        "title": title,
+        "className": document.getElementById('editClassName').value,
+        "sede": document.getElementById('editSede').value.trim(),
+        "premio": document.getElementById('editPremio').value.trim(),
+        "iscrizione": document.getElementById('editIscrizione').value.trim(),
+        "entro": document.getElementById('editEntro').value,
+        "start": document.getElementById('editStart').value,
+        "end_date": document.getElementById('editEndDate').value,
+        "specialita": document.getElementById('editSpecialita').value.trim(),
+        "categorie": document.getElementById('editCategorie').value.trim(),
+        "separate": document.getElementById('editSeparate').value,
+        "handicap": document.getElementById('editHandicap').value,
+        "arbitri": document.getElementById('editArbitri').value,
+        "locandina": document.getElementById('editLocandina').value.trim()
+      };
+
+      if (id.startsWith("NEW_")) {
+        // Caso Inserimento: spingiamo l'oggetto nell'array principale
+        rawEvents.push(updatedEvent);
+      } else {
+        // Caso Modifica: cerchiamo la posizione e sostituiamo l'elemento
+        const index = rawEvents.findIndex(e => e.id == id || (e.title === document.getElementById('modalTitle').innerText && e.start === updatedEvent.start));
+        if (index !== -1) {
+          rawEvents[index] = updatedEvent;
+        } else {
+          // Fallback di sicurezza basato sulla coincidenza dati originaria se l'id era assente nel JSON vecchio
+          const fallbackIndex = rawEvents.findIndex(e => e.title === document.getElementById('modalTitle').innerText);
+          if (fallbackIndex !== -1) rawEvents[fallbackIndex] = updatedEvent;
+          else rawEvents.push(updatedEvent);
+        }
+      }
+
+      // Garantiamo che ogni elemento nell'array principale abbia adesso un ID associato per il futuro
+      rawEvents.forEach((e, idx) => { if (!e.id) e.id = Date.now() + idx; });
+
+      document.getElementById('eventDialog').close();
+      filterAndRenderEvents(); // Aggiorna istantaneamente l'interfaccia locale
+      pushToGitHub(rawEvents); // Esegue il caricamento sul Cloud di GitHub
+    }
+
+    // ELIMINAZIONE DI UN EVENTO ESISTENTE
+    function deleteCurrentEvent() {
+      const id = document.getElementById('editEventId').value;
+      if (id.startsWith("NEW_")) {
+        document.getElementById('eventDialog').close();
+        return;
+      }
+      
+      if (!confirm("Sei sicuro di voler eliminare definitivamente questo torneo dal calendario?")) return;
+
+      const currentTitle = document.getElementById('modalTitle').innerText;
+      
+      // Filtra escludendo l'elemento eliminato
+      rawEvents = rawEvents.filter(e => {
+        if (e.id) return e.id != id;
+        return e.title !== currentTitle;
+      });
+
+      document.getElementById('eventDialog').close();
+      filterAndRenderEvents(); // Sincronizza l'interfaccia grafica
+      pushToGitHub(rawEvents); // Aggiorna il database online
+    }
+
+    // MODIFICA DELLA FUNZIONE DI APERTURA ESISTENTE PER ADATTARLA ALL'AMMINISTRATORE
+    // Sostituisci l'inizio e i campi interni della tua vecchia openDialog con questa mappatura estesa:
+    const originalOpenDialog = openDialog;
+    openDialog = function(evt) {
+      originalOpenDialog(evt); // Esegue la mappatura classica del tuo codice per i visitatori
+      
+      // Estensione Amministratore: riempie i campi di input modificabili nascosti
+      document.getElementById('editEventId').value = evt.id || "";
+      document.getElementById('editTitle').value = evt.title || "";
+      document.getElementById('editSede').value = evt.sede || "";
+      document.getElementById('editPremio').value = evt.premio || "";
+      document.getElementById('editIscrizione').value = evt.iscrizione || "";
+      document.getElementById('editEntro').value = evt.entro || "";
+      document.getElementById('editStart').value = evt.start || "";
+      document.getElementById('editEndDate').value = evt.end_date || "";
+      document.getElementById('editSpecialita').value = evt.specialita || "";
+      document.getElementById('editCategorie').value = evt.categorie || "";
+      document.getElementById('editClassName').value = evt.className || "nbc";
+      document.getElementById('editSeparate').value = evt.separate === "SI" ? "SI" : "NO";
+      document.getElementById('editHandicap').value = evt.handicap === "SI" ? "SI" : "NO";
+      document.getElementById('editArbitri').value = evt.arbitri === "NO" ? "NO" : "SI";
+      document.getElementById('editLocandina').value = evt.locandina || "";
+
+      // Controlla la visualizzazione del blocco scritte in base ai poteri correnti
+      if (isAdminAuthenticated) {
+        document.querySelectorAll('.visitor-text').forEach(el => el.style.display = 'none');
+        document.querySelectorAll('.modal-main-side .admin-only, .modal-main-side input, .modal-main-side select').forEach(el => el.style.display = 'block');
+      } else {
+        document.querySelectorAll('.visitor-text').forEach(el => el.style.display = '');
+      }
+    };
   </script>
+  
+  <!-- MODALE SEGRETO DI LOGIN AMMINISTRATORE -->
+  <dialog id="adminLoginDialog" style="max-width: 400px; padding: 1.5rem;">
+    <div style="display: flex; flex-direction: column; gap: 1rem; position: relative;">
+      <button class="btn-close" onclick="document.getElementById('adminLoginDialog').close()">✕</button>
+      <h3 style="margin: 0; font-size: 1.1rem; font-weight: 800; color: #0f172a;">Accesso Amministrazione</h3>
+      <p style="margin: 0; font-size: 0.75rem; color: #64748b;">Inserisci i parametri di configurazione del tuo repository GitHub per abilitare le modifiche.</p>
+      
+      <div style="display: flex; flex-direction: column; gap: 4px;">
+        <label style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase; color: #94a3b8;">GitHub Username</label>
+        <input type="text" id="cfgUsername" style="width:100%; padding:8px; border:1px solid #cbd5e1; border-radius:6px;" placeholder="es. tuo-utente">
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 4px;">
+        <label style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase; color: #94a3b8;">Nome Repository</label>
+        <input type="text" id="cfgRepo" style="width:100%; padding:8px; border:1px solid #cbd5e1; border-radius:6px;" placeholder="es. calendario-gare">
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 4px;">
+        <label style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase; color: #94a3b8;">Personal Access Token (Fine-Grained)</label>
+        <input type="password" id="cfgToken" style="width:100%; padding:8px; border:1px solid #cbd5e1; border-radius:6px;" placeholder="github_pat_...">
+      </div>
+      
+      <div style="display: flex; gap: 10px; margin-top: 0.5rem;">
+        <button onclick="saveAdminConfiguration()" style="flex:1; padding:10px; background:#0066cc; color:white; border:none; border-radius:6px; font-weight:700; cursor:pointer;">Accedi e Attiva</button>
+        <button onclick="logoutAdmin()" class="admin-only" style="padding:10px; background:#e2e8f0; color:#64748b; border:none; border-radius:6px; font-weight:700; cursor:pointer;">Disconnetti</button>
+      </div>
+    </div>
+  </dialog>
 </body>
 </html>
