@@ -527,17 +527,18 @@
     </main>
   </div>
     
-  <!-- STRUTTURA POP-UP DI DETTAGLIO MODIFICATA PER EDITING -->
+  <!-- STRUTTURA POP-UP DI DETTAGLIO CORRETTA E BLINDATA -->
   <dialog id="eventDialog">
-    <!-- Un campo nascosto per tracciare l'ID del torneo correntemente aperto -->
+    <!-- Campo nascosto per l'ID del torneo -->
     <input type="hidden" id="editEventId">
     
     <div class="modal-layout">
       
-      <!-- Contenitore immagine: quadrato su PC -->
+      <!-- Contenitore immagine a sinistra -->
       <div class="modal-img-side" style="flex-direction: column; justify-content: center; gap: 8px;">
         <img id="modalLocandina" src="" alt="Locandina Torneo">
-        <div class="admin-only-block" style="width: 100%; margin-top: 8px;">
+        <!-- CORRETTO: Aggiunta classe admin-only per nascondere l'input URL ai visitatori -->
+        <div class="admin-only" style="width: 100%; margin-top: 8px;">
           <label class="detail-label" style="font-size:0.6rem;">URL Immagine Locandina</label>
           <input type="text" id="editLocandina" placeholder="https://url-immagine.jpg" oninput="document.getElementById('modalLocandina').src = this.value || 'https://placehold.co'">
         </div>
@@ -550,7 +551,8 @@
         <!-- Tipologia Gara -->
         <div style="margin-bottom: 0.5rem;">
           <span id="modalTipologia" class="badge-type"></span>
-          <div class="admin-only-block" style="margin-top: 4px;">
+          <!-- CORRETTO: Aggiunta classe admin-only per nascondere il menu a tendina ai visitatori -->
+          <div class="admin-only" style="margin-top: 4px; width: 100%;">
             <select id="editClassName" onchange="updateModalBadgePreview(this.value)">
               <option value="nbc">NBC</option>
               <option value="istituzionale">Istituzionale</option>
@@ -564,8 +566,9 @@
         
         <!-- Titolo Torneo -->
         <div style="margin-bottom: 0.5rem;">
-          <h3 id="modalTitle" style="margin: 0 0 0.5rem 0; font-size: 1.25rem; font-weight: 800; color: #0f172a; padding-right: 25px; line-height: 1.3;"></h3>
-          <div class="admin-only-block"><input type="text" id="editTitle" placeholder="Titolo del torneo" style="font-weight:700;"></div>
+          <h3 id="modalTitle" class="visitor-text" style="margin: 0 0 0.5rem 0; font-size: 1.25rem; font-weight: 800; color: #0f172a; padding-right: 25px; line-height: 1.3;"></h3>
+          <!-- CORRETTO: Aggiunta classe admin-only per nascondere l'input del titolo ai visitatori -->
+          <div class="admin-only" style="width: 100%;"><input type="text" id="editTitle" placeholder="Titolo del torneo" style="font-weight:700;"></div>
         </div>
         
         <!-- Griglia informazioni principali -->
@@ -615,6 +618,35 @@
           <div id="modalCategorie" class="visitor-text" style="display: flex; flex-wrap: wrap; gap: 4px; margin-top: 2px;"></div>
           <input type="text" id="editCategorie" class="admin-only" placeholder="es. Terza, Seconda, Prima (separate da virgola)">
         </div>
+
+        <!-- Badge Tecnici -->
+        <div class="tech-badges">
+          <div>
+            <span style="color:#94a3b8; font-size:0.625rem; text-transform:uppercase; font-weight:700;">Cat. Separate</span>
+            <span id="badgeSeparate" class="visitor-text"></span>
+            <select id="editSeparate" class="admin-only"><option value="SI">SI</option><option value="NO">NO</option></select>
+          </div>
+          <div>
+            <span style="color:#94a3b8; font-size:0.625rem; text-transform:uppercase; font-weight:700;">Handicap</span>
+            <span id="badgeHandicap" class="visitor-text"></span>
+            <select id="editHandicap" class="admin-only"><option value="SI">SI</option><option value="NO">NO</option></select>
+          </div>
+          <div>
+            <span style="color:#94a3b8; font-size:0.625rem; text-transform:uppercase; font-weight:700;">Arbitri</span>
+            <span id="badgeArbitri" class="visitor-text"></span>
+            <select id="editArbitri" class="admin-only"><option value="SI">SI</option><option value="NO">NO</option></select>
+          </div>
+        </div>
+
+        <!-- Pulsanti Salva / Elimina visibili SOLO all'amministratore autenticato -->
+        <div class="admin-actions-bar admin-only-flex">
+          <button class="btn-admin btn-admin-delete" onclick="deleteCurrentEvent()">🗑️ Elimina Gara</button>
+          <button class="btn-admin btn-admin-save" onclick="saveEventData()">💾 Salva Gara</button>
+        </div>
+
+      </div>
+    </div>
+  </dialog>
 
         <!-- Badge Tecnici -->
         <div class="tech-badges">
