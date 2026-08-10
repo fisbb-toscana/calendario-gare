@@ -417,7 +417,7 @@
       <button class="sidebar-close-btn" onclick="toggleSidebar(false)">✕</button>
 
       <div class="brand" style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 2.5rem; width: 100%;">
-        <img src="REGIONE-29-piccolo.png" alt="Logo Federazione" style="width: 100%; max-width: 180px; height: auto; object-fit: contain; margin-bottom: 12px;">
+        <img src="REGIONE-29-piccolo.png" alt="Logo Federazione" onclick="triggerSecretLogin()" style="width: 100%; max-width: 180px; height: auto; object-fit: contain; margin-bottom: 12px;">
         <div>
           <h1 class="brand-title" style="font-size: 1rem; font-weight: 800; color: #0f172a; margin: 0; tracking-spacing: -0.5px;">Sezione Stecca</h1>
           <p class="brand-sub" style="font-size: 0.75rem; color: #64748b; margin: 4px 0 0 0; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Calendario Ufficiale</p>
@@ -710,6 +710,28 @@
         document.getElementById('cfgToken').value = localStorage.getItem('fb_git_token') || '';
       }
     });
+
+    // --- ACCESSO SEGRETO UNIFICATO (3 TOCCHI / CLICK SUL LOGO) ---
+    let logoClickCount = 0;
+    let logoClickTimeout;
+
+    function triggerSecretLogin() {
+      logoClickCount++;
+      
+      // Resetta il conteggio se l'utente smette di cliccare per più di 2 secondi
+      clearTimeout(logoClickTimeout);
+      logoClickTimeout = setTimeout(() => { logoClickCount = 0; }, 2000);
+
+      // Al terzo click/tocco consecutivo apre il pannello
+      if (logoClickCount === 3) {
+        logoClickCount = 0;
+        document.getElementById('adminLoginDialog').showModal();
+        // Pre-compila se ci sono già dati salvati
+        document.getElementById('cfgUsername').value = localStorage.getItem('fb_git_user') || '';
+        document.getElementById('cfgRepo').value = localStorage.getItem('fb_git_repo') || '';
+        document.getElementById('cfgToken').value = localStorage.getItem('fb_git_token') || '';
+      }
+    }
 
     // Inizializzazione automatica dello stato Admin al caricamento della pagina
     function checkAdminSession() {
