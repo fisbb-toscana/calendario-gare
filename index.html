@@ -1132,11 +1132,11 @@
         return;
       }
 
-      // ORDINA DAL PIÙ RECENTE AL PIÙ VECCHIO (Invertito)
+      // ORDINA DAL PIÙ VECCHIO AL PIÙ RECENTE
       seasonalEvents.sort((a, b) => {
         const pA = parseDateSafe(a.end_date || a.start);
         const pB = parseDateSafe(b.end_date || b.start);
-        return new Date(pB.year, pB.month, pB.day) - new Date(pA.year, pA.month, pA.day);
+        return new Date(pA.year, pA.month, pA.day) - new Date(pB.year, pB.month, pB.day);
       });
 
       seasonalEvents.forEach(evt => {
