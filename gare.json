@@ -11,9 +11,9 @@
     "end_date": "2026-10-03",
     "specialita": "Tutti Doppi a 800 punti",
     "categorie": "Master, Prima, Seconda, Terza",
-    "separate": "NO",
+    "separate": "SI",
     "handicap": "SI",
-    "arbitri": "SI",
+    "arbitri": "NO",
     "locandina": "locandina_non_disponibile.png"
   },
   {
