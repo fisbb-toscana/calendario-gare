@@ -800,9 +800,9 @@
         const getRes = await fetch(url, {
           method: "GET",
           headers: { 
-            "Authorization": `token ${githubConfig.token}`, // <-- RIPRISTINATO STANDARD CORRETTO
-            "Accept": "application/vnd.github.v3+json",
-            "Cache-Control": "no-cache"
+            "Authorization": `Bearer ${githubConfig.token}`, // <-- RIPRISTINATO STANDARD CORRETTO
+            "Accept": "application/vnd.github.v3+json"
+            //"Cache-Control": "no-cache"
           }
         });
         
@@ -836,7 +836,7 @@
         const putRes = await fetch(url, {
           method: "PUT",
           headers: {
-            "Authorization": `token ${githubConfig.token}`, // <-- RIPRISTINATO STANDARD CORRETTO
+            "Authorization": `Bearer ${githubConfig.token}`, // <-- RIPRISTINATO STANDARD CORRETTO
             "Content-Type": "application/json",
             "Accept": "application/vnd.github.v3+json"
           },
