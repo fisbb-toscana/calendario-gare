@@ -1409,7 +1409,12 @@
       document.getElementById('editClassName').value = evt.className || "nbc";
       document.getElementById('editSeparate').value = evt.separate === "SI" ? "SI" : "NO";
       document.getElementById('editHandicap').value = evt.handicap === "SI" ? "SI" : "NO";
-      document.getElementById('editArbitri').value = evt.arbitri === "NO";
+	  const arbitriValue = evt.arbitri || "NO";
+	  if (["SI", "NO", "1 su 2"].includes(arbitriValue)) {
+	  document.getElementById('editArbitri').value = arbitriValue;
+	  } else {
+	  document.getElementById('editArbitri').value = "NO";
+	  }
       document.getElementById('editLocandina').value = evt.locandina || "";
 
       // Controlla la visualizzazione del blocco scritte in base ai poteri correnti
