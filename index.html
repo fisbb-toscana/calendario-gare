@@ -635,7 +635,7 @@
           <div>
             <span style="color:#94a3b8; font-size:0.625rem; text-transform:uppercase; font-weight:700;">Arbitri</span>
             <span id="badgeArbitri" class="visitor-text"></span>
-            <select id="editArbitri" class="admin-only"><option value="SI">SI</option><option value="NO">NO</option><option value="1 su 2">1 su 2</option></select>
+            <select id="editArbitri" class="admin-only"><option value="SI">SI</option><option value="NO">NO</option><option value="1 su 2">9</option></select>
           </div>
         </div>
 
@@ -897,7 +897,7 @@
           if (evt.className) evt.className = evt.className.toLowerCase().trim();
           if (evt.separate) evt.separate = evt.separate.toUpperCase().trim();
           if (evt.handicap) evt.handicap = evt.handicap.toUpperCase().trim();
-          if (evt.arbitri) evt.arbitri = evt.arbitri.toUpperCase().trim();
+          if (evt.arbitri) evt.arbitri = evt.arbitri.trim();
         });
 
         currentActiveEvents = [...rawEvents];
@@ -1204,14 +1204,6 @@
       document.getElementById('eventDialog').showModal();
     }
 
-/*    function setTechLabel(id, val) {
-      const el = document.getElementById(id);
-      if(!el) return;
-      const clean = val ? val.trim().toUpperCase() : 'NO';
-      el.innerText = clean === 'SI' ? 'SI' : 'NO';
-      el.className = clean === 'SI' ? 'tech-si' : 'tech-no';
-    }
-*/
 	function setTechLabel(id, val) {
 	  const el = document.getElementById(id);
 	  if(!el) return;
