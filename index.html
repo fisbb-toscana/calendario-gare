@@ -634,7 +634,7 @@
           <div>
             <span style="color:#94a3b8; font-size:0.625rem; text-transform:uppercase; font-weight:700;">Arbitri</span>
             <span id="badgeArbitri" class="visitor-text"></span>
-            <select id="editArbitri" class="admin-only"><option value="SI">SI</option><option value="NO">NO</option></select>
+            <select id="editArbitri" class="admin-only"><option value="SI">SI</option><option value="NO">NO</option><option value="1SU2">1 SU 2</option></select>
           </div>
         </div>
 
@@ -663,7 +663,7 @@
           <div>
             <span style="color:#94a3b8; font-size:0.625rem; text-transform:uppercase; font-weight:700;">Arbitri</span>
             <span id="badgeArbitri" class="visitor-text"></span>
-            <select id="editArbitri" class="admin-only"><option value="SI">SI</option><option value="NO">NO</option></select>
+            <select id="editArbitri" class="admin-only"><option value="SI">SI</option><option value="NO">NO</option><option value="1SU2">1 SU 2</option></select>
           </div>
         </div>
 
@@ -792,7 +792,8 @@
       const originalTitle = titleLabel.innerText;
       titleLabel.innerText = "🔄 Sincronizzazione con GitHub in corso...";
 
-      const url = `https://github.com{githubConfig.username}/${githubConfig.repo}/contents/gare.json`;
+      //const url = `https://github.com{githubConfig.username}/${githubConfig.repo}/contents/gare.json`;
+	  const url = `https://api.github.com/repos/${githubConfig.username}/${githubConfig.repo}/contents/gare.json`;
       
       try {
         // 1. RECUPERO DELLO SHA (Ripristinato standard 'token' ufficiale di GitHub)
