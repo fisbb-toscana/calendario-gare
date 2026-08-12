@@ -1554,5 +1554,22 @@
     "handicap": "SI",
     "arbitri": "1 su 2",
     "locandina": "locandina_non_disponibile.png"
+  },
+  {
+    "id": 1786526761086,
+    "title": "POULE FINALI REGIONALI",
+    "className": "istituzionale",
+    "sede": "varie sedi",
+    "premio": "€",
+    "iscrizione": "€",
+    "entro": "",
+    "start": "",
+    "end_date": "2027-04-25",
+    "specialita": "Italiana a 100/80 punti (2 set su 3)",
+    "categorie": "Prima, Seconda, Terza",
+    "separate": "NO",
+    "handicap": "NO",
+    "arbitri": "1 su 2",
+    "locandina": "locandina_non_disponibile.png"
   }
 ]
