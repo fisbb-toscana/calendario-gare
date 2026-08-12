@@ -1401,5 +1401,22 @@
     "handicap": "SI",
     "arbitri": "SI",
     "locandina": "locandina_non_disponibile.png"
+  },
+  {
+    "id": 1786525057193,
+    "title": "1° TROFEO IL TAVOLO VERDE",
+    "className": "gara-libera",
+    "sede": "IL TAVOLO VERDE (FI)",
+    "premio": "€",
+    "iscrizione": "€",
+    "entro": "2026-08-12",
+    "start": "2026-08-12",
+    "end_date": "2026-10-25",
+    "specialita": "",
+    "categorie": "Prima, Seconda, Terza",
+    "separate": "NO",
+    "handicap": "NO",
+    "arbitri": "NO",
+    "locandina": "locandina_non_disponibile.png"
   }
 ]
