@@ -1588,5 +1588,22 @@
     "handicap": "NO",
     "arbitri": "1 su 2",
     "locandina": "locandina_non_disponibile.png"
+  },
+  {
+    "id": 1786526952500,
+    "title": "POULE FINALE REGIONALE COPPIE DI BASE",
+    "className": "coppie-base",
+    "sede": "da stabilire",
+    "premio": "€",
+    "iscrizione": "€",
+    "entro": "",
+    "start": "",
+    "end_date": "2027-05-08",
+    "specialita": "Tutti Doppi a 800 punti",
+    "categorie": "Prima, Seconda, Terza",
+    "separate": "NO",
+    "handicap": "NO",
+    "arbitri": "1 su 2",
+    "locandina": "locandina_non_disponibile.png"
   }
 ]
