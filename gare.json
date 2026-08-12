@@ -1075,21 +1075,21 @@
     "id": 1786454942634
   },
   {
+    "id": 1786454942635,
     "title": "15° MEMORIAL PLUTO",
     "className": "gara-libera",
-    "start": "2025-11-19",
-    "end_date": "2025-12-07",
     "sede": "L'ACCHITO (LU)",
     "premio": "€ 1.500",
     "iscrizione": "€ 35",
     "entro": "2025-11-16",
-    "specialita": "Goriziana a 400 punti (2 set su 3)",
+    "start": "2025-11-19",
+    "end_date": "2025-12-07",
+    "specialita": "Italiana a 80, Tutti Doppi a 500 punti",
     "categorie": "Nazionale / Naz. Pro, Master, Prima, Seconda, Terza",
     "separate": "NO",
     "handicap": "NO",
-    "arbitri": "1 SU 2",
-    "locandina": "https://trello.com/1/cards/690b6aa3d43676fd9756f888/attachments/690b6ab2c0c5332877646225/download/Pluto_2026.jpg",
-    "id": 1786454942635
+    "arbitri": "NO",
+    "locandina": "https://trello.com/1/cards/690b6aa3d43676fd9756f888/attachments/690b6ab2c0c5332877646225/download/Pluto_2026.jpg"
   },
   {
     "title": "2° TROFEO ANDREONI",
