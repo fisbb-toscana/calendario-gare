@@ -1435,5 +1435,22 @@
     "handicap": "NO",
     "arbitri": "NO",
     "locandina": "locandina_non_disponibile.png"
+  },
+  {
+    "id": 1786525603618,
+    "title": "3° TROFEO IL BILIARDO",
+    "className": "gara-libera",
+    "sede": "IL BILIARDO (PI)",
+    "premio": "€ 900",
+    "iscrizione": "€ 30",
+    "entro": "2026-10-16",
+    "start": "2026-10-19",
+    "end_date": "2026-11-15",
+    "specialita": "Tutti Doppi a 800 punti",
+    "categorie": "Master, Prima, Seconda, Terza",
+    "separate": "SI",
+    "handicap": "NO",
+    "arbitri": "NO",
+    "locandina": "locandina_non_disponibile.png"
   }
 ]
