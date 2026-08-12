@@ -1418,5 +1418,22 @@
     "handicap": "NO",
     "arbitri": "NO",
     "locandina": "locandina_non_disponibile.png"
+  },
+  {
+    "id": 1786525218718,
+    "title": "4° MEMORIAL LOTTI (LO SCURO)",
+    "className": "gara-libera",
+    "sede": "PALABILIARDO (FI)",
+    "premio": "€",
+    "iscrizione": "€ 35",
+    "entro": "2026-10-16",
+    "start": "2026-10-19",
+    "end_date": "2026-11-01",
+    "specialita": "Italiana a 80, Goriziana a 300, ev. Tutti Doppi a 500 puntiy",
+    "categorie": "Nazionale / Naz. Pro, Master, Prima, Seconda, Terza",
+    "separate": "NO",
+    "handicap": "NO",
+    "arbitri": "NO",
+    "locandina": "locandina_non_disponibile.png"
   }
 ]
