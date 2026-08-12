@@ -1571,5 +1571,22 @@
     "handicap": "NO",
     "arbitri": "1 su 2",
     "locandina": "locandina_non_disponibile.png"
+  },
+  {
+    "id": 1786526869731,
+    "title": "POULE FINALE SENIORES",
+    "className": "seniores",
+    "sede": "da stabilire",
+    "premio": "€",
+    "iscrizione": "€",
+    "entro": "",
+    "start": "",
+    "end_date": "2027-05-02",
+    "specialita": "Italiana a 80, Goriziana a 300, Tutti Doppi a 500 punti",
+    "categorie": "Nazionale / Naz. Pro, Master, Prima, Seconda, Terza",
+    "separate": "NO",
+    "handicap": "NO",
+    "arbitri": "1 su 2",
+    "locandina": "locandina_non_disponibile.png"
   }
 ]
