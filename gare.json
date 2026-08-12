@@ -1486,5 +1486,22 @@
     "handicap": "NO",
     "arbitri": "SI",
     "locandina": "locandina_non_disponibile.png"
+  },
+  {
+    "id": 1786526208098,
+    "title": "4° MEMORIAL FRANCESCO NUTI",
+    "className": "gara-libera",
+    "sede": "COIANO (PO)",
+    "premio": "€ 2.500",
+    "iscrizione": "€ 35",
+    "entro": "2027-02-05",
+    "start": "2027-02-01",
+    "end_date": "2027-02-28",
+    "specialita": "Italiana a 80, Tutti Doppi a 500 punti",
+    "categorie": "Nazionale / Naz. Pro, Master, Prima, Seconda, Terza",
+    "separate": "NO",
+    "handicap": "NO",
+    "arbitri": "SI",
+    "locandina": "locandina_non_disponibile.png"
   }
 ]
