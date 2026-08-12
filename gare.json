@@ -1367,5 +1367,22 @@
     "handicap": "NO",
     "arbitri": "NO",
     "locandina": ""
+  },
+  {
+    "id": 1786524628545,
+    "title": "4° MEMORIAL LOTTI (LO SCURO)",
+    "className": "gara-libera",
+    "sede": "PALABILIARDO (FI)",
+    "premio": "€ 500",
+    "iscrizione": "€ 30",
+    "entro": "2026-09-27",
+    "start": "2026-09-30",
+    "end_date": "2026-10-17",
+    "specialita": "",
+    "categorie": "Seconda, Terza",
+    "separate": "SI",
+    "handicap": "NO",
+    "arbitri": "NO",
+    "locandina": "locandina_non_disponibile.png"
   }
 ]
