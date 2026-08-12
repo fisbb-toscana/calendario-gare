@@ -17,6 +17,7 @@
     "locandina": "locandina_non_disponibile.png"
   },
   {
+    "id": 1786454942571,
     "title": "4° MEMORIAL LEONE",
     "className": "gara-libera",
     "start": "2025-09-14",
@@ -30,10 +31,10 @@
     "separate": "SI",
     "handicap": "NO",
     "arbitri": "NO",
-    "locandina": "locandina_non_disponibile.png",
-    "id": 1786454942571
+    "locandina": "locandina_non_disponibile.png"
   },
   {
+    "id": 1786454942572,
     "title": "1^ Prova National Billiard CHALLENGE - ARCO (TN)",
     "className": "nbc",
     "start": "2026-10-17",
@@ -46,10 +47,10 @@
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "SI",
-    "locandina": "locandina_non_disponibile",
-    "id": 1786454942572
+    "locandina": "locandina_non_disponibile"
   },
   {
+    "id": 1786454942573,
     "title": "46° GRAN PREMIO GORIZIANA di SAINT-VINCENT",
     "className": "nbc",
     "start": "2026-11-14",
@@ -62,10 +63,10 @@
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "SI",
-    "locandina": "locandina_non_disponibile",
-    "id": 1786454942573
+    "locandina": "locandina_non_disponibile"
   },
   {
+    "id": 1786454942574,
     "title": "3^ Prova NBC - National Billiard Challenge - Sanremo (IM)",
     "className": "nbc",
     "start": "2027-01-09",
@@ -78,10 +79,10 @@
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "SI",
-    "locandina": "locandina_non_disponibile",
-    "id": 1786454942574
+    "locandina": "locandina_non_disponibile"
   },
   {
+    "id": 1786454942575,
     "title": "4^ Prova NBC - National Billiard Challenge - Montecatini (PT)",
     "className": "nbc",
     "start": "2027-02-27",
@@ -94,10 +95,10 @@
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "SI",
-    "locandina": "locandina_non_disponibile",
-    "id": 1786454942575
+    "locandina": "locandina_non_disponibile"
   },
   {
+    "id": 1786454942576,
     "title": "5^ Prova NBC - National Billiard Challenge - Montesilvano (PE)",
     "className": "nbc",
     "start": "2027-04-03",
@@ -110,10 +111,10 @@
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "SI",
-    "locandina": "locandina_non_disponibile",
-    "id": 1786454942576
+    "locandina": "locandina_non_disponibile"
   },
   {
+    "id": 1786454942577,
     "title": "6^ Prova NBC - National Billiard Challenge - Lombardia",
     "className": "nbc",
     "start": "2027-05-08",
@@ -126,10 +127,10 @@
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "SI",
-    "locandina": "locandina_non_disponibile",
-    "id": 1786454942577
+    "locandina": "locandina_non_disponibile"
   },
   {
+    "id": 1786454942578,
     "title": "1° PROVA di QUALIFICAZIONE ai CAMPIONATI ITALIANI",
     "className": "istituzionale",
     "start": "2026-10-05",
@@ -142,11 +143,11 @@
     "categorie": "Prima, Seconda, Terza",
     "separate": "NO",
     "handicap": "NO",
-    "arbitri": "1 SU 2",
-    "locandina": "locandina_non_disponibile.png",
-    "id": 1786454942578
+    "arbitri": "1 su 2",
+    "locandina": "locandina_non_disponibile.png"
   },
   {
+    "id": 1786454942579,
     "title": "2° PROVA di QUALIFICAZIONE ai CAMPIONATI ITALIANI",
     "className": "istituzionale",
     "start": "2026-11-02",
@@ -159,11 +160,11 @@
     "categorie": "Prima, Seconda, Terza",
     "separate": "NO",
     "handicap": "NO",
-    "arbitri": "1 SU 2",
-    "locandina": "locandina_non_disponibile.png",
-    "id": 1786454942579
+    "arbitri": "1 su 2",
+    "locandina": "locandina_non_disponibile.png"
   },
   {
+    "id": 1786454942580,
     "title": "3° PROVA di QUALIFICAZIONE ai CAMPIONATI ITALIANI",
     "className": "istituzionale",
     "start": "2027-01-25",
@@ -176,11 +177,11 @@
     "categorie": "Prima, Seconda, Terza",
     "separate": "NO",
     "handicap": "NO",
-    "arbitri": "1 SU 2",
-    "locandina": "locandina_non_disponibile.png",
-    "id": 1786454942580
+    "arbitri": "1 su 2",
+    "locandina": "locandina_non_disponibile.png"
   },
   {
+    "id": 1786454942581,
     "title": "4° PROVA di QUALIFICAZIONE ai CAMPIONATI ITALIANI",
     "className": "istituzionale",
     "start": "2027-02-15",
@@ -193,11 +194,11 @@
     "categorie": "Prima, Seconda, Terza",
     "separate": "NO",
     "handicap": "NO",
-    "arbitri": "1 SU 2",
-    "locandina": "locandina_non_disponibile.png",
-    "id": 1786454942581
+    "arbitri": "1 su 2",
+    "locandina": "locandina_non_disponibile.png"
   },
   {
+    "id": 1786454942582,
     "title": "5° PROVA di QUALIFICAZIONE ai CAMPIONATI ITALIANI",
     "className": "istituzionale",
     "start": "2027-03-15",
@@ -210,11 +211,11 @@
     "categorie": "Prima, Seconda, Terza",
     "separate": "NO",
     "handicap": "NO",
-    "arbitri": "1 SU 2",
-    "locandina": "locandina_non_disponibile.png",
-    "id": 1786454942582
+    "arbitri": "1 su 2",
+    "locandina": "locandina_non_disponibile.png"
   },
   {
+    "id": 1786454942583,
     "title": "1° PROVA di QUALIFICAZIONE ai CAMPIONATI ITALIANI a COPPIE di BASE",
     "className": "coppie-base",
     "start": "2026-10-03",
@@ -227,11 +228,11 @@
     "categorie": "Prima, Seconda, Terza",
     "separate": "NO",
     "handicap": "SI",
-    "arbitri": "1 SU 2",
-    "locandina": "locandina_non_disponibile.png",
-    "id": 1786454942583
+    "arbitri": "1 su 2",
+    "locandina": "locandina_non_disponibile.png"
   },
   {
+    "id": 1786454942584,
     "title": "2° PROVA di QUALIFICAZIONE ai CAMPIONATI ITALIANI a COPPIE di BASE",
     "className": "coppie-base",
     "start": "2026-10-31",
@@ -244,11 +245,11 @@
     "categorie": "Prima, Seconda, Terza",
     "separate": "NO",
     "handicap": "SI",
-    "arbitri": "1 SU 2",
-    "locandina": "locandina_non_disponibile.png",
-    "id": 1786454942584
+    "arbitri": "1 su 2",
+    "locandina": "locandina_non_disponibile.png"
   },
   {
+    "id": 1786454942585,
     "title": "3° PROVA di QUALIFICAZIONE ai CAMPIONATI ITALIANI a COPPIE di BASE",
     "className": "coppie-base",
     "start": "2027-01-23",
@@ -261,11 +262,11 @@
     "categorie": "Prima, Seconda, Terza",
     "separate": "NO",
     "handicap": "SI",
-    "arbitri": "1 SU 2",
-    "locandina": "locandina_non_disponibile.png",
-    "id": 1786454942585
+    "arbitri": "1 su 2",
+    "locandina": "locandina_non_disponibile.png"
   },
   {
+    "id": 1786454942586,
     "title": "4° PROVA di QUALIFICAZIONE ai CAMPIONATI ITALIANI a COPPIE di BASE",
     "className": "coppie-base",
     "start": "2027-02-13",
@@ -278,11 +279,11 @@
     "categorie": "Prima, Seconda, Terza",
     "separate": "NO",
     "handicap": "SI",
-    "arbitri": "1 SU 2",
-    "locandina": "locandina_non_disponibile.png",
-    "id": 1786454942586
+    "arbitri": "1 su 2",
+    "locandina": "locandina_non_disponibile.png"
   },
   {
+    "id": 1786454942587,
     "title": "5° PROVA di QUALIFICAZIONE ai CAMPIONATI ITALIANI a COPPIE di BASE",
     "className": "coppie-base",
     "start": "2027-03-13",
@@ -295,11 +296,11 @@
     "categorie": "Prima, Seconda, Terza",
     "separate": "NO",
     "handicap": "SI",
-    "arbitri": "1 SU 2",
-    "locandina": "locandina_non_disponibile.png",
-    "id": 1786454942587
+    "arbitri": "1 su 2",
+    "locandina": "locandina_non_disponibile.png"
   },
   {
+    "id": 1786454942588,
     "title": "1° PROVA di QUALIFICAZIONE ai CAMPIONATI ITALIANI Seniores",
     "className": "seniores",
     "start": "2026-12-19",
@@ -312,11 +313,11 @@
     "categorie": "Nazionale / Naz. Pro, Master, Prima, Seconda, Terza",
     "separate": "NO",
     "handicap": "SI",
-    "arbitri": "1 SU 2",
-    "locandina": "locandina_non_disponibile.png",
-    "id": 1786454942588
+    "arbitri": "1 su 2",
+    "locandina": "locandina_non_disponibile.png"
   },
   {
+    "id": 1786454942589,
     "title": "2° PROVA di QUALIFICAZIONE ai CAMPIONATI ITALIANI Seniores",
     "className": "seniores",
     "start": "2027-02-06",
@@ -329,11 +330,11 @@
     "categorie": "Nazionale / Naz. Pro, Master, Prima, Seconda, Terza",
     "separate": "NO",
     "handicap": "SI",
-    "arbitri": "1 SU 2",
-    "locandina": "locandina_non_disponibile.png",
-    "id": 1786454942589
+    "arbitri": "1 su 2",
+    "locandina": "locandina_non_disponibile.png"
   },
   {
+    "id": 1786454942590,
     "title": "3° PROVA di QUALIFICAZIONE ai CAMPIONATI ITALIANI Seniores",
     "className": "seniores",
     "start": "2027-04-17",
@@ -346,11 +347,11 @@
     "categorie": "Nazionale / Naz. Pro, Master, Prima, Seconda, Terza",
     "separate": "NO",
     "handicap": "SI",
-    "arbitri": "1 SU 2",
-    "locandina": "locandina_non_disponibile",
-    "id": 1786454942590
+    "arbitri": "1 su 2",
+    "locandina": "locandina_non_disponibile"
   },
   {
+    "id": 1786454942591,
     "title": "1° PROVA del CAMPIONATO REGIONALE FEMMINILE",
     "className": "femminile",
     "start": "2026-12-19",
@@ -363,11 +364,11 @@
     "categorie": "Seconda, Terza",
     "separate": "NO",
     "handicap": "NO",
-    "arbitri": "1 SU 2",
-    "locandina": "locandina_non_disponibile.png",
-    "id": 1786454942591
+    "arbitri": "1 su 2",
+    "locandina": "locandina_non_disponibile.png"
   },
   {
+    "id": 1786454942592,
     "title": "2° PROVA del CAMPIONATO REGIONALE FEMMINILE",
     "className": "femminile",
     "start": "2027-01-23",
@@ -380,11 +381,11 @@
     "categorie": "Seconda, Terza",
     "separate": "NO",
     "handicap": "NO",
-    "arbitri": "1 SU 2",
-    "locandina": "locandina_non_disponibile.png",
-    "id": 1786454942592
+    "arbitri": "1 su 2",
+    "locandina": "locandina_non_disponibile.png"
   },
   {
+    "id": 1786454942593,
     "title": "3° PROVA del CAMPIONATO REGIONALE FEMMINILE",
     "className": "femminile",
     "start": "2027-04-17",
@@ -397,11 +398,11 @@
     "categorie": "Seconda, Terza",
     "separate": "NO",
     "handicap": "NO",
-    "arbitri": "1 SU 2",
-    "locandina": "locandina_non_disponibile.png",
-    "id": 1786454942593
+    "arbitri": "1 su 2",
+    "locandina": "locandina_non_disponibile.png"
   },
   {
+    "id": 1786454942594,
     "title": "4° TROFEO PALABILIARDO 'SUMMER 2026'",
     "className": "gara-libera",
     "start": "2026-07-21",
@@ -415,10 +416,10 @@
     "separate": "NO",
     "handicap": "SI",
     "arbitri": "NO",
-    "locandina": "https://trello.com/1/cards/6a4abcdfd1142db255fac2be/attachments/6a4abcf029223333455f16f9/download/summer_2026.jpg",
-    "id": 1786454942594
+    "locandina": "https://trello.com/1/cards/6a4abcdfd1142db255fac2be/attachments/6a4abcf029223333455f16f9/download/summer_2026.jpg"
   },
   {
+    "id": 1786454942595,
     "title": "10° TORNEO a COPPIE - LONDA",
     "className": "gara-libera",
     "start": "2026-07-08",
@@ -432,10 +433,10 @@
     "separate": "NO",
     "handicap": "SI",
     "arbitri": "SI",
-    "locandina": "https://trello.com/1/cards/6a32d443140bdfc68e715dfe/attachments/6a32d45b689d3cbf84b01c8f/download/londa_2026.jpg",
-    "id": 1786454942595
+    "locandina": "https://trello.com/1/cards/6a32d443140bdfc68e715dfe/attachments/6a32d45b689d3cbf84b01c8f/download/londa_2026.jpg"
   },
   {
+    "id": 1786454942596,
     "title": "4° MEMORIAL BORSINA",
     "className": "gara-libera",
     "start": "2026-06-01",
@@ -449,10 +450,10 @@
     "separate": "SI",
     "handicap": "SI",
     "arbitri": "NO",
-    "locandina": "https://trello.com/1/cards/6a0d7dd98ef9fc9e2eddb4eb/attachments/6a0f4a86e863ce7660bdb587/download/Memorial_Borsini_2026.jpg",
-    "id": 1786454942596
+    "locandina": "https://trello.com/1/cards/6a0d7dd98ef9fc9e2eddb4eb/attachments/6a0f4a86e863ce7660bdb587/download/Memorial_Borsini_2026.jpg"
   },
   {
+    "id": 1786454942597,
     "title": "1° TROFEO LION BILIARDO AGNORELLI",
     "className": "gara-libera",
     "start": "2026-05-25",
@@ -466,10 +467,10 @@
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "NO",
-    "locandina": "https://trello.com/1/cards/6a06d047bfab42dd728b6a1d/attachments/6a08e4328e7c0d1118968d05/download/agnorelli_2026.jpg",
-    "id": 1786454942597
+    "locandina": "https://trello.com/1/cards/6a06d047bfab42dd728b6a1d/attachments/6a08e4328e7c0d1118968d05/download/agnorelli_2026.jpg"
   },
   {
+    "id": 1786454942598,
     "title": "1° TROFEO COVERCIANO",
     "className": "gara-libera",
     "start": "2026-05-11",
@@ -483,10 +484,10 @@
     "separate": "SI",
     "handicap": "SI",
     "arbitri": "NO",
-    "locandina": "https://trello.com/1/cards/69f5c376ebb1699eaa5602da/attachments/69f76777bd5260ab1d3b50ba/download/Palabiliardo_2026__3.jpg",
-    "id": 1786454942598
+    "locandina": "https://trello.com/1/cards/69f5c376ebb1699eaa5602da/attachments/69f76777bd5260ab1d3b50ba/download/Palabiliardo_2026__3.jpg"
   },
   {
+    "id": 1786454942599,
     "title": "7° TROFEO AMICI DEL BILIARDO",
     "className": "gara-libera",
     "start": "2026-05-04",
@@ -500,10 +501,10 @@
     "separate": "SI",
     "handicap": "NO",
     "arbitri": "SI",
-    "locandina": "https://trello.com/1/cards/69ee750973b221df77ad564d/attachments/69ee751c01e96026952d4a5d/download/amici_biliardo_2026_bis.jpg",
-    "id": 1786454942599
+    "locandina": "https://trello.com/1/cards/69ee750973b221df77ad564d/attachments/69ee751c01e96026952d4a5d/download/amici_biliardo_2026_bis.jpg"
   },
   {
+    "id": 1786454942600,
     "title": "POULE FINALE REGIONALE MASTER 2026",
     "className": "istituzionale",
     "start": "2026-05-31",
@@ -514,9 +515,10 @@
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "SI",
-    "id": 1786454942600
+    "locandina": "locandina_non_disponibile.png"
   },
   {
+    "id": 1786454942601,
     "title": "CAMPIONATO REGIONALE FEMMINILE 2026",
     "className": "femminile",
     "start": "2026-05-31",
@@ -527,9 +529,10 @@
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "SI",
-    "id": 1786454942601
+    "locandina": "locandina_non_disponibile.png"
   },
   {
+    "id": 1786454942602,
     "title": "POULE FINALE REGIONALE COPPIE 2026",
     "className": "coppie-base",
     "start": "2026-05-23",
@@ -540,9 +543,10 @@
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "SI",
-    "id": 1786454942602
+    "locandina": "locandina_non_disponibile.png"
   },
   {
+    "id": 1786454942603,
     "title": "POULE FINALE REGIONALE SENIORES 2026",
     "className": "seniores",
     "start": "2026-05-30",
@@ -553,9 +557,10 @@
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "SI",
-    "id": 1786454942603
+    "locandina": "locandina_non_disponibile.png"
   },
   {
+    "id": 1786454942604,
     "title": "POULE FINALI REGIONALI 2026",
     "className": "istituzionale",
     "start": "2026-04-19",
@@ -566,9 +571,10 @@
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "SI",
-    "id": 1786454942604
+    "locandina": "locandina_non_disponibile.png"
   },
   {
+    "id": 1786454942605,
     "title": "3° PROVA di QUALIFICAZIONE ai CAMPIONATI ITALIANI Seniores",
     "className": "seniores",
     "start": "2026-05-12",
@@ -581,11 +587,11 @@
     "categorie": "Nazionale / Naz. Pro, Master, Prima, Seconda, Terza",
     "separate": "NO",
     "handicap": "SI",
-    "arbitri": "1 SU 2",
-    "locandina": "https://trello.com/1/cards/6a75945a819772cd40e705d6/attachments/6a7594c4e5fb8e7ecc3f48ce/download/DOC00091018009000001.jpg",
-    "id": 1786454942605
+    "arbitri": "1 su 2",
+    "locandina": "https://trello.com/1/cards/6a75945a819772cd40e705d6/attachments/6a7594c4e5fb8e7ecc3f48ce/download/DOC00091018009000001.jpg"
   },
   {
+    "id": 1786454942606,
     "title": "2° PROVA di QUALIFICAZIONE ai CAMPIONATI ITALIANI Seniores",
     "className": "seniores",
     "start": "2026-04-21",
@@ -598,11 +604,11 @@
     "categorie": "Nazionale / Naz. Pro, Master, Prima, Seconda, Terza",
     "separate": "NO",
     "handicap": "SI",
-    "arbitri": "1 SU 2",
-    "locandina": "https://trello.com/1/cards/6a7594292e81274d75d4677c/attachments/6a75942e4d9cdef738f87068/download/DOC00091010409000001.jpg",
-    "id": 1786454942606
+    "arbitri": "1 su 2",
+    "locandina": "https://trello.com/1/cards/6a7594292e81274d75d4677c/attachments/6a75942e4d9cdef738f87068/download/DOC00091010409000001.jpg"
   },
   {
+    "id": 1786454942607,
     "title": "5° PROVA di QUALIFICAZIONE ai CAMPIONATI ITALIANI a COPPIE di BASE",
     "className": "coppie-base",
     "start": "2026-05-04",
@@ -615,11 +621,11 @@
     "categorie": "Prima, Seconda, Terza",
     "separate": "NO",
     "handicap": "SI",
-    "arbitri": "1 SU 2",
-    "locandina": "https://trello.com/1/cards/6a75935facc5f3c2470cdffe/attachments/6a759362489638d97f1a48a0/download/DOC00091013709000001.jpg",
-    "id": 1786454942607
+    "arbitri": "1 su 2",
+    "locandina": "https://trello.com/1/cards/6a75935facc5f3c2470cdffe/attachments/6a759362489638d97f1a48a0/download/DOC00091013709000001.jpg"
   },
   {
+    "id": 1786454942608,
     "title": "6^ Prova NBC - National Billiard Challenge - Schio (VI)",
     "className": "nbc",
     "start": "2026-05-09",
@@ -633,10 +639,10 @@
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "SI",
-    "locandina": "https://trello.com/1/cards/6a75912f2247ac374296374b/attachments/6a759133abee3744294204c9/download/DOC00091008709000001.jpg",
-    "id": 1786454942608
+    "locandina": "https://trello.com/1/cards/6a75912f2247ac374296374b/attachments/6a759133abee3744294204c9/download/DOC00091008709000001.jpg"
   },
   {
+    "id": 1786454942609,
     "title": "2° TROFEO IL BILIARDO",
     "className": "gara-libera",
     "start": "2026-04-07",
@@ -650,10 +656,10 @@
     "separate": "SI",
     "handicap": "NO",
     "arbitri": "NO",
-    "locandina": "https://trello.com/1/cards/69c156ec8c4b1e4e75c36bab/attachments/69c408429caa198939bca97e/download/Il_Biliardo.jpg",
-    "id": 1786454942609
+    "locandina": "https://trello.com/1/cards/69c156ec8c4b1e4e75c36bab/attachments/69c408429caa198939bca97e/download/Il_Biliardo.jpg"
   },
   {
+    "id": 1786454942610,
     "title": "4° PROVA di QUALIFICAZIONE ai CAMPIONATI ITALIANI a COPPIE di BASE",
     "className": "coppie-base",
     "start": "2026-03-31",
@@ -666,11 +672,11 @@
     "categorie": "Prima, Seconda, Terza",
     "separate": "NO",
     "handicap": "SI",
-    "arbitri": "1 SU 2",
-    "locandina": "https://trello.com/1/cards/69c15a4348ba55a65ac756ea/attachments/69c15a5fa56e3ddde1f455af/download/Selezioni_04_coppie.jpg",
-    "id": 1786454942610
+    "arbitri": "1 su 2",
+    "locandina": "https://trello.com/1/cards/69c15a4348ba55a65ac756ea/attachments/69c15a5fa56e3ddde1f455af/download/Selezioni_04_coppie.jpg"
   },
   {
+    "id": 1786454942611,
     "title": "CAMPIONATI ITALIANI 2026",
     "className": "istituzionale",
     "start": "2026-06-20",
@@ -680,10 +686,10 @@
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "SI",
-    "locandina": "https://trello.com/1/cards/6a758ccb41b39af6a6fd1a8b/attachments/6a758d032efb71b0cc14d38f/download/Campionati_italiani_2026.jpg",
-    "id": 1786454942611
+    "locandina": "https://trello.com/1/cards/6a758ccb41b39af6a6fd1a8b/attachments/6a758d032efb71b0cc14d38f/download/Campionati_italiani_2026.jpg"
   },
   {
+    "id": 1786454942612,
     "title": "1° MEMORIAL MENICHINI",
     "className": "gara-libera",
     "start": "2026-03-30",
@@ -697,10 +703,10 @@
     "separate": "SI",
     "handicap": "NO",
     "arbitri": "NO",
-    "locandina": "https://trello.com/1/cards/69b6c78e80902aee2d7e8816/attachments/69b8523955a1c8a8aacb0885/download/Alberghi_2026.jpg",
-    "id": 1786454942612
+    "locandina": "https://trello.com/1/cards/69b6c78e80902aee2d7e8816/attachments/69b8523955a1c8a8aacb0885/download/Alberghi_2026.jpg"
   },
   {
+    "id": 1786454942613,
     "title": "1° MEMORIAL NICOLA CAPANO - 8° TROFEO MAXIM",
     "className": "gara-libera",
     "start": "2026-04-13",
@@ -713,11 +719,11 @@
     "categorie": "Nazionale / Naz. Pro, Master, Prima, Seconda, Terza",
     "separate": "NO",
     "handicap": "NO",
-    "arbitri": "1 SU 2",
-    "locandina": "https://trello.com/1/cards/69b7affff5efdd8d45295bb2/attachments/69bce49225d48ade773e057c/download/maxim_2026.jpg",
-    "id": 1786454942613
+    "arbitri": "1 su 2",
+    "locandina": "https://trello.com/1/cards/69b7affff5efdd8d45295bb2/attachments/69bce49225d48ade773e057c/download/maxim_2026.jpg"
   },
   {
+    "id": 1786454942614,
     "title": "4° TROFEO PALABILIARDO",
     "className": "gara-libera",
     "start": "2026-03-30",
@@ -731,10 +737,10 @@
     "separate": "NO",
     "handicap": "SI",
     "arbitri": "NO",
-    "locandina": "https://trello.com/1/cards/69a9fabfb029bc4114c92eda/attachments/69ac377e9d6c87994cf75e6e/download/Palabiliardo_2026_2.jpg",
-    "id": 1786454942614
+    "locandina": "https://trello.com/1/cards/69a9fabfb029bc4114c92eda/attachments/69ac377e9d6c87994cf75e6e/download/Palabiliardo_2026_2.jpg"
   },
   {
+    "id": 1786454942615,
     "title": "4° PROVA di QUALIFICAZIONE ai CAMPIONATI ITALIANI",
     "className": "istituzionale",
     "start": "2026-03-16",
@@ -747,11 +753,11 @@
     "categorie": "Prima, Seconda, Terza",
     "separate": "NO",
     "handicap": "NO",
-    "arbitri": "1 SU 2",
-    "locandina": "https://trello.com/1/cards/69a6e8700427d15a813c387b/attachments/69a766a1ee6db9f7291cdd2b/download/Selezioni_05.jpg",
-    "id": 1786454942615
+    "arbitri": "1 su 2",
+    "locandina": "https://trello.com/1/cards/69a6e8700427d15a813c387b/attachments/69a766a1ee6db9f7291cdd2b/download/Selezioni_05.jpg"
   },
   {
+    "id": 1786454942616,
     "title": "5^ Prova NBC - National Billiard Challenge - Montesilvano (PE)",
     "className": "nbc",
     "start": "2026-04-11",
@@ -765,10 +771,10 @@
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "SI",
-    "locandina": "https://trello.com/1/cards/6a758aa44e2bf7e557fb5f38/attachments/6a758aa9839bec4bbf759a74/download/DOC0009989809000001.jpg",
-    "id": 1786454942616
+    "locandina": "https://trello.com/1/cards/6a758aa44e2bf7e557fb5f38/attachments/6a758aa9839bec4bbf759a74/download/DOC0009989809000001.jpg"
   },
   {
+    "id": 1786454942617,
     "title": "3° PROVA di QUALIFICAZIONE ai CAMPIONATI ITALIANI a COPPIE di BASE",
     "className": "coppie-base",
     "start": "2026-03-04",
@@ -781,11 +787,11 @@
     "categorie": "Prima, Seconda, Terza",
     "separate": "NO",
     "handicap": "SI",
-    "arbitri": "1 SU 2",
-    "locandina": "https://trello.com/1/cards/6a7589dda04c71b2751c0c20/attachments/6a7589e27992b5e3840a3cf4/download/DOC0009987209000001.jpg",
-    "id": 1786454942617
+    "arbitri": "1 su 2",
+    "locandina": "https://trello.com/1/cards/6a7589dda04c71b2751c0c20/attachments/6a7589e27992b5e3840a3cf4/download/DOC0009987209000001.jpg"
   },
   {
+    "id": 1786454942618,
     "title": "3° MEMORIAL PAOLO MEI",
     "className": "gara-libera",
     "start": "2026-03-30",
@@ -799,10 +805,10 @@
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "SI",
-    "locandina": "https://trello.com/1/cards/6996ac5c6d95bf21a8d3f195/attachments/6996ac8eb7f49f67bf65982d/download/tavolo_verde_2026.jpg",
-    "id": 1786454942618
+    "locandina": "https://trello.com/1/cards/6996ac5c6d95bf21a8d3f195/attachments/6996ac8eb7f49f67bf65982d/download/tavolo_verde_2026.jpg"
   },
   {
+    "id": 1786454942619,
     "title": "3° MEMORIAL FRANCESCO NUTI",
     "className": "gara-libera",
     "start": "2026-03-30",
@@ -816,10 +822,10 @@
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "SI",
-    "locandina": "https://trello.com/1/cards/69981bf6e44d37dee2e0a816/attachments/6999a4e51b5e04e6fab52d8c/download/memorial_nuti_2026.jpg",
-    "id": 1786454942619
+    "locandina": "https://trello.com/1/cards/69981bf6e44d37dee2e0a816/attachments/6999a4e51b5e04e6fab52d8c/download/memorial_nuti_2026.jpg"
   },
   {
+    "id": 1786454942620,
     "title": "TROFEO ACCADEMIA BILIARDO PONTEDERA",
     "className": "gara-libera",
     "start": "2026-02-16",
@@ -833,10 +839,10 @@
     "separate": "SI",
     "handicap": "SI",
     "arbitri": "NO",
-    "locandina": "https://trello.com/1/cards/698106b211aaa3ffddac5f26/attachments/698106c422a3fa3679b00468/download/Pontedera_2026bis.jpg",
-    "id": 1786454942620
+    "locandina": "https://trello.com/1/cards/698106b211aaa3ffddac5f26/attachments/698106c422a3fa3679b00468/download/Pontedera_2026bis.jpg"
   },
   {
+    "id": 1786454942621,
     "title": "4° PROVA di QUALIFICAZIONE ai CAMPIONATI ITALIANI",
     "className": "istituzionale",
     "start": "2026-02-09",
@@ -849,11 +855,11 @@
     "categorie": "Prima, Seconda, Terza",
     "separate": "NO",
     "handicap": "NO",
-    "arbitri": "1 SU 2",
-    "locandina": "https://trello.com/1/cards/69793d8ac4b8c39f6f0f28f1/attachments/69799e6e659f752548e81452/download/Selezioni_04_2026.jpg",
-    "id": 1786454942621
+    "arbitri": "1 su 2",
+    "locandina": "https://trello.com/1/cards/69793d8ac4b8c39f6f0f28f1/attachments/69799e6e659f752548e81452/download/Selezioni_04_2026.jpg"
   },
   {
+    "id": 1786454942622,
     "title": "4^ Prova NBC - National Billiard Challenge - MADDALONI (CE)",
     "className": "nbc",
     "start": "2026-02-21",
@@ -867,10 +873,10 @@
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "SI",
-    "locandina": "https://trello.com/1/cards/6a7586ca95115497a3adb9a0/attachments/6a7586d08c792666a8dcddc0/download/DOC0009959109000001.jpg",
-    "id": 1786454942622
+    "locandina": "https://trello.com/1/cards/6a7586ca95115497a3adb9a0/attachments/6a7586d08c792666a8dcddc0/download/DOC0009959109000001.jpg"
   },
   {
+    "id": 1786454942623,
     "title": "1° PROVA CAMPIONATO REGIONALE FEMMINILE",
     "className": "femminile",
     "start": "2026-02-07",
@@ -883,11 +889,11 @@
     "categorie": "Seconda, Terza",
     "separate": "NO",
     "handicap": "NO",
-    "arbitri": "1 SU 2",
-    "locandina": "https://trello.com/1/cards/697a83a08a2d827b5b146732/attachments/697a83b853f09d76705408ed/download/donne_2025_2026.jpg",
-    "id": 1786454942623
+    "arbitri": "1 su 2",
+    "locandina": "https://trello.com/1/cards/697a83a08a2d827b5b146732/attachments/697a83b853f09d76705408ed/download/donne_2025_2026.jpg"
   },
   {
+    "id": 1786454942624
     "title": "1° PROVA di QUALIFICAZIONE ai CAMPIONATI ITALIANI Seniores",
     "className": "seniores",
     "start": "2026-02-02",
@@ -900,11 +906,11 @@
     "categorie": "Nazionale / Naz. Pro, Master, Prima, Seconda, Terza",
     "separate": "NO",
     "handicap": "SI",
-    "arbitri": "1 SU 2",
-    "locandina": "https://trello.com/1/cards/6968ed2208d1784a82b1398f/attachments/6968eeb36d41549c59c21f5f/download/Selezioni_01_seniores.jpg",
-    "id": 1786454942624
+    "arbitri": "1 su 2",
+    "locandina": "https://trello.com/1/cards/6968ed2208d1784a82b1398f/attachments/6968eeb36d41549c59c21f5f/download/Selezioni_01_seniores.jpg"
   },
   {
+    "id": 1786454942625,
     "title": "3° MEMORIAL PIERINO MARINI",
     "className": "gara-libera",
     "start": "2026-04-27",
@@ -918,10 +924,10 @@
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "SI",
-    "locandina": "https://trello.com/1/cards/6960f620d200c1a6bd4440aa/attachments/6993ad54f07b4cf6c924414a/download/Memorial_Marini_2026.jpg",
-    "id": 1786454942625
+    "locandina": "https://trello.com/1/cards/6960f620d200c1a6bd4440aa/attachments/6993ad54f07b4cf6c924414a/download/Memorial_Marini_2026.jpg"
   },
   {
+    "id": 1786454942626,
     "title": "3° PROVA di QUALIFICAZIONE ai CAMPIONATI ITALIANI",
     "className": "istituzionale",
     "start": "2026-01-12",
@@ -934,11 +940,11 @@
     "categorie": "Prima, Seconda, Terza",
     "separate": "NO",
     "handicap": "NO",
-    "arbitri": "1 SU 2",
-    "locandina": "https://trello.com/1/cards/694efb0510aa4ee30677d38d/attachments/69501ed0568a8c8a8b2e0339/download/Selezioni_03.jpg",
-    "id": 1786454942626
+    "arbitri": "1 su 2",
+    "locandina": "https://trello.com/1/cards/694efb0510aa4ee30677d38d/attachments/69501ed0568a8c8a8b2e0339/download/Selezioni_03.jpg"
   },
   {
+    "id": 1786454942627,
     "title": "TROFEO BAR LUCIANA",
     "className": "gara-libera",
     "start": "2026-01-07",
@@ -951,11 +957,11 @@
     "categorie": "Master, Prima, Seconda, Terza",
     "separate": "SI",
     "handicap": "SI",
-    "arbitri": "1 SU 2",
-    "locandina": "https://trello.com/1/cards/694e605c6b37db2e09c4ecaa/attachments/694e60a718c4cef8949c9b50/download/Bar_Luciana_2026.jpg",
-    "id": 1786454942627
+    "arbitri": "1 su 2",
+    "locandina": "https://trello.com/1/cards/694e605c6b37db2e09c4ecaa/attachments/694e60a718c4cef8949c9b50/download/Bar_Luciana_2026.jpg"
   },
   {
+    "id": 1786454942628,
     "title": "2° PROVA di QUALIFICAZIONE ai CAMPIONATI ITALIANI a COPPIE di BASE",
     "className": "coppie-base",
     "start": "2026-01-02",
@@ -968,11 +974,11 @@
     "categorie": "Prima, Seconda, Terza",
     "separate": "NO",
     "handicap": "SI",
-    "arbitri": "1 SU 2",
-    "locandina": "https://trello.com/1/cards/6943cec82ac82a1fcef4f200/attachments/6943cede7d506d001e2bfecf/download/Selezioni_02_coppie.jpg",
-    "id": 1786454942628
+    "arbitri": "1 su 2",
+    "locandina": "https://trello.com/1/cards/6943cec82ac82a1fcef4f200/attachments/6943cede7d506d001e2bfecf/download/Selezioni_02_coppie.jpg"
   },
   {
+    "id": 1786454942629,
     "title": "14° TROFEO CARRARESI",
     "className": "gara-libera",
     "start": "2026-02-16",
@@ -986,10 +992,10 @@
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "SI",
-    "locandina": "https://trello.com/1/cards/69578d3044901bd23dca13ef/attachments/695ea509cdf22ae93bebc33d/download/carraresi_2026.jpg",
-    "id": 1786454942629
+    "locandina": "https://trello.com/1/cards/69578d3044901bd23dca13ef/attachments/695ea509cdf22ae93bebc33d/download/carraresi_2026.jpg"
   },
   {
+    "id": 1786454942630,
     "title": "3^ Prova NBC - National Billiard Challenge - CALTANISSETTA (CL)",
     "className": "nbc",
     "start": "2026-01-24",
@@ -1003,10 +1009,10 @@
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "SI",
-    "locandina": "https://trello.com/1/cards/6a7489903f603288acf0509d/attachments/6a7489959fb532ab88db8b76/download/DOC0009927809000001-images-0.jpg",
-    "id": 1786454942630
+    "locandina": "https://trello.com/1/cards/6a7489903f603288acf0509d/attachments/6a7489959fb532ab88db8b76/download/DOC0009927809000001-images-0.jpg"
   },
   {
+    "id": 1786454942631,
     "title": "3° TROFEO AMICI DI SAN MARTINO",
     "className": "gara-libera",
     "start": "2025-12-15",
@@ -1020,10 +1026,10 @@
     "separate": "SI",
     "handicap": "SI",
     "arbitri": "NO",
-    "locandina": "https://trello.com/1/cards/69284c4d5da09292aba2410e/attachments/692f5e50dff2d5d666e9cbf2/download/San_Martino_Ulmiano_2026.jpg",
-    "id": 1786454942631
+    "locandina": "https://trello.com/1/cards/69284c4d5da09292aba2410e/attachments/692f5e50dff2d5d666e9cbf2/download/San_Martino_Ulmiano_2026.jpg"
   },
   {
+    "id": 1786454942632,
     "title": "2° TROFEO LA GARUFFA 'MEMORIAL SILVANO BRACCINI'",
     "className": "gara-libera",
     "start": "2025-12-01",
@@ -1037,10 +1043,10 @@
     "separate": "SI",
     "handicap": "SI",
     "arbitri": "NO",
-    "locandina": "https://trello.com/1/cards/69135e9f6626a4b47a02709f/attachments/6918c012b5eab22c1d98746c/download/Garuffa_2025_2026.jpg",
-    "id": 1786454942632
+    "locandina": "https://trello.com/1/cards/69135e9f6626a4b47a02709f/attachments/6918c012b5eab22c1d98746c/download/Garuffa_2025_2026.jpg"
   },
   {
+    "id": 1786454942633,
     "title": "1° TROFEO JOHNNY CLUB",
     "className": "gara-libera",
     "start": "2025-12-01",
@@ -1054,10 +1060,10 @@
     "separate": "SI",
     "handicap": "NO",
     "arbitri": "NO",
-    "locandina": "https://trello.com/1/cards/69135b0b45edc07a2ac18967/attachments/69166309bc2762e8aa5efd44/download/johnny_2025_bis.jpg",
-    "id": 1786454942633
+    "locandina": "https://trello.com/1/cards/69135b0b45edc07a2ac18967/attachments/69166309bc2762e8aa5efd44/download/johnny_2025_bis.jpg"
   },
   {
+    "id": 1786454942634,
     "title": "1° MEMORIAL SALVATORE BUTERA",
     "className": "gara-libera",
     "start": "2025-11-29",
@@ -1071,8 +1077,7 @@
     "separate": "SI",
     "handicap": "NO",
     "arbitri": "NO",
-    "locandina": "https://trello.com/1/cards/690d194375f9c005454471a0/attachments/691060111f474f46238c9e7c/download/Memorial_Butera.jpg",
-    "id": 1786454942634
+    "locandina": "https://trello.com/1/cards/690d194375f9c005454471a0/attachments/691060111f474f46238c9e7c/download/Memorial_Butera.jpg"
   },
   {
     "id": 1786454942635,
@@ -1092,6 +1097,7 @@
     "locandina": "https://trello.com/1/cards/690b6aa3d43676fd9756f888/attachments/690b6ab2c0c5332877646225/download/Pluto_2026.jpg"
   },
   {
+    "id": 1786454942636,
     "title": "2° TROFEO ANDREONI",
     "className": "gara-libera",
     "start": "2025-11-17",
@@ -1105,10 +1111,10 @@
     "separate": "SI",
     "handicap": "NO",
     "arbitri": "NO",
-    "locandina": "https://trello.com/1/cards/6904d343dce50bfd5dab0dee/attachments/690b6a871095f5fdb61db67b/download/Palabiliardo_2026.jpg",
-    "id": 1786454942636
+    "locandina": "https://trello.com/1/cards/6904d343dce50bfd5dab0dee/attachments/690b6a871095f5fdb61db67b/download/Palabiliardo_2026.jpg"
   },
   {
+    "id": 1786454942637,
     "title": "1° PROVA di QUALIFICAZIONE ai CAMPIONATI ITALIANI a COPPIE di BASE",
     "className": "coppie-base",
     "start": "2025-11-17",
@@ -1121,11 +1127,11 @@
     "categorie": "Prima, Seconda, Terza",
     "separate": "NO",
     "handicap": "SI",
-    "arbitri": "1 SU 2",
-    "locandina": "https://trello.com/1/cards/6903d52796b96686ee6f9fe7/attachments/6903d543087cecd4aad2503a/download/Selezioni_01_coppie.jpg",
-    "id": 1786454942637
+    "arbitri": "1 su 2",
+    "locandina": "https://trello.com/1/cards/6903d52796b96686ee6f9fe7/attachments/6903d543087cecd4aad2503a/download/Selezioni_01_coppie.jpg"
   },
   {
+    "id": 1786454942638,
     "title": "10° TROFEO BERTOLINI ASSICURAZIONI a Coppie",
     "className": "gara-libera",
     "start": "2025-11-10",
@@ -1139,10 +1145,10 @@
     "separate": "NO",
     "handicap": "SI",
     "arbitri": "SI",
-    "locandina": "https://trello.com/1/cards/68f87f52335253d32dc7381e/attachments/690085eee402e60d86a06da3/download/amici_biliardo_2026.jpg",
-    "id": 1786454942638
+    "locandina": "https://trello.com/1/cards/68f87f52335253d32dc7381e/attachments/690085eee402e60d86a06da3/download/amici_biliardo_2026.jpg"
   },
   {
+    "id": 1786454942639,
     "title": "6° MEMORIAL COPPOLA E AGLIETTI a Coppie",
     "className": "gara-libera",
     "start": "2025-11-10",
@@ -1156,10 +1162,10 @@
     "separate": "NO",
     "handicap": "SI",
     "arbitri": "NO",
-    "locandina": "https://trello.com/1/cards/68f8cc479011f4052a02af39/attachments/68fe86cd47f6c3c9f8b9f544/download/memorial_coppola_2026.jpg",
-    "id": 1786454942639
+    "locandina": "https://trello.com/1/cards/68f8cc479011f4052a02af39/attachments/68fe86cd47f6c3c9f8b9f544/download/memorial_coppola_2026.jpg"
   },
   {
+    "id": 1786454942640,
     "title": "2° PROVA di QUALIFICAZIONE ai CAMPIONATI ITALIANI",
     "className": "istituzionale",
     "start": "2025-11-03",
@@ -1172,11 +1178,11 @@
     "categorie": "Prima, Seconda, Terza",
     "separate": "NO",
     "handicap": "NO",
-    "arbitri": "1 SU 2",
-    "locandina": "https://trello.com/1/cards/68f3a6f57e80b6438e8b080b/attachments/68f3a723d401800bdeff20a1/download/Selezioni_02.jpg",
-    "id": 1786454942640
+    "arbitri": "1 su 2",
+    "locandina": "https://trello.com/1/cards/68f3a6f57e80b6438e8b080b/attachments/68f3a723d401800bdeff20a1/download/Selezioni_02.jpg"
   },
   {
+    "id": 1786454942641,
     "title": "1° MEMORIAL GIUSEPPE LUNATI",
     "className": "gara-libera",
     "start": "2025-10-29",
@@ -1189,11 +1195,11 @@
     "categorie": "Master, Prima, Seconda, Terza",
     "separate": "SI",
     "handicap": "SI",
-    "arbitri": "1 SU 2",
-    "locandina": "https://trello.com/1/cards/68ee5bf977fdacf10236916f/attachments/68f108d1ce6261588c2ac16d/download/memorial_Lunati_2025_copia.jpg",
-    "id": 1786454942641
+    "arbitri": "1 su 2",
+    "locandina": "https://trello.com/1/cards/68ee5bf977fdacf10236916f/attachments/68f108d1ce6261588c2ac16d/download/memorial_Lunati_2025_copia.jpg"
   },
   {
+    "id": 1786454942642,
     "title": "45° GRAN PREMIO GORIZIANA di SAINT-VINCENT",
     "className": "nbc",
     "start": "2025-11-15",
@@ -1207,10 +1213,10 @@
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "SI",
-    "locandina": "https://trello.com/1/cards/6a744b42efb36b4a2c55f034/attachments/6a744b48765c4ff8a3c0daf2/download/DOC0009895309000001.jpg",
-    "id": 1786454942642
+    "locandina": "https://trello.com/1/cards/6a744b42efb36b4a2c55f034/attachments/6a744b48765c4ff8a3c0daf2/download/DOC0009895309000001.jpg"
   },
   {
+    "id": 1786454942643,
     "title": "1° TROFEO IL BILIARDO",
     "className": "gara-libera",
     "start": "2025-10-13",
@@ -1224,10 +1230,10 @@
     "separate": "SI",
     "handicap": "NO",
     "arbitri": "NO",
-    "locandina": "https://trello.com/1/cards/68d8f64222e06606e9a3c327/attachments/68dd9cbaecfcb45da7d64304/download/il_biliardo_2025.jpg",
-    "id": 1786454942643
+    "locandina": "https://trello.com/1/cards/68d8f64222e06606e9a3c327/attachments/68dd9cbaecfcb45da7d64304/download/il_biliardo_2025.jpg"
   },
   {
+    "id": 1786454942644,
     "title": "TROFEO ACCADEMIA BILIARDO PONTEDERA",
     "className": "gara-libera",
     "start": "2025-09-26",
@@ -1241,10 +1247,10 @@
     "separate": "SI",
     "handicap": "NO",
     "arbitri": "NO",
-    "locandina": "https://trello.com/1/cards/68ba94dde55654a682fb41b2/attachments/68caaf3af177d14600e3f346/download/Pontedera_2026.jpg",
-    "id": 1786454942644
+    "locandina": "https://trello.com/1/cards/68ba94dde55654a682fb41b2/attachments/68caaf3af177d14600e3f346/download/Pontedera_2026.jpg"
   },
   {
+    "id": 1786454942645,
     "title": "1° PROVA di QUALIFICAZIONE ai CAMPIONATI ITALIANI",
     "className": "istituzionale",
     "start": "2025-10-06",
@@ -1257,11 +1263,11 @@
     "categorie": "Prima, Seconda, Terza",
     "separate": "NO",
     "handicap": "NO",
-    "arbitri": "1 SU 2",
-    "locandina": "https://trello.com/1/cards/68cea4ef082b797cf4c52cfc/attachments/68cea502c3ee167e1c643984/download/Selezioni_01.jpg",
-    "id": 1786454942645
+    "arbitri": "1 su 2",
+    "locandina": "https://trello.com/1/cards/68cea4ef082b797cf4c52cfc/attachments/68cea502c3ee167e1c643984/download/Selezioni_01.jpg"
   },
   {
+    "id": 1786454942646,
     "title": "1^ Prova National Billiard CHALLENGE - RHO (MI)",
     "className": "nbc",
     "start": "2025-10-17",
@@ -1275,10 +1281,10 @@
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "SI",
-    "locandina": "https://trello.com/1/cards/6a7347ecce31d5adbc98f375/attachments/6a73486f299141282b86d732/download/DOC0009863809000001.jpg",
-    "id": 1786454942646
+    "locandina": "https://trello.com/1/cards/6a7347ecce31d5adbc98f375/attachments/6a73486f299141282b86d732/download/DOC0009863809000001.jpg"
   },
   {
+    "id": 1786454942647,
     "title": "1° TROFEO 'NETWIN NEWS' - 25° ANNIVERSARIO MARAMEO",
     "className": "gara-libera",
     "start": "2025-09-25",
@@ -1292,10 +1298,10 @@
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "SI",
-    "locandina": "https://trello.com/1/cards/686f870ed48c5f0bb9b6603e/attachments/68b1844633eaadb238c7430d/download/marameo_2025.jpg",
-    "id": 1786454942647
+    "locandina": "https://trello.com/1/cards/686f870ed48c5f0bb9b6603e/attachments/68b1844633eaadb238c7430d/download/marameo_2025.jpg"
   },
   {
+    "id": 1786454942648,
     "title": "4° MEMORIAL AMICI DELLA VAL DI SERCHIO",
     "className": "gara-libera",
     "start": "2025-09-19",
@@ -1309,10 +1315,10 @@
     "separate": "NO",
     "handicap": "SI",
     "arbitri": "SI",
-    "locandina": "https://trello.com/1/cards/68b18469103f6ac405877853/attachments/68b1847d47df4c590095e075/download/valdiserchio_2025.jpg",
-    "id": 1786454942648
+    "locandina": "https://trello.com/1/cards/68b18469103f6ac405877853/attachments/68b1847d47df4c590095e075/download/valdiserchio_2025.jpg"
   },
   {
+    "id": 1786454942649,
     "title": "3° MEMORIAL LEONE",
     "className": "gara-libera",
     "start": "2025-09-17",
@@ -1326,8 +1332,7 @@
     "separate": "SI",
     "handicap": "NO",
     "arbitri": "NO",
-    "locandina": "https://trello.com/1/cards/68ada49ffdfed5219d1af3ca/attachments/68af5ad8c7742f8926b7a0ae/download/2025_2026_copia.jpg",
-    "id": 1786454942649
+    "locandina": "https://trello.com/1/cards/68ada49ffdfed5219d1af3ca/attachments/68af5ad8c7742f8926b7a0ae/download/2025_2026_copia.jpg"
   },
   {
     "id": 1786517218185,
@@ -1340,7 +1345,7 @@
     "start": "2026-09-14",
     "end_date": "2026-09-27",
     "specialita": "Italiana a 80, Tutti Doppi a 500 punti",
-    "categorie": "Nazionale / Naz. Pro, Master, Terza, Seconda, Prima",
+    "categorie": "Nazionale / Naz. Pro, Master, Prima, Seconda, Terza",
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "1 su 2",
@@ -1357,7 +1362,7 @@
     "start": "2026-09-14",
     "end_date": "2026-10-04",
     "specialita": "Tutti Doppi a 1000 punti",
-    "categorie": "Terza, Seconda, Prima, Master",
+    "categorie": "Master, Prima, Seconda, Terza",
     "separate": "SI",
     "handicap": "NO",
     "arbitri": "NO",
