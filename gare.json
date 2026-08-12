@@ -1537,5 +1537,22 @@
     "handicap": "NO",
     "arbitri": "SI",
     "locandina": "locandina_non_disponibile.png"
+  },
+  {
+    "id": 1786526631861,
+    "title": "5° MEMORIAL AMICI DELLA VAL DI SERCHIO",
+    "className": "gara-libera",
+    "sede": "VAL DI SERCHIO (PI)",
+    "premio": "€ 1.500",
+    "iscrizione": "€ 35",
+    "entro": "2027-03-26",
+    "start": "2027-03-30",
+    "end_date": "2027-04-18",
+    "specialita": "Tutti Doppi a 500 punti (2 set su 3)",
+    "categorie": "Nazionale / Naz. Pro, Master, Prima, Seconda, Terza",
+    "separate": "NO",
+    "handicap": "SI",
+    "arbitri": "1 su 2",
+    "locandina": "locandina_non_disponibile.png"
   }
 ]
