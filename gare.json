@@ -1452,5 +1452,22 @@
     "handicap": "NO",
     "arbitri": "NO",
     "locandina": "locandina_non_disponibile.png"
+  },
+  {
+    "id": 1786525814813,
+    "title": "2° MEMORIAL ARCANGELO PEGORIN",
+    "className": "gara-libera",
+    "sede": "CARRARESI (FI)",
+    "premio": "€ 800",
+    "iscrizione": "€ 30",
+    "entro": "2026-11-06",
+    "start": "2026-11-09",
+    "end_date": "2026-11-29",
+    "specialita": "Tutti Doppi a 800 punti",
+    "categorie": "Prima, Seconda, Terza",
+    "separate": "SI",
+    "handicap": "SI",
+    "arbitri": "NO",
+    "locandina": "locandina_non_disponibile.png"
   }
 ]
