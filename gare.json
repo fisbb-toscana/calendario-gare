@@ -1503,5 +1503,22 @@
     "handicap": "NO",
     "arbitri": "SI",
     "locandina": "locandina_non_disponibile.png"
+  },
+  {
+    "id": 1786526354718,
+    "title": "15° TROFEO CARRARESI",
+    "className": "gara-libera",
+    "sede": "CARRARESI (FI)",
+    "premio": "€ 2.000",
+    "iscrizione": "€ 35",
+    "entro": "2027-02-19",
+    "start": "2027-02-22",
+    "end_date": "2027-03-14",
+    "specialita": "Italiana a 80, Tutti Doppi a 500",
+    "categorie": "Nazionale / Naz. Pro, Master, Prima, Seconda, Terza",
+    "separate": "NO",
+    "handicap": "NO",
+    "arbitri": "SI",
+    "locandina": "locandina_non_disponibile.png"
   }
 ]
