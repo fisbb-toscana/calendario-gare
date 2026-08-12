@@ -1384,5 +1384,22 @@
     "handicap": "NO",
     "arbitri": "NO",
     "locandina": "locandina_non_disponibile.png"
+  },
+  {
+    "id": 1786524965606,
+    "title": "11° TROFEO BERTOLINI ASSICURAZIONI a Coppie",
+    "className": "gara-libera",
+    "sede": "AMICI DEL BILIARDO (PI)",
+    "premio": "€ 600",
+    "iscrizione": "€ 50",
+    "entro": "2026-10-10",
+    "start": "2026-10-13",
+    "end_date": "2026-10-24",
+    "specialita": "Tutti Doppi a 700 punti",
+    "categorie": "Seconda, Terza",
+    "separate": "NO",
+    "handicap": "SI",
+    "arbitri": "SI",
+    "locandina": "locandina_non_disponibile.png"
   }
 ]
