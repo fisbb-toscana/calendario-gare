@@ -1639,5 +1639,22 @@
     "handicap": "NO",
     "arbitri": "1 su 2",
     "locandina": "locandina_non_disponibile.png"
+  },
+  {
+    "id": 1786546777044,
+    "title": "3° TROFEO JOHNNY CLUB",
+    "className": "gara-libera",
+    "sede": "JOHNNY CLUB (LU)",
+    "premio": "€ 1.200",
+    "iscrizione": "€ 35",
+    "entro": "2026-09-25",
+    "start": "2026-09-28",
+    "end_date": "2026-10-18",
+    "specialita": "Tutti Doppi a 800 punti",
+    "categorie": "Nazionale / Naz. Pro, Master, Prima, Seconda, Terza",
+    "separate": "NO",
+    "handicap": "NO",
+    "arbitri": "NO",
+    "locandina": "locandina_non_disponibile.png"
   }
 ]
