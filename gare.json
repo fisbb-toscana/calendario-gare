@@ -1520,5 +1520,22 @@
     "handicap": "NO",
     "arbitri": "SI",
     "locandina": "locandina_non_disponibile.png"
+  },
+  {
+    "id": 1786526486755,
+    "title": "4° MEMORIAL PAOLO MEI",
+    "className": "gara-libera",
+    "sede": "IL TAVOLO VERDE (FI)",
+    "premio": "€ 2.000",
+    "iscrizione": "€ 35",
+    "entro": "2027-03-19",
+    "start": "2027-03-22",
+    "end_date": "2027-04-04",
+    "specialita": "Italiana a 80, Tutti Doppi a 500",
+    "categorie": "Nazionale / Naz. Pro, Master, Prima, Seconda, Terza",
+    "separate": "NO",
+    "handicap": "NO",
+    "arbitri": "SI",
+    "locandina": "locandina_non_disponibile.png"
   }
 ]
