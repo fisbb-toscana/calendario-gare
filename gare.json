@@ -1328,5 +1328,22 @@
     "arbitri": "NO",
     "locandina": "https://trello.com/1/cards/68ada49ffdfed5219d1af3ca/attachments/68af5ad8c7742f8926b7a0ae/download/2025_2026_copia.jpg",
     "id": 1786454942649
+  },
+  {
+    "id": 1786517218185,
+    "title": "16° MEMORIAL PLUTO",
+    "className": "gara-libera",
+    "sede": "L'ACCHITO (LU)",
+    "premio": "€ 1.500",
+    "iscrizione": "€ 35",
+    "entro": "2026-09-12",
+    "start": "2026-09-14",
+    "end_date": "2026-09-27",
+    "specialita": "Italiana a 80, Tutti Doppi a 500 punti",
+    "categorie": "Nazionale / Naz. Pro. Master, Terza, Seconda, Prima",
+    "separate": "NO",
+    "handicap": "NO",
+    "arbitri": "1 su 2",
+    "locandina": ""
   }
 ]
