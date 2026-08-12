@@ -1622,5 +1622,22 @@
     "handicap": "NO",
     "arbitri": "1 su 2",
     "locandina": "locandina_non_disponibile.png"
+  },
+  {
+    "id": 1786527170411,
+    "title": "POULE FINALE FEMMINILE",
+    "className": "femminile",
+    "sede": "da stabilire",
+    "premio": "€",
+    "iscrizione": "€",
+    "entro": "",
+    "start": "",
+    "end_date": "2027-05-23",
+    "specialita": "Italiana a 80/100 punti",
+    "categorie": "Seconda, Terza",
+    "separate": "NO",
+    "handicap": "NO",
+    "arbitri": "1 su 2",
+    "locandina": "locandina_non_disponibile.png"
   }
 ]
