@@ -1656,5 +1656,22 @@
     "handicap": "NO",
     "arbitri": "NO",
     "locandina": "locandina_non_disponibile.png"
+  },
+  {
+    "id": 1786608004647,
+    "title": "CAMPIONATI ITALIANI 2027",
+    "className": "istituzionale",
+    "sede": "SAINT VINCENT (AO)",
+    "premio": "€",
+    "iscrizione": "€",
+    "entro": "",
+    "start": "2027-06-26",
+    "end_date": "2027-07-11",
+    "specialita": "",
+    "categorie": "Nazionale / Naz. Pro, Master, Prima, Seconda, Terza",
+    "separate": "NO",
+    "handicap": "NO",
+    "arbitri": "SI",
+    "locandina": "locandina_non_disponibile.png"
   }
 ]
