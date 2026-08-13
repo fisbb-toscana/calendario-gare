@@ -51,6 +51,8 @@
     }
     .sidebar-close-btn:hover { color: #0f172a; }
 
+	.sidebar-hamburger {display: none; border: none; background: #002855; color: white; padding: 12px 16px; font-size: 0.9rem; font-weight: 700; border-radius: 8px; cursor: pointer; margin: 1rem 1rem 0 1rem; align-items: center; gap: 8px; font-family: system-ui, sans-serif; box-shadow: 0 2px 4px rgba(0,0,0,0.1);}
+	
 	.filter-title-row {
 	  display: flex;
 	  justify-content: space-between;
@@ -108,7 +110,8 @@
     .brand-title { font-size: 1.25rem; font-weight: 700; color: #0f172a; margin: 0; }
     .brand-sub { font-size: 0.75rem; color: #64748b; margin: 0; font-weight: 600; }
 
-    .filter-title { font-size: 0.75rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 1rem; }
+    .filter-box { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 6px; margin-top: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.01); }
+    .filter-title { font-size: 0.75rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 0.5rem; }
     .filter-group { display: flex; flex-direction: column; gap: 0.5rem; }
     .filter-label { display: flex; align-items: center; padding: 0.4rem; border-radius: 8px; cursor: pointer; transition: background 0.2s; font-size: 0.875rem; font-weight: 500; }
     .filter-label:hover { background: #f1f5f9; }
@@ -436,7 +439,7 @@
   <div class="container-fluid">
   
     <!-- PULSANTE HAMBURGER: Visibile SOLO su smartphone per aprire i filtri -->
-    <button id="menuToggle" onclick="toggleSidebar(true)" style="display: none; border: none; background: #002855; color: white; padding: 12px 16px; font-size: 0.9rem; font-weight: 700; border-radius: 8px; cursor: pointer; margin: 1rem 1rem 0 1rem; align-items: center; gap: 8px; font-family: system-ui, sans-serif; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+    <button id="menuToggle" onclick="toggleSidebar(true)" class="sidebar-hamburger">
       <span>☰</span> Filtra Tornei
     </button>
   
@@ -446,7 +449,7 @@
       <!-- Pulsante di chiusura (✕) visibile SOLO su smartphone dentro i filtri -->
       <button class="sidebar-close-btn" onclick="toggleSidebar(false)">✕</button>
 
-      <div class="brand" style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 2.5rem; width: 100%;">
+      <div class="brand" style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 1rem; width: 100%;">
         <img src="REGIONE-29-piccolo.png" alt="Logo Federazione" onclick="triggerSecretLogin()" style="width: 100%; max-width: 180px; height: auto; object-fit: contain; margin-bottom: 12px;">
         <div>
           <h1 class="brand-title" style="font-size: 1rem; font-weight: 800; color: #0f172a; margin: 0; tracking-spacing: -0.5px;">Sezione Stecca</h1>
@@ -455,6 +458,7 @@
       </div>
     
       <!-- 1. Filtro per Tipologia -->
+	  <div class="filter-box">
       <div class="filter-title filter-title-row">
 	    <span>Filtra per Tipologia</span>
 	    <button
@@ -490,9 +494,11 @@
             <span class="color-dot" style="background-color: #059669;"></span> Gara Libera
           </label>
         </div>
+		</div>
 
-      <!-- 2. Filtro per Categorie Ammesse -->
-		<div class="filter-title filter-title-row" style="margin-top: 2rem;">
+		<!-- 2. Filtro per Categorie Ammesse -->
+		<div class="filter-box">
+		<div class="filter-title filter-title-row">
 		  <span>Filtra per Categoria</span>
 		  <button
 			class="filter-clear-btn"
@@ -508,9 +514,11 @@
 		  <label class="filter-label"><input type="checkbox" value="Master" checked class="filter-cat-checkbox"> Master</label>
 		  <label class="filter-label"><input type="checkbox" value="Nazionale" checked class="filter-cat-checkbox"> Nazionale / Naz. Pro</label>
 		</div>
+		</div>
 
 		<!-- 3. Filtro per Handicap -->
-		<div class="filter-title filter-title-row" style="margin-top: 2rem;">
+		<div class="filter-box">
+		<div class="filter-title filter-title-row">
 		  <span>Filtra per Handicap</span>
 		  <button
 			class="filter-clear-btn"
@@ -522,6 +530,7 @@
 		<div class="filter-group">
 		  <label class="filter-label"><input type="checkbox" value="SI" checked class="filter-handicap-checkbox"> Con Handicap</label>
 		  <label class="filter-label"><input type="checkbox" value="NO" checked class="filter-handicap-checkbox"> Senza Handicap</label>
+		</div>
 		</div>
     </aside>
 
@@ -693,35 +702,6 @@
         </div>
 
         <!-- Pulsanti Salva / Elimina visibili SOLO all'amministratore autenticato -->
-        <div class="admin-actions-bar admin-only-flex">
-          <button class="btn-admin btn-admin-delete" onclick="deleteCurrentEvent()">🗑️ Elimina Gara</button>
-          <button class="btn-admin btn-admin-save" onclick="saveEventData()">💾 Salva Gara</button>
-        </div>
-
-      </div>
-    </div>
-  </dialog>
-
-        <!-- Badge Tecnici -->
-        <div class="tech-badges">
-          <div>
-            <span style="color:#94a3b8; font-size:0.625rem; text-transform:uppercase; font-weight:700;">Cat. Separate</span>
-            <span id="badgeSeparate" class="visitor-text"></span>
-            <select id="editSeparate" class="admin-only"><option value="SI">SI</option><option value="NO">NO</option></select>
-          </div>
-          <div>
-            <span style="color:#94a3b8; font-size:0.625rem; text-transform:uppercase; font-weight:700;">Handicap</span>
-            <span id="badgeHandicap" class="visitor-text"></span>
-            <select id="editHandicap" class="admin-only"><option value="SI">SI</option><option value="NO">NO</option></select>
-          </div>
-          <div>
-            <span style="color:#94a3b8; font-size:0.625rem; text-transform:uppercase; font-weight:700;">Arbitri</span>
-            <span id="badgeArbitri" class="visitor-text"></span>
-            <select id="editArbitri" class="admin-only"><option value="SI">SI</option><option value="NO">NO</option><option value="1 su 2">1 su 2</option></select>
-          </div>
-        </div>
-
-        <!-- AZIONI AMMINISTRATORE DI SALVATAGGIO / ELIMINAZIONE -->
         <div class="admin-actions-bar admin-only-flex">
           <button class="btn-admin btn-admin-delete" onclick="deleteCurrentEvent()">🗑️ Elimina Gara</button>
           <button class="btn-admin btn-admin-save" onclick="saveEventData()">💾 Salva Gara</button>
