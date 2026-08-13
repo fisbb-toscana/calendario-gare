@@ -426,7 +426,13 @@
       </div>
     
       <!-- 1. Filtro per Tipologia -->
-      <div class="filter-title">Filtra per Tipologia</div>
+		<div class="filter-title" style="display:flex; justify-content:space-between; align-items:center;">
+		  <span>Filtra per Tipologia</span>
+		  <button onclick="clearFilterGroup('.filter-checkbox')"
+			style="border:none; background:none; cursor:pointer; color:#94a3b8; font-size:0.75rem; font-weight:700;">
+			✖ Tutti
+		  </button>
+		</div>
         <div class="filter-group">
           <label class="filter-label">
             <input type="checkbox" value="nbc" checked class="filter-checkbox">
@@ -455,7 +461,13 @@
         </div>
 
       <!-- 2. Filtro per Categorie Ammesse -->
-      <div class="filter-title" style="margin-top: 2rem;">Filtra per Categoria</div>
+	  <div class="filter-title" style="margin-top:2rem; display:flex; justify-content:space-between; align-items:center;">
+		  <span>Filtra per Categoria</span>
+		  <button onclick="clearFilterGroup('.filter-cat-checkbox')"
+			style="border:none; background:none; cursor:pointer; color:#94a3b8; font-size:0.75rem; font-weight:700;">
+			✖ Tutti
+		  </button>
+	  </div>
       <div class="filter-group">
         <label class="filter-label"><input type="checkbox" value="Terza" checked class="filter-cat-checkbox"> Terza Categoria</label>
         <label class="filter-label"><input type="checkbox" value="Seconda" checked class="filter-cat-checkbox"> Seconda Categoria</label>
@@ -465,7 +477,14 @@
       </div>
 
       <!-- 3. Filtro per Handicap -->
-      <div class="filter-title" style="margin-top: 2rem;">Filtra per Handicap</div>
+      <div class="filter-title" style="margin-top:2rem; display:flex; justify-content:space-between; align-items:center;">
+		<span>Filtra per Handicap</span>
+		<button onclick="clearFilterGroup('.filter-handicap-checkbox')"
+          style="border:none; background:none; cursor:pointer; color:#94a3b8; font-size:0.75rem; font-weight:700;">
+		  ✖ Tutti
+		</button>
+	  </div>
+
       <div class="filter-group">
         <label class="filter-label"><input type="checkbox" value="SI" checked class="filter-handicap-checkbox"> Con Handicap</label>
         <label class="filter-label"><input type="checkbox" value="NO" checked class="filter-handicap-checkbox"> Senza Handicap</label>
@@ -610,14 +629,14 @@
         <div class="detail-section">
           <span class="detail-label">Specialità</span>
           <div id="modalSpecialita" class="specialita-box visitor-text"></div>
-          <input type="text" id="editSpecialita" class="admin-only" placeholder="es. Singola - 5 Birilli">
+          <input type="text" id="editSpecialita" class="admin-only" placeholder="es. Italiana a 150 punti">
         </div>
 
         <!-- Categorie Ammesse -->
         <div class="detail-section">
           <span class="detail-label">Categorie Ammesse</span>
           <div id="modalCategorie" class="visitor-text" style="display: flex; flex-wrap: wrap; gap: 4px; margin-top: 2px;"></div>
-          <input type="text" id="editCategorie" class="admin-only" placeholder="es. Terza, Seconda, Prima (separate da virgola)">
+          <input type="text" id="editCategorie" class="admin-only" placeholder="es. Prima, Seconda, Terza (separate da virgola)">
         </div>
 
         <!-- Badge Tecnici -->
@@ -878,6 +897,14 @@
       if (parts.length === 3) return { year: parseInt(parts[0], 10), month: parseInt(parts[1], 10) - 1, day: parseInt(parts[2], 10) };
       return null;
     }
+
+	function clearFilterGroup(selector) {
+	  document.querySelectorAll(selector).forEach(cb => {
+		cb.checked = false;
+	  });
+
+	  filterAndRenderEvents();
+	}
 
     // 1. CARICAMENTO DATI DAL FILE JSON (Immediato, sicuro e senza blocchi CORS)
     async function loadEvents() {
