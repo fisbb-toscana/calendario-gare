@@ -20,18 +20,18 @@
     "id": 1786454942571,
     "title": "4° MEMORIAL LEONE",
     "className": "gara-libera",
-    "start": "2025-09-14",
-    "end_date": "2026-09-26",
     "sede": "IL RISVEGLIO (PI)",
     "premio": "€ 500",
     "iscrizione": "€ 25",
-    "entro": "2026-09-11",
+    "entro": "2026-09-13",
+    "start": "2026-09-15",
+    "end_date": "2026-09-26",
     "specialita": "Tutti Doppi a 700 punti",
     "categorie": "Prima, Seconda, Terza",
     "separate": "SI",
     "handicap": "NO",
     "arbitri": "NO",
-    "locandina": "locandina_non_disponibile.png"
+    "locandina": "https://trello.com/1/cards/6a7d72d9714facff36e5239e/attachments/6a7d72fe9411cacb639c0d07/download/Leone_2026_27.jpg"
   },
   {
     "id": 1786454942572,
