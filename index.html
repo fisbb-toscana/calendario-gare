@@ -1,1490 +1,320 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FISBB Toscana - Calendario Gare</title>
-  <link rel="icon" type="image/jpeg" href="avatar_fisbbtoscana.jpeg"></link>
-  
-  <!-- Caricatore CSV integrato -->
-  <script src="https://cloudflare.com"></script>
-  
-  <style>
-    /* STILI STRUTTURALI COMPLETI ED INCORPORATI */
-    *, ::after, ::before { box-sizing: border-box; }
-    body { margin: 0; font-family: system-ui, -apple-system, sans-serif; background-color: #002855; color: #334155; }
-    .container-fluid { display: flex; flex-direction: column; min-height: 100vh; }
-    
-    @media (min-width: 768px) { .container-fluid { flex-direction: row; } }
-
-    /* GESTIONE BARRA LATERALE RESPONSIVE */
-    .sidebar { 
-      position: fixed;
-      top: 0;
-      left: -290px; /* Completamente nascosta a sinistra di default su smartphone */
-      width: 280px; 
-      height: 100vh; 
-      background: #ffffff; 
-      padding: 2rem; 
-      box-shadow: 4px 0 25px rgba(15, 23, 42, 0.15);
-      z-index: 999;
-      overflow-y: auto;
-      transition: left 0.3s ease; /* Effetto scivolamento fluido */
-    }
-    
-    /* Quando la barra ha la classe "active" viene spinta dentro lo schermo */
-    .sidebar.active {
-      left: 0;
-    }
-
-    /* Pulsante di chiusura interno alla sidebar (Nascondi su PC) */
-    .sidebar-close-btn {
-      display: block;
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: none;
-      border: none;
-      font-size: 1.25rem;
-      color: #94a3b8;
-      cursor: pointer;
-    }
-    .sidebar-close-btn:hover { color: #0f172a; }
-
-	.sidebar-hamburger {display: none; border: none; background: #002855; color: white; padding: 12px 16px; font-size: 0.9rem; font-weight: 700; border-radius: 8px; cursor: pointer; margin: 1rem 1rem 0 1rem; align-items: center; gap: 8px; font-family: system-ui, sans-serif; box-shadow: 0 2px 4px rgba(0,0,0,0.1);}
-	
-	.filter-title-row {
-	  display: flex;
-	  justify-content: space-between;
-	  align-items: center;
-	}
-
-	.filter-clear-btn {
-	  border: none;
-	  color: #dc2626;
-	  border-radius: 50%;
-	  width: 22px;
-	  height: 22px;
-	  cursor: pointer;
-	  display: flex;
-	  align-items: center;
-	  justify-content: center;
-	  font-size: 0.8rem;
-	  padding: 0;
-	  transition: all 0.2s ease;
-	}
-
-	.filter-clear-btn:hover {
-	  transform: scale(1.08);
-	}
-
-	.filter-clear-btn:active {
-	  transform: scale(0.95);
-	}
-	
-    /* MODIFICHE PER SCHERMI GRANDI (PC / TABLET DA 768px IN SU) */
-    @media (min-width: 768px) {
-      .sidebar { 
-        position: sticky; /* Torna fissa nella struttura del PC */
-        left: 0;
-        border-bottom: none; 
-        border-right: 1px solid #e2e8f0; 
-        box-shadow: none;
-        z-index: 10;
-        height: 100vh;
-      }
-      #menuToggle, .sidebar-close-btn {
-        display: none !important; /* Nasconde l'hamburger e la X di chiusura su PC */
-      }
-    }
-    
-    /* Mostra l'hamburger solo su smartphone */
-    @media (max-width: 767px) {
-      #menuToggle {
-        display: flex !important;
-      }
-    }
-    
-    .brand { display: flex; align-items: center; margin-bottom: 2rem; }
-    .brand-icon { background: #2563eb; color: white; padding: 10px; border-radius: 12px; font-weight: bold; margin-right: 12px; font-size: 1.2rem; line-height: 1; }
-    .brand-title { font-size: 1.25rem; font-weight: 700; color: #0f172a; margin: 0; }
-    .brand-sub { font-size: 0.75rem; color: #64748b; margin: 0; font-weight: 600; }
-
-    .filter-box { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 6px; margin-top: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.01); }
-    .filter-title { font-size: 0.75rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 0.5rem; }
-    .filter-group { display: flex; flex-direction: column; gap: 0.5rem; }
-    .filter-label { display: flex; align-items: center; padding: 0.4rem; border-radius: 8px; cursor: pointer; transition: background 0.2s; font-size: 0.875rem; font-weight: 500; }
-    .filter-label:hover { background: #f1f5f9; }
-    .filter-checkbox-style { margin-right: 10px; width: 13px; height: 13px; accent-color: #0066cc; cursor: pointer; }
-    .color-dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; margin-right: 8px; flex-shrink: 0; }
-
-    /* Contenitore Principale Calendario */
-    .main-content { flex: 1; padding: 1.5rem; overflow-y: auto; max-height: 100vh; }
-    @media (min-width: 768px) { .main-content { padding: 2rem; } }
-    .calendar-container { background: white; border: 1px solid #e2e8f0; border-radius: 16px; padding: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.02); }
-    
-    /* Griglia Annuale */
-    .year-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
-    .month-box { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px; box-shadow: 0 2px 4px rgba(0,0,0,0.01); }
-    .month-title { font-size: 1rem; font-weight: 700; color: #1e293b; margin: 0 0 12px 0; border-bottom: 2px solid #f1f5f9; padding-bottom: 6px; text-transform: capitalize; }
-    .event-list { display: flex; flex-direction: column; gap: 6px; min-height: 40px; }
-    
-    /* Righe dei Singoli Tornei */
-    .event-item { display: flex; align-items: center; padding: 6px 8px; background: #f8fafc; border-radius: 6px; cursor: pointer; transition: background 0.2s, transform 0.1s; }
-    .event-item:hover { background: #f1f5f9; transform: translateX(2px); }
-    .event-day { font-weight: 700; font-size: 0.75rem; color: #64748b; width: 50px; flex-shrink: 0; }
-    .event-name { font-weight: 600; font-size: 0.8rem; color: #0f172a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; }
-    
-    /* Formattazione Professionale Vista Elenco */
-    .table-calendar { width: 100%; border-collapse: collapse; margin-top: 0.5rem; font-size: 0.9rem; }
-    .table-calendar th { background-color: #f8fafc; padding: 12px 16px; text-align: left; font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid #e2e8f0; }
-    .table-calendar td { padding: 16px; border-bottom: 1px solid #edf2f7; color: #334155; vertical-align: middle; }
-    .table-calendar tr.event-row:hover { background-color: #f8fafc; transition: background-color 0.2s ease; }
-    button#btnYear, button#btnMonth, button#btnList { font-family: system-ui, -apple-system, sans-serif; }
-
-    /* GRIGLIA MENSILE A CASELLE BLOCCHATE ED IDENTICHE */
-    #monthDaysGrid {
-      display: grid;
-      /* Forzza le 7 colonne ad essere rigorosamente identiche (1/7 dello spazio ciascuna) */
-      grid-template-columns: repeat(7, minmax(0, 1fr)); 
-      gap: 4px;
-      background: #e2e8f0;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    .grid-day-cell {
-      background: #ffffff;
-      min-height: 100px;
-      padding: 6px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      /* Impedisce alla casella di espandersi o deformarsi oltre la sua colonna */
-      min-width: 0; 
-      overflow: hidden;
-    }
-
-    .grid-day-cell.empty {
-      background: #f8fafc;
-    }
-
-    .grid-day-number {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: #64748b;
-      margin-bottom: 2px;
-    }
-
-    /* BADGE EVENTO BLOCCHATO E TRONCATO CON I TRE PUNTINI (...) */
-    .grid-event-badge {
-      font-size: 0.7rem;
-      font-weight: 600;
-      padding: 3px 6px;
-      border-radius: 4px;
-      color: white;
-      cursor: pointer;
-      transition: transform 0.1s;
-      
-      /* Blocco totale del testo su una sola riga con taglio netto (...) */
-      display: block;
-      width: 100%;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .grid-event-badge:hover {
-      transform: scale(1.02);
-      filter: brightness(0.95);
-    }
-
-    /* POP-UP COMPATTO UNIVERSALE (Scatola Quadrata per Locandine Orizzontali e Verticali) */
-    dialog { 
-      border: none; 
-      border-radius: 16px; 
-      padding: 0; 
-      max-width: 660px; /* Larghezza ideale per PC */
-      width: 100%; 
-      box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); 
-      animation: fadeIn 0.2s ease-out; 
-    }
-    dialog::backdrop { 
-      background: rgba(15, 23, 42, 0.6); 
-      backdrop-filter: blur(4px); 
-    }
-    
-    .modal-layout { 
-      display: flex; 
-      flex-direction: column; 
-    }
-    @media (min-width: 576px) { 
-      .modal-layout { flex-direction: row; } 
-    }
-    
-    /* SCATOLA SINISTRA RIGIDAMENTE QUADRATA SU PC */
-    .modal-img-side { 
-      background: #f1f5f9; 
-      padding: 1.25rem; 
-      display: flex; 
-      align-items: center; 
-      justify-content: center; 
-      border-bottom: 1px solid #e2e8f0; 
-    }
-    @media (min-width: 576px) { 
-      .modal-img-side { 
-        width: 240px; 
-        height: 240px; /* Forza il quadrato perfetto */
-        align-self: center; /* Centra verticalmente la scatola rispetto ai dati */
-        border-bottom: none; 
-        border-right: 1px solid #e2e8f0; 
-        background: #f8fafc;
-        margin: 1.5rem 0 1.5rem 1.5rem; /* Margini per staccarla elegantemente dal bordo modale */
-        border-radius: 12px;
-        border: 1px solid #e2e8f0;
-      } 
-    }
-    
-    /* Gestione intelligente dell'immagine (verticale, orizzontale o quadrata) */
-    .modal-img-side img { 
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain; /* Mantiene le proporzioni reali senza schiacciare o tagliare */
-      border-radius: 6px; 
-      background: white; 
-      box-shadow: 0 2px 4px rgba(0,0,0,0.04); 
-    }
-    
-    /* Area dati destra */
-    .modal-main-side { 
-      flex: 1; 
-      padding: 1.5rem; 
-      position: relative; 
-    }
-    
-    .btn-close { 
-      position: absolute; 
-      top: 1rem; 
-      right: 1rem; 
-      background: none; 
-      border: none; 
-      font-size: 1.25rem; 
-      cursor: pointer; 
-      color: #94a3b8; 
-      padding: 4px; 
-      line-height: 1;
-    }
-    .btn-close:hover { color: #475569; }
-    
-    .badge-type { 
-      display: inline-block; 
-      padding: 4px 8px; 
-      border-radius: 6px; 
-      color: white; 
-      font-size: 0.7rem; 
-      font-weight: 700; 
-      text-transform: uppercase; 
-      letter-spacing: 0.5px; 
-    }
-    
-    /* Griglia informazioni principali */
-    .grid-info { 
-      display: grid; 
-      grid-template-columns: 1fr 1fr; /* Due colonne pulite su PC */
-      gap: 0.75rem; 
-      margin: 1rem 0; 
-      padding-bottom: 0.75rem; 
-      border-bottom: 1px solid #e2e8f0; 
-      font-size: 0.825rem; 
-    }
-    .info-block span { 
-      display: block; 
-      color: #94a3b8; 
-      font-size: 0.675rem; 
-      font-weight: 700; 
-      margin-bottom: 2px; 
-      text-transform: uppercase; 
-    }
-    .info-block strong { 
-      color: #1e293b; 
-      font-weight: 600; 
-    }
-    
-    /* UNIFORMATA: Struttura sezioni Specialità e Categorie */
-    .detail-section {
-      margin-bottom: 0.75rem;
-      font-size: 0.825rem;
-    }
-    .detail-label {
-      display: block; 
-      color: #94a3b8; 
-      font-size: 0.675rem; 
-      font-weight: 700; 
-      margin-bottom: 4px; 
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    
-    /* SCATOLA FISSA CON BORDINO PER LA SPECIALITÀ (Allineata ed elegante) */
-    .specialita-box {
-      display: inline-block;
-      background: #f8fafc; 
-      color: #334155;
-      padding: 4px 8px; 
-      border-radius: 4px; 
-      font-weight: 600; 
-      font-size: 0.75rem;
-      border: 1px solid #cbd5e1; /* Bordino grigio scuro identico alle categorie */
-    }
-
-    /* TAG DELLE CATEGORIE */
-    .category-tag {
-      background: #f8fafc; 
-      color: #334155; 
-      padding: 4px 8px; 
-      border-radius: 4px; 
-      font-weight: 600; 
-      font-size: 0.75rem; 
-      border: 1px solid #cbd5e1;
-    }
-
-    .tech-badges { 
-      display: flex; 
-      gap: 0.4rem; 
-      background: #f8fafc; 
-      padding: 8px; 
-      border-radius: 12px; 
-      border: 1px solid #e2e8f0; 
-      justify-content: space-around; 
-      text-align: center; 
-      font-size: 0.7rem; 
-      margin-top: 1rem; 
-    }
-    .tech-badges span { display: block; font-weight: 700; margin-top: 2px; padding: 2px 6px; border-radius: 20px; }
-    .tech-si { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
-    .tech-no { background: #f1f5f9; color: #64748b; border: 1px solid #e2e8f0; }
-	.tech-parziale { background: #fef3c7; color: #b45309; border: 1px solid #fde68a; }
-	
-    @keyframes fadeIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
-
-    /* --- STILI AGGIUNTIVI PER GESTIONE AMMINISTRATORE --- */
-    /* Di default, nascondiamo tutti gli elementi di gestione */
-    .admin-only, .admin-only-flex, .admin-only-block {
-      display: none !important;
-    }
-    
-    /* Quando la pagina ha la classe 'is-admin', mostriamo gli elementi dedicati */
-    body.is-admin .admin-only {
-      display: inline-block !important;
-    }
-    body.is-admin .admin-only-flex {
-      display: flex !important;
-    }
-    body.is-admin .admin-only-block {
-      display: block !important;
-    }
-
-    /* Stile per i campi di input all'interno del modulo di modifica */
-    .modal-main-side input, .modal-main-side select, .modal-main-side textarea {
-      width: 100%;
-      padding: 6px 10px;
-      border: 1px solid #cbd5e1;
-      border-radius: 6px;
-      font-size: 0.85rem;
-      font-family: inherit;
-      color: #1e293b;
-      background-color: #f8fafc;
-    }
-    .modal-main-side input:focus, .modal-main-side select:focus {
-      outline: none;
-      border-color: #0066cc;
-      background-color: #ffffff;
-    }
-
-    /* Pulsanti d'azione amministrativa */
-    .admin-actions-bar {
-      display: flex;
-      gap: 10px;
-      margin-top: 1.5rem;
-      padding-top: 1rem;
-      border-top: 1px solid #e2e8f0;
-    }
-    .btn-admin {
-      flex: 1;
-      padding: 10px;
-      border: none;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .btn-admin-save { background: #00BFFF; color: white; }
-    .btn-admin-save:hover { background: #1E90FF; }
-    .btn-admin-delete { background: #dc2626; color: white; }
-    .btn-admin-delete:hover { background: #b91c1c; }
-
-    /* Rende cliccabili le celle vuote solo per l'admin */
-    body.is-admin .grid-day-cell, body.is-admin .month-box {
-      cursor: pointer;
-    }
-    body.is-admin .grid-day-cell:hover, body.is-admin .month-box:hover {
-      background-color: #f0fdf4 !important; /* Evidenzia in verde tenue al passaggio */
-    }
-  </style>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>FISBB Toscana - Calendario Gare</title>
+	<link rel="icon" type="image/jpeg" href="avatar_fisbbtoscana.jpeg"></link>
+	<link rel="stylesheet" href="calendar-style.css">  
+	<!-- Caricatore CSV integrato -->
+	<script src="https://cloudflare.com"></script> 
 </head>
+
 <body>
 
-  <div class="container-fluid">
+	<div class="container-fluid">
   
-    <!-- PULSANTE HAMBURGER: Visibile SOLO su smartphone per aprire i filtri -->
-    <button id="menuToggle" onclick="toggleSidebar(true)" class="sidebar-hamburger">
-      <span>☰</span> Filtra Tornei
-    </button>
-  
-    <!-- BARRA LATERALE FILTRI: Diventa a scomparsa su Mobile e fissa su PC -->
-    <aside class="sidebar" id="sidebarMenu">
-    
-      <!-- Pulsante di chiusura (✕) visibile SOLO su smartphone dentro i filtri -->
-      <button class="sidebar-close-btn" onclick="toggleSidebar(false)">✕</button>
+		<!-- PULSANTE HAMBURGER: Visualizzazione no wide -->
+		<button id="menuToggle" onclick="toggleSidebar(true)" class="sidebar-hamburger">
+			<span>☰</span> Filtra Tornei
+		</button>  
 
-      <div class="brand" style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 1rem; width: 100%;">
-        <img src="REGIONE-29-piccolo.png" alt="Logo Federazione" onclick="triggerSecretLogin()" style="width: 100%; max-width: 180px; height: auto; object-fit: contain; margin-bottom: 12px;">
-        <div>
-          <h1 class="brand-title" style="font-size: 1rem; font-weight: 800; color: #0f172a; margin: 0; tracking-spacing: -0.5px;">Sezione Stecca</h1>
-          <p class="brand-sub" style="font-size: 0.75rem; color: #64748b; margin: 4px 0 0 0; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Calendario Ufficiale</p>
-        </div>
-      </div>
-    
-      <!-- 1. Filtro per Tipologia -->
-	  <div class="filter-box">
-      <div class="filter-title filter-title-row">
-	    <span>Filtra per Tipologia</span>
-	    <button
-		  class="filter-clear-btn"
-		  onclick="clearFilterGroup('.filter-checkbox')"
-		  title="Deseleziona tutte le tipologie">
-		  ⛔
-	    </button>
-	  </div>
-        <div class="filter-group">
-          <label class="filter-label">
-            <input type="checkbox" value="nbc" checked class="filter-checkbox">
-            <span class="color-dot" style="background-color: #DC2626;"></span> NBC
-          </label>
-          <label class="filter-label">
-            <input type="checkbox" value="istituzionale" checked class="filter-checkbox">
-            <span class="color-dot" style="background-color: #0066cc;"></span> Istituzionale
-          </label>
-          <label class="filter-label">
-            <input type="checkbox" value="coppie-base" checked class="filter-checkbox">
-            <span class="color-dot" style="background-color: #C96FF2;"></span> Coppie di Base
-          </label>
-          <label class="filter-label">
-            <input type="checkbox" value="seniores" checked class="filter-checkbox">
-            <span class="color-dot" style="background-color: #D97706;"></span> Seniores
-          </label>
-          <label class="filter-label">
-            <input type="checkbox" value="femminile" checked class="filter-checkbox">
-            <span class="color-dot" style="background-color: #FF69B4;"></span> Femminile
-          </label>
-          <label class="filter-label">
-            <input type="checkbox" value="gara-libera" checked class="filter-checkbox">
-            <span class="color-dot" style="background-color: #059669;"></span> Gara Libera
-          </label>
-        </div>
+		<!-- BARRA LATERALE FILTRI: A scomparsa su no wide e fissa su wide -->
+		<aside class="sidebar" id="sidebarMenu">
+
+			<!-- PULSANTE DI CHIUSURA (✕): Visibile su no wide dentro la barra laterale -->
+			<button class="sidebar-close-btn" onclick="toggleSidebar(false)">✕</button>
+
+			<!-- LOGO FEDERALE: Con tre click rapidi si apre la maschera di login -->
+			<div class="brand">
+				<img class="brand-logo" src="REGIONE-29-piccolo.png" alt="Logo Federazione" onclick="triggerSecretLogin()">
+				<div>
+					<h1 class="brand-title">Sezione Stecca</h1>
+					<p class="brand-sub">Calendario Ufficiale</p>
+				</div>
+			</div>
+		 
+			<!-- Filtro per Tipologia -->
+			<div class="filter-box">
+				<div class="filter-title filter-title-row">
+					<span>Filtra per Tipologia</span>
+					<button class="filter-clear-btn" onclick="clearFilterGroup('.filter-checkbox')" title="Deseleziona tutte le tipologie">⛔</button>
+				</div>
+				<div class="filter-group">
+					<label class="filter-label">
+						<input type="checkbox" value="nbc" checked class="filter-checkbox">
+						<span class="color-dot" style="background-color: #DC2626;"></span> NBC
+					</label>
+					<label class="filter-label">
+						<input type="checkbox" value="istituzionale" checked class="filter-checkbox">
+						<span class="color-dot" style="background-color: #0066cc;"></span> Istituzionale
+					</label>
+					<label class="filter-label">
+						<input type="checkbox" value="coppie-base" checked class="filter-checkbox">
+						<span class="color-dot" style="background-color: #C96FF2;"></span> Coppie di Base
+					</label>
+					<label class="filter-label">
+						<input type="checkbox" value="seniores" checked class="filter-checkbox">
+						<span class="color-dot" style="background-color: #D97706;"></span> Seniores
+					</label>
+					<label class="filter-label">
+						<input type="checkbox" value="femminile" checked class="filter-checkbox">
+						<span class="color-dot" style="background-color: #FF69B4;"></span> Femminile
+					</label>
+					<label class="filter-label">
+						<input type="checkbox" value="gara-libera" checked class="filter-checkbox">
+						<span class="color-dot" style="background-color: #059669;"></span> Gara Libera
+					</label>
+				</div>
+			</div>
+
+			<!-- Filtro per Categorie Ammesse -->
+			<div class="filter-box">
+				<div class="filter-title filter-title-row">
+					<span>Filtra per Categoria</span>
+					<button class="filter-clear-btn" onclick="clearFilterGroup('.filter-cat-checkbox')" title="Deseleziona tutte le categorie">⛔</button>
+				</div>
+				<div class="filter-group">
+					<label class="filter-label"><input type="checkbox" value="Terza" checked class="filter-cat-checkbox"> Terza Categoria</label>
+					<label class="filter-label"><input type="checkbox" value="Seconda" checked class="filter-cat-checkbox"> Seconda Categoria</label>
+					<label class="filter-label"><input type="checkbox" value="Prima" checked class="filter-cat-checkbox"> Prima Categoria</label>
+					<label class="filter-label"><input type="checkbox" value="Master" checked class="filter-cat-checkbox"> Master</label>
+					<label class="filter-label"><input type="checkbox" value="Nazionale" checked class="filter-cat-checkbox"> Nazionale / Naz. Pro</label>
+				</div>
+			</div>
+
+			<!-- Filtro per Handicap -->
+			<div class="filter-box">
+				<div class="filter-title filter-title-row">
+					<span>Filtra per Handicap</span>
+					<button class="filter-clear-btn" onclick="clearFilterGroup('.filter-handicap-checkbox')" title="Deseleziona tutti i filtri handicap">⛔</button>
+				</div>
+				<div class="filter-group">
+					<label class="filter-label"><input type="checkbox" value="SI" checked class="filter-handicap-checkbox"> Con Handicap</label>
+					<label class="filter-label"><input type="checkbox" value="NO" checked class="filter-handicap-checkbox"> Senza Handicap</label>
+				</div>
+			</div>
+		</aside>
+
+		<!-- Lo sfondo scuro coprente (Overlay) compare quando i filtri sono aperti su schermo no wide -->
+		<div id="sidebarOverlay" class="filter-overlay" onclick="toggleSidebar(false)"></div>
+
+	<!-- AREA PRINCIPALE CALENDARIO -->
+		<main class="main-content">
+			<div class="calendar-container">
+
+				<!-- Barra Superiore Navigazione -->
+				<div class="top-navigation-bar-container">
+					<div class="top-navigation-bar-header">
+						<h2 id="calendarTitle" class="top-navigation-bar-title-static">Calendario Gare</h2>
+						<div id="universalNavigation" class="top-navigation-bar-title-dynamic">
+							<button class="top-navigation-bar-button" onclick="navigateCalendar(-1)">◀</button>
+							<span class="top-navigation-bar-current-label" id="currentCalendarLabel"></span>
+							<button class="top-navigation-bar-button" onclick="navigateCalendar(1)">▶</button>
+						</div>
+					</div>
+					<div class="top-navigation-bar-view">
+						<button id="btnYear" class="top-navigation-bar-view-button" onclick="switchView('year')">📅 Vista Annuale</button>
+						<button id="btnMonth" class="top-navigation-bar-view-button" onclick="switchView('month')">🔲 Vista Mensile</button>
+						<button id="btnList" class="top-navigation-bar-view-button" onclick="switchView('list')">📋 Vista Elenco</button>
+						<!-- Pulsante Aggiungi Gara visibile solo all'amministratore -->
+						<button class="admin-only btn-admin-save top-navigation-bar-view-button" onclick="createNewEventForm()" >➕ Nuova Gara</button>
+					</div>
+				</div>
+
+				<!-- Vista Annuale -->
+				<div id="viewYear" class="year-grid"></div>
+
+				<!-- Vista Mensile -->
+				<div id="viewMonth">
+					<div class="month-grid-day-label">
+						<div>Lun</div>
+						<div>Mar</div>
+						<div>Mer</div>
+						<div>Gio</div>
+						<div>Ven</div>
+						<div>Sab</div>
+						<div>Dom</div>
+					</div>
+					<div class="month-grid" id="monthDaysGrid"></div>
+				</div>
+
+				<!-- Vista Elenco -->
+				<div id="viewList" class="list-grid">
+					<table class="table-calendar">
+						<thead>
+							<tr>
+								<th style="width: 15%;">Tipologia</th>
+								<th style="width: 40%;">Titolo Torneo</th>
+								<th style="width: 30%;">Sede Gara</th>
+								<th style="width: 15%;">Data Finale</th>
+							</tr>
+						</thead>
+						<tbody id="eventTableBody"></tbody>
+					</table>
+				</div>
+
+			</div>
+		</main>
+	</div>
+		 
+	<!-- STRUTTURA POP-UP DI DETTAGLIO CORRETTA E BLINDATA -->
+	<dialog id="eventDialog">
+		<!-- Campo nascosto per l'ID del torneo -->
+		<input type="hidden" id="editEventId">
+
+		<div class="modal-layout">
+
+			<!-- Contenitore immagine a sinistra -->
+			<div class="modal-img-side">
+				<img id="modalLocandina" src="" alt="Locandina Torneo">
+				<div class="admin-only">
+					<label class="detail-label">URL Immagine Locandina</label>
+					<input type="text" id="editLocandina" placeholder="https://url-immagine.jpg" oninput="document.getElementById('modalLocandina').src = this.value || 'https://placehold.co'">
+				</div>
+			</div>
+
+			<!-- Contenitore Dati a destra -->
+			<div class="modal-main-side">
+			<button class="btn-close" onclick="document.getElementById('eventDialog').close()">✕</button>
+
+				<!-- Tipologia Gara -->
+				<div class="modal-gara">
+					<span id="modalTipologia" class="badge-type"></span>
+					<div class="admin-only modal-tipologia">
+						<select id="editClassName" onchange="updateModalBadgePreview(this.value)">
+							<option value="nbc">NBC</option>
+							<option value="istituzionale">Istituzionale</option>
+							<option value="coppie-base">Coppie di Base</option>
+							<option value="seniores">Seniores</option>
+							<option value="femminile">Femminile</option>
+							<option value="gara-libera">Gara Libera</option>
+						</select>
+					</div>
+				</div>
+
+				<!-- Titolo Torneo -->
+				<div class="modal-gara">
+					<h3 id="modalTitle" class="visitor-text modal-title"></h3>
+					<div class="admin-only">
+						<input type="text" id="editTitle" placeholder="Titolo del torneo">
+					</div>
+				</div>
+
+				<!-- Griglia informazioni principali -->
+				<div class="grid-info">
+					<div class="info-block">
+						<span>Sede</span>
+						<strong id="modalSede" class="visitor-text"></strong>
+						<input type="text" id="editSede" class="admin-only">
+					</div>
+					<div class="info-block">
+						<span>1° Premio</span>
+						<strong id="modalPremio" class="visitor-text" style="color: #16a34a;"></strong>
+						<input type="text" id="editPremio" class="admin-only">
+					</div>
+					<div class="info-block">
+						<span>Iscrizione</span>
+						<strong id="modalIscrizione" class="visitor-text" style="color: #dc2626;"></strong>
+						<input type="text" id="editIscrizione" class="admin-only">
+					</div>
+					<div class="info-block">
+						<span>Entro</span>
+						<strong id="modalEntro" class="visitor-text"></strong>
+						<input type="date" id="editEntro" class="admin-only">
+					</div>
+					<div class="info-block">
+						<span>Data Inizio</span>
+						<strong id="modalInizio" class="visitor-text"></strong>
+						<input type="date" id="editStart" class="admin-only">
+					</div>
+					<div class="info-block">
+						<span>Data Finale</span>
+						<strong id="modalFinale" class="visitor-text"></strong>
+						<input type="date" id="editEndDate" class="admin-only">
+					</div>
+				</div>
+
+				<!-- Specialità -->
+				<div class="detail-section">
+					<span class="detail-label">Specialità</span>
+					<div id="modalSpecialita" class="specialita-box visitor-text"></div>
+					<input type="text" id="editSpecialita" class="admin-only" placeholder="es. Italiana a 150 punti">
+				</div>
+
+				<!-- Categorie Ammesse -->
+				<div class="detail-section">
+					<span class="detail-label">Categorie Ammesse</span>
+					<div id="modalCategorie" class="visitor-text modal-categorie"></div>
+					<input type="text" id="editCategorie" class="admin-only" placeholder="es. Prima, Seconda, Terza (separate da virgola)">
+				</div>
+
+				<!-- Badge Tecnici -->
+				<div class="tech-badges">
+					<div>
+						<span class="tech-badges-label">Cat. Separate</span>
+						<span id="badgeSeparate" class="visitor-text"></span>
+						<select id="editSeparate" class="admin-only">
+							<option value="SI">SI</option>
+							<option value="NO">NO</option>
+						</select>
+					</div>
+					<div>
+						<span class="tech-badges-label">Handicap</span>
+						<span id="badgeHandicap" class="visitor-text"></span>
+						<select id="editHandicap" class="admin-only">
+							<option value="SI">SI</option>
+							<option value="NO">NO</option>
+						</select>
+					</div>
+					<div>
+						<span class="tech-badges-label">Arbitri</span>
+						<span id="badgeArbitri" class="visitor-text"></span>
+						<select id="editArbitri" class="admin-only">
+							<option value="SI">SI</option>
+							<option value="NO">NO</option>
+							<option value="1 su 2">1 su 2</option>
+						</select>
+					</div>
+				</div>
+
+				<!-- Pulsanti Salva / Elimina visibili SOLO all'amministratore autenticato -->
+				<div class="admin-actions-bar admin-only-flex">
+					<button class="btn-admin btn-admin-delete" onclick="deleteCurrentEvent()">🗑️ Elimina Gara</button>
+					<button class="btn-admin btn-admin-save" onclick="saveEventData()">💾 Salva Gara</button>
+				</div>
+
+			</div>
 		</div>
+	</dialog>
 
-		<!-- 2. Filtro per Categorie Ammesse -->
-		<div class="filter-box">
-		<div class="filter-title filter-title-row">
-		  <span>Filtra per Categoria</span>
-		  <button
-			class="filter-clear-btn"
-			onclick="clearFilterGroup('.filter-cat-checkbox')"
-			title="Deseleziona tutte le categorie">
-			⛔
-		  </button>
+<!-- Modale nascosto login di amministrazione -->
+	<dialog id="adminLoginDialog" class="login-dialog">
+		<div class="login-dialog-box">
+			<button class="btn-close" onclick="document.getElementById('adminLoginDialog').close()">✕</button>
+			<h3>Accesso Amministrazione</h3>
+			<p>Inserisci i parametri di configurazione del tuo repository GitHub per abilitare le modifiche.</p>
+			<div class="login-dialog-box-field">
+				<label>GitHub Username</label>
+				<input type="text" id="cfgUsername" placeholder="es. tuo-utente">
+			</div>
+			<div class="login-dialog-box-field">
+				<label>Nome Repository</label>
+				<input type="text" id="cfgRepo" placeholder="es. calendario-gare">
+			</div>
+			<div class="login-dialog-box-field">
+				<label>Personal Access Token (Fine-Grained)</label>
+				<input type="password" id="cfgToken" placeholder="github_pat_...">
+			</div>
+			<div class="login-dialog-box-button">
+				<button onclick="saveAdminConfiguration()" class="login-dialog-box-button-connect">Accedi e Attiva</button>
+				<button onclick="logoutAdmin()" class="admin-only login-dialog-box-button-disconnect">Disconnetti</button>
+			</div>
 		</div>
-		<div class="filter-group">
-		  <label class="filter-label"><input type="checkbox" value="Terza" checked class="filter-cat-checkbox"> Terza Categoria</label>
-		  <label class="filter-label"><input type="checkbox" value="Seconda" checked class="filter-cat-checkbox"> Seconda Categoria</label>
-		  <label class="filter-label"><input type="checkbox" value="Prima" checked class="filter-cat-checkbox"> Prima Categoria</label>
-		  <label class="filter-label"><input type="checkbox" value="Master" checked class="filter-cat-checkbox"> Master</label>
-		  <label class="filter-label"><input type="checkbox" value="Nazionale" checked class="filter-cat-checkbox"> Nazionale / Naz. Pro</label>
-		</div>
-		</div>
+	</dialog>
 
-		<!-- 3. Filtro per Handicap -->
-		<div class="filter-box">
-		<div class="filter-title filter-title-row">
-		  <span>Filtra per Handicap</span>
-		  <button
-			class="filter-clear-btn"
-			onclick="clearFilterGroup('.filter-handicap-checkbox')"
-			title="Deseleziona tutti i filtri handicap">
-			⛔
-		  </button>
-		</div>
-		<div class="filter-group">
-		  <label class="filter-label"><input type="checkbox" value="SI" checked class="filter-handicap-checkbox"> Con Handicap</label>
-		  <label class="filter-label"><input type="checkbox" value="NO" checked class="filter-handicap-checkbox"> Senza Handicap</label>
-		</div>
-		</div>
-    </aside>
+	<script type="text/javascript" src="calendar-script.js"></script>
 
-    <!-- Lo sfondo scuro coprente (Overlay) che compare quando i filtri sono aperti su Mobile -->
-    <div id="sidebarOverlay" onclick="toggleSidebar(false)" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(2px); z-index: 998;"></div>
-
-    <!-- AREA PRINCIPALE CALENDARIO -->
-    <main class="main-content">
-      <div class="calendar-container">
-        
-        <!-- Barra Superiore Navigazione -->
-        <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem; border-bottom: 1px solid #e2e8f0; padding-bottom: 1rem; align-items: start;">
-          <div style="display: flex; justify-content: space-between; width: 100%; align-items: center; flex-wrap: wrap; gap: 1rem;">
-            <h2 id="calendarTitle" style="font-size: 1.25rem; font-weight: 700; margin: 0; color: #0f172a;">Calendario Gare</h2>
-            <div id="universalNavigation" style="display: flex; align-items: center; gap: 0.5rem; background: #f1f5f9; padding: 4px; border-radius: 8px;">
-              <button onclick="navigateCalendar(-1)" style="border: none; background: #ffffff; padding: 4px 10px; border-radius: 6px; cursor: pointer; font-weight: bold; box-shadow: 0 1px 2px rgba(0,0,0,0.05); font-family: sans-serif;">◀</button>
-              <span id="currentCalendarLabel" style="font-size: 0.85rem; font-weight: 700; color: #334155; min-width: 140px; text-align: center; display: inline-block;"></span>
-              <button onclick="navigateCalendar(1)" style="border: none; background: #ffffff; padding: 4px 10px; border-radius: 6px; cursor: pointer; font-weight: bold; box-shadow: 0 1px 2px rgba(0,0,0,0.05); font-family: sans-serif;">▶</button>
-            </div>
-          </div>
-          <div style="display: flex; gap: 0.5rem; background: #f1f5f9; padding: 4px; border-radius: 8px; align-items: center; flex-wrap: wrap;">
-            <button id="btnYear" onclick="switchView('year')" style="border: none; padding: 6px 12px; font-size: 0.85rem; font-weight: 600; border-radius: 6px; cursor: pointer; transition: all 0.2s;">📅 Vista Annuale</button>
-            <button id="btnMonth" onclick="switchView('month')" style="border: none; padding: 6px 12px; font-size: 0.85rem; font-weight: 600; border-radius: 6px; cursor: pointer; transition: all 0.2s;">🔲 Vista Mensile</button>
-            <button id="btnList" onclick="switchView('list')" style="border: none; padding: 6px 12px; font-size: 0.85rem; font-weight: 600; border-radius: 6px; cursor: pointer; transition: all 0.2s;">📋 Vista Elenco</button>
-            <!-- Pulsante Aggiungi Gara visibile SOLO all'amministratore -->
-            <button class="admin-only btn-admin-save" onclick="createNewEventForm()" style="border: none; padding: 6px 12px; font-size: 0.85rem; font-weight: 700; border-radius: 6px; cursor: pointer; color: white;">➕ Nuova Gara</button>
-          </div>
-        </div>
-        
-        <!-- VISTA 1: Annuale -->
-        <div id="viewYear" class="year-grid"></div>
-
-        <!-- VISTA 2: Mensile -->
-        <div id="viewMonth" style="display: none;">
-          <div style="display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; font-weight: 700; font-size: 0.75rem; color: #64748b; text-transform: uppercase; margin-bottom: 0.5rem; letter-spacing: 0.5px;">
-            <div>Lun</div><div>Mar</div><div>Mer</div><div>Gio</div><div>Ven</div><div>Sab</div><div>Dom</div>
-          </div>
-          <div id="monthDaysGrid" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; background: #e2e8f0; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;"></div>
-        </div>
-
-        <!-- VISTA 3: Elenco -->
-        <div id="viewList" style="display: none; overflow-x: auto;">
-          <table class="table-calendar">
-            <thead>
-              <tr>
-                <th style="width: 15%;">Tipologia</th>
-                <th style="width: 40%;">Titolo Torneo</th>
-                <th style="width: 30%;">Sede Gara</th>
-                <th style="width: 15%;">Data Finale</th>
-              </tr>
-            </thead>
-            <tbody id="eventTableBody"></tbody>
-          </table>
-        </div>
-
-      </div>
-    </main>
-  </div>
-    
-  <!-- STRUTTURA POP-UP DI DETTAGLIO CORRETTA E BLINDATA -->
-  <dialog id="eventDialog">
-    <!-- Campo nascosto per l'ID del torneo -->
-    <input type="hidden" id="editEventId">
-    
-    <div class="modal-layout">
-      
-      <!-- Contenitore immagine a sinistra -->
-      <div class="modal-img-side" style="flex-direction: column; justify-content: center; gap: 8px;">
-        <img id="modalLocandina" src="" alt="Locandina Torneo">
-        <!-- CORRETTO: Aggiunta classe admin-only per nascondere l'input URL ai visitatori -->
-        <div class="admin-only" style="width: 100%; margin-top: 8px;">
-          <label class="detail-label" style="font-size:0.6rem;">URL Immagine Locandina</label>
-          <input type="text" id="editLocandina" placeholder="https://url-immagine.jpg" oninput="document.getElementById('modalLocandina').src = this.value || 'https://placehold.co'">
-        </div>
-      </div>
-      
-      <!-- Contenitore Dati a destra -->
-      <div class="modal-main-side">
-        <button class="btn-close" onclick="document.getElementById('eventDialog').close()">✕</button>
-        
-        <!-- Tipologia Gara -->
-        <div style="margin-bottom: 0.5rem;">
-          <span id="modalTipologia" class="badge-type"></span>
-          <!-- CORRETTO: Aggiunta classe admin-only per nascondere il menu a tendina ai visitatori -->
-          <div class="admin-only" style="margin-top: 4px; width: 100%;">
-            <select id="editClassName" onchange="updateModalBadgePreview(this.value)">
-              <option value="nbc">NBC</option>
-              <option value="istituzionale">Istituzionale</option>
-              <option value="coppie-base">Coppie di Base</option>
-              <option value="seniores">Seniores</option>
-              <option value="femminile">Femminile</option>
-              <option value="gara-libera">Gara Libera</option>
-            </select>
-          </div>
-        </div>
-        
-        <!-- Titolo Torneo -->
-        <div style="margin-bottom: 0.5rem;">
-          <h3 id="modalTitle" class="visitor-text" style="margin: 0 0 0.5rem 0; font-size: 1.25rem; font-weight: 800; color: #0f172a; padding-right: 25px; line-height: 1.3;"></h3>
-          <!-- CORRETTO: Aggiunta classe admin-only per nascondere l'input del titolo ai visitatori -->
-          <div class="admin-only" style="width: 100%;"><input type="text" id="editTitle" placeholder="Titolo del torneo" style="font-weight:700;"></div>
-        </div>
-        
-        <!-- Griglia informazioni principali -->
-        <div class="grid-info">
-          <div class="info-block">
-            <span>Sede</span>
-            <strong id="modalSede" class="visitor-text"></strong>
-            <input type="text" id="editSede" class="admin-only">
-          </div>
-          <div class="info-block">
-            <span>1° Premio</span>
-            <strong id="modalPremio" class="visitor-text" style="color: #16a34a;"></strong>
-            <input type="text" id="editPremio" class="admin-only">
-          </div>
-          <div class="info-block">
-            <span>Iscrizione</span>
-            <strong id="modalIscrizione" class="visitor-text" style="color: #dc2626;"></strong>
-            <input type="text" id="editIscrizione" class="admin-only">
-          </div>
-          <div class="info-block">
-            <span>Entro</span>
-            <strong id="modalEntro" class="visitor-text"></strong>
-            <input type="date" id="editEntro" class="admin-only">
-          </div>
-          <div class="info-block">
-            <span>Data Inizio</span>
-            <strong id="modalInizio" class="visitor-text"></strong>
-            <input type="date" id="editStart" class="admin-only">
-          </div>
-          <div class="info-block">
-            <span>Data Finale</span>
-            <strong id="modalFinale" class="visitor-text"></strong>
-            <input type="date" id="editEndDate" class="admin-only">
-          </div>
-        </div>
-        
-        <!-- Specialità -->
-        <div class="detail-section">
-          <span class="detail-label">Specialità</span>
-          <div id="modalSpecialita" class="specialita-box visitor-text"></div>
-          <input type="text" id="editSpecialita" class="admin-only" placeholder="es. Italiana a 150 punti">
-        </div>
-
-        <!-- Categorie Ammesse -->
-        <div class="detail-section">
-          <span class="detail-label">Categorie Ammesse</span>
-          <div id="modalCategorie" class="visitor-text" style="display: flex; flex-wrap: wrap; gap: 4px; margin-top: 2px;"></div>
-          <input type="text" id="editCategorie" class="admin-only" placeholder="es. Prima, Seconda, Terza (separate da virgola)">
-        </div>
-
-        <!-- Badge Tecnici -->
-        <div class="tech-badges">
-          <div>
-            <span style="color:#94a3b8; font-size:0.625rem; text-transform:uppercase; font-weight:700;">Cat. Separate</span>
-            <span id="badgeSeparate" class="visitor-text"></span>
-            <select id="editSeparate" class="admin-only"><option value="SI">SI</option><option value="NO">NO</option></select>
-          </div>
-          <div>
-            <span style="color:#94a3b8; font-size:0.625rem; text-transform:uppercase; font-weight:700;">Handicap</span>
-            <span id="badgeHandicap" class="visitor-text"></span>
-            <select id="editHandicap" class="admin-only"><option value="SI">SI</option><option value="NO">NO</option></select>
-          </div>
-          <div>
-            <span style="color:#94a3b8; font-size:0.625rem; text-transform:uppercase; font-weight:700;">Arbitri</span>
-            <span id="badgeArbitri" class="visitor-text"></span>
-            <select id="editArbitri" class="admin-only"><option value="SI">SI</option><option value="NO">NO</option><option value="1 su 2">1 su 2</option></select>
-          </div>
-        </div>
-
-        <!-- Pulsanti Salva / Elimina visibili SOLO all'amministratore autenticato -->
-        <div class="admin-actions-bar admin-only-flex">
-          <button class="btn-admin btn-admin-delete" onclick="deleteCurrentEvent()">🗑️ Elimina Gara</button>
-          <button class="btn-admin btn-admin-save" onclick="saveEventData()">💾 Salva Gara</button>
-        </div>
-
-      </div>
-    </div>
-  </dialog>
-
-  <!-- LOGICA JAVASCRIPT: LETTURA DATI DA FILE JSON LOCALE -->
-  <script>
-    const typeColors = { 'nbc': '#DC2626', 'istituzionale': '#0066cc', 'coppie-base': '#C96FF2', 'seniores': '#D97706', 'femminile': '#FF69B4', 'gara-libera': '#059669' };
-    const monthNamesLong = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"];
-    
-    // Rilevamento automatico della data odierna
-    const today = new Date();
-    const currentRealMonth = today.getMonth(); 
-    const currentRealYear = today.getFullYear();
-    
-    let activeViewType = 'year';
-    let seasonStartYear = (currentRealMonth >= 7) ? currentRealYear : currentRealYear - 1;
-    let currentGridYear = currentRealYear;
-    let currentGridMonth = currentRealMonth; 
-    
-    let rawEvents = [];
-    let currentActiveEvents = [];
-
-    // --- VARIABILI GLOBALI E COSTRUTTI PER L'AMMINISTRAZIONE ---
-    let isAdminAuthenticated = false;
-    let githubConfig = { token: "", username: "", repo: "", sha: "" };
-
-    // Ascolto della combinazione segreta di tasti (Ctrl + Shift + A) per aprire il Login
-    window.addEventListener('keydown', function(e) {
-      if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === 'A') {
-        e.preventDefault();
-        document.getElementById('adminLoginDialog').showModal();
-        // Pre-compila se ci sono già dati salvati localmente
-        document.getElementById('cfgUsername').value = localStorage.getItem('fb_git_user') || '';
-        document.getElementById('cfgRepo').value = localStorage.getItem('fb_git_repo') || '';
-        document.getElementById('cfgToken').value = localStorage.getItem('fb_git_token') || '';
-      }
-    });
-
-    // --- ACCESSO SEGRETO UNIFICATO (3 TOCCHI / CLICK SUL LOGO) ---
-    let logoClickCount = 0;
-    let logoClickTimeout;
-
-    function triggerSecretLogin() {
-      logoClickCount++;
-      
-      // Resetta il conteggio se l'utente smette di cliccare per più di 2 secondi
-      clearTimeout(logoClickTimeout);
-      logoClickTimeout = setTimeout(() => { logoClickCount = 0; }, 2000);
-
-      // Al terzo click/tocco consecutivo apre il pannello
-      if (logoClickCount === 3) {
-        logoClickCount = 0;
-        document.getElementById('adminLoginDialog').showModal();
-        // Pre-compila se ci sono già dati salvati
-        document.getElementById('cfgUsername').value = localStorage.getItem('fb_git_user') || '';
-        document.getElementById('cfgRepo').value = localStorage.getItem('fb_git_repo') || '';
-        document.getElementById('cfgToken').value = localStorage.getItem('fb_git_token') || '';
-      }
-    }
-
-    // Inizializzazione automatica dello stato Admin al caricamento della pagina
-    function checkAdminSession() {
-      const storedToken = localStorage.getItem('fb_git_token');
-      const storedUser = localStorage.getItem('fb_git_user');
-      const storedRepo = localStorage.getItem('fb_git_repo');
-      
-      if (storedToken && storedUser && storedRepo) {
-        githubConfig.token = storedToken;
-        githubConfig.username = storedUser;
-        githubConfig.repo = storedRepo;
-        isAdminAuthenticated = true;
-        document.body.classList.add('is-admin');
-        console.log("🛠️ Modalità Amministratore Attiva con successo.");
-      }
-    }
-
-    function saveAdminConfiguration() {
-      const u = document.getElementById('cfgUsername').value.trim();
-      const r = document.getElementById('cfgRepo').value.trim();
-      const t = document.getElementById('cfgToken').value.trim();
-      
-      if(!u || !r || !t) {
-        alert("Tutti i campi sono obbligatori per connettersi a GitHub!");
-        return;
-      }
-      
-      localStorage.setItem('fb_git_user', u);
-      localStorage.setItem('fb_git_repo', r);
-      localStorage.setItem('fb_git_token', t);
-      
-      githubConfig.username = u;
-      githubConfig.repo = r;
-      githubConfig.token = t;
-      isAdminAuthenticated = true;
-      
-      document.body.classList.add('is-admin');
-      document.getElementById('adminLoginDialog').close();
-      filterAndRenderEvents(); // Riesegue il render per mostrare le funzioni interattive
-      alert("Autenticazione salvata nel browser. Modalità amministratore abilitata!");
-    }
-
-    function logoutAdmin() {
-      localStorage.removeItem('fb_git_user');
-      localStorage.removeItem('fb_git_repo');
-      localStorage.removeItem('fb_git_token');
-      isAdminAuthenticated = false;
-      document.body.classList.remove('is-admin');
-      document.getElementById('adminLoginDialog').close();
-      filterAndRenderEvents();
-      alert("Disconnessione effettuata. Il calendario è tornato in sola lettura.");
-    }
-
-    async function pushToGitHub(updatedArray) {
-      if (!isAdminAuthenticated) return;
-      
-      const titleLabel = document.getElementById('calendarTitle');
-      const originalTitle = titleLabel.innerText;
-      titleLabel.innerText = "🔄 Sincronizzazione con GitHub in corso...";
-
-      //const url = `https://github.com{githubConfig.username}/${githubConfig.repo}/contents/gare.json`;
-	  const url = `https://api.github.com/repos/${githubConfig.username}/${githubConfig.repo}/contents/gare.json`;
-      
-      try {
-        // 1. RECUPERO DELLO SHA (Ripristinato standard 'token' ufficiale di GitHub)
-        const getRes = await fetch(url, {
-          method: "GET",
-          headers: { 
-            "Authorization": `Bearer ${githubConfig.token}`, // <-- RIPRISTINATO STANDARD CORRETTO
-            "Accept": "application/vnd.github.v3+json"
-            //"Cache-Control": "no-cache"
-          }
-        });
-        
-        if (!getRes.ok) {
-          const errStatus = getRes.status;
-          const errText = await getRes.text();
-          alert(`⚠️ GITHUB API ALERT (Fase SHA):\nCodice Stato: ${errStatus}\nRisposta: ${errText}`);
-          titleLabel.innerText = originalTitle;
-          return;
-        }
-        
-        const getData = await getRes.json();
-        githubConfig.sha = getData.sha;
-
-        // 2. CODIFICA BASE64 ULTRA-SICURA (Previene i crash da caratteri accentati ed emoji)
-        const jsonString = JSON.stringify(updatedArray, null, 2);
-        const utf8Bytes = new TextEncoder().encode(jsonString);
-        let binaryString = "";
-        for (let i = 0; i < utf8Bytes.length; i++) {
-          binaryString += String.fromCharCode(utf8Bytes[i]);
-        }
-        const base64Payload = btoa(binaryString); // Codifica sicura al 100%
-
-        const putBody = {
-          message: "Aggiornamento calendario gare da pannello di amministrazione",
-          content: base64Payload
-        };
-        if (githubConfig.sha) putBody.sha = githubConfig.sha;
-
-        // 3. TENTATIVO DI SALVATAGGIO (Ripristinato standard 'token' ufficiale di GitHub)
-        const putRes = await fetch(url, {
-          method: "PUT",
-          headers: {
-            "Authorization": `Bearer ${githubConfig.token}`, // <-- RIPRISTINATO STANDARD CORRETTO
-            "Content-Type": "application/json",
-            "Accept": "application/vnd.github.v3+json"
-          },
-          body: JSON.stringify(putBody)
-        });
-
-        if (!putRes.ok) {
-          const putStatus = putRes.status;
-          const putText = await putRes.text();
-          alert(`⚠️ GITHUB API ALERT (Fase PUT):\nCodice Stato: ${putStatus}\nRisposta: ${putText}`);
-          titleLabel.innerText = originalTitle;
-          return;
-        }
-
-        titleLabel.innerText = originalTitle;
-        alert("🎉 Database sincronizzato con successo su GitHub! Le modifiche saranno visibili online tra pochi istanti.");
-        
-        rawEvents = [...updatedArray];
-        filterAndRenderEvents();
-
-      } catch (err) {
-        console.error("Errore di rete intercettato:", err);
-        titleLabel.innerText = originalTitle;
-        alert(`❌ ERRORE DI RETE RISCONTRATO:\nNome: ${err.name}\nDettaglio: ${err.message}\n\nSe l'errore persiste, esegui il logout dai 3 tocchi sul logo e rifai l'accesso controllando le maiuscole del nome utente e del repository.`);
-      }
-    }
-
-    // Aggiornamento grafico dinamico del badge colore nel modale se l'admin cambia la selezione
-    function updateModalBadgePreview(value) {
-      const typeBadge = document.getElementById('modalTipologia');
-      typeBadge.innerText = value.replace('-', ' ');
-      typeBadge.style.backgroundColor = typeColors[value] || '#64748b';
-    }
-
-    function parseDateSafe(dateString) {
-      if (!dateString) return null;
-      const parts = dateString.trim().split('-');
-      if (parts.length === 3) return { year: parseInt(parts[0], 10), month: parseInt(parts[1], 10) - 1, day: parseInt(parts[2], 10) };
-      return null;
-    }
-
-	function clearFilterGroup(selector) {
-	  document.querySelectorAll(selector).forEach(cb => {
-		cb.checked = false;
-	  });
-
-	  filterAndRenderEvents();
-	}
-
-    // 1. CARICAMENTO DATI DAL FILE JSON (Immediato, sicuro e senza blocchi CORS)
-    async function loadEvents() {
-      const titleLabel = document.getElementById('calendarTitle');
-      titleLabel.innerText = "Caricamento in corso...";
-      
-      // Essendo nello stesso spazio web di GitHub, basta chiamare direttamente il nome del file!
-      const url = "gare.json";
-      
-      try {
-        const response = await fetch(url);
-        if (!response.ok) throw new Error("File JSON non trovato");
-        rawEvents = await response.json();
-        
-        // Pulisce preventivamente i testi da spazi o maiuscole errate
-        rawEvents.forEach(evt => {
-          if (evt.className) evt.className = evt.className.toLowerCase().trim();
-          if (evt.separate) evt.separate = evt.separate.toUpperCase().trim();
-          if (evt.handicap) evt.handicap = evt.handicap.toUpperCase().trim();
-          if (evt.arbitri) evt.arbitri = evt.arbitri.trim();
-        });
-
-        currentActiveEvents = [...rawEvents];
-        switchView('year');
-        titleLabel.innerText = "Calendario Gare Stagionale";
-      } catch (e) {
-        console.error("Errore:", e);
-        
-        // DATI DI EMERGENZA PER IL TUO COMPUTER (Falli corrispondere alla stagione attuale per vederli subito)
-        rawEvents = [
-          {
-            "title": "Gran TEST Orizzontale",
-            "className": "gara-libera",
-            "start": "2026-08-10",
-            "end_date": "2026-08-16",
-            "sede": "ASD Biliardo Club Firenze",
-            "premio": "€ 3.500",
-            "iscrizione": "€ 50",
-			"entro": "2026-08-01",
-            "specialita": "Singola - 5 Birilli",
-            "categorie": "Prima, Master, Nazionale, Nazionale Pro",
-            "separate": "NO",
-            "handicap": "NO",
-            "arbitri": "SI",
-            "locandina": "https://trello.com/1/cards/6a1ef16fed0f146c784aa1a3/attachments/6a1ef1861cd5e812f73c8953/download/torneo_estivo_ansa_2026.jpg"
-          },
-          {
-            "title": "Gran TEST Verticale",
-            "className": "nbc",
-            "start": "2026-10-05",
-            "end_date": "2026-10-12",
-            "sede": "ASD Club Diamante",
-            "premio": "€ 2.500",
-            "iscrizione": "€ 40",
-			"entro": "2026-10-01",
-            "specialita": "Singola - 5 Birilli",
-            "categorie": "Terza, Seconda, Prima",
-            "separate": "SI",
-            "handicap": "NO",
-            "arbitri": "SI",
-            "locandina": "https://trello.com/1/cards/6a32d443140bdfc68e715dfe/attachments/6a32d45b689d3cbf84b01c8f/download/londa_2026.jpg"
-          }
-        ];
-        
-        currentActiveEvents = [...rawEvents];
-        switchView('year');
-        titleLabel.innerText = "Calendario (Anteprima Offline)";
-      }
-      checkAdminSession();
-    }
-
-    function switchView(viewType) {
-      activeViewType = viewType;
-      const viewYear = document.getElementById('viewYear');
-      const viewMonth = document.getElementById('viewMonth');
-      const viewList = document.getElementById('viewList');
-      const navBlock = document.getElementById('universalNavigation');
-      const title = document.getElementById('calendarTitle');
-
-      ['btnYear', 'btnMonth', 'btnList'].forEach(id => {
-        const b = document.getElementById(id);
-        if (b) { b.style.background = 'transparent'; b.style.color = '#64748b'; b.style.boxShadow = 'none'; }
-      });
-
-      // Ora lasciamo TUTTI i contenitori pronti
-      viewYear.style.display = 'none'; 
-      viewMonth.style.display = 'none'; 
-      viewList.style.display = 'none';
-      navBlock.style.display = 'flex'; // <-- IMPORTANTE: Resta visibile in tutte e tre le viste!
-
-      const activeBtn = document.getElementById('btn' + viewType.charAt(0).toUpperCase() + viewType.slice(1));
-      if (activeBtn) { activeBtn.style.background = '#ffffff'; activeBtn.style.color = '#0f172a'; activeBtn.style.boxShadow = '0 1px 2px rgba(0,0,0,0.05)'; }
-
-      if (viewType === 'year') {
-        viewYear.style.display = 'grid';
-        title.innerText = "Tabellone Gare Stagionale";
-      } else if (viewType === 'month') {
-        viewMonth.style.display = 'block';
-        title.innerText = "Tabellone Gare Mensile";
-      } else {
-        viewList.style.display = 'block'; 
-        title.innerText = "Elenco Gare per Stagione";
-      }
-      
-      updateNavigationLabel();
-      filterAndRenderEvents();
-    }
-
-    function navigateCalendar(direction) {
-      if (activeViewType === 'year' || activeViewType === 'list') {
-        // Se siamo in vista annuale o elenco, cambiamo l'anno della stagione sportiva
-        seasonStartYear += direction;
-        // Se siamo in vista elenco, aggiorniamo anche l'anno della griglia mensile per tenerli allineati
-        if (activeViewType === 'list') {
-          currentGridYear = seasonStartYear;
-        }
-        filterAndRenderEvents();
-      } else if (activeViewType === 'month') {
-        currentGridMonth += direction;
-        if (currentGridMonth > 11) { currentGridMonth = 0; currentGridYear++; }
-        else if (currentGridMonth < 0) { currentGridMonth = 11; currentGridYear--; }
-        renderMonthGridCalendar(currentActiveEvents);
-      }
-      updateNavigationLabel();
-    }
-
-    function updateNavigationLabel() {
-      const label = document.getElementById('currentCalendarLabel');
-      if (!label) return;
-      if (activeViewType === 'year' || activeViewType === 'list') {
-        label.innerText = "Stagione " + seasonStartYear + " / " + (seasonStartYear + 1);
-      } else if (activeViewType === 'month') {
-        label.innerText = monthNamesLong[currentGridMonth] + " " + currentGridYear;
-      }
-    }
-
-    function updateAllViews(eventsToDisplay) {
-      renderYearCalendar(eventsToDisplay);
-      renderMonthGridCalendar(eventsToDisplay);
-      renderListCalendar(eventsToDisplay);
-    }
-
-    function renderYearCalendar(eventsToDisplay) {
-      const grid = document.getElementById('viewYear');
-      grid.innerHTML = '';
-      for (let i = 0; i < 12; i++) {
-        let m = (8 + i) % 12;
-        let targetYear = (m < 8) ? seasonStartYear + 1 : seasonStartYear;
-
-        const monthBox = document.createElement('div');
-        monthBox.onclick = (e) => {
-          if (isAdminAuthenticated && e.target === monthBox || e.target.tagName === 'H3' || e.target.className === 'event-list') {
-            const padMonth = String(m + 1).padStart(2, '0');
-            createNewEventForm(`${targetYear}-${padMonth}-01`);
-          }
-        };
-        monthBox.className = 'month-box';
-        monthBox.innerHTML = `<h3 class="month-title">${monthNamesLong[m]} ${targetYear}</h3>`;
-        const eventList = document.createElement('div');
-        eventList.className = 'event-list';
-
-        const monthEvents = eventsToDisplay.filter(evt => {
-          const p = parseDateSafe(evt.end_date || evt.start);
-          return p && p.year === targetYear && p.month === m;
-        });
-
-        if (monthEvents.length === 0) {
-          eventList.innerHTML = `<p style="font-size: 0.75rem; color: #94a3b8; margin: 4px 0; font-style: italic;">Nessun torneo</p>`;
-        } else {
-          monthEvents.sort((a, b) => parseDateSafe(a.end_date || a.start).day - parseDateSafe(b.end_date || b.start).day);
-          monthEvents.forEach(evt => {
-            const parsedData = parseDateSafe(evt.end_date || evt.start);
-            const color = typeColors[evt.className] || '#64748b';
-            const item = document.createElement('div');
-            item.className = 'event-item';
-            item.style.borderLeft = `4px solid ${color}`;
-            item.onclick = () => openDialog(evt);
-            item.innerHTML = `<span class="event-day">Fin. ${parsedData.day}</span><span class="event-name">${evt.title}</span>`;
-            eventList.appendChild(item);
-          });
-        }
-        monthBox.appendChild(eventList); grid.appendChild(monthBox);
-      }
-    }
-
-    function renderMonthGridCalendar(eventsToDisplay) {
-      const gridBody = document.getElementById('monthDaysGrid');
-      if (!gridBody) return;
-      gridBody.innerHTML = '';
-
-      const firstDayIndex = new Date(currentGridYear, currentGridMonth, 1).getDay();
-      const startOffset = firstDayIndex === 0 ? 6 : firstDayIndex - 1;
-      const totalDays = new Date(currentGridYear, currentGridMonth + 1, 0).getDate();
-
-      for (let i = 0; i < startOffset; i++) {
-        const emptyCell = document.createElement('div');
-        emptyCell.className = 'grid-day-cell empty';
-        gridBody.appendChild(emptyCell);
-      }
-
-      for (let day = 1; day <= totalDays; day++) {
-        const cell = document.createElement('div');
-        cell.onclick = (e) => {
-          if (isAdminAuthenticated && e.target.className.includes('grid-day-cell') || e.target.className.includes('grid-day-number')) {
-            const padMonth = String(currentGridMonth + 1).padStart(2, '0');
-            const padDay = String(day).padStart(2, '0');
-            createNewEventForm(`${currentGridYear}-${padMonth}-${padDay}`);
-          }
-        };
-        cell.className = 'grid-day-cell';
-        cell.innerHTML = `<div class="grid-day-number">${day}</div>`;
-
-        const dayEvents = eventsToDisplay.filter(evt => {
-          const p = parseDateSafe(evt.end_date || evt.start);
-          return p && p.year === currentGridYear && p.month === currentGridMonth && p.day === day;
-        });
-
-        dayEvents.forEach(evt => {
-          const badge = document.createElement('div');
-          badge.className = 'grid-event-badge';
-          badge.style.backgroundColor = typeColors[evt.className] || '#64748b';
-          badge.innerText = evt.title;
-          badge.onclick = (e) => { e.stopPropagation(); openDialog(evt); };
-          cell.appendChild(badge);
-        });
-        gridBody.appendChild(cell);
-      }
-
-      const totalCellsGenerated = startOffset + totalDays;
-      const remainingCells = (7 - (totalCellsGenerated % 7)) % 7;
-      for (let i = 0; i < remainingCells; i++) {
-        const emptyCell = document.createElement('div');
-        emptyCell.className = 'grid-day-cell empty';
-        gridBody.appendChild(emptyCell);
-      }
-    }
-
-    function renderListCalendar(eventsToDisplay) {
-      const tbody = document.getElementById('eventTableBody');
-      if (!tbody) return;
-      tbody.innerHTML = '';
-
-      // Filtra gli eventi per mostrare SOLO quelli della stagione agonistica selezionata (Settembre - Agosto)
-      const seasonalEvents = eventsToDisplay.filter(evt => {
-        const p = parseDateSafe(evt.end_date || evt.start);
-        if (!p) return false;
-        // Un evento appartiene alla stagione se:
-        // Cade da Settembre a Dicembre dell'anno d'inizio OPPURE da Gennaio ad Agosto dell'anno successivo
-        return (p.month >= 8 && p.year === seasonStartYear) || (p.month < 8 && p.year === (seasonStartYear + 1));
-      });
-
-      if (seasonalEvents.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#94a3b8; padding:2rem; font-style:italic;">Nessun torneo in programma per questa stagione</td></tr>`;
-        return;
-      }
-
-      // ORDINA DAL PIÙ VECCHIO AL PIÙ RECENTE
-      seasonalEvents.sort((a, b) => {
-        const pA = parseDateSafe(a.end_date || a.start);
-        const pB = parseDateSafe(b.end_date || b.start);
-        return new Date(pA.year, pA.month, pA.day) - new Date(pB.year, pB.month, pB.day);
-      });
-
-      seasonalEvents.forEach(evt => {
-        const tr = document.createElement('tr');
-        tr.className = 'event-row';
-        tr.onclick = () => openDialog(evt);
-
-        const labelText = evt.className ? evt.className.replace('-', ' ') : 'torneo';
-        const color = typeColors[evt.className] || '#64748b';
-        const p = parseDateSafe(evt.end_date || evt.start);
-        const formattedDate = p ? `${p.day}/${p.month + 1}/${p.year}` : evt.start;
-
-        tr.innerHTML = `
-          <td><span class="badge-type" style="background-color:${color}">${labelText}</span></td>
-          <td style="font-weight:600; color:#1e293b;">${evt.title}</td>
-          <td>${evt.sede}</td>
-          <td style="color:#64748b; font-weight:600;">${formattedDate}</td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-
-    function openDialog(evt) {
-      document.getElementById('modalTitle').innerText = evt.title;
-      document.getElementById('modalSede').innerText = evt.sede || '-';
-      document.getElementById('modalPremio').innerText = evt.premio || '-';
-      document.getElementById('modalIscrizione').innerText = evt.iscrizione || 'Non specificata';
-      
-      // Scrive la specialità nella nuova scatola protetta
-      document.getElementById('modalSpecialita').innerText = evt.specialita || '-';
-      
-      const pEntro = parseDateSafe(evt.entro);
-      document.getElementById('modalEntro').innerText = pEntro ? `${pEntro.day} ${monthNamesLong[pEntro.month]} ${pEntro.year}` : evt.entro;
-      const pStart = parseDateSafe(evt.start);
-      document.getElementById('modalInizio').innerText = pStart ? `${pStart.day} ${monthNamesLong[pStart.month]} ${pStart.year}` : evt.start;
-      const pEnd = parseDateSafe(evt.end_date);
-      document.getElementById('modalFinale').innerText = pEnd ? `${pEnd.day} ${monthNamesLong[pEnd.month]} ${pEnd.year}` : 'Stesso giorno';
-
-      const typeBadge = document.getElementById('modalTipologia');
-      typeBadge.innerText = evt.className ? evt.className.replace('-', ' ') : 'Torneo';
-      typeBadge.style.backgroundColor = typeColors[evt.className] || '#64748b';
-
-      // Disegna i quadratini delle categorie ammesse con il bordino grigio scuro uniformato
-      const catContainer = document.getElementById('modalCategorie');
-      catContainer.innerHTML = '';
-      if (evt.categorie) {
-        evt.categorie.split(',').forEach(cat => {
-          const span = document.createElement('span');
-          span.className = "category-tag";
-          span.innerText = cat.trim();
-          catContainer.appendChild(span);
-        });
-      }
-
-      setTechLabel('badgeSeparate', evt.separate);
-      setTechLabel('badgeHandicap', evt.handicap);
-      setTechLabel('badgeArbitri', evt.arbitri);
-
-      // Caricamento locandina: si adatterà da sola al quadrato fisso a sinistra
-      const imgEl = document.getElementById('modalLocandina');
-      imgEl.src = (evt.locandina && evt.locandina.trim() !== "") ? evt.locandina : "https://placehold.co";
-
-      document.getElementById('eventDialog').showModal();
-    }
-
-	function setTechLabel(id, val) {
-	  const el = document.getElementById(id);
-	  if(!el) return;
-
-	  const clean = val ? val.trim() : 'NO';
-
-	  el.innerText = clean;
-
-	  if (clean === 'SI') {
-		el.className = 'tech-si';
-	  } else if (clean === '1 su 2') {
-		el.className = 'tech-parziale';
-	  } else {
-		el.className = 'tech-no';
-	  }
-	}
-	
-    function filterAndRenderEvents() {
-      const activeTypes = Array.from(document.querySelectorAll('.filter-checkbox:checked')).map(c => c.value.trim().toLowerCase());
-      const activeCats = Array.from(document.querySelectorAll('.filter-cat-checkbox:checked')).map(c => c.value.trim().toLowerCase());
-      const activeHandicaps = Array.from(document.querySelectorAll('.filter-handicap-checkbox:checked')).map(c => c.value.trim().toUpperCase());
-
-      currentActiveEvents = rawEvents.filter(evt => {
-        const matchType = activeTypes.includes(evt.className);
-        const matchHandicap = activeHandicaps.includes(evt.handicap);
-        
-        let matchCategory = false;
-        if (evt.categorie) {
-          matchCategory = evt.categorie.split(',').some(cat => {
-            const trimmedCat = cat.trim().toLowerCase();
-            if (trimmedCat.includes("nazionale")) return activeCats.includes("nazionale");
-            return activeCats.includes(trimmedCat);
-          });
-        } else { matchCategory = true; }
-        return matchType && matchHandicap && matchCategory;
-      });
-
-      updateAllViews(currentActiveEvents);
-    }
-
-    document.querySelectorAll('.filter-checkbox, .filter-cat-checkbox, .filter-handicap-checkbox').forEach(cb => {
-      cb.addEventListener('change', filterAndRenderEvents);
-    });
-
-    // Avvio e configurazione iniziale automatica da file JSON localizzato
-    loadEvents();
-
-    // FUNZIONE INTERATTIVA PER APRIRE/CHIUDERE I FILTRI SU SMARTPHONE
-    function toggleSidebar(open) {
-      const sidebar = document.getElementById('sidebarMenu');
-      const overlay = document.getElementById('sidebarOverlay');
-      
-      // Eseguiamo il controllo solo se siamo su schermi mobili (sotto i 768px)
-      if (window.innerWidth < 768) {
-        if (open) {
-          sidebar.classList.add('active');
-          overlay.style.display = 'block';
-          document.body.style.overflow = 'hidden'; // Blocca lo scorrimento della pagina sotto
-        } else {
-          sidebar.classList.remove('active');
-          overlay.style.display = 'none';
-          document.body.style.overflow = ''; // Riattiva lo scorrimento
-        }
-      }
-    }
-
-    // Se l'utente clicca un filtro da mobile, chiudiamo automaticamente il menu per fargli vedere il risultato
-    document.querySelectorAll('.filter-checkbox, .filter-cat-checkbox, .filter-handicap-checkbox').forEach(cb => {
-      cb.addEventListener('change', () => {
-        if (window.innerWidth < 768) {
-          // Un piccolo delay di 200 millisecondi per dare il tempo visivo di vedere la spunta
-          setTimeout(() => toggleSidebar(false), 200);
-        }
-      });
-    });
-    // PREPARAZIONE MODULO PER NUOVA GARA (Svuota il Dialog e lo imposta in scrittura)
-    function createNewEventForm(defaultDate = "") {
-      document.getElementById('editEventId').value = "NEW_" + Date.now();
-      document.getElementById('modalTitle').innerText = "Inserimento Nuova Gara";
-      document.getElementById('editTitle').value = "";
-      document.getElementById('editSede').value = "";
-      document.getElementById('editPremio').value = "€ ";
-      document.getElementById('editIscrizione').value = "€ ";
-      
-      const todayISO = defaultDate || new Date().toISOString().split('T')[0];
-      document.getElementById('editEntro').value = todayISO;
-      document.getElementById('editStart').value = todayISO;
-      document.getElementById('editEndDate').value = todayISO;
-      
-      document.getElementById('editSpecialita').value = "";
-      document.getElementById('editCategorie').value = "Nazionale / Naz. Pro, Master, Prima, Seconda, Terza";
-      
-      document.getElementById('editClassName').value = "gara-libera";
-      updateModalBadgePreview("gara-libera");
-      
-      document.getElementById('editSeparate').value = "NO";
-      document.getElementById('editHandicap').value = "NO";
-      document.getElementById('editArbitri').value = "NO";
-      document.getElementById('editLocandina').value = "locandina_non_disponibile.png";
-      document.getElementById('modalLocandina').src = "https://placehold.co";
-
-      // Nascondiamo i testi fissi per i visitatori se siamo admin
-      document.querySelectorAll('.visitor-text').forEach(el => el.style.display = 'none');
-      document.getElementById('eventDialog').showModal();
-    }
-
-    // SALVATAGGIO: DETERMINA SE FARE AGGIORNAMENTO O INSERIMENTO
-    function saveEventData() {
-      const id = document.getElementById('editEventId').value;
-      const title = document.getElementById('editTitle').value.trim();
-      if (!title) { alert("Il titolo del torneo è obbligatorio!"); return; }
-
-      const updatedEvent = {
-        "id": id.startsWith("NEW_") ? Date.now() : parseInt(id, 10), // Assegna o conserva l'id univoco
-        "title": title,
-        "className": document.getElementById('editClassName').value,
-        "sede": document.getElementById('editSede').value.trim(),
-        "premio": document.getElementById('editPremio').value.trim(),
-        "iscrizione": document.getElementById('editIscrizione').value.trim(),
-        "entro": document.getElementById('editEntro').value,
-        "start": document.getElementById('editStart').value,
-        "end_date": document.getElementById('editEndDate').value,
-        "specialita": document.getElementById('editSpecialita').value.trim(),
-        "categorie": document.getElementById('editCategorie').value.trim(),
-        "separate": document.getElementById('editSeparate').value,
-        "handicap": document.getElementById('editHandicap').value,
-        "arbitri": document.getElementById('editArbitri').value,
-        "locandina": document.getElementById('editLocandina').value.trim()
-      };
-
-      if (id.startsWith("NEW_")) {
-        // Caso Inserimento: spingiamo l'oggetto nell'array principale
-        rawEvents.push(updatedEvent);
-      } else {
-        // Caso Modifica: cerchiamo la posizione e sostituiamo l'elemento
-        const index = rawEvents.findIndex(e => e.id == id || (e.title === document.getElementById('modalTitle').innerText && e.start === updatedEvent.start));
-        if (index !== -1) {
-          rawEvents[index] = updatedEvent;
-        } else {
-          // Fallback di sicurezza basato sulla coincidenza dati originaria se l'id era assente nel JSON vecchio
-          const fallbackIndex = rawEvents.findIndex(e => e.title === document.getElementById('modalTitle').innerText);
-          if (fallbackIndex !== -1) rawEvents[fallbackIndex] = updatedEvent;
-          else rawEvents.push(updatedEvent);
-        }
-      }
-
-      // Garantiamo che ogni elemento nell'array principale abbia adesso un ID associato per il futuro
-      rawEvents.forEach((e, idx) => { if (!e.id) e.id = Date.now() + idx; });
-
-      document.getElementById('eventDialog').close();
-      filterAndRenderEvents(); // Aggiorna istantaneamente l'interfaccia locale
-      pushToGitHub(rawEvents); // Esegue il caricamento sul Cloud di GitHub
-    }
-
-    // ELIMINAZIONE DI UN EVENTO ESISTENTE
-    function deleteCurrentEvent() {
-      const id = document.getElementById('editEventId').value;
-      if (id.startsWith("NEW_")) {
-        document.getElementById('eventDialog').close();
-        return;
-      }
-      
-      if (!confirm("Sei sicuro di voler eliminare definitivamente questo torneo dal calendario?")) return;
-
-      const currentTitle = document.getElementById('modalTitle').innerText;
-      
-      // Filtra escludendo l'elemento eliminato
-      rawEvents = rawEvents.filter(e => {
-        if (e.id) return e.id != id;
-        return e.title !== currentTitle;
-      });
-
-      document.getElementById('eventDialog').close();
-      filterAndRenderEvents(); // Sincronizza l'interfaccia grafica
-      pushToGitHub(rawEvents); // Aggiorna il database online
-    }
-
-    // MODIFICA DELLA FUNZIONE DI APERTURA ESISTENTE PER ADATTARLA ALL'AMMINISTRATORE
-    // Sostituisci l'inizio e i campi interni della tua vecchia openDialog con questa mappatura estesa:
-    const originalOpenDialog = openDialog;
-    openDialog = function(evt) {
-      originalOpenDialog(evt); // Esegue la mappatura classica del tuo codice per i visitatori
-      
-      // Estensione Amministratore: riempie i campi di input modificabili nascosti
-      document.getElementById('editEventId').value = evt.id || "";
-      document.getElementById('editTitle').value = evt.title || "";
-      document.getElementById('editSede').value = evt.sede || "";
-      document.getElementById('editPremio').value = evt.premio || "";
-      document.getElementById('editIscrizione').value = evt.iscrizione || "";
-      document.getElementById('editEntro').value = evt.entro || "";
-      document.getElementById('editStart').value = evt.start || "";
-      document.getElementById('editEndDate').value = evt.end_date || "";
-      document.getElementById('editSpecialita').value = evt.specialita || "";
-      document.getElementById('editCategorie').value = evt.categorie || "";
-      document.getElementById('editClassName').value = evt.className || "nbc";
-      document.getElementById('editSeparate').value = evt.separate === "SI" ? "SI" : "NO";
-      document.getElementById('editHandicap').value = evt.handicap === "SI" ? "SI" : "NO";
-	  const arbitriValue = evt.arbitri || "NO";
-	  if (["SI", "NO", "1 su 2"].includes(arbitriValue)) {
-	  document.getElementById('editArbitri').value = arbitriValue;
-	  } else {
-	  document.getElementById('editArbitri').value = "NO";
-	  }
-      document.getElementById('editLocandina').value = evt.locandina || "";
-
-      // Controlla la visualizzazione del blocco scritte in base ai poteri correnti
-      if (isAdminAuthenticated) {
-        document.querySelectorAll('.visitor-text').forEach(el => el.style.display = 'none');
-        document.querySelectorAll('.modal-main-side .admin-only, .modal-main-side input, .modal-main-side select').forEach(el => el.style.display = 'block');
-      } else {
-        document.querySelectorAll('.visitor-text').forEach(el => el.style.display = '');
-      }
-    };
-  </script>
-  
-  <!-- MODALE SEGRETO DI LOGIN AMMINISTRATORE -->
-  <dialog id="adminLoginDialog" style="max-width: 400px; padding: 1.5rem;">
-    <div style="display: flex; flex-direction: column; gap: 1rem; position: relative;">
-      <button class="btn-close" onclick="document.getElementById('adminLoginDialog').close()">✕</button>
-      <h3 style="margin: 0; font-size: 1.1rem; font-weight: 800; color: #0f172a;">Accesso Amministrazione</h3>
-      <p style="margin: 0; font-size: 0.75rem; color: #64748b;">Inserisci i parametri di configurazione del tuo repository GitHub per abilitare le modifiche.</p>
-      
-      <div style="display: flex; flex-direction: column; gap: 4px;">
-        <label style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase; color: #94a3b8;">GitHub Username</label>
-        <input type="text" id="cfgUsername" style="width:100%; padding:8px; border:1px solid #cbd5e1; border-radius:6px;" placeholder="es. tuo-utente">
-      </div>
-      <div style="display: flex; flex-direction: column; gap: 4px;">
-        <label style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase; color: #94a3b8;">Nome Repository</label>
-        <input type="text" id="cfgRepo" style="width:100%; padding:8px; border:1px solid #cbd5e1; border-radius:6px;" placeholder="es. calendario-gare">
-      </div>
-      <div style="display: flex; flex-direction: column; gap: 4px;">
-        <label style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase; color: #94a3b8;">Personal Access Token (Fine-Grained)</label>
-        <input type="password" id="cfgToken" style="width:100%; padding:8px; border:1px solid #cbd5e1; border-radius:6px;" placeholder="github_pat_...">
-      </div>
-      
-      <div style="display: flex; gap: 10px; margin-top: 0.5rem;">
-        <button onclick="saveAdminConfiguration()" style="flex:1; padding:10px; background:#0066cc; color:white; border:none; border-radius:6px; font-weight:700; cursor:pointer;">Accedi e Attiva</button>
-        <button onclick="logoutAdmin()" class="admin-only" style="padding:10px; background:#e2e8f0; color:#64748b; border:none; border-radius:6px; font-weight:700; cursor:pointer;">Disconnetti</button>
-      </div>
-    </div>
-  </dialog>
 </body>
 </html>
