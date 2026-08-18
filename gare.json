@@ -1707,5 +1707,22 @@
     "handicap": "NO",
     "arbitri": "1 su 2",
     "locandina": "locandina_non_disponibile.png"
+  },
+  {
+    "id": 1787060250575,
+    "title": "8° TROFEO MAXIM",
+    "className": "gara-libera",
+    "sede": "MAXIM LUDO CLUB (SP)",
+    "premio": "€",
+    "iscrizione": "€",
+    "entro": "",
+    "start": "",
+    "end_date": "2026-10-31",
+    "specialita": "",
+    "categorie": "Prima, Seconda, Terza",
+    "separate": "NO",
+    "handicap": "NO",
+    "arbitri": "NO",
+    "locandina": "locandina_non_disponibile.png"
   }
 ]
