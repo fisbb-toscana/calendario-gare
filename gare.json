@@ -1673,5 +1673,22 @@
     "handicap": "NO",
     "arbitri": "1 su 2",
     "locandina": "locandina_non_disponibile.png"
+  },
+  {
+    "id": 1787049441500,
+    "title": "2° MEMORIAL GIUSEPPE LUNATI",
+    "className": "gara-libera",
+    "sede": "U.S. FABIANO BOCCE (SP)",
+    "premio": "€",
+    "iscrizione": "€",
+    "entro": "",
+    "start": "",
+    "end_date": "2026-11-22",
+    "specialita": "",
+    "categorie": "Master, Prima, Seconda, Terza",
+    "separate": "NO",
+    "handicap": "SI",
+    "arbitri": "1 su 2",
+    "locandina": "locandina_non_disponibile.png"
   }
 ]
