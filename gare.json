@@ -1656,5 +1656,22 @@
     "handicap": "NO",
     "arbitri": "SI",
     "locandina": "locandina_non_disponibile.png"
+  },
+  {
+    "id": 1787047486146,
+    "title": "2° TROFEO LION PASSIONE AGNORELLI",
+    "className": "gara-libera",
+    "sede": "PASSIONE BILIARDO AGNORELLI",
+    "premio": "€",
+    "iscrizione": "€",
+    "entro": "",
+    "start": "",
+    "end_date": "2027-05-08",
+    "specialita": "",
+    "categorie": "Nazionale / Naz. Pro, Master, Prima, Seconda, Terza",
+    "separate": "NO",
+    "handicap": "NO",
+    "arbitri": "1 su 2",
+    "locandina": "locandina_non_disponibile.png"
   }
 ]
