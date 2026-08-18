@@ -1690,5 +1690,22 @@
     "handicap": "SI",
     "arbitri": "1 su 2",
     "locandina": "locandina_non_disponibile.png"
+  },
+  {
+    "id": 1787060057884,
+    "title": "2° MEMORIAL NICOLA CAPANO - 8° TROFEO MAXIM",
+    "className": "gara-libera",
+    "sede": "MAXIM LUDO CLUB (SP)",
+    "premio": "€",
+    "iscrizione": "€",
+    "entro": "",
+    "start": "",
+    "end_date": "2027-03-27",
+    "specialita": "",
+    "categorie": "Nazionale / Naz. Pro, Master, Prima, Seconda, Terza",
+    "separate": "NO",
+    "handicap": "NO",
+    "arbitri": "1 su 2",
+    "locandina": "locandina_non_disponibile.png"
   }
 ]
