@@ -1678,6 +1678,7 @@
     "id": 1787049441500,
     "title": "2° MEMORIAL GIUSEPPE LUNATI",
     "className": "gara-libera",
+    "stato": "ufficiale",
     "sede": "U.S. FABIANO BOCCE (SP)",
     "premio": "€",
     "iscrizione": "€",
@@ -1689,7 +1690,8 @@
     "separate": "SI",
     "handicap": "SI",
     "arbitri": "1 su 2",
-    "locandina": "locandina_non_disponibile.png"
+    "locandina": "locandina_non_disponibile.png",
+    "vincitore": ""
   },
   {
     "id": 1787060057884,
