@@ -1724,6 +1724,7 @@
     "id": 1787060250575,
     "title": "8° TROFEO MAXIM",
     "className": "gara-libera",
+    "stato": "pianificata",
     "sede": "MAXIM LUDO CLUB (SP)",
     "premio": "€",
     "iscrizione": "€",
@@ -1735,6 +1736,7 @@
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "NO",
-    "locandina": "locandina_non_disponibile.png"
+    "locandina": "locandina_non_disponibile.png",
+    "vincitore": ""
   }
 ]
