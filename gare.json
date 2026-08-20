@@ -1633,6 +1633,7 @@
     "id": 1786546777044,
     "title": "3° TROFEO JOHNNY CLUB",
     "className": "gara-libera",
+    "stato": "pianificata",
     "sede": "JOHNNY CLUB (LU)",
     "premio": "€ 1.200",
     "iscrizione": "€ 35",
@@ -1644,7 +1645,8 @@
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "NO",
-    "locandina": "locandina_non_disponibile.png"
+    "locandina": "locandina_non_disponibile.png",
+    "vincitore": ""
   },
   {
     "id": 1786608004647,
