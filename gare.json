@@ -1395,6 +1395,7 @@
     "id": 1786524965606,
     "title": "11° TROFEO BERTOLINI ASSICURAZIONI a Coppie",
     "className": "gara-libera",
+    "stato": "pianificata",
     "sede": "AMICI DEL BILIARDO (PI)",
     "premio": "€ 600",
     "iscrizione": "€ 50",
@@ -1406,7 +1407,8 @@
     "separate": "NO",
     "handicap": "SI",
     "arbitri": "SI",
-    "locandina": "locandina_non_disponibile.png"
+    "locandina": "locandina_non_disponibile.png",
+    "vincitore": ""
   },
   {
     "id": 1786525057193,
