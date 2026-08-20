@@ -1566,6 +1566,7 @@
     "id": 1786526761086,
     "title": "POULE FINALI REGIONALI",
     "className": "istituzionale",
+    "stato": "ufficiale",
     "sede": "varie sedi",
     "premio": "€",
     "iscrizione": "€",
@@ -1577,7 +1578,8 @@
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "1 su 2",
-    "locandina": "locandina_non_disponibile.png"
+    "locandina": "locandina_non_disponibile.png",
+    "vincitore": ""
   },
   {
     "id": 1786526869731,
