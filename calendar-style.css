@@ -62,6 +62,33 @@ body {
 	box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
+@media (min-width: 768px) { 
+	.container-fluid { 
+		flex-direction: row; 
+	} 
+}
+/* Impostazioni schermi wide (da 768px in su) */
+@media (min-width: 768px) {
+	.sidebar { 
+	  position: sticky; /* Torna fissa nella struttura wide */
+	  left: 0;
+	  border-bottom: none; 
+	  border-right: 1px solid #e2e8f0; 
+	  box-shadow: none;
+	  z-index: 10;
+	  height: 100vh;
+	}
+	#menuToggle, .sidebar-close-btn {
+	  display: none !important; /* Nasconde l'hamburger e la X di chiusura su schermo wide */
+	}
+}
+/* Mostra l'hamburger solo su schermi no wide */
+@media (max-width: 767px) {
+	#menuToggle {
+	  display: flex !important;
+	}
+}
+
 .brand {
 	display: flex; 
 	align-items: center; 
@@ -158,52 +185,34 @@ body {
 	justify-content: space-between;
 	align-items: center;
 }
+.filter-action-btn {
+  border: none;
+  background: none;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  padding: 0;
+  transition: all 0.2s ease;
+}
+.filter-action-btn:hover {
+  transform: scale(1.08);
+}
+.filter-action-btn:active {
+  transform: scale(0.95);
+}
 .filter-clear-btn {
-	border: none;
-	color: #dc2626;
-	border-radius: 50%;
-	width: 22px;
-	height: 22px;
-	cursor: pointer;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-size: 0.8rem;
-	padding: 0;
-	transition: all 0.2s ease;
+  color: #dc2626;
 }
-.filter-clear-btn:hover {
-	transform: scale(1.08);
+.filter-check-btn {
+  color: #16a34a;
 }
-.filter-clear-btn:active {
-	transform: scale(0.95);
-}
-
-@media (min-width: 768px) { 
-	.container-fluid { 
-		flex-direction: row; 
-	} 
-}
-/* Impostazioni schermi wide (da 768px in su) */
-@media (min-width: 768px) {
-	.sidebar { 
-	  position: sticky; /* Torna fissa nella struttura wide */
-	  left: 0;
-	  border-bottom: none; 
-	  border-right: 1px solid #e2e8f0; 
-	  box-shadow: none;
-	  z-index: 10;
-	  height: 100vh;
-	}
-	#menuToggle, .sidebar-close-btn {
-	  display: none !important; /* Nasconde l'hamburger e la X di chiusura su schermo wide */
-	}
-}
-/* Mostra l'hamburger solo su schermi no wide */
-@media (max-width: 767px) {
-	#menuToggle {
-	  display: flex !important;
-	}
+.filter-title-actions {
+  display: flex;
+  gap: 6px;
 }
 
 /* Contenitore Principale Calendario */
@@ -275,6 +284,14 @@ body {
 	text-align: center; 
 	display: inline-block;
 }
+.top-navigation-bar-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 1rem;
+	flex-wrap: wrap;
+	width: 100%; 
+}
 .top-navigation-bar-view {
 	display: flex; 
 	gap: 0.5rem; 
@@ -282,7 +299,6 @@ body {
 	padding: 4px; 
 	border-radius: 8px; 
 	align-items: center; 
-	flex-wrap: wrap;
 }
 .top-navigation-bar-view-button {
 	border: none; 
@@ -353,6 +369,196 @@ body {
 	overflow: hidden; 
 	text-overflow: ellipsis; 
 	flex: 1;	
+}
+
+/* GARE PIANIFICATE */
+
+.event-status-pianificata {
+	background-color: #fff7ed;
+	border-color: #fdba74;
+}
+
+.event-status-pianificata .event-name {
+	color: #9a3412;
+	font-style: italic;
+}
+
+/* GARE UFFICIALI IN PROGRAMMA */
+
+.event-status-in-programma {
+	background-color: #ecfdf5;
+	border-color: #86efac;
+}
+
+.event-status-in-programma .event-name {
+	color: #166534;
+}
+
+/* GARE IN CORSO */
+
+.event-status-in-corso {
+	background-color: #dcfce7;
+	border-color: #22c55e;
+	box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.2);
+}
+
+.event-status-in-corso .event-name {
+	color: #14532d;
+	font-weight: 800;
+}
+
+/* GARE CONCLUSE */
+
+.event-status-conclusa {
+	background-color: #f1f5f9;
+	border-color: #cbd5e1;
+	opacity: 0.75;
+}
+
+.event-status-conclusa .event-name {
+	color: #94a3b8;
+}
+
+.event-status-text {
+	margin-top: 5px;
+	font-size: 0.65rem;
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+.event-status-text-pianificata {
+	color: #c2410c;
+}
+
+.event-status-text-in-programma {
+	color: #15803d;
+}
+
+.event-status-text-in-corso {
+	color: #166534;
+}
+
+.event-status-text-conclusa {
+	color: #94a3b8;
+}
+
+.grid-event-badge.event-status-pianificata {
+	background-color: #f59e0b;
+	color: white;
+}
+
+.grid-event-badge.event-status-in-programma {
+	background-color: #16a34a;
+	color: white;
+}
+
+.grid-event-badge.event-status-in-corso {
+	background-color: #15803d;
+	color: white;
+	box-shadow: 0 0 0 2px #bbf7d0;
+}
+
+.grid-event-badge.event-status-conclusa {
+	background-color: #94a3b8;
+	color: #f8fafc;
+}
+
+.table-calendar tr.event-status-pianificata td {
+	background-color: #fff7ed;
+}
+
+.table-calendar tr.event-status-in-programma td {
+	background-color: #ecfdf5;
+}
+
+.table-calendar tr.event-status-in-corso td {
+	background-color: #dcfce7;
+}
+
+.table-calendar tr.event-status-conclusa td {
+	background-color: #f1f5f9;
+	color: #94a3b8;
+}
+
+.calendar-status-legend {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin-left: auto;
+	padding: 4px 8px;
+}
+
+.legend-item {
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+	color: #64748b;
+	font-size: 0.7rem;
+	font-weight: 600;
+	white-space: nowrap;
+}
+
+.legend-dot {
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	display: inline-block;
+	border: 1px solid rgba(15, 23, 42, 0.15);
+}
+
+.legend-pianificata {
+	background-color: #f59e0b;
+}
+
+.legend-programma {
+	background-color: #86efac;
+}
+
+.legend-corso {
+	background-color: #16a34a;
+}
+
+.legend-conclusa {
+	background-color: #cbd5e1;
+}
+
+@media (max-width: 767px) {
+  .top-navigation-bar-row {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+  .calendar-status-legend {
+		width: 100%;
+		justify-content: flex-start;
+		margin-top: 4px;
+	}
+}
+
+.winner-box {
+	display: none;
+	width: 100%;
+	padding: 8px 10px;
+	background: #fffbeb;
+	border: 1px solid #fde68a;
+	border-radius: 8px;
+	text-align: center;
+}
+
+.winner-label {
+	display: block;
+	margin-bottom: 2px;
+	color: #a16207;
+	font-size: 0.6rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+}
+
+.winner-box strong {
+	color: #713f12;
+	font-size: 0.8rem;
+	font-weight: 800;
 }
 
 /* Vista Elenco */
