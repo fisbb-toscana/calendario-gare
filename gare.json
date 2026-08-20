@@ -1414,6 +1414,7 @@
     "id": 1786525057193,
     "title": "1° TROFEO IL TAVOLO VERDE",
     "className": "gara-libera",
+    "stato": "pianificata",
     "sede": "IL TAVOLO VERDE (FI)",
     "premio": "€",
     "iscrizione": "€",
@@ -1425,7 +1426,8 @@
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "NO",
-    "locandina": "locandina_non_disponibile.png"
+    "locandina": "locandina_non_disponibile.png",
+    "vincitore": ""
   },
   {
     "id": 1786525218718,
