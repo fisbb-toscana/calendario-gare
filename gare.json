@@ -1490,6 +1490,7 @@
     "id": 1786525893299,
     "title": "GARA NAZIONALE BASSA MAREA",
     "className": "gara-libera",
+    "stato": "pianificata",
     "sede": "BASSA MAREA (FI)",
     "premio": "€ 5.000",
     "iscrizione": "€ 40",
@@ -1501,7 +1502,8 @@
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "SI",
-    "locandina": "locandina_non_disponibile.png"
+    "locandina": "locandina_non_disponibile.png",
+    "vincitore": ""
   },
   {
     "id": 1786526354718,
