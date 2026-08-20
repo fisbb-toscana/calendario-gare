@@ -20,18 +20,20 @@
     "id": 1786454942571,
     "title": "4° MEMORIAL LEONE",
     "className": "gara-libera",
+    "stato": "pianificata",
     "sede": "IL RISVEGLIO (PI)",
     "premio": "€ 500",
     "iscrizione": "€ 25",
     "entro": "2026-09-13",
-    "start": "2026-09-15",
-    "end_date": "2026-09-26",
+    "start": "2026-09-16",
+    "end_date": "2026-10-04",
     "specialita": "Tutti Doppi a 700 punti",
     "categorie": "Prima, Seconda, Terza",
     "separate": "SI",
     "handicap": "NO",
     "arbitri": "NO",
-    "locandina": "https://trello.com/1/cards/6a7d72d9714facff36e5239e/attachments/6a7d72fe9411cacb639c0d07/download/Leone_2026_27.jpg"
+    "locandina": "https://trello.com/1/cards/6a7d72d9714facff36e5239e/attachments/6a7d72fe9411cacb639c0d07/download/Leone_2026_27.jpg",
+    "vincitore": ""
   },
   {
     "id": 1786454942572,
@@ -1678,7 +1680,6 @@
     "id": 1787049441500,
     "title": "2° MEMORIAL GIUSEPPE LUNATI",
     "className": "gara-libera",
-    "stato": "ufficiale",
     "sede": "U.S. FABIANO BOCCE (SP)",
     "premio": "€",
     "iscrizione": "€",
@@ -1690,8 +1691,7 @@
     "separate": "SI",
     "handicap": "SI",
     "arbitri": "1 su 2",
-    "locandina": "locandina_non_disponibile.png",
-    "vincitore": ""
+    "locandina": "locandina_non_disponibile.png"
   },
   {
     "id": 1787060057884,
