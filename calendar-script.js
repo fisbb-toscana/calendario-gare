@@ -220,9 +220,15 @@
 		 endParts.day
 	  );
 
-	  const statoAmministrativo =
-		 (evt.stato || 'ufficiale').trim().toLowerCase();
+		const statoAmministrativo =
+		  (evt.stato || 'ufficiale').trim().toLowerCase();
 
+		console.log(
+		  evt.title,
+		  'stato JSON:', evt.stato,
+		  'stato normalizzato:', statoAmministrativo
+		);
+		
 	  // Una gara non ancora ufficializzata resta pianificata,
 	  // indipendentemente dalle date.
 	  if (statoAmministrativo === 'pianificata') {
@@ -237,7 +243,7 @@
 		 return 'in-corso';
 	  }*/
 
-	  return 'in-programma';
+	  return 'ufficiale';
 	}
 
 	function getEventStatusLabel(evt) {
@@ -245,7 +251,7 @@
 
 	  const labels = {
 		 'pianificata': 'Pianificata',
-		 'in-programma': 'Ufficiale / in programma',
+		 'ufficiale': 'Ufficiale / in programma',
 		 'in-corso': 'In corso',
 		 'conclusa': 'Conclusa'
 	  };
