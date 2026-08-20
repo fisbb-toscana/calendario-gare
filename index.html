@@ -14,7 +14,7 @@
 <body>
 
 	<div class="container-fluid">
-  
+
 		<!-- PULSANTE HAMBURGER: Visualizzazione no wide -->
 		<button id="menuToggle" onclick="toggleSidebar(true)" class="sidebar-hamburger">
 			<span>☰</span> Filtra Tornei
@@ -39,7 +39,10 @@
 			<div class="filter-box">
 				<div class="filter-title filter-title-row">
 					<span>Filtra per Tipologia</span>
-					<button class="filter-clear-btn" onclick="clearFilterGroup('.filter-checkbox')" title="Deseleziona tutte le tipologie">⛔</button>
+					<div class="filter-title-actions">
+						<button class="filter-action-btn filter-check-btn" onclick="checkFilterGroup('.filter-checkbox')" title="Seleziona tutte le tipologie">✅</button>
+						<button class="filter-action-btn filter-clear-btn" onclick="clearFilterGroup('.filter-checkbox')" title="Deseleziona tutte le tipologie">⛔</button>
+					</div>
 				</div>
 				<div class="filter-group">
 					<label class="filter-label">
@@ -73,7 +76,10 @@
 			<div class="filter-box">
 				<div class="filter-title filter-title-row">
 					<span>Filtra per Categoria</span>
-					<button class="filter-clear-btn" onclick="clearFilterGroup('.filter-cat-checkbox')" title="Deseleziona tutte le categorie">⛔</button>
+					<div class="filter-title-actions">
+						<button class="filter-action-btn filter-check-btn" onclick="checkFilterGroup('.filter-checkbox')" title="Seleziona tutte le tipologie">✅</button>
+						<button class="filter-action-btn filter-clear-btn" onclick="clearFilterGroup('.filter-checkbox')" title="Deseleziona tutte le tipologie">⛔</button>
+					</div>
 				</div>
 				<div class="filter-group">
 					<label class="filter-label"><input type="checkbox" value="Terza" checked class="filter-cat-checkbox"> Terza Categoria</label>
@@ -88,7 +94,10 @@
 			<div class="filter-box">
 				<div class="filter-title filter-title-row">
 					<span>Filtra per Handicap</span>
-					<button class="filter-clear-btn" onclick="clearFilterGroup('.filter-handicap-checkbox')" title="Deseleziona tutti i filtri handicap">⛔</button>
+					<div class="filter-title-actions">
+						<button class="filter-action-btn filter-check-btn" onclick="checkFilterGroup('.filter-checkbox')" title="Seleziona tutte le tipologie">✅</button>
+						<button class="filter-action-btn filter-clear-btn" onclick="clearFilterGroup('.filter-checkbox')" title="Deseleziona tutte le tipologie">⛔</button>
+					</div>
 				</div>
 				<div class="filter-group">
 					<label class="filter-label"><input type="checkbox" value="SI" checked class="filter-handicap-checkbox"> Con Handicap</label>
@@ -114,12 +123,19 @@
 							<button class="top-navigation-bar-button" onclick="navigateCalendar(1)">▶</button>
 						</div>
 					</div>
-					<div class="top-navigation-bar-view">
-						<button id="btnYear" class="top-navigation-bar-view-button" onclick="switchView('year')">📅 Vista Annuale</button>
-						<button id="btnMonth" class="top-navigation-bar-view-button" onclick="switchView('month')">🔲 Vista Mensile</button>
-						<button id="btnList" class="top-navigation-bar-view-button" onclick="switchView('list')">📋 Vista Elenco</button>
-						<!-- Pulsante Aggiungi Gara visibile solo all'amministratore -->
-						<button class="admin-only btn-admin-save top-navigation-bar-view-button" onclick="createNewEventForm()" >➕ Nuova Gara</button>
+					<div class="top-navigation-bar-row">
+						<div class="top-navigation-bar-view">
+							<button id="btnYear" class="top-navigation-bar-view-button" onclick="switchView('year')">📅 Vista Annuale</button>
+							<button id="btnMonth" class="top-navigation-bar-view-button" onclick="switchView('month')">🔲 Vista Mensile</button>
+							<button id="btnList" class="top-navigation-bar-view-button" onclick="switchView('list')">📋 Vista Elenco</button>
+							<!-- Pulsante Aggiungi Gara visibile solo all'amministratore -->
+							<button class="admin-only btn-admin-save top-navigation-bar-view-button" onclick="createNewEventForm()" >➕ Nuova Gara</button>
+						</div>
+						<div class="calendar-status-legend">
+							<span class="legend-item"><span class="legend-dot legend-programma"></span>Ufficiale</span>
+							<span class="legend-item"><span class="legend-dot legend-pianificata"></span>Prenotata</span>
+							<span class="legend-item"><span class="legend-dot legend-conclusa"></span>Conclusa</span>
+						</div>
 					</div>
 				</div>
 
@@ -159,19 +175,23 @@
 		</main>
 	</div>
 		 
-	<!-- STRUTTURA POP-UP DI DETTAGLIO CORRETTA E BLINDATA -->
+	<!-- STRUTTURA POP-UP DI DETTAGLIO -->
 	<dialog id="eventDialog">
 		<!-- Campo nascosto per l'ID del torneo -->
 		<input type="hidden" id="editEventId">
 
 		<div class="modal-layout">
 
-			<!-- Contenitore immagine a sinistra -->
+			<!-- Contenitore Immagine a sinistra -->
 			<div class="modal-img-side">
 				<img id="modalLocandina" src="" alt="Locandina Torneo">
 				<div class="admin-only">
 					<label class="detail-label">URL Immagine Locandina</label>
 					<input type="text" id="editLocandina" placeholder="https://url-immagine.jpg" oninput="document.getElementById('modalLocandina').src = this.value || 'https://placehold.co'">
+				</div>
+				<div id="winnerBox" class="winner-box visitor-text">
+					<span class="winner-label">Vincitore</span>
+					<strong id="modalVincitore"></strong>
 				</div>
 			</div>
 
@@ -192,6 +212,18 @@
 							<option value="gara-libera">Gara Libera</option>
 						</select>
 					</div>
+				</div>
+
+				<div class="admin-only" style="margin-top: 8px; width: 100%;">
+					<label class="detail-label">Stato gara</label>
+					<select id="editStato">
+						<option value="pianificata">
+						Pianificata - suscettibile di variazioni
+						</option>
+						<option value="ufficiale">
+						Ufficiale - iscrizioni aperte/confermata
+						</option>
+					</select>
 				</div>
 
 				<!-- Titolo Torneo -->
@@ -277,6 +309,11 @@
 							<option value="1 su 2">1 su 2</option>
 						</select>
 					</div>
+				</div>
+
+				<div class="detail-section admin-only">
+					<span class="detail-label">Vincitore</span>
+					<input type="text" id="editVincitore" placeholder="Nome del vincitore">
 				</div>
 
 				<!-- Pulsanti Salva / Elimina visibili SOLO all'amministratore autenticato -->
