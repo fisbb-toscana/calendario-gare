@@ -1547,6 +1547,7 @@
     "id": 1786526631861,
     "title": "5° MEMORIAL AMICI DELLA VAL DI SERCHIO",
     "className": "gara-libera",
+    "stato": "pianificata",
     "sede": "VAL DI SERCHIO (PI)",
     "premio": "€ 1.500",
     "iscrizione": "€ 35",
@@ -1558,7 +1559,8 @@
     "separate": "NO",
     "handicap": "SI",
     "arbitri": "1 su 2",
-    "locandina": "locandina_non_disponibile.png"
+    "locandina": "locandina_non_disponibile.png",
+    "vincitore": ""
   },
   {
     "id": 1786526761086,
