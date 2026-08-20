@@ -1471,6 +1471,7 @@
     "id": 1786525814813,
     "title": "2° MEMORIAL ARCANGELO PEGORIN",
     "className": "gara-libera",
+    "stato": "pianificata",
     "sede": "CARRARESI (FI)",
     "premio": "€ 800",
     "iscrizione": "€ 30",
@@ -1482,7 +1483,8 @@
     "separate": "SI",
     "handicap": "SI",
     "arbitri": "NO",
-    "locandina": "locandina_non_disponibile.png"
+    "locandina": "locandina_non_disponibile.png",
+    "vincitore": ""
   },
   {
     "id": 1786525893299,
