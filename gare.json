@@ -1528,6 +1528,7 @@
     "id": 1786526486755,
     "title": "4° MEMORIAL PAOLO MEI",
     "className": "gara-libera",
+    "stato": "pianificata",
     "sede": "IL TAVOLO VERDE (FI)",
     "premio": "€ 2.000",
     "iscrizione": "€ 35",
@@ -1539,7 +1540,8 @@
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "SI",
-    "locandina": "locandina_non_disponibile.png"
+    "locandina": "locandina_non_disponibile.png",
+    "vincitore": ""
   },
   {
     "id": 1786526631861,
