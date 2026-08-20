@@ -1585,6 +1585,7 @@
     "id": 1786526869731,
     "title": "POULE FINALE SENIORES",
     "className": "seniores",
+    "stato": "ufficiale",
     "sede": "da stabilire",
     "premio": "€",
     "iscrizione": "€",
@@ -1596,7 +1597,8 @@
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "1 su 2",
-    "locandina": "locandina_non_disponibile.png"
+    "locandina": "locandina_non_disponibile.png",
+    "vincitore": ""
   },
   {
     "id": 1786526952500,
