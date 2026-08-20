@@ -197,6 +197,69 @@
       return null;
     }
 
+	function getEventVisualState(evt) {
+	  const oggi = new Date();
+	  oggi.setHours(0, 0, 0, 0);
+
+	  const startParts = parseDateSafe(evt.start);
+	  const endParts = parseDateSafe(evt.end_date || evt.start);
+
+	  if (!startParts || !endParts) {
+		 return 'pianificata';
+	  }
+
+	  const dataInizio = new Date(
+		 startParts.year,
+		 startParts.month,
+		 startParts.day
+	  );
+
+	  const dataFine = new Date(
+		 endParts.year,
+		 endParts.month,
+		 endParts.day
+	  );
+
+	  const statoAmministrativo =
+		 (evt.stato || 'ufficiale').trim().toLowerCase();
+
+	  // Una gara non ancora ufficializzata resta pianificata,
+	  // indipendentemente dalle date.
+	  if (statoAmministrativo === 'pianificata') {
+		 return 'pianificata';
+	  }
+
+	  if (oggi > dataFine) {
+		 return 'conclusa';
+	  }
+
+	  /*if (oggi >= dataInizio && oggi <= dataFine) {
+		 return 'in-corso';
+	  }*/
+
+	  return 'in-programma';
+	}
+
+	function getEventStatusLabel(evt) {
+	  const stato = getEventVisualState(evt);
+
+	  const labels = {
+		 'pianificata': 'Pianificata',
+		 'in-programma': 'Ufficiale / in programma',
+		 'in-corso': 'In corso',
+		 'conclusa': 'Conclusa'
+	  };
+
+	  return labels[stato] || 'In programma';
+	}
+
+	function checkFilterGroup(selector) {
+	  document.querySelectorAll(selector).forEach(cb => {
+		 cb.checked = true;
+	  });
+
+	  filterAndRenderEvents();
+	}
 	function clearFilterGroup(selector) {
 	  document.querySelectorAll(selector).forEach(cb => {
 		cb.checked = false;
@@ -242,7 +305,7 @@
             "sede": "ASD Biliardo Club Firenze",
             "premio": "€ 3.500",
             "iscrizione": "€ 50",
-			"entro": "2026-08-01",
+				"entro": "2026-08-01",
             "specialita": "Singola - 5 Birilli",
             "categorie": "Prima, Master, Nazionale, Nazionale Pro",
             "separate": "NO",
@@ -253,12 +316,30 @@
           {
             "title": "Gran TEST Verticale",
             "className": "nbc",
+				"stato": "pianificata",
             "start": "2026-10-05",
             "end_date": "2026-10-12",
             "sede": "ASD Club Diamante",
             "premio": "€ 2.500",
             "iscrizione": "€ 40",
-			"entro": "2026-10-01",
+				"entro": "2026-10-01",
+            "specialita": "Singola - 5 Birilli",
+            "categorie": "Terza, Seconda, Prima",
+            "separate": "SI",
+            "handicap": "NO",
+            "arbitri": "SI",
+            "locandina": "https://trello.com/1/cards/6a32d443140bdfc68e715dfe/attachments/6a32d45b689d3cbf84b01c8f/download/londa_2026.jpg"
+          },
+          {
+            "title": "Gran TEST Centrale",
+            "className": "nbc",
+				"stato": "ufficiale",
+            "start": "2026-10-05",
+            "end_date": "2026-11-12",
+            "sede": "ASD Club Diamante",
+            "premio": "€ 2.500",
+            "iscrizione": "€ 40",
+				"entro": "2026-10-01",
             "specialita": "Singola - 5 Birilli",
             "categorie": "Terza, Seconda, Prima",
             "separate": "SI",
@@ -378,7 +459,8 @@
             const parsedData = parseDateSafe(evt.end_date || evt.start);
             const color = typeColors[evt.className] || '#64748b';
             const item = document.createElement('div');
-            item.className = 'event-item';
+				const visualState = getEventVisualState(evt);
+            item.className = `event-item event-status-${visualState}`;
             item.style.borderLeft = `4px solid ${color}`;
             item.onclick = () => openDialog(evt);
             item.innerHTML = `<span class="event-day">Fin. ${parsedData.day}</span><span class="event-name">${evt.title}</span>`;
@@ -423,8 +505,11 @@
 
         dayEvents.forEach(evt => {
           const badge = document.createElement('div');
+			 const visualState = getEventVisualState(evt);
+			 badge.className = `grid-event-badge event-status-${visualState}`;
           badge.className = 'grid-event-badge';
-          badge.style.backgroundColor = typeColors[evt.className] || '#64748b';
+          //badge.style.backgroundColor = typeColors[evt.className] || '#64748b';
+			 badge.style.borderLeft = `4px solid ${typeColors[evt.className] || '#64748b'}`;
           badge.innerText = evt.title;
           badge.onclick = (e) => { e.stopPropagation(); openDialog(evt); };
           cell.appendChild(badge);
@@ -469,6 +554,8 @@
 
       seasonalEvents.forEach(evt => {
         const tr = document.createElement('tr');
+		  const visualState = getEventVisualState(evt);
+		  tr.className = `event-row event-status-${visualState}`;
         tr.className = 'event-row';
         tr.onclick = () => openDialog(evt);
 
@@ -476,13 +563,29 @@
         const color = typeColors[evt.className] || '#64748b';
         const p = parseDateSafe(evt.end_date || evt.start);
         const formattedDate = p ? `${p.day}/${p.month + 1}/${p.year}` : evt.start;
+		  const statusLabel = getEventStatusLabel(evt);
 
-        tr.innerHTML = `
-          <td><span class="badge-type" style="background-color:${color}">${labelText}</span></td>
-          <td style="font-weight:600; color:#1e293b;">${evt.title}</td>
-          <td>${evt.sede}</td>
-          <td style="color:#64748b; font-weight:600;">${formattedDate}</td>
-        `;
+		  tr.innerHTML = `
+		    <td>
+			   <span class="badge-type" style="background-color:${color}">
+				  ${labelText}
+			   </span>
+
+			   <div class="event-status-text event-status-text-${visualState}">
+			  	  ${statusLabel}
+			   </div>
+		    </td>
+
+		    <td style="font-weight:600;">
+			   ${evt.title}
+		    </td>
+
+		    <td>${evt.sede || '-'}</td>
+
+		    <td style="font-weight:600;">
+			   ${formattedDate}
+		    </td>
+		  `;
         tbody.appendChild(tr);
       });
     }
@@ -492,7 +595,9 @@
       document.getElementById('modalSede').innerText = evt.sede || '-';
       document.getElementById('modalPremio').innerText = evt.premio || '-';
       document.getElementById('modalIscrizione').innerText = evt.iscrizione || 'Non specificata';
-      
+		document.getElementById('editStato').value = evt.stato || 'ufficiale';
+		document.getElementById('editVincitore').value = evt.vincitore || '';		
+		
       // Scrive la specialità nella nuova scatola protetta
       document.getElementById('modalSpecialita').innerText = evt.specialita || '-';
       
@@ -526,6 +631,18 @@
       // Caricamento locandina: si adatterà da sola al quadrato fisso a sinistra
       const imgEl = document.getElementById('modalLocandina');
       imgEl.src = (evt.locandina && evt.locandina.trim() !== "") ? evt.locandina : "https://placehold.co";
+
+		const winnerBox = document.getElementById('winnerBox');
+
+		const winnerText = document.getElementById('modalVincitore');
+
+		if (evt.vincitore && evt.vincitore.trim()) {
+		  winnerText.innerText = evt.vincitore.trim();
+		  winnerBox.style.display = 'block';
+		} else {
+		  winnerText.innerText = '';
+		  winnerBox.style.display = 'none';
+		}
 
       document.getElementById('eventDialog').showModal();
     }
@@ -596,7 +713,7 @@
       }
     }
 
-    // Se l'utente clicca un filtro da mobile, chiudiamo automaticamente il menu per fargli vedere il risultato
+    /* Se l'utente clicca un filtro da mobile, chiudiamo automaticamente il menu per fargli vedere il risultato
     document.querySelectorAll('.filter-checkbox, .filter-cat-checkbox, .filter-handicap-checkbox').forEach(cb => {
       cb.addEventListener('change', () => {
         if (window.innerWidth < 768) {
@@ -604,7 +721,8 @@
           setTimeout(() => toggleSidebar(false), 200);
         }
       });
-    });
+    });*/
+	 
     // PREPARAZIONE MODULO PER NUOVA GARA (Svuota il Dialog e lo imposta in scrittura)
     function createNewEventForm(defaultDate = "") {
       document.getElementById('editEventId').value = "NEW_" + Date.now();
@@ -613,7 +731,9 @@
       document.getElementById('editSede').value = "";
       document.getElementById('editPremio').value = "€ ";
       document.getElementById('editIscrizione').value = "€ ";
-      
+		document.getElementById('editStato').value = 'pianificata';
+		document.getElementById('editVincitore').value = '';
+		
       const todayISO = defaultDate || new Date().toISOString().split('T')[0];
       document.getElementById('editEntro').value = todayISO;
       document.getElementById('editStart').value = todayISO;
@@ -646,6 +766,7 @@
         "id": id.startsWith("NEW_") ? Date.now() : parseInt(id, 10), // Assegna o conserva l'id univoco
         "title": title,
         "className": document.getElementById('editClassName').value,
+		  "stato": document.getElementById('editStato').value,
         "sede": document.getElementById('editSede').value.trim(),
         "premio": document.getElementById('editPremio').value.trim(),
         "iscrizione": document.getElementById('editIscrizione').value.trim(),
@@ -657,7 +778,8 @@
         "separate": document.getElementById('editSeparate').value,
         "handicap": document.getElementById('editHandicap').value,
         "arbitri": document.getElementById('editArbitri').value,
-        "locandina": document.getElementById('editLocandina').value.trim()
+        "locandina": document.getElementById('editLocandina').value.trim(),
+		  "vincitore": document.getElementById('editVincitore').value.trim()
       };
 
       if (id.startsWith("NEW_")) {
