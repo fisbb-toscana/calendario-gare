@@ -458,18 +458,20 @@
     "id": 1786454942597,
     "title": "1° TROFEO LION BILIARDO AGNORELLI",
     "className": "gara-libera",
-    "start": "2026-05-25",
-    "end_date": "2026-06-13",
+    "stato": "ufficiale",
     "sede": "PASSIONE BILIARDO AGNORELLI (PT)",
     "premio": "€ 1.600",
     "iscrizione": "€ 35",
     "entro": "2026-05-22",
+    "start": "2026-05-25",
+    "end_date": "2026-06-13",
     "specialita": "Italiana a 60 punti (3 set su 5)",
     "categorie": "Nazionale / Naz. Pro, Master, Prima, Seconda, Terza",
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "NO",
-    "locandina": "https://trello.com/1/cards/6a06d047bfab42dd728b6a1d/attachments/6a08e4328e7c0d1118968d05/download/agnorelli_2026.jpg"
+    "locandina": "https://trello.com/1/cards/6a06d047bfab42dd728b6a1d/attachments/6a08e4328e7c0d1118968d05/download/agnorelli_2026.jpg",
+    "vincitore": "Matteo Gualemi (NP)"
   },
   {
     "id": 1786454942598,
