@@ -230,13 +230,12 @@
 	  const stato = getEventVisualState(evt);
 
 	  const labels = {
-		 'pianificata': 'Pianificata',
-		 'ufficiale': 'Ufficiale / in programma',
-		 'in-corso': 'In corso',
-		 'conclusa': 'Conclusa'
+		 'pianificata': 'Prenotata / In pianificazione',
+		 'ufficiale': 'Ufficiale / In programma',
+		 'conclusa': 'Gara conclusa'
 	  };
 
-	  return labels[stato] || 'In programma';
+	  return labels[stato] || 'Ufficiale / In programma';
 	}
 
 	function checkFilterGroup(selector) {
@@ -314,6 +313,7 @@
             "separate": "SI",
             "handicap": "NO",
             "arbitri": "SI",
+				"vincitore": "Matteo Gualemi (NP)",
             "locandina": "https://trello.com/1/cards/6a32d443140bdfc68e715dfe/attachments/6a32d45b689d3cbf84b01c8f/download/londa_2026.jpg"
           },
           {
@@ -493,7 +493,7 @@
           const badge = document.createElement('div');
 			 const visualState = getEventVisualState(evt);
 			 badge.className = `grid-event-badge event-status-${visualState}`;
-          badge.className = 'grid-event-badge';
+          //badge.className = 'grid-event-badge';
           //badge.style.backgroundColor = typeColors[evt.className] || '#64748b';
 			 badge.style.borderLeft = `4px solid ${typeColors[evt.className] || '#64748b'}`;
           badge.innerText = evt.title;
@@ -764,8 +764,8 @@
         "separate": document.getElementById('editSeparate').value,
         "handicap": document.getElementById('editHandicap').value,
         "arbitri": document.getElementById('editArbitri').value,
-        "locandina": document.getElementById('editLocandina').value.trim(),
-		  "vincitore": document.getElementById('editVincitore').value.trim()
+		  "vincitore": document.getElementById('editVincitore').value.trim(),
+        "locandina": document.getElementById('editLocandina').value.trim()
       };
 
       if (id.startsWith("NEW_")) {
