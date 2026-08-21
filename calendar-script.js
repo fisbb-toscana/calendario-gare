@@ -198,6 +198,10 @@
     }
 
 	function getEventVisualState(evt) {
+		console.log(
+		  evt.title,
+		  'stato JSON:', evt.stato
+		);
 		
 	  const oggi = new Date();
 	  oggi.setHours(0, 0, 0, 0);
