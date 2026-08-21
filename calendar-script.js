@@ -198,27 +198,11 @@
     }
 
 	function getEventVisualState(evt) {
-		console.log(
-		  evt.title,
-		  'stato JSON:', evt.stato
-		);
 		
 	  const oggi = new Date();
 	  oggi.setHours(0, 0, 0, 0);
 
-	  const startParts = parseDateSafe(evt.start);
 	  const endParts = parseDateSafe(evt.end_date || evt.start);
-
-	  if (!startParts || !endParts) {
-		  console.log('restituisco pianificata caso 1');
-		 return 'pianificata';
-	  }
-
-	  const dataInizio = new Date(
-		 startParts.year,
-		 startParts.month,
-		 startParts.day
-	  );
 
 	  const dataFine = new Date(
 		 endParts.year,
@@ -232,20 +216,13 @@
 	  // Una gara non ancora ufficializzata resta pianificata,
 	  // indipendentemente dalle date.
 	  if (statoAmministrativo === 'pianificata') {
-		  console.log('restituisco pianificata caso 2');
 		 return 'pianificata';
 	  }
 
 	  if (oggi > dataFine) {
-		  console.log('restituisco conclusa');
 		 return 'conclusa';
 	  }
 
-	  /*if (oggi >= dataInizio && oggi <= dataFine) {
-		 return 'in-corso';
-	  }*/
-
-		  console.log('restituisco ufficiale');
 	  return 'ufficiale';
 	}
 
