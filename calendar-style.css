@@ -1,4 +1,4 @@
-/* STILI STRUTTURALI COMPLETI ED INCORPORATI */ 
+/* STILI STRUTTURALI COMPLETI ED INCORPORATI */
 *, ::after, ::before { box-sizing: border-box; }
 body { 
 	margin: 0; 
@@ -385,26 +385,13 @@ body {
 
 /* GARE UFFICIALI IN PROGRAMMA */
 
-.event-status-in-programma {
+.event-status-ufficiale {
 	background-color: #ecfdf5;
 	border-color: #86efac;
 }
 
-.event-status-in-programma .event-name {
+.event-status-ufficiale .event-name {
 	color: #166534;
-}
-
-/* GARE IN CORSO */
-
-.event-status-in-corso {
-	background-color: #dcfce7;
-	border-color: #22c55e;
-	box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.2);
-}
-
-.event-status-in-corso .event-name {
-	color: #14532d;
-	font-weight: 800;
 }
 
 /* GARE CONCLUSE */
@@ -430,12 +417,8 @@ body {
 	color: #c2410c;
 }
 
-.event-status-text-in-programma {
+.event-status-text-ufficiale {
 	color: #15803d;
-}
-
-.event-status-text-in-corso {
-	color: #166534;
 }
 
 .event-status-text-conclusa {
@@ -443,36 +426,31 @@ body {
 }
 
 .grid-event-badge.event-status-pianificata {
-	background-color: #f59e0b;
-	color: white;
+	background-color: #fff7ed;
+	border-color: #fdba74;
+	color: #9a3412;
+	font-style: italic;
 }
 
-.grid-event-badge.event-status-in-programma {
-	background-color: #16a34a;
-	color: white;
-}
-
-.grid-event-badge.event-status-in-corso {
-	background-color: #15803d;
-	color: white;
-	box-shadow: 0 0 0 2px #bbf7d0;
+.grid-event-badge.event-status-ufficiale {
+	background-color: #ecfdf5;
+	border-color: #86efac;
+	color: #166534;
 }
 
 .grid-event-badge.event-status-conclusa {
-	background-color: #94a3b8;
-	color: #f8fafc;
+	background-color: #f1f5f9;
+	border-color: #cbd5e1;
+	opacity: 0.75;
+	color: #94a3b8;
 }
 
 .table-calendar tr.event-status-pianificata td {
 	background-color: #fff7ed;
 }
 
-.table-calendar tr.event-status-in-programma td {
+.table-calendar tr.event-status-ufficiale td {
 	background-color: #ecfdf5;
-}
-
-.table-calendar tr.event-status-in-corso td {
-	background-color: #dcfce7;
 }
 
 .table-calendar tr.event-status-conclusa td {
@@ -496,30 +474,29 @@ body {
 	font-size: 0.7rem;
 	font-weight: 600;
 	white-space: nowrap;
-}
-
-.legend-dot {
-	width: 10px;
-	height: 10px;
-	border-radius: 50%;
-	display: inline-block;
-	border: 1px solid rgba(15, 23, 42, 0.15);
+	border: 1px solid #e2e8f0; 
+	border-radius: 12px; 
+	padding: 0.5rem;
 }
 
 .legend-pianificata {
-	background-color: #f59e0b;
+	color: #9a3412;
+	font-style: italic;
+	background-color: #fff7ed;
+	border-color: #fdba74;
 }
 
-.legend-programma {
-	background-color: #86efac;
-}
-
-.legend-corso {
-	background-color: #16a34a;
+.legend-ufficiale {
+	color: #166534;
+	background-color: #ecfdf5;
+	border-color: #86efac;
 }
 
 .legend-conclusa {
-	background-color: #cbd5e1;
+	color: #94a3b8;
+	background-color: #f1f5f9;
+	border-color: #cbd5e1;
+	opacity: 0.75;
 }
 
 @media (max-width: 767px) {
