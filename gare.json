@@ -20,7 +20,7 @@
     "id": 1786454942571,
     "title": "4° MEMORIAL LEONE",
     "className": "gara-libera",
-    "stato": "pianificata",
+    "stato": "ufficiale",
     "sede": "IL RISVEGLIO (PI)",
     "premio": "€ 500",
     "iscrizione": "€ 25",
@@ -32,8 +32,8 @@
     "separate": "SI",
     "handicap": "NO",
     "arbitri": "NO",
-    "locandina": "https://trello.com/1/cards/6a7d72d9714facff36e5239e/attachments/6a86f151ac6c85c5e1dbd555/download/Leone_2026_27.jpg",
-    "vincitore": ""
+    "vincitore": "",
+    "locandina": "https://trello.com/1/cards/6a7d72d9714facff36e5239e/attachments/6a86f151ac6c85c5e1dbd555/download/Leone_2026_27.jpg"
   },
   {
     "id": 1786454942572,
