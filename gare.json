@@ -1422,14 +1422,14 @@
     "iscrizione": "€",
     "entro": "2026-08-12",
     "start": "2026-08-12",
-    "end_date": "2026-10-25",
+    "end_date": "2026-10-31",
     "specialita": "",
     "categorie": "Prima, Seconda, Terza",
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "NO",
-    "locandina": "locandina_non_disponibile.png",
-    "vincitore": ""
+    "vincitore": "",
+    "locandina": "locandina_non_disponibile.png"
   },
   {
     "id": 1786525218718,
