@@ -634,6 +634,52 @@
       document.getElementById('eventDialog').showModal();
     }
 
+	function openPosterFullscreen() {
+	  const sourceImage = document.getElementById('modalLocandina');
+	  const fullscreenDialog = document.getElementById(
+		 'posterFullscreenDialog'
+	  );
+	  const fullscreenImage = document.getElementById(
+		 'posterFullscreenImage'
+	  );
+
+	  if (!sourceImage || !fullscreenDialog || !fullscreenImage) {
+		 return;
+	  }
+
+	  if (!sourceImage.src) {
+		 return;
+	  }
+
+	  fullscreenImage.src = sourceImage.src;
+	  fullscreenImage.alt = sourceImage.alt || 'Locandina ingrandita';
+
+	  fullscreenDialog.showModal();
+	}
+
+
+	function closePosterFullscreen() {
+	  const fullscreenDialog = document.getElementById(
+		 'posterFullscreenDialog'
+	  );
+
+	  if (fullscreenDialog && fullscreenDialog.open) {
+		 fullscreenDialog.close();
+	  }
+	}
+
+	const posterFullscreenDialog = document.getElementById(
+	  'posterFullscreenDialog'
+	);
+
+	if (posterFullscreenDialog) {
+	  posterFullscreenDialog.addEventListener('click', function(event) {
+		 if (event.target === posterFullscreenDialog) {
+			closePosterFullscreen();
+		 }
+	  });
+	}
+
 	function setTechLabel(id, val) {
 	  const el = document.getElementById(id);
 	  if(!el) return;
