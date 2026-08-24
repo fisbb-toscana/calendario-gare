@@ -1087,6 +1087,7 @@
     "id": 1786454942635,
     "title": "15° MEMORIAL PLUTO",
     "className": "gara-libera",
+    "stato": "ufficiale",
     "sede": "L'ACCHITO (LU)",
     "premio": "€ 1.500",
     "iscrizione": "€ 35",
@@ -1098,6 +1099,7 @@
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "NO",
+    "vincitore": "Michael Lunardi (N)",
     "locandina": "https://trello.com/1/cards/690b6aa3d43676fd9756f888/attachments/690b6ab2c0c5332877646225/download/Pluto_2026.jpg"
   },
   {
