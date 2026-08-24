@@ -1053,6 +1053,7 @@
     "id": 1786454942633,
     "title": "2° TROFEO JOHNNY CLUB",
     "className": "gara-libera",
+    "stato": "ufficiale",
     "sede": "JOHNNY CLUB (PT)",
     "premio": "€ 1.200",
     "iscrizione": "€ 35",
@@ -1064,6 +1065,7 @@
     "separate": "SI",
     "handicap": "NO",
     "arbitri": "NO",
+    "vincitore": "Lorenzo Meoni (1)",
     "locandina": "https://trello.com/1/cards/69135b0b45edc07a2ac18967/attachments/69166309bc2762e8aa5efd44/download/johnny_2025_bis.jpg"
   },
   {
