@@ -1754,13 +1754,13 @@
     "iscrizione": "€",
     "entro": "",
     "start": "",
-    "end_date": "2026-10-31",
+    "end_date": "2026-10-25",
     "specialita": "",
     "categorie": "Prima, Seconda, Terza",
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "NO",
-    "locandina": "locandina_non_disponibile.png",
-    "vincitore": ""
+    "vincitore": "",
+    "locandina": "locandina_non_disponibile.png"
   }
 ]
