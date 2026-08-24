@@ -296,6 +296,7 @@
             "separate": "NO",
             "handicap": "NO",
             "arbitri": "SI",
+				"vincitore": "Dario Del Gobbo (1)",
             "locandina": "https://trello.com/1/cards/6a1ef16fed0f146c784aa1a3/attachments/6a1ef1861cd5e812f73c8953/download/torneo_estivo_ansa_2026.jpg"
           },
           {
@@ -616,7 +617,7 @@
 
       // Caricamento locandina: si adatterà da sola al quadrato fisso a sinistra
       const imgEl = document.getElementById('modalLocandina');
-      imgEl.src = (evt.locandina && evt.locandina.trim() !== "") ? evt.locandina : "https://placehold.co";
+      imgEl.src = (evt.locandina && evt.locandina.trim() !== "") ? evt.locandina : "locandina_non_disponibile.png";
 
 		const winnerBox = document.getElementById('winnerBox');
 
