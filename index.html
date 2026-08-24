@@ -184,7 +184,7 @@
 
 			<!-- Contenitore Immagine a sinistra -->
 			<div class="modal-img-side">
-				<img id="modalLocandina" src="" alt="Locandina Torneo">
+				<img id="modalLocandina" src="" alt="Locandina Torneo" title="Clicca per ingrandire" onclick="openPosterFullscreen()">
 				<div class="admin-only">
 					<label class="detail-label">URL Immagine Locandina</label>
 					<input type="text" id="editLocandina" placeholder="https://url-immagine.jpg" oninput="document.getElementById('modalLocandina').src = this.value || 'https://placehold.co'">
@@ -324,6 +324,24 @@
 
 			</div>
 		</div>
+	</dialog>
+
+	<dialog id="posterFullscreenDialog" class="poster-fullscreen-dialog">
+
+	  <button
+		 type="button"
+		 class="poster-fullscreen-close"
+		 onclick="closePosterFullscreen()"
+		 title="Chiudi immagine">
+		 ✕
+	  </button>
+
+	  <img
+		 id="posterFullscreenImage"
+		 src=""
+		 alt="Locandina ingrandita"
+	  >
+
 	</dialog>
 
 <!-- Modale nascosto login di amministrazione -->
