@@ -513,31 +513,33 @@ body {
 }
 
 .winner-box {
-  display: none;
-  flex-shrink: 0;
-  width: 100%;
-  padding: 8px 10px;
-  background-color: #fff8e1;
-  border: 1px solid #e6c200;
-  border-radius: 8px;
-  text-align: center;
+	display: none;
+	flex-shrink: 0;
+	width: 100%;
+	padding: 8px 10px;
+	background-color: #fff8e1;
+	border: 1px solid #e6c200;
+	border-radius: 8px;
+	text-align: center;
 }
 
 .winner-label {
-  display: block;
-  margin-bottom: 2px;
-  color: #b45309;
-  font-size: 0.6rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+	display: block;
+	margin-bottom: 2px;
+	color: #b45309;
+	font-size: 0.6rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
 }
 
 .winner-box strong {
-  display: block;
-  color: #8a6a00;
-  font-size: 0.8rem;
-  font-weight: 800;
+	display: block;
+	color: #92400e;
+	font-size: 0.75rem;
+	font-weight: 700;
+	line-height: 1.45;
+	white-space: pre-line;
 }
 
 /* Vista Elenco */
