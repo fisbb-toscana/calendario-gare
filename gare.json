@@ -1619,7 +1619,7 @@
   },
   {
     "id": 1786525893299,
-    "title": "GARA NAZIONALE BASSA MAREA",
+    "title": "2° TROFEO BASSA MAREA",
     "className": "gara-libera",
     "stato": "pianificata",
     "sede": "BASSA MAREA (FI)",
@@ -1633,8 +1633,8 @@
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "SI",
-    "locandina": "locandina_non_disponibile.png",
-    "vincitore": ""
+    "vincitore": "",
+    "locandina": "locandina_non_disponibile.png"
   },
   {
     "id": 1786526354718,
