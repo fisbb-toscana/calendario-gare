@@ -1893,5 +1893,24 @@
     "arbitri": "NO",
     "vincitore": "",
     "locandina": "locandina_non_disponibile.png"
+  },
+  {
+    "id": 1787663851841,
+    "title": "TROFEO ACCADEMIA BILIARDO PONTEDERA",
+    "className": "gara-libera",
+    "stato": "pianificata",
+    "sede": "Accademia Biliardi Pontedera (PI)",
+    "premio": "€ 1.000",
+    "iscrizione": "€ 30",
+    "entro": "",
+    "start": "",
+    "end_date": "2027-02-14",
+    "specialita": "Tutti Doppi a 1000 punti",
+    "categorie": "Master, Prima, Seconda, Terza",
+    "separate": "SI",
+    "handicap": "SI",
+    "arbitri": "NO",
+    "vincitore": "",
+    "locandina": "locandina_non_disponibile.png"
   }
 ]
