@@ -1,0 +1,41 @@
+[
+  {
+    "id": "ematerz-marameo-2025",
+    "utente_id": "ematerz",
+    "gara_id": 1786454942647,
+    "stagione": "2025-2026",
+    "data_giocata": "2025-09-30",
+    "iscrizione": 35,
+    "premio": 0,
+    "risultato": "3° Turno",
+    "ranking": 9,
+    "batteria_superata": false,
+    "note": "",
+    "incontri": [
+      {
+        "id": 1,
+        "ordine": 1,
+        "fase": "1° turno",
+        "avversario": "Quintavalle",
+        "categoria": "Prima",
+        "esito": "V"
+      },
+      {
+        "id": 2,
+        "ordine": 2,
+        "fase": "2° turno",
+        "avversario": "Berretta",
+        "categoria": "Master",
+        "esito": "V"
+      },
+      {
+        "id": 3,
+        "ordine": 3,
+        "fase": "3° turno",
+        "avversario": "Barbini",
+        "categoria": "Nazionale",
+        "esito": "P"
+      }
+    ]
+  }
+]

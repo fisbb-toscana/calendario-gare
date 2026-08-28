@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="FISBB Toscana - Vista personale tornei">
+  <title>FISBB Toscana - Vista Personale</title>
+  <link rel="icon" type="image/jpeg" href="avatar_fisbbtoscana.jpeg">
+  <link rel="stylesheet" href="personale-style.css?v=1">
+</head>
+<body>
+  <div class="app-shell">
+    <button id="menuToggle" class="menu-toggle" type="button">☰ Menu</button>
+
+    <aside id="sidebar" class="sidebar">
+      <button id="menuClose" class="sidebar-close" type="button" aria-label="Chiudi menu">✕</button>
+
+      <a class="brand" href="index.html" title="Vai al calendario">
+        <img src="REGIONE-29-piccolo.png" alt="Logo FISBB Toscana">
+        <div>
+          <h1>Sezione Stecca</h1>
+          <p>Vista Personale</p>
+        </div>
+      </a>
+
+      <nav class="main-nav" aria-label="Navigazione principale">
+        <a href="index.html"><span>📅</span> Calendario Gare</a>
+        <a href="personale.html" class="active" aria-current="page"><span>👤</span> Vista Personale</a>
+      </nav>
+
+      <section class="sidebar-section">
+        <h2>Stagione agonistica</h2>
+        <select id="seasonSelector" class="form-control">
+          <option value="">Caricamento...</option>
+        </select>
+      </section>
+
+      <section id="userCard" class="user-card" hidden>
+        <div id="userInitials" class="user-avatar">ET</div>
+        <div>
+          <strong id="userDisplayName">Utente</strong>
+          <span id="userCategory">Categoria</span>
+          <span id="userCsb">CSB</span>
+        </div>
+      </section>
+
+      <div class="sidebar-actions">
+        <button id="changeUserBtn" class="btn btn-secondary" type="button">Cambia utente</button>
+        <button id="githubSettingsBtn" class="btn btn-ghost" type="button">Configura GitHub</button>
+      </div>
+    </aside>
+
+    <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+    <main class="main-content">
+      <div id="offlineNotice" class="offline-notice" hidden>
+        Modalità dimostrativa: sono utilizzati i dati locali incorporati nello script.
+      </div>
+
+      <header class="page-header">
+        <div>
+          <p class="eyebrow">Area atleta</p>
+          <h2 id="pageTitle">Il mio percorso</h2>
+          <p>Risultati, avversari, ranking e bilancio economico della stagione.</p>
+        </div>
+        <button id="newParticipationBtn" class="btn btn-primary" type="button">＋ Nuova partecipazione</button>
+      </header>
+
+      <section class="summary-grid" aria-label="Riepilogo stagione">
+        <article class="summary-card">
+          <span>Tornei</span>
+          <strong id="summaryTournaments">0</strong>
+          <small>partecipazioni</small>
+        </article>
+        <article class="summary-card">
+          <span>Partite</span>
+          <strong id="summaryMatches">0</strong>
+          <small id="summaryMatchesDetail">0 vinte · 0 perse</small>
+        </article>
+        <article class="summary-card">
+          <span>Ranking</span>
+          <strong id="summaryRanking">0</strong>
+          <small>punti realizzati</small>
+        </article>
+        <article class="summary-card">
+          <span>Saldo</span>
+          <strong id="summaryBalance">€ 0</strong>
+          <small id="summaryBalanceDetail">Premi meno iscrizioni</small>
+        </article>
+      </section>
+
+      <section class="toolbar">
+        <div class="search-box">
+          <span>⌕</span>
+          <input id="searchInput" type="search" placeholder="Cerca una gara..." autocomplete="off">
+        </div>
+        <span id="visibleCount" class="visible-count">0 gare visualizzate</span>
+      </section>
+
+      <section class="content-panel">
+        <div class="panel-heading">
+          <div>
+            <h3>Partecipazioni</h3>
+            <p>Clicca su una gara per visualizzare il percorso completo.</p>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="personal-table">
+            <thead>
+              <tr>
+                <th>Data</th>
+                <th>Tipologia</th>
+                <th>Gara</th>
+                <th>Risultato</th>
+                <th class="numeric">Ranking</th>
+              </tr>
+            </thead>
+            <tbody id="participationsBody">
+              <tr><td colspan="5" class="empty-row">Caricamento...</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div id="mobileList" class="mobile-list"></div>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="loginDialog" class="app-dialog login-dialog">
+    <form id="loginForm" class="dialog-card">
+      <div class="dialog-heading">
+        <p class="eyebrow">Vista Personale</p>
+        <h2>Seleziona il tuo profilo</h2>
+        <p>Il PIN serve soltanto a distinguere le diverse viste personali.</p>
+      </div>
+      <label>Utente
+        <select id="loginUser" class="form-control" required>
+          <option value="">Seleziona un utente</option>
+        </select>
+      </label>
+      <label>PIN
+        <input id="loginPin" class="form-control" type="password" inputmode="numeric" autocomplete="off" required>
+      </label>
+      <p id="loginError" class="error-message" hidden></p>
+      <div class="dialog-actions">
+        <a href="index.html" class="btn btn-secondary button-link">Calendario</a>
+        <button class="btn btn-primary" type="submit">Accedi</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="detailDialog" class="app-dialog detail-dialog">
+    <div class="dialog-card">
+      <button id="detailClose" class="dialog-close" type="button">✕</button>
+      <span id="detailType" class="type-badge">Torneo</span>
+      <h2 id="detailTitle">Titolo gara</h2>
+      <p id="detailVenue" class="detail-venue">Sede</p>
+
+      <div class="detail-grid">
+        <div><span>Data giocata</span><strong id="detailDate">-</strong></div>
+        <div><span>Risultato</span><strong id="detailResult">-</strong></div>
+        <div><span>Iscrizione</span><strong id="detailEntry">-</strong></div>
+        <div><span>Premio</span><strong id="detailPrize">-</strong></div>
+        <div><span>Ranking</span><strong id="detailRanking">0</strong></div>
+        <div><span>Batteria</span><strong id="detailBattery">-</strong></div>
+      </div>
+
+      <div class="matches-heading">
+        <h3>Percorso nella gara</h3>
+        <span id="detailMatchCount">0 incontri</span>
+      </div>
+      <div id="detailMatches" class="matches-list"></div>
+
+      <section id="detailNotesSection" class="notes-box" hidden>
+        <h3>Note</h3>
+        <p id="detailNotes"></p>
+      </section>
+
+      <div class="dialog-actions">
+        <button id="deleteParticipationBtn" class="btn btn-danger" type="button">Elimina</button>
+        <button id="editParticipationBtn" class="btn btn-secondary" type="button">Modifica</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="editDialog" class="app-dialog edit-dialog">
+    <form id="editForm" class="dialog-card">
+      <button id="editClose" class="dialog-close" type="button">✕</button>
+      <div class="dialog-heading">
+        <p class="eyebrow">Gestione percorso</p>
+        <h2 id="editDialogTitle">Nuova partecipazione</h2>
+      </div>
+
+      <input id="editId" type="hidden">
+      <div class="form-grid">
+        <label class="full">Gara
+          <select id="editEvent" class="form-control" required></select>
+        </label>
+        <label>Data giocata
+          <input id="editDate" class="form-control" type="date" required>
+        </label>
+        <label>Risultato
+          <input id="editResult" class="form-control" type="text" placeholder="Es. Eliminato ai quarti">
+        </label>
+        <label>Iscrizione (€)
+          <input id="editEntry" class="form-control" type="number" min="0" step="0.01">
+        </label>
+        <label>Premio (€)
+          <input id="editPrize" class="form-control" type="number" min="0" step="0.01">
+        </label>
+        <label>Ranking
+          <input id="editRanking" class="form-control" type="number" step="1">
+        </label>
+        <label>Batteria superata
+          <select id="editBattery" class="form-control"><option value="false">No</option><option value="true">Sì</option></select>
+        </label>
+        <label class="full">Note
+          <textarea id="editNotes" class="form-control" rows="3"></textarea>
+        </label>
+      </div>
+
+      <div class="matches-editor-heading">
+        <h3>Incontri</h3>
+        <button id="addMatchBtn" class="btn btn-small btn-secondary" type="button">＋ Aggiungi incontro</button>
+      </div>
+      <div id="matchesEditor" class="matches-editor"></div>
+
+      <div class="dialog-actions">
+        <button id="editCancel" class="btn btn-secondary" type="button">Annulla</button>
+        <button class="btn btn-primary" type="submit">Salva</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="githubDialog" class="app-dialog login-dialog">
+    <form id="githubForm" class="dialog-card">
+      <button id="githubClose" class="dialog-close" type="button">✕</button>
+      <div class="dialog-heading">
+        <p class="eyebrow">Sincronizzazione</p>
+        <h2>Configura GitHub</h2>
+        <p>Il token viene conservato solo nella sessione corrente del browser.</p>
+      </div>
+      <label>Proprietario repository
+        <input id="githubOwner" class="form-control" type="text" value="fisbb-toscana" required>
+      </label>
+      <label>Repository
+        <input id="githubRepo" class="form-control" type="text" value="calendario-gare" required>
+      </label>
+      <label>Branch
+        <input id="githubBranch" class="form-control" type="text" value="main" required>
+      </label>
+      <label>Token GitHub
+        <input id="githubToken" class="form-control" type="password" placeholder="github_pat_..." required>
+      </label>
+      <div class="dialog-actions">
+        <button class="btn btn-primary" type="submit">Salva configurazione</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="personale-script.js?v=1"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+[
+  {
+    "id": "ematerz",
+    "nome": "Emanuele",
+    "cognome": "Terzuoli",
+    "nome_visualizzato": "Emanuele Terzuoli",
+    "pin": "1234",
+    "categoria": "Master",
+	 "csb": "Bassa Marea",
+    "attivo": true
+  },
+  {
+    "id": "ghebbe",
+    "nome": "Dario",
+    "cognome": "Del Gobbo",
+    "nome_visualizzato": "Dario Del Gobbo",
+    "pin": "0000",
+    "categoria": "Prima",
+	 "csb": "Tavarnuzze Le Sfere",
+    "attivo": true
+  }
+]
