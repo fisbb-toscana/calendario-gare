@@ -1513,14 +1513,14 @@
     "iscrizione": "€ 30",
     "entro": "2026-09-27",
     "start": "2026-09-30",
-    "end_date": "2026-10-17",
+    "end_date": "2026-11-01",
     "specialita": "Italiana a 80, Goriziana a 300, ev. Tutti Doppi a 500 punti",
     "categorie": "Seconda, Terza",
     "separate": "SI",
     "handicap": "NO",
     "arbitri": "NO",
-    "locandina": "locandina_non_disponibile.png",
-    "vincitore": ""
+    "vincitore": "",
+    "locandina": "locandina_non_disponibile.png"
   },
   {
     "id": 1786524965606,
