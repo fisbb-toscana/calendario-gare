@@ -1570,14 +1570,14 @@
     "iscrizione": "€ 35",
     "entro": "2026-10-16",
     "start": "2026-10-19",
-    "end_date": "2026-11-01",
+    "end_date": "2026-11-22",
     "specialita": "Italiana a 80, Goriziana a 300, ev. Tutti Doppi a 500 punti",
     "categorie": "Nazionale / Naz. Pro, Master, Prima, Seconda, Terza",
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "NO",
-    "locandina": "locandina_non_disponibile.png",
-    "vincitore": ""
+    "vincitore": "",
+    "locandina": "locandina_non_disponibile.png"
   },
   {
     "id": 1786525603618,
