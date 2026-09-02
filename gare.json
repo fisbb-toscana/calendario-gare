@@ -1912,5 +1912,24 @@
     "arbitri": "NO",
     "vincitore": "",
     "locandina": "locandina_non_disponibile.png"
+  },
+  {
+    "id": 1788338754554,
+    "title": "4° MEMORIAL LOTTI (LO SCURO) - Femminile",
+    "className": "gara-libera",
+    "stato": "pianificata",
+    "sede": "",
+    "premio": "€",
+    "iscrizione": "€",
+    "entro": "",
+    "start": "",
+    "end_date": "2026-10-31",
+    "specialita": "",
+    "categorie": "Nazionale / Naz. Pro, Master, Prima, Seconda, Terza",
+    "separate": "NO",
+    "handicap": "SI",
+    "arbitri": "NO",
+    "vincitore": "",
+    "locandina": "locandina_non_disponibile.png"
   }
 ]
