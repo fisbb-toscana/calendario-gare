@@ -1783,25 +1783,6 @@
     "locandina": "locandina_non_disponibile.png"
   },
   {
-    "id": 1786546777044,
-    "title": "3° TROFEO JOHNNY CLUB",
-    "className": "gara-libera",
-    "stato": "pianificata",
-    "sede": "JOHNNY CLUB (LU)",
-    "premio": "€ 1.200",
-    "iscrizione": "€ 35",
-    "entro": "2026-09-25",
-    "start": "2026-09-28",
-    "end_date": "2026-10-18",
-    "specialita": "Tutti Doppi a 800 punti",
-    "categorie": "Nazionale / Naz. Pro, Master, Prima, Seconda, Terza",
-    "separate": "NO",
-    "handicap": "NO",
-    "arbitri": "NO",
-    "locandina": "locandina_non_disponibile.png",
-    "vincitore": ""
-  },
-  {
     "id": 1786608004647,
     "title": "CAMPIONATI ITALIANI 2027",
     "className": "istituzionale",
