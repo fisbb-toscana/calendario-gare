@@ -135,18 +135,20 @@
     "id": 1786454942578,
     "title": "1° PROVA di QALIFICAZIONE ai CAMPIONATI ITALIANI",
     "className": "istituzionale",
-    "start": "2026-10-05",
-    "end_date": "2026-10-11",
+    "stato": "ufficiale",
     "sede": "varie sedi",
     "premio": "€ 300",
     "iscrizione": "€ 30",
     "entro": "2026-10-02",
+    "start": "2026-10-05",
+    "end_date": "2026-10-11",
     "specialita": "Italiana a 150/130 punti",
     "categorie": "Prima, Seconda, Terza",
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "1 su 2",
-    "locandina": "locandina_non_disponibile.png"
+    "vincitore": "",
+    "locandina": "https://trello.com/1/cards/6a9816ceb7f2cd2e7e3eeed4/attachments/6a9816f8c6014eb27f27dca4/download/Selezioni_01.jpg"
   },
   {
     "id": 1786454942579,
