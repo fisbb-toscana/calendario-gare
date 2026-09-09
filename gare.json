@@ -1916,5 +1916,24 @@
     "arbitri": "NO",
     "vincitore": "",
     "locandina": "locandina_non_disponibile.png"
+  },
+  {
+    "id": 1788960973190,
+    "title": "4° MEMORIAL PIERINO MARINI",
+    "className": "gara-libera",
+    "stato": "pianificata",
+    "sede": "BILLIARDS CLUB VAL D'ELSA",
+    "premio": "€",
+    "iscrizione": "€",
+    "entro": "",
+    "start": "",
+    "end_date": "2027-04-11",
+    "specialita": "",
+    "categorie": "Seconda, Terza",
+    "separate": "NO",
+    "handicap": "NO",
+    "arbitri": "NO",
+    "vincitore": "",
+    "locandina": "locandina_non_disponibile.png"
   }
 ]
