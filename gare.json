@@ -1625,20 +1625,20 @@
     "id": 1786525893299,
     "title": "1° TROFEO MAGIS",
     "className": "gara-libera",
-    "stato": "pianificata",
+    "stato": "ufficiale",
     "sede": "BASSA MAREA (FI)",
     "premio": "€ 5.000",
     "iscrizione": "€ 40",
     "entro": "2026-12-01",
     "start": "2026-12-05",
     "end_date": "2026-12-13",
-    "specialita": "Italiana a 80, Tutti Doppi a 500 punti",
+    "specialita": "Italiana a 100 punti, 2 set su 3",
     "categorie": "Nazionale / Naz. Pro, Master, Prima, Seconda, Terza",
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "SI",
     "vincitore": "",
-    "locandina": "locandina_non_disponibile.png"
+    "locandina": "https://trello.com/1/cards/6a8d63689a4619f6e8c44434/attachments/6aa300c1a562f34e1af2c7a2/download/bassamarea_2026.jpg"
   },
   {
     "id": 1786526354718,
