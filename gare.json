@@ -1935,5 +1935,24 @@
     "arbitri": "NO",
     "vincitore": "",
     "locandina": "locandina_non_disponibile.png"
+  },
+  {
+    "id": 1789502923513,
+    "title": "1° MEMORIAL RICCARDO FABBRI",
+    "className": "gara-libera",
+    "stato": "ufficiale",
+    "sede": "PROGETTO 5",
+    "premio": "€ 1.000",
+    "iscrizione": "€ 30",
+    "entro": "2026-09-25",
+    "start": "2026-09-28",
+    "end_date": "2026-10-18",
+    "specialita": "Tutti Doppi a 1000 punti",
+    "categorie": "Master, Prima, Seconda, Terza",
+    "separate": "NO",
+    "handicap": "SI",
+    "arbitri": "NO",
+    "vincitore": "",
+    "locandina": "locandina_non_disponibile.png"
   }
 ]
