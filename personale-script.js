@@ -62,6 +62,39 @@ function initializeApp() {
   if (savedUser) loginUser(savedUser); else openLogin();
 }
 
+function populateLoginUsers() {
+  const select = document.getElementById("loginUser");
+
+  if (!select) {
+    console.error(
+      "Elemento non trovato: loginUser"
+    );
+
+    return;
+  }
+
+  select.innerHTML =
+    '<option value="">Seleziona un utente</option>';
+
+  users
+    .filter(user => user.attivo !== false)
+    .sort((userA, userB) =>
+      displayName(userA).localeCompare(
+        displayName(userB),
+        "it"
+      )
+    )
+    .forEach(user => {
+      const option =
+        document.createElement("option");
+
+      option.value = user.id;
+      option.textContent = displayName(user);
+
+      select.appendChild(option);
+    });
+}
+
 function bindEvents() {
   document.getElementById("loginForm").addEventListener("submit", handleLogin);
   document.getElementById("changeUserBtn").addEventListener("click", () => { sessionStorage.removeItem("personal_user_id"); currentUser = null; openLogin(); });
