@@ -806,6 +806,7 @@ async function pushJsonToGitHub(
 }
 
 function toggleMenu(open) { document.getElementById("sidebar").classList.toggle("open", open); document.getElementById("sidebarOverlay").classList.toggle("open", open); document.getElementById("menuToggle").setAttribute("aria-expanded", String(open)); document.body.style.overflow = open ? "hidden" : ""; }
+
 function number(v) { const n = Number(v); return Number.isFinite(n) ? n : 0; }
 function signed(v) { return v > 0 ? `+${v}` : String(v); }
 function euro(v) { return new Intl.NumberFormat("it-IT", { style: "currency", currency: "EUR", maximumFractionDigits: 2 }).format(number(v)); }
