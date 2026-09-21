@@ -3,6 +3,13 @@ const TYPE_COLORS = {
   "seniores": "#D97706", "femminile": "#FF69B4", "gara-libera": "#059669"
 };
 
+const GITHUB_CONFIG = {
+  owner: "fisbb-toscana",
+  repo: "calendario-gare",
+  branch: "main",
+  filePath: "percorsi.json"
+};
+
 const demoUsers = [
   { id: "emanuele", nome: "Emanuele", cognome: "Terzuoli", nome_visualizzato: "Emanuele Terzuoli", pin: "1234", categoria: "Master", csb: "CSB Dimostrativo", attivo: true },
   { id: "utente-demo", nome: "Utente", cognome: "Demo", nome_visualizzato: "Utente Dimostrativo", pin: "5678", categoria: "Prima", csb: "CSB Demo", attivo: true }
@@ -49,6 +56,7 @@ async function loadData() {
 function initializeApp() {
   populateLoginUsers();
   bindEvents();
+	updateGitHubButton();
   const savedUserId = sessionStorage.getItem("personal_user_id");
   const savedUser = users.find(u => String(u.id) === savedUserId && u.attivo !== false);
   if (savedUser) loginUser(savedUser); else openLogin();
@@ -77,21 +85,57 @@ function bindEvents() {
   document.getElementById("menuToggle").addEventListener("click", () => toggleMenu(true));
   document.getElementById("menuClose").addEventListener("click", () => toggleMenu(false));
   document.getElementById("sidebarOverlay").addEventListener("click", () => toggleMenu(false));
+  
   document.getElementById("githubSettingsBtn").addEventListener("click", openGitHubSettings);
   document.getElementById("githubClose").addEventListener("click", () => document.getElementById("githubDialog").close());
   document.getElementById("githubForm").addEventListener("submit", saveGitHubSettings);
+	document
+	  .getElementById("githubLogoutBtn")
+	  .addEventListener(
+		 "click",
+		 logoutGitHub
+	  );
+
+	document
+	  .getElementById("showGithubToken")
+	  .addEventListener("change", event => {
+		 document.getElementById(
+			"githubToken"
+		 ).type = event.target.checked
+			? "text"
+			: "password";
+	  });  
+	  
   ["detailDialog", "editDialog", "githubDialog"].forEach(id => {
     document.getElementById(id).addEventListener("click", e => { if (e.target.id === id) e.target.close(); });
   });
 }
 
-function populateLoginUsers() {
-  const select = document.getElementById("loginUser");
-  select.innerHTML = '<option value="">Seleziona un utente</option>';
-  users.filter(u => u.attivo !== false).sort((a,b) => displayName(a).localeCompare(displayName(b))).forEach(user => {
-    const option = document.createElement("option"); option.value = user.id; option.textContent = displayName(user); select.appendChild(option);
-  });
+function loginUser(user) {
+  currentUser = user;
+
+  sessionStorage.setItem(
+    "personal_user_id",
+    String(user.id)
+  );
+
+  renderUserCard();
+  populateSeasons();
+  populateEventSelect();
+  renderAll();
+
+  const githubToken =
+    localStorage.getItem(
+      "personal_github_token"
+    );
+
+  if (!githubToken && !offlineMode) {
+    setTimeout(() => {
+      openGitHubSettings();
+    }, 300);
+  }
 }
+
 function displayName(user) { return user.nome_visualizzato || `${user.nome || ""} ${user.cognome || ""}`.trim() || user.id; }
 function openLogin() { document.getElementById("loginPin").value = ""; document.getElementById("loginError").hidden = true; document.getElementById("loginDialog").showModal(); }
 function handleLogin(e) {
@@ -445,23 +489,320 @@ async function deleteCurrentPath() {
 }
 
 function openGitHubSettings() {
-  document.getElementById("githubOwner").value = sessionStorage.getItem("gh_owner") || "fisbb-toscana"; document.getElementById("githubRepo").value = sessionStorage.getItem("gh_repo") || "calendario-gare"; document.getElementById("githubBranch").value = sessionStorage.getItem("gh_branch") || "main"; document.getElementById("githubToken").value = sessionStorage.getItem("gh_token") || ""; document.getElementById("githubDialog").showModal();
+  const token =
+    localStorage.getItem(
+      "personal_github_token"
+    ) || "";
+
+  const tokenInput =
+    document.getElementById(
+      "githubToken"
+    );
+
+  const logoutButton =
+    document.getElementById(
+      "githubLogoutBtn"
+    );
+
+  const statusMessage =
+    document.getElementById(
+      "githubStatusMessage"
+    );
+
+  tokenInput.value = token;
+  tokenInput.type = "password";
+
+  document.getElementById(
+    "showGithubToken"
+  ).checked = false;
+
+  if (token) {
+    statusMessage.textContent =
+      "GitHub configurato. Le modifiche saranno salvate direttamente nel repository.";
+
+    statusMessage.className =
+      "github-status-message connected";
+
+    statusMessage.hidden = false;
+    logoutButton.hidden = false;
+  } else {
+    statusMessage.textContent =
+      "GitHub non è ancora configurato.";
+
+    statusMessage.className =
+      "github-status-message disconnected";
+
+    statusMessage.hidden = false;
+    logoutButton.hidden = true;
+  }
+
+  document
+    .getElementById("githubDialog")
+    .showModal();
 }
 
-function saveGitHubSettings(e) { e.preventDefault(); ["Owner","Repo","Branch","Token"].forEach(k => sessionStorage.setItem(`gh_${k.toLowerCase()}`, document.getElementById(`github${k}`).value.trim())); document.getElementById("githubDialog").close(); alert("Configurazione GitHub salvata per questa sessione."); }
+function saveGitHubSettings(event) {
+  event.preventDefault();
+
+  const token =
+    document
+      .getElementById("githubToken")
+      .value
+      .trim();
+
+  if (!token) {
+    alert(
+      "Inserisci un token GitHub valido."
+    );
+
+    return;
+  }
+
+  localStorage.setItem(
+    "personal_github_token",
+    token
+  );
+
+  document
+    .getElementById("githubDialog")
+    .close();
+
+  updateGitHubButton();
+
+  alert(
+    "Token GitHub salvato nel browser. " +
+    "Le modifiche saranno sincronizzate " +
+    "direttamente con percorsi.json."
+  );
+}
+function logoutGitHub() {
+  const confirmed = confirm(
+    "Vuoi rimuovere il token GitHub " +
+    "memorizzato in questo browser?"
+  );
+
+  if (!confirmed) {
+    return;
+  }
+
+  localStorage.removeItem(
+    "personal_github_token"
+  );
+
+  document.getElementById(
+    "githubToken"
+  ).value = "";
+
+  document
+    .getElementById("githubDialog")
+    .close();
+
+  updateGitHubButton();
+
+  alert(
+    "Token GitHub rimosso dal browser."
+  );
+}
+
+function updateGitHubButton() {
+  const button =
+    document.getElementById(
+      "githubSettingsBtn"
+    );
+
+  const token =
+    localStorage.getItem(
+      "personal_github_token"
+    );
+
+  if (token) {
+    button.textContent =
+      "● GitHub connesso";
+
+    button.classList.add(
+      "github-connected"
+    );
+
+    button.title =
+      "GitHub configurato. Clicca per " +
+      "modificare o rimuovere il token.";
+  } else {
+    button.textContent =
+      "Configura GitHub";
+
+    button.classList.remove(
+      "github-connected"
+    );
+
+    button.title =
+      "Inserisci il token GitHub";
+  }
+}
 
 async function trySync() {
-  const token = sessionStorage.getItem("gh_token"); if (!token || offlineMode) { alert("Modifica salvata nella sessione corrente. Configura GitHub per pubblicarla online."); return; }
-  try { await pushJsonToGitHub("percorsi.json", paths, "Aggiornamento percorsi personali"); alert("Dati sincronizzati con GitHub."); } catch (e) { console.error(e); alert(`Salvataggio locale riuscito, sincronizzazione GitHub fallita: ${e.message}`); }
+  const token =
+    localStorage.getItem(
+      "personal_github_token"
+    );
+
+  if (offlineMode) {
+    alert(
+      "Modifica applicata ai dati dimostrativi. " +
+      "In modalità offline non è possibile " +
+      "aggiornare GitHub."
+    );
+
+    return;
+  }
+
+  if (!token) {
+    alert(
+      "La modifica è visibile nella sessione " +
+      "corrente, ma GitHub non è configurato. " +
+      "Inserisci il token per pubblicarla."
+    );
+
+    openGitHubSettings();
+    return;
+  }
+
+  try {
+    await pushJsonToGitHub(
+      GITHUB_CONFIG.filePath,
+      paths,
+      "Aggiornamento percorsi personali"
+    );
+
+    alert(
+      "Partecipazione salvata correttamente " +
+      "su GitHub."
+    );
+  } catch (error) {
+    console.error(
+      "Errore sincronizzazione GitHub:",
+      error
+    );
+
+    alert(
+      "La modifica è stata applicata nella " +
+      "pagina, ma la sincronizzazione GitHub " +
+      "è fallita.\n\n" +
+      error.message
+    );
+  }
 }
 
-async function pushJsonToGitHub(filePath, data, message) {
-  const owner = sessionStorage.getItem("gh_owner"), repo = sessionStorage.getItem("gh_repo"), branch = sessionStorage.getItem("gh_branch") || "main", token = sessionStorage.getItem("gh_token");
-  const url = `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/contents/${filePath}`;
-  const headers = { Authorization: `Bearer ${token}`, Accept: "application/vnd.github+json", "Content-Type": "application/json" };
-  const get = await fetch(`${url}?ref=${encodeURIComponent(branch)}`, { headers }); if (!get.ok) throw new Error(`lettura SHA: ${get.status}`); const current = await get.json();
-  const json = JSON.stringify(data, null, 2); const bytes = new TextEncoder().encode(json); let binary = ""; bytes.forEach(b => binary += String.fromCharCode(b));
-  const put = await fetch(url, { method: "PUT", headers, body: JSON.stringify({ message, content: btoa(binary), sha: current.sha, branch }) }); if (!put.ok) throw new Error(`scrittura: ${put.status} ${await put.text()}`);
+async function pushJsonToGitHub(
+  filePath,
+  data,
+  message
+) {
+  const token =
+    localStorage.getItem(
+      "personal_github_token"
+    );
+
+  if (!token) {
+    throw new Error(
+      "Token GitHub non disponibile."
+    );
+  }
+
+  const owner =
+    GITHUB_CONFIG.owner;
+
+  const repo =
+    GITHUB_CONFIG.repo;
+
+  const branch =
+    GITHUB_CONFIG.branch;
+
+  const url =
+    `https://api.github.com/repos/` +
+    `${encodeURIComponent(owner)}/` +
+    `${encodeURIComponent(repo)}/` +
+    `contents/${filePath}`;
+
+  const headers = {
+    "Authorization": `Bearer ${token}`,
+    "Accept": "application/vnd.github+json",
+    "Content-Type": "application/json"
+  };
+
+  /*
+    Recupero sempre lo SHA più recente,
+    immediatamente prima del salvataggio.
+  */
+  const getResponse = await fetch(
+    `${url}?ref=${encodeURIComponent(branch)}`,
+    {
+      method: "GET",
+      headers
+    }
+  );
+
+  if (!getResponse.ok) {
+    const errorText =
+      await getResponse.text();
+
+    throw new Error(
+      `Errore nel recupero di ${filePath}: ` +
+      `${getResponse.status} ${errorText}`
+    );
+  }
+
+  const currentFile =
+    await getResponse.json();
+
+  const jsonString =
+    JSON.stringify(data, null, 2);
+
+  const utf8Bytes =
+    new TextEncoder().encode(jsonString);
+
+  let binaryString = "";
+
+  for (
+    let index = 0;
+    index < utf8Bytes.length;
+    index++
+  ) {
+    binaryString += String.fromCharCode(
+      utf8Bytes[index]
+    );
+  }
+
+  const base64Content =
+    btoa(binaryString);
+
+  const putBody = {
+    message,
+    content: base64Content,
+    sha: currentFile.sha,
+    branch
+  };
+
+  const putResponse = await fetch(
+    url,
+    {
+      method: "PUT",
+      headers,
+      body: JSON.stringify(putBody)
+    }
+  );
+
+  if (!putResponse.ok) {
+    const errorText =
+      await putResponse.text();
+
+    throw new Error(
+      `Errore durante la scrittura di ` +
+      `${filePath}: ` +
+      `${putResponse.status} ${errorText}`
+    );
+  }
+
+  return await putResponse.json();
 }
 
 function toggleMenu(open) { document.getElementById("sidebar").classList.toggle("open", open); document.getElementById("sidebarOverlay").classList.toggle("open", open); document.getElementById("menuToggle").setAttribute("aria-expanded", String(open)); document.body.style.overflow = open ? "hidden" : ""; }
