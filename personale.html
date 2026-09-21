@@ -46,7 +46,9 @@
 
       <div class="sidebar-actions">
         <button id="changeUserBtn" class="btn btn-secondary" type="button">Cambia utente</button>
-        <button id="githubSettingsBtn" class="btn btn-ghost" type="button">Configura GitHub</button>
+			<button id="githubSettingsBtn" class="btn btn-ghost" type="button" title="Gestisci il collegamento con GitHub">
+				Gestione GitHub
+			</button>
       </div>
     </aside>
 
@@ -233,31 +235,51 @@
     </form>
   </dialog>
 
-  <dialog id="githubDialog" class="app-dialog login-dialog">
-    <form id="githubForm" class="dialog-card">
-      <button id="githubClose" class="dialog-close" type="button">✕</button>
-      <div class="dialog-heading">
-        <p class="eyebrow">Sincronizzazione</p>
-        <h2>Configura GitHub</h2>
-        <p>Il token viene conservato solo nella sessione corrente del browser.</p>
-      </div>
-      <label>Proprietario repository
-        <input id="githubOwner" class="form-control" type="text" value="fisbb-toscana" required>
-      </label>
-      <label>Repository
-        <input id="githubRepo" class="form-control" type="text" value="calendario-gare" required>
-      </label>
-      <label>Branch
-        <input id="githubBranch" class="form-control" type="text" value="main" required>
-      </label>
-      <label>Token GitHub
-        <input id="githubToken" class="form-control" type="password" placeholder="github_pat_..." required>
-      </label>
-      <div class="dialog-actions">
-        <button class="btn btn-primary" type="submit">Salva configurazione</button>
-      </div>
-    </form>
-  </dialog>
+<dialog id="githubDialog" class="app-dialog login-dialog">
+  <form id="githubForm" class="dialog-card">
+
+    <button id="githubClose" class="dialog-close" type="button" aria-label="Chiudi">
+      X
+    </button>
+
+    <div class="dialog-heading">
+      <p class="eyebrow">Sincronizzazione</p>
+      <h2>Accesso GitHub</h2>
+      <p>
+        Inserisci il Personal Access Token autorizzato ad aggiornare il file percorsi.json.
+      </p>
+    </div>
+
+    <div class="github-repository-info">
+      <span>Repository</span>
+      <strong>fisbb-toscana/calendario-gare</strong>
+      <small>Branch: main - File: percorsi.json</small>
+    </div>
+
+    <label>
+      Personal Access Token
+      <input id="githubToken" class="form-control" type="password" placeholder="github_pat_..." autocomplete="off" required>
+    </label>
+
+    <label class="token-visibility-control">
+      <input id="showGithubToken" type="checkbox">
+      <span>Mostra token</span>
+    </label>
+
+    <p id="githubStatusMessage" class="github-status-message" hidden></p>
+
+    <div class="dialog-actions github-dialog-actions">
+      <button id="githubLogoutBtn" class="btn btn-danger" type="button">
+        Disconnetti
+      </button>
+
+      <button class="btn btn-primary" type="submit">
+        Salva token
+      </button>
+    </div>
+
+  </form>
+</dialog>
 
   <script src="personale-script.js?v=1"></script>
 </body>
