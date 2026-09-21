@@ -57,7 +57,14 @@ function initializeApp() {
 function bindEvents() {
   document.getElementById("loginForm").addEventListener("submit", handleLogin);
   document.getElementById("changeUserBtn").addEventListener("click", () => { sessionStorage.removeItem("personal_user_id"); currentUser = null; openLogin(); });
-  document.getElementById("seasonSelector").addEventListener("change", e => { currentSeason = e.target.value; renderAll(); });
+	document
+	  .getElementById("seasonSelector")
+	  .addEventListener("change", event => {
+		 currentSeason = event.target.value;
+
+		 populateEventSelect();
+		 renderAll();
+	  });
   document.getElementById("searchInput").addEventListener("input", renderList);
   document.getElementById("newParticipationBtn").addEventListener("click", () => openEdit());
   document.getElementById("detailClose").addEventListener("click", () => document.getElementById("detailDialog").close());
@@ -107,24 +114,213 @@ function renderUserCard() {
   document.getElementById("userCard").hidden = false;
   document.getElementById("pageTitle").textContent = `Il percorso di ${currentUser.nome || name}`;
 }
+
 function populateSeasons() {
-  const own = paths.filter(p => String(p.utente_id) === String(currentUser.id));
-  const seasons = [...new Set(own.map(p => p.stagione).filter(Boolean))].sort().reverse();
-  if (!seasons.length) seasons.push(getSeasonFromDate(new Date()));
-  const select = document.getElementById("seasonSelector"); select.innerHTML = "";
-  seasons.forEach(s => { const o = document.createElement("option"); o.value = s; o.textContent = s; select.appendChild(o); });
-  currentSeason = seasons.includes(currentSeason) ? currentSeason : seasons[0]; select.value = currentSeason;
+  const seasons = [
+    ...new Set(
+      events
+        .map(event => getEventSeason(event))
+        .filter(Boolean)
+    )
+  ].sort().reverse();
+
+  const currentRealSeason =
+    getSeasonFromDate(new Date());
+
+  if (
+    currentRealSeason &&
+    !seasons.includes(currentRealSeason)
+  ) {
+    seasons.push(currentRealSeason);
+    seasons.sort().reverse();
+  }
+
+  const select =
+    document.getElementById("seasonSelector");
+
+  select.innerHTML = "";
+
+  if (seasons.length === 0) {
+    const option =
+      document.createElement("option");
+
+    option.value = "";
+    option.textContent =
+      "Nessuna stagione disponibile";
+
+    select.appendChild(option);
+    currentSeason = "";
+    return;
+  }
+
+  seasons.forEach(season => {
+    const option =
+      document.createElement("option");
+
+    option.value = season;
+    option.textContent = season;
+
+    select.appendChild(option);
+  });
+
+  if (
+    currentSeason &&
+    seasons.includes(currentSeason)
+  ) {
+    select.value = currentSeason;
+  } else if (
+    currentRealSeason &&
+    seasons.includes(currentRealSeason)
+  ) {
+    currentSeason = currentRealSeason;
+    select.value = currentRealSeason;
+  } else {
+    currentSeason = seasons[0];
+    select.value = currentSeason;
+  }
 }
-function getSeasonFromDate(date) { const y = date.getFullYear(), m = date.getMonth(); return m >= 8 ? `${y}-${y+1}` : `${y-1}-${y}`; }
-function populateEventSelect() {
-  const select = document.getElementById("editEvent"); select.innerHTML = '<option value="">Seleziona una gara</option>';
-  [...events].sort((a,b) => String(b.end_date || b.start || "").localeCompare(String(a.end_date || a.start || ""))).forEach(evt => {
-    const o = document.createElement("option"); o.value = evt.id; o.textContent = evt.title; select.appendChild(o);
+
+function getSeasonFromDate(value) {
+  if (!value) {
+    return null;
+  }
+
+  let year;
+  let month;
+
+  if (value instanceof Date) {
+    if (Number.isNaN(value.getTime())) {
+      return null;
+    }
+
+    year = value.getFullYear();
+    month = value.getMonth();
+  } else {
+    const parts = String(value).trim().split("-");
+
+    if (parts.length !== 3) {
+      return null;
+    }
+
+    year = Number(parts[0]);
+    month = Number(parts[1]) - 1;
+
+    if (
+      !Number.isInteger(year) ||
+      !Number.isInteger(month) ||
+      month < 0 ||
+      month > 11
+    ) {
+      return null;
+    }
+  }
+
+  if (month >= 8) {
+    return `${year}-${year + 1}`;
+  }
+
+  return `${year - 1}-${year}`;
+}
+
+function getEventSeason(event) {
+  if (!event) {
+    return null;
+  }
+
+  const referenceDate =
+    event.end_date ||
+    event.start;
+
+  return getSeasonFromDate(referenceDate);
+}
+
+function populateEventSelect(
+  selectedEventId = ""
+) {
+  const select =
+    document.getElementById("editEvent");
+
+  select.innerHTML =
+    '<option value="">Seleziona una gara</option>';
+
+  const seasonEvents = events
+    .filter(event =>
+      getEventSeason(event) === currentSeason
+    )
+    .sort((a, b) => {
+      const dateA =
+        a.end_date ||
+        a.start ||
+        "";
+
+      const dateB =
+        b.end_date ||
+        b.start ||
+        "";
+
+      return dateA.localeCompare(dateB);
+    });
+
+  seasonEvents.forEach(event => {
+		if (event.id === undefined || event.id === null) {
+		  console.warn(
+			 "Gara senza ID:",
+			 event.title
+		  );
+
+		  return;
+		}
+    const option =
+      document.createElement("option");
+
+    option.value = event.id;
+    option.textContent =
+      `${formatDate(
+        event.end_date || event.start
+      )} - ${event.title}`;
+
+    select.appendChild(option);
+  });
+
+  if (selectedEventId) {
+    select.value = String(selectedEventId);
+  }
+}
+
+function selectedPaths() {
+  return paths.filter(path => {
+    if (
+      String(path.utente_id) !==
+      String(currentUser?.id)
+    ) {
+      return false;
+    }
+
+    const linkedEvent =
+      events.find(event =>
+        String(event.id) ===
+        String(path.gara_id)
+      );
+
+    if (linkedEvent) {
+      return (
+        getEventSeason(linkedEvent) ===
+        currentSeason
+      );
+    }
+
+    /*
+      Compatibilità con eventuali percorsi
+      vecchi o gare non più presenti.
+    */
+    return path.stagione === currentSeason;
   });
 }
-function selectedPaths() { return paths.filter(p => String(p.utente_id) === String(currentUser?.id) && p.stagione === currentSeason); }
+
 function eventFor(path) { return events.find(e => String(e.id) === String(path.gara_id)) || { title: path.titolo_gara || "Gara non presente nel calendario", className: path.className || "gara-libera", sede: path.sede || "" }; }
+
 function renderAll() { if (!currentUser) return; renderSummary(); renderList(); }
+
 function renderSummary() {
   const list = selectedPaths(); const matches = list.flatMap(p => p.incontri || []);
   const wins = matches.filter(m => String(m.esito).toUpperCase() === "V").length; const losses = matches.filter(m => String(m.esito).toUpperCase() === "P").length;
@@ -136,6 +332,7 @@ function renderSummary() {
   const balanceEl = document.getElementById("summaryBalance"); balanceEl.textContent = euro(balance); balanceEl.className = balance > 0 ? "rank-positive" : balance < 0 ? "rank-negative" : "rank-zero";
   document.getElementById("summaryBalanceDetail").textContent = `${euro(prizes)} premi · ${euro(entries)} iscrizioni`;
 }
+
 function renderList() {
   const term = document.getElementById("searchInput").value.trim().toLowerCase();
   const list = selectedPaths().filter(p => eventFor(p).title.toLowerCase().includes(term)).sort((a,b) => String(b.data_giocata).localeCompare(String(a.data_giocata)));
@@ -148,6 +345,7 @@ function renderList() {
     const card = document.createElement("article"); card.className = "mobile-card"; card.innerHTML = `<div class="mobile-card-top"><span class="type-badge" style="background:${color}">${typeLabel(evt.className)}</span><strong class="mobile-card-rank ${rankClass}">${signed(number(path.ranking))}</strong></div><h4>${escapeHtml(evt.title)}</h4><p>${formatDate(path.data_giocata)} · ${escapeHtml(path.risultato || "-")}</p>`; card.addEventListener("click", () => openDetail(path.id)); mobile.appendChild(card);
   });
 }
+
 function openDetail(id) {
   const path = paths.find(p => String(p.id) === String(id)); if (!path) return; currentPathId = path.id; const evt = eventFor(path), color = TYPE_COLORS[evt.className] || "#64748b";
   const badge = document.getElementById("detailType"); badge.textContent = typeLabel(evt.className); badge.style.background = color;
@@ -159,37 +357,104 @@ function openDetail(id) {
   const noteSection = document.getElementById("detailNotesSection"); noteSection.hidden = !path.note?.trim(); document.getElementById("detailNotes").textContent = path.note || "";
   document.getElementById("detailDialog").showModal();
 }
+
 function openEdit(id = null) {
-  currentPathId = id; const path = id ? paths.find(p => String(p.id) === String(id)) : null;
+  currentPathId = id; 
+  const path = id ? paths.find(p => String(p.id) === String(id)) : null;
+  if (path) {
+  const linkedEvent =
+    events.find(event =>
+      String(event.id) ===
+      String(path.gara_id)
+    );
+
+  const pathSeason =
+    linkedEvent
+      ? getEventSeason(linkedEvent)
+      : path.stagione;
+
+  if (pathSeason) {
+    currentSeason = pathSeason;
+
+    document.getElementById(
+      "seasonSelector"
+    ).value = pathSeason;
+  }
+}
+
+populateEventSelect(
+  path?.gara_id || ""
+);
   document.getElementById("editDialogTitle").textContent = path ? "Modifica partecipazione" : "Nuova partecipazione";
-  document.getElementById("editId").value = path?.id || ""; document.getElementById("editEvent").value = path?.gara_id || ""; document.getElementById("editDate").value = path?.data_giocata || new Date().toISOString().slice(0,10); document.getElementById("editResult").value = path?.risultato || ""; document.getElementById("editEntry").value = path?.iscrizione ?? 0; document.getElementById("editPrize").value = path?.premio ?? 0; document.getElementById("editRanking").value = path?.ranking ?? 0; document.getElementById("editBattery").value = String(path?.batteria_superata ?? false); document.getElementById("editNotes").value = path?.note || "";
+  document.getElementById("editId").value = path?.id || ""; 
+  document.getElementById("editEvent").value = path?.gara_id || ""; document.getElementById("editDate").value = path?.data_giocata || new Date().toISOString().slice(0,10); document.getElementById("editResult").value = path?.risultato || ""; document.getElementById("editEntry").value = path?.iscrizione ?? 0; document.getElementById("editPrize").value = path?.premio ?? 0; document.getElementById("editRanking").value = path?.ranking ?? 0; document.getElementById("editBattery").value = String(path?.batteria_superata ?? false); document.getElementById("editNotes").value = path?.note || "";
   const editor = document.getElementById("matchesEditor"); editor.innerHTML = ""; (path?.incontri || []).sort((a,b) => number(a.ordine)-number(b.ordine)).forEach(addMatchEditorRow); if (!path?.incontri?.length) addMatchEditorRow(); document.getElementById("editDialog").showModal();
 }
+
 function closeEdit() { document.getElementById("editDialog").close(); }
+
 function addMatchEditorRow(match = {}) {
   const container = document.getElementById("matchesEditor"), row = document.createElement("div"); row.className = "match-editor-row";
   row.innerHTML = `<label>Fase<input class="form-control match-phase-input" value="${escapeAttr(match.fase || "")}" placeholder="1° turno"></label><label>Avversario<input class="form-control match-opponent-input" value="${escapeAttr(match.avversario || "")}"></label><label>Categoria<select class="form-control match-category-input">${["Terza","Seconda","Prima","Master","Nazionale","Nazionale Pro","Coppia"].map(c => `<option ${match.categoria===c?"selected":""}>${c}</option>`).join("")}</select></label><label>Esito<select class="form-control match-result-input"><option value="V" ${match.esito==="V"?"selected":""}>Vinta</option><option value="P" ${match.esito==="P"?"selected":""}>Persa</option></select></label><button class="remove-match" type="button" title="Elimina incontro">✕</button>`;
   row.querySelector(".remove-match").addEventListener("click", () => row.remove()); container.appendChild(row);
 }
+
 async function saveEdit(e) {
   e.preventDefault(); const id = document.getElementById("editId").value || `path-${Date.now()}`;
-  const matches = [...document.querySelectorAll(".match-editor-row")].map((row, i) => ({ id: Date.now()+i, ordine: i+1, fase: row.querySelector(".match-phase-input").value.trim(), avversario: row.querySelector(".match-opponent-input").value.trim(), categoria: row.querySelector(".match-category-input").value, esito: row.querySelector(".match-result-input").value })).filter(m => m.avversario);
-  const path = { id, utente_id: currentUser.id, gara_id: document.getElementById("editEvent").value, stagione: currentSeason || getSeasonFromDate(new Date(document.getElementById("editDate").value)), data_giocata: document.getElementById("editDate").value, iscrizione: number(document.getElementById("editEntry").value), premio: number(document.getElementById("editPrize").value), risultato: document.getElementById("editResult").value.trim(), ranking: number(document.getElementById("editRanking").value), batteria_superata: document.getElementById("editBattery").value === "true", note: document.getElementById("editNotes").value.trim(), incontri: matches };
+
+	const selectedEventId =
+	  document.getElementById(
+		 "editEvent"
+	  ).value;
+
+	const selectedEvent =
+	  events.find(event =>
+		 String(event.id) ===
+		 String(selectedEventId)
+	  );
+
+	const participationSeason =
+	  selectedEvent
+		 ? getEventSeason(selectedEvent)
+		 : currentSeason; 
+
+ const matches = [...document.querySelectorAll(".match-editor-row")].map((row, i) => ({ id: Date.now()+i, ordine: i+1, fase: row.querySelector(".match-phase-input").value.trim(), avversario: row.querySelector(".match-opponent-input").value.trim(), categoria: row.querySelector(".match-category-input").value, esito: row.querySelector(".match-result-input").value })).filter(m => m.avversario);
+
+  const path = { 
+		id, 
+		utente_id: currentUser.id, 
+		gara_id: selectedEventId, 
+		stagione: participationSeason, 
+		data_giocata: document.getElementById("editDate").value, 
+		iscrizione: number(document.getElementById("editEntry").value), 
+		premio: number(document.getElementById("editPrize").value), 
+		risultato: document.getElementById("editResult").value.trim(), 
+		ranking: number(document.getElementById("editRanking").value), 
+		batteria_superata: document.getElementById("editBattery").value === "true", 
+		note: document.getElementById("editNotes").value.trim(), 
+		incontri: matches 
+	};
+	
   const index = paths.findIndex(p => String(p.id) === String(id)); if (index >= 0) paths[index] = path; else paths.push(path);
   closeEdit(); populateSeasons(); renderAll(); await trySync();
 }
+
 async function deleteCurrentPath() {
   if (!confirm("Eliminare definitivamente questa partecipazione?")) return;
   paths = paths.filter(p => String(p.id) !== String(currentPathId)); document.getElementById("detailDialog").close(); populateSeasons(); renderAll(); await trySync();
 }
+
 function openGitHubSettings() {
   document.getElementById("githubOwner").value = sessionStorage.getItem("gh_owner") || "fisbb-toscana"; document.getElementById("githubRepo").value = sessionStorage.getItem("gh_repo") || "calendario-gare"; document.getElementById("githubBranch").value = sessionStorage.getItem("gh_branch") || "main"; document.getElementById("githubToken").value = sessionStorage.getItem("gh_token") || ""; document.getElementById("githubDialog").showModal();
 }
+
 function saveGitHubSettings(e) { e.preventDefault(); ["Owner","Repo","Branch","Token"].forEach(k => sessionStorage.setItem(`gh_${k.toLowerCase()}`, document.getElementById(`github${k}`).value.trim())); document.getElementById("githubDialog").close(); alert("Configurazione GitHub salvata per questa sessione."); }
+
 async function trySync() {
   const token = sessionStorage.getItem("gh_token"); if (!token || offlineMode) { alert("Modifica salvata nella sessione corrente. Configura GitHub per pubblicarla online."); return; }
   try { await pushJsonToGitHub("percorsi.json", paths, "Aggiornamento percorsi personali"); alert("Dati sincronizzati con GitHub."); } catch (e) { console.error(e); alert(`Salvataggio locale riuscito, sincronizzazione GitHub fallita: ${e.message}`); }
 }
+
 async function pushJsonToGitHub(filePath, data, message) {
   const owner = sessionStorage.getItem("gh_owner"), repo = sessionStorage.getItem("gh_repo"), branch = sessionStorage.getItem("gh_branch") || "main", token = sessionStorage.getItem("gh_token");
   const url = `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/contents/${filePath}`;
@@ -198,6 +463,7 @@ async function pushJsonToGitHub(filePath, data, message) {
   const json = JSON.stringify(data, null, 2); const bytes = new TextEncoder().encode(json); let binary = ""; bytes.forEach(b => binary += String.fromCharCode(b));
   const put = await fetch(url, { method: "PUT", headers, body: JSON.stringify({ message, content: btoa(binary), sha: current.sha, branch }) }); if (!put.ok) throw new Error(`scrittura: ${put.status} ${await put.text()}`);
 }
+
 function toggleMenu(open) { document.getElementById("sidebar").classList.toggle("open", open); document.getElementById("sidebarOverlay").classList.toggle("open", open); document.getElementById("menuToggle").setAttribute("aria-expanded", String(open)); document.body.style.overflow = open ? "hidden" : ""; }
 function number(v) { const n = Number(v); return Number.isFinite(n) ? n : 0; }
 function signed(v) { return v > 0 ? `+${v}` : String(v); }
