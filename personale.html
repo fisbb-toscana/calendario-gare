@@ -235,51 +235,51 @@
     </form>
   </dialog>
 
-<dialog id="githubDialog" class="app-dialog login-dialog">
-  <form id="githubForm" class="dialog-card">
+	<dialog id="githubDialog" class="app-dialog login-dialog">
+	  <form id="githubForm" class="dialog-card">
 
-    <button id="githubClose" class="dialog-close" type="button" aria-label="Chiudi">
-      X
-    </button>
+		 <button id="githubClose" class="dialog-close" type="button" aria-label="Chiudi">
+			X
+		 </button>
 
-    <div class="dialog-heading">
-      <p class="eyebrow">Sincronizzazione</p>
-      <h2>Accesso GitHub</h2>
-      <p>
-        Inserisci il Personal Access Token autorizzato ad aggiornare il file percorsi.json.
-      </p>
-    </div>
+		 <div class="dialog-heading">
+			<p class="eyebrow">Sincronizzazione</p>
+			<h2>Accesso GitHub</h2>
+			<p>
+			  Inserisci il Personal Access Token autorizzato ad aggiornare il file percorsi.json.
+			</p>
+		 </div>
 
-    <div class="github-repository-info">
-      <span>Repository</span>
-      <strong>fisbb-toscana/calendario-gare</strong>
-      <small>Branch: main - File: percorsi.json</small>
-    </div>
+		 <div class="github-repository-info">
+			<span>Repository</span>
+			<strong>fisbb-toscana/calendario-gare</strong>
+			<small>Branch: main - File: percorsi.json</small>
+		 </div>
 
-    <label>
-      Personal Access Token
-      <input id="githubToken" class="form-control" type="password" placeholder="github_pat_..." autocomplete="off" required>
-    </label>
+		 <label>
+			Personal Access Token
+			<input id="githubToken" class="form-control" type="password" placeholder="github_pat_..." autocomplete="off" required>
+		 </label>
 
-    <label class="token-visibility-control">
-      <input id="showGithubToken" type="checkbox">
-      <span>Mostra token</span>
-    </label>
+		 <label class="token-visibility-control">
+			<input id="showGithubToken" type="checkbox">
+			<span>Mostra token</span>
+		 </label>
 
-    <p id="githubStatusMessage" class="github-status-message" hidden></p>
+		 <p id="githubStatusMessage" class="github-status-message" hidden></p>
 
-    <div class="dialog-actions github-dialog-actions">
-      <button id="githubLogoutBtn" class="btn btn-danger" type="button">
-        Disconnetti
-      </button>
+		 <div class="dialog-actions github-dialog-actions">
+			<button id="githubLogoutBtn" class="btn btn-danger" type="button">
+			  Disconnetti
+			</button>
 
-      <button class="btn btn-primary" type="submit">
-        Salva token
-      </button>
-    </div>
+			<button class="btn btn-primary" type="submit">
+			  Salva token
+			</button>
+		 </div>
 
-  </form>
-</dialog>
+	  </form>
+	</dialog>
 
   <script src="personale-script.js?v=1"></script>
 </body>
