@@ -36,6 +36,7 @@ const demoPaths = [
 let users = [], events = [], paths = [];
 let currentUser = null, currentSeason = "", currentPathId = null;
 let offlineMode = false;
+let githubSaveInProgress = false;
 
 async function loadJson(url) {
   const response = await fetch(url, { cache: "no-store" });
@@ -1129,7 +1130,6 @@ async function trySync() {
 
   if (offlineMode) {
     alert(
-      "Modifica applicata ai dati dimostrativi. " +
       "In modalità offline non è possibile " +
       "aggiornare GitHub."
     );
@@ -1139,13 +1139,34 @@ async function trySync() {
 
   if (!token) {
     alert(
-      "La modifica è visibile nella sessione " +
-      "corrente, ma GitHub non è configurato. " +
-      "Inserisci il token per pubblicarla."
+      "GitHub non è configurato. " +
+      "Inserisci il token per pubblicare " +
+      "la modifica."
     );
 
     openGitHubSettings();
     return;
+  }
+
+  if (githubSaveInProgress) {
+    console.warn(
+      "Salvataggio GitHub già in corso."
+    );
+
+    return;
+  }
+
+  githubSaveInProgress = true;
+
+  const saveButton =
+    document.querySelector(
+      '#editForm button[type="submit"]'
+    );
+
+  if (saveButton) {
+    saveButton.disabled = true;
+    saveButton.textContent =
+      "Salvataggio...";
   }
 
   try {
@@ -1166,18 +1187,25 @@ async function trySync() {
     );
 
     alert(
-      "La modifica è stata applicata nella " +
-      "pagina, ma la sincronizzazione GitHub " +
-      "è fallita.\n\n" +
+      "La modifica è visibile nella pagina, " +
+      "ma la sincronizzazione GitHub è fallita.\n\n" +
       error.message
     );
+  } finally {
+    githubSaveInProgress = false;
+
+    if (saveButton) {
+      saveButton.disabled = false;
+      saveButton.textContent = "Salva";
+    }
   }
 }
 
 async function pushJsonToGitHub(
   filePath,
   data,
-  message
+  message,
+  attempt = 1
 ) {
   const token =
     localStorage.getItem(
@@ -1190,14 +1218,9 @@ async function pushJsonToGitHub(
     );
   }
 
-  const owner =
-    GITHUB_CONFIG.owner;
-
-  const repo =
-    GITHUB_CONFIG.repo;
-
-  const branch =
-    GITHUB_CONFIG.branch;
+  const owner = GITHUB_CONFIG.owner;
+  const repo = GITHUB_CONFIG.repo;
+  const branch = GITHUB_CONFIG.branch;
 
   const url =
     `https://api.github.com/repos/` +
@@ -1212,14 +1235,20 @@ async function pushJsonToGitHub(
   };
 
   /*
-    Recupero sempre lo SHA più recente,
-    immediatamente prima del salvataggio.
+    Aggiungo un parametro variabile per evitare
+    che il browser riutilizzi una risposta GET
+    precedentemente memorizzata.
   */
+  const shaUrl =
+    `${url}?ref=${encodeURIComponent(branch)}` +
+    `&_=${Date.now()}`;
+
   const getResponse = await fetch(
-    `${url}?ref=${encodeURIComponent(branch)}`,
+    shaUrl,
     {
       method: "GET",
-      headers
+      headers,
+      cache: "no-store"
     }
   );
 
@@ -1235,6 +1264,11 @@ async function pushJsonToGitHub(
 
   const currentFile =
     await getResponse.json();
+
+  console.log(
+    `Tentativo ${attempt}, SHA recuperato:`,
+    currentFile.sha
+  );
 
   const jsonString =
     JSON.stringify(data, null, 2);
@@ -1254,12 +1288,9 @@ async function pushJsonToGitHub(
     );
   }
 
-  const base64Content =
-    btoa(binaryString);
-
   const putBody = {
     message,
-    content: base64Content,
+    content: btoa(binaryString),
     sha: currentFile.sha,
     branch
   };
@@ -1273,6 +1304,34 @@ async function pushJsonToGitHub(
     }
   );
 
+  /*
+    Lo SHA non è più corrente.
+    Attendiamo e ripetiamo l'intero ciclo,
+    compresa una nuova lettura dello SHA.
+  */
+  if (
+    putResponse.status === 409 &&
+    attempt < 4
+  ) {
+    const waitMilliseconds =
+      attempt * 1500;
+
+    console.warn(
+      `Conflitto GitHub 409. ` +
+      `Nuovo tentativo tra ` +
+      `${waitMilliseconds} ms.`
+    );
+
+    await wait(waitMilliseconds);
+
+    return pushJsonToGitHub(
+      filePath,
+      data,
+      message,
+      attempt + 1
+    );
+  }
+
   if (!putResponse.ok) {
     const errorText =
       await putResponse.text();
@@ -1285,6 +1344,12 @@ async function pushJsonToGitHub(
   }
 
   return await putResponse.json();
+}
+
+function wait(milliseconds) {
+  return new Promise(resolve => {
+    setTimeout(resolve, milliseconds);
+  });
 }
 
 function toggleMenu(open) { document.getElementById("sidebar").classList.toggle("open", open); document.getElementById("sidebarOverlay").classList.toggle("open", open); document.getElementById("menuToggle").setAttribute("aria-expanded", String(open)); document.body.style.overflow = open ? "hidden" : ""; }
