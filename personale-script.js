@@ -32,11 +32,42 @@ const demoPaths = [
     { id: 4, ordine: 4, fase: "Quarti", avversario: "Martinelli", categoria: "Master", esito: "P" }
   ]}
 ];
+const demoClubs = [
+  {
+    id: "F19B36",
+    codice_affiliazione: "F19B36",
+    denominazione: "C.S.B. BILIARDI BASSA MAREA A.S.DILETTANTISTICA",
+    regione: "Toscana",
+    provenienza: "federale",
+    attivo: true
+  }
+];
 
-let users = [], events = [], paths = [];
+const demoPlayers = [
+  {
+    id: "FB51A412",
+    codice_tessera: "FB51A412",
+    nome: "Emanuele",
+    cognome: "Terzuoli",
+    nome_visualizzato: "Emanuele Terzuoli",
+    categoria: "Master",
+    csb_id: "F19B36",
+    regione: "Toscana",
+    provenienza: "federale",
+    attivo: true
+  }
+];
+
+let users = [];
+let events = [];
+let paths = [];
+let players = [];
+let clubs = [];
 let currentUser = null, currentSeason = "", currentPathId = null;
 let offlineMode = false;
 let githubSaveInProgress = false;
+let playersById = new Map();
+let clubsById = new Map();
 
 async function loadJson(url) {
   const response = await fetch(url, { cache: "no-store" });
@@ -49,18 +80,165 @@ async function loadData() {
   try { users = await loadJson("utenti.json"); } catch (e) { console.warn(e); users = structuredClone(demoUsers); fallback = true; }
   try { paths = await loadJson("percorsi.json"); } catch (e) { console.warn(e); paths = structuredClone(demoPaths); fallback = true; }
   try { events = await loadJson("gare.json"); } catch (e) { console.warn(e); events = structuredClone(demoEvents); fallback = true; }
+	try {
+	  players = await loadJson("giocatori.json");
+	} catch (error) {
+	  console.warn(
+		 "Caricamento giocatori.json non riuscito:",
+		 error
+	  );
+
+	  players = structuredClone(demoPlayers);
+	  fallback = true;
+	}
+
+	try {
+	  clubs = await loadJson("csb.json");
+	} catch (error) {
+	  console.warn(
+		 "Caricamento csb.json non riuscito:",
+		 error
+	  );
+
+	  clubs = structuredClone(demoClubs);
+	  fallback = true;
+	}
+  
   offlineMode = fallback;
   document.getElementById("offlineNotice").hidden = !offlineMode;
+	buildPlayerIndexes();
   initializeApp();
+}
+
+function buildPlayerIndexes() {
+  playersById = new Map(
+    players.map(player => [
+      String(player.id),
+      player
+    ])
+  );
+
+  clubsById = new Map(
+    clubs.map(club => [
+      String(club.id),
+      club
+    ])
+  );
+}
+
+function getClubById(clubId) {
+  if (!clubId) {
+    return null;
+  }
+
+  return clubsById.get(String(clubId)) || null;
+}
+
+function getClubName(clubId) {
+  const club = getClubById(clubId);
+
+  return club?.denominazione || "";
+}
+
+function getPlayerById(playerId) {
+  if (!playerId) {
+    return null;
+  }
+
+  return playersById.get(String(playerId)) || null;
+}
+
+function getPlayerDisplayName(player) {
+  if (!player) {
+    return "";
+  }
+
+  return (
+    player.nome_visualizzato ||
+    `${player.nome || ""} ${player.cognome || ""}`.trim() ||
+    player.codice_tessera ||
+    player.id
+  );
 }
 
 function initializeApp() {
   populateLoginUsers();
+  populatePlayersDataList();
   bindEvents();
 	updateGitHubButton();
   const savedUserId = sessionStorage.getItem("personal_user_id");
   const savedUser = users.find(u => String(u.id) === savedUserId && u.attivo !== false);
   if (savedUser) loginUser(savedUser); else openLogin();
+}
+
+function populatePlayersDataList() {
+  const dataList =
+    document.getElementById("playersDataList");
+
+  if (!dataList) {
+    console.error(
+      "Elemento non trovato: playersDataList"
+    );
+
+    return;
+  }
+
+  dataList.innerHTML = "";
+
+  players
+    .filter(player => player.attivo !== false)
+    .sort((playerA, playerB) => {
+      const surnameComparison =
+        String(playerA.cognome || "")
+          .localeCompare(
+            String(playerB.cognome || ""),
+            "it",
+            { sensitivity: "base" }
+          );
+
+      if (surnameComparison !== 0) {
+        return surnameComparison;
+      }
+
+      return String(playerA.nome || "")
+        .localeCompare(
+          String(playerB.nome || ""),
+          "it",
+          { sensitivity: "base" }
+        );
+    })
+    .forEach(player => {
+      const option =
+        document.createElement("option");
+
+      const displayName =
+        getPlayerDisplayName(player);
+
+      const clubName =
+        getClubName(player.csb_id);
+
+      option.value = displayName;
+
+      option.label = [
+        player.categoria || "Categoria non indicata",
+        clubName || "CSB non indicato",
+        player.codice_tessera || player.id
+      ].join(" · ");
+
+      option.dataset.playerId = player.id;
+      option.dataset.searchText = [
+        displayName,
+        player.nome,
+        player.cognome,
+        player.codice_tessera,
+        clubName
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
+
+      dataList.appendChild(option);
+    });
 }
 
 function populateLoginUsers() {
@@ -177,6 +355,48 @@ function loginUser(user) {
       openGitHubSettings();
     }, 300);
   }
+}
+
+function normalizeSearchText(value) {
+  return String(value || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, " ");
+}
+
+function findPlayerFromInputValue(value) {
+  const normalizedValue =
+    normalizeSearchText(value);
+
+  if (!normalizedValue) {
+    return null;
+  }
+
+  /*
+    Prima cerchiamo il nome visualizzato esatto.
+  */
+  const exactNameMatch = players.find(player =>
+    normalizeSearchText(
+      getPlayerDisplayName(player)
+    ) === normalizedValue
+  );
+
+  if (exactNameMatch) {
+    return exactNameMatch;
+  }
+
+  /*
+    Poi cerchiamo il codice tessera esatto.
+  */
+  const exactCardMatch = players.find(player =>
+    normalizeSearchText(
+      player.codice_tessera || player.id
+    ) === normalizedValue
+  );
+
+  return exactCardMatch || null;
 }
 
 function displayName(user) { return user.nome_visualizzato || `${user.nome || ""} ${user.cognome || ""}`.trim() || user.id; }
@@ -485,7 +705,44 @@ document.getElementById(
   document.getElementById("detailDate").textContent = formatDate(path.data_giocata); document.getElementById("detailResult").textContent = path.risultato || "-";
   document.getElementById("detailEntry").textContent = euro(path.iscrizione); document.getElementById("detailPrize").textContent = euro(path.premio); document.getElementById("detailRanking").textContent = signed(number(path.ranking)); document.getElementById("detailBattery").textContent = path.batteria_superata ? "Superata" : "Non superata";
   const matches = [...(path.incontri || [])].sort((a,b) => number(a.ordine)-number(b.ordine)); document.getElementById("detailMatchCount").textContent = `${matches.length} ${matches.length === 1 ? "incontro" : "incontri"}`;
-  const box = document.getElementById("detailMatches"); box.innerHTML = ""; matches.forEach(m => { const row = document.createElement("div"); const win = String(m.esito).toUpperCase() === "V"; row.className = "match-row"; row.innerHTML = `<span class="match-phase">${escapeHtml(m.fase || "-")}</span><strong class="match-opponent">${escapeHtml(m.avversario || "-")}</strong><span class="match-category">${escapeHtml(m.categoria || "-")}</span><span class="match-result ${win ? "win" : "loss"}">${win ? "V" : "P"}</span>`; box.appendChild(row); });
+  const box = document.getElementById("detailMatches"); 
+  box.innerHTML = ""; 
+  matches.forEach(m => { 
+	const row = document.createElement("div"); 
+	const win = String(m.esito).toUpperCase() === "V"; 
+	row.className = "match-row"; 
+	const historicalClub =
+	  m.csb ||
+	  getClubName(m.csb_id) ||
+	  "";
+
+	const categoryAndClub = [
+	  m.categoria || "-",
+	  historicalClub
+	]
+	  .filter(Boolean)
+	  .join(" · ");
+
+	row.innerHTML = `
+	  <span class="match-phase">
+		 ${escapeHtml(m.fase || "-")}
+	  </span>
+
+	  <strong class="match-opponent">
+		 ${escapeHtml(m.avversario || "-")}
+	  </strong>
+
+	  <span class="match-category">
+		 ${escapeHtml(categoryAndClub)}
+	  </span>
+
+	  <span class="match-result ${
+		 win ? "win" : "loss"
+	  }">
+		 ${win ? "V" : "P"}
+	  </span>
+	`;
+	box.appendChild(row); });
   const noteSection = document.getElementById("detailNotesSection"); noteSection.hidden = !path.note?.trim(); document.getElementById("detailNotes").textContent = path.note || "";
   document.getElementById("detailDialog").showModal();
 }
@@ -686,9 +943,305 @@ function isExternalParticipation(path) {
 }
 
 function addMatchEditorRow(match = {}) {
-  const container = document.getElementById("matchesEditor"), row = document.createElement("div"); row.className = "match-editor-row";
-  row.innerHTML = `<label>Fase<input class="form-control match-phase-input" value="${escapeAttr(match.fase || "")}" placeholder="1° turno"></label><label>Avversario<input class="form-control match-opponent-input" value="${escapeAttr(match.avversario || "")}"></label><label>Categoria<select class="form-control match-category-input">${["Terza","Seconda","Prima","Master","Nazionale","Nazionale Pro","Coppia"].map(c => `<option ${match.categoria===c?"selected":""}>${c}</option>`).join("")}</select></label><label>Esito<select class="form-control match-result-input"><option value="V" ${match.esito==="V"?"selected":""}>Vinta</option><option value="P" ${match.esito==="P"?"selected":""}>Persa</option></select></label><button class="remove-match" type="button" title="Elimina incontro">✕</button>`;
-  row.querySelector(".remove-match").addEventListener("click", () => row.remove()); container.appendChild(row);
+  const container =
+    document.getElementById("matchesEditor");
+
+  const row = document.createElement("div");
+  row.className = "match-editor-row";
+
+  const linkedPlayer = match.giocatore_id
+    ? getPlayerById(match.giocatore_id)
+    : null;
+
+  const opponentName =
+    linkedPlayer
+      ? getPlayerDisplayName(linkedPlayer)
+      : match.avversario || "";
+
+  const playerId =
+    linkedPlayer?.id ||
+    match.giocatore_id ||
+    "";
+
+  const category =
+    match.categoria ||
+    linkedPlayer?.categoria ||
+    "";
+
+  const clubId =
+    match.csb_id ||
+    linkedPlayer?.csb_id ||
+    "";
+
+  const clubName =
+    match.csb ||
+    getClubName(clubId) ||
+    "";
+
+  row.innerHTML = `
+    <input
+      type="hidden"
+      class="match-player-id"
+      value="${escapeAttr(playerId)}">
+
+    <input
+      type="hidden"
+      class="match-club-id"
+      value="${escapeAttr(clubId)}">
+
+    <label>
+      Fase
+
+      <input
+        class="form-control match-phase-input"
+        value="${escapeAttr(match.fase || "")}"
+        placeholder="1° turno">
+    </label>
+
+    <label class="match-opponent-field">
+      Avversario
+
+      <input
+        class="form-control match-opponent-input"
+        type="text"
+        list="playersDataList"
+        value="${escapeAttr(opponentName)}"
+        placeholder="Cerca nome, cognome o tessera"
+        autocomplete="off">
+
+      <small class="match-player-status"></small>
+    </label>
+
+    <label>
+      Categoria
+
+      <select class="form-control match-category-input">
+        ${buildCategoryOptions(category)}
+      </select>
+    </label>
+
+    <label class="match-club-field">
+      CSB
+
+      <input
+        class="form-control match-club-input"
+        type="text"
+        value="${escapeAttr(clubName)}"
+        placeholder="CSB"
+        readonly>
+    </label>
+
+    <label>
+      Esito
+
+      <select class="form-control match-result-input">
+        <option
+          value="V"
+          ${match.esito === "V" ? "selected" : ""}>
+          Vinta
+        </option>
+
+        <option
+          value="P"
+          ${match.esito === "P" ? "selected" : ""}>
+          Persa
+        </option>
+      </select>
+    </label>
+
+    <button
+      class="remove-match"
+      type="button"
+      title="Elimina incontro">
+      X
+    </button>
+  `;
+
+  const opponentInput =
+    row.querySelector(".match-opponent-input");
+
+  opponentInput.addEventListener(
+    "change",
+    () => handleOpponentSelection(row)
+  );
+
+  opponentInput.addEventListener(
+    "blur",
+    () => handleOpponentSelection(row)
+  );
+
+  opponentInput.addEventListener(
+    "input",
+    () => {
+      /*
+        Se l'utente modifica il testo dopo aver scelto
+        un atleta, il collegamento precedente viene rimosso.
+      */
+      const hiddenPlayerId =
+        row.querySelector(".match-player-id");
+
+      const linked =
+        getPlayerById(hiddenPlayerId.value);
+
+      if (
+        linked &&
+        normalizeSearchText(opponentInput.value) !==
+        normalizeSearchText(
+          getPlayerDisplayName(linked)
+        )
+      ) {
+        clearLinkedPlayer(row, false);
+      }
+    }
+  );
+
+  row
+    .querySelector(".remove-match")
+    .addEventListener(
+      "click",
+      () => row.remove()
+    );
+
+  container.appendChild(row);
+
+  updatePlayerStatus(row);
+}
+
+function buildCategoryOptions(selectedCategory = "") {
+  const categories = [
+    "Terza",
+    "Seconda",
+    "Prima",
+    "Master",
+    "Nazionale",
+    "Nazionale Pro",
+    "Junior",
+    "Senior",
+    "Coppia",
+    "Non indicata"
+  ];
+
+  if (
+    selectedCategory &&
+    !categories.includes(selectedCategory)
+  ) {
+    categories.push(selectedCategory);
+  }
+
+  return categories
+    .map(category => {
+      const selected =
+        category === selectedCategory
+          ? "selected"
+          : "";
+
+      return (
+        `<option value="${escapeAttr(category)}" ` +
+        `${selected}>` +
+        `${escapeHtml(category)}` +
+        `</option>`
+      );
+    })
+    .join("");
+}
+
+function handleOpponentSelection(row) {
+  const opponentInput =
+    row.querySelector(".match-opponent-input");
+
+  const player =
+    findPlayerFromInputValue(
+      opponentInput.value
+    );
+
+  if (!player) {
+    clearLinkedPlayer(row, true);
+    updatePlayerStatus(row);
+    return;
+  }
+
+  const club =
+    getClubById(player.csb_id);
+
+  row.querySelector(
+    ".match-player-id"
+  ).value = player.id;
+
+  row.querySelector(
+    ".match-club-id"
+  ).value = player.csb_id || "";
+
+  opponentInput.value =
+    getPlayerDisplayName(player);
+
+  row.querySelector(
+    ".match-category-input"
+  ).value = player.categoria || "Non indicata";
+
+  row.querySelector(
+    ".match-club-input"
+  ).value = club?.denominazione || "";
+
+  updatePlayerStatus(row);
+}
+
+function clearLinkedPlayer(
+  row,
+  preserveManualData = true
+) {
+  row.querySelector(
+    ".match-player-id"
+  ).value = "";
+
+  row.querySelector(
+    ".match-club-id"
+  ).value = "";
+
+  if (!preserveManualData) {
+    row.querySelector(
+      ".match-club-input"
+    ).value = "";
+  }
+}
+
+function updatePlayerStatus(row) {
+  const playerId =
+    row.querySelector(
+      ".match-player-id"
+    ).value;
+
+  const opponentName =
+    row.querySelector(
+      ".match-opponent-input"
+    ).value.trim();
+
+  const status =
+    row.querySelector(
+      ".match-player-status"
+    );
+
+  if (playerId) {
+    const player = getPlayerById(playerId);
+
+    status.textContent = player
+      ? `Collegato alla tessera ${
+          player.codice_tessera || player.id
+        }`
+      : "Giocatore collegato";
+
+    status.className =
+      "match-player-status linked";
+  } else if (opponentName) {
+    status.textContent =
+      "Nome non collegato all'anagrafica";
+
+    status.className =
+      "match-player-status unlinked";
+  } else {
+    status.textContent = "";
+    status.className =
+      "match-player-status";
+  }
 }
 
 async function saveEdit(event) {
@@ -831,50 +1384,83 @@ async function saveEdit(event) {
       getEventSeason(selectedEvent);
   }
 
-  const matches = [
-    ...document.querySelectorAll(
-      ".match-editor-row"
-    )
-  ]
-    .map((row, index) => {
-      return {
-        id: Date.now() + index,
-        ordine: index + 1,
+const matches = [
+  ...document.querySelectorAll(
+    ".match-editor-row"
+  )
+]
+  .map((row, index) => {
+    const playerId =
+      row
+        .querySelector(".match-player-id")
+        .value
+        .trim();
 
-        fase:
-          row
-            .querySelector(
-              ".match-phase-input"
-            )
-            .value
-            .trim(),
+    const clubId =
+      row
+        .querySelector(".match-club-id")
+        .value
+        .trim();
 
-        avversario:
-          row
-            .querySelector(
-              ".match-opponent-input"
-            )
-            .value
-            .trim(),
+    const opponentName =
+      row
+        .querySelector(".match-opponent-input")
+        .value
+        .trim();
 
-        categoria:
-          row
-            .querySelector(
-              ".match-category-input"
-            )
-            .value,
+    const category =
+      row
+        .querySelector(".match-category-input")
+        .value;
 
-        esito:
-          row
-            .querySelector(
-              ".match-result-input"
-            )
-            .value
-      };
-    })
-    .filter(match =>
-      match.avversario !== ""
-    );
+    const clubName =
+      row
+        .querySelector(".match-club-input")
+        .value
+        .trim();
+
+    const match = {
+      id: Date.now() + index,
+      ordine: index + 1,
+
+      fase:
+        row
+          .querySelector(".match-phase-input")
+          .value
+          .trim(),
+
+      avversario: opponentName,
+      categoria: category,
+      esito:
+        row
+          .querySelector(".match-result-input")
+          .value
+    };
+
+    /*
+      giocatore_id viene salvato soltanto
+      se il giocatore è stato riconosciuto.
+    */
+    if (playerId) {
+      match.giocatore_id = playerId;
+    }
+
+    /*
+      Copia storica del CSB al momento dell'incontro.
+    */
+    if (clubId) {
+      match.csb_id = clubId;
+    }
+
+    if (clubName) {
+      match.csb = clubName;
+    }
+
+    return match;
+  })
+  .filter(match =>
+    match.avversario !== ""
+  );
 
   const rankingValue =
     document
