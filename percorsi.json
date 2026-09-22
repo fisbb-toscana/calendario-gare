@@ -1208,5 +1208,31 @@
         "esito": "V"
       }
     ]
+  },
+  {
+    "id": "ematerz-1790085148412",
+    "utente_id": "ematerz",
+    "gara_id": "1786517218185",
+    "stagione": "2026-2027",
+    "data_giocata": "2026-09-14",
+    "iscrizione": 35,
+    "premio": 0,
+    "risultato": "1° turno",
+    "ranking": -8,
+    "batteria_superata": false,
+    "note": "",
+    "incontri": [
+      {
+        "id": 1790085148412,
+        "ordine": 1,
+        "fase": "1° turno",
+        "avversario": "Aleksander Lisi",
+        "categoria": "Prima",
+        "esito": "P",
+        "giocatore_id": "FB10A3769",
+        "csb_id": "F08B31",
+        "csb": "NARNALI"
+      }
+    ]
   }
 ]
