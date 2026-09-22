@@ -335,10 +335,26 @@
         </label>
       </div>
 
-      <div class="matches-editor-heading">
-        <h3>Incontri</h3>
-        <button id="addMatchBtn" class="btn btn-small btn-secondary" type="button">＋ Aggiungi incontro</button>
-      </div>
+		<div class="matches-editor-heading">
+		  <h3>Incontri</h3>
+
+		  <div class="matches-editor-actions">
+			 <button
+				id="newPlayerBtn"
+				class="btn btn-small btn-ghost"
+				type="button">
+				+ Nuovo giocatore
+			 </button>
+
+			 <button
+				id="addMatchBtn"
+				class="btn btn-small btn-secondary"
+				type="button">
+				+ Aggiungi incontro
+			 </button>
+		  </div>
+		</div>
+
       <div id="matchesEditor" class="matches-editor"></div>
 
       <div class="dialog-actions">
@@ -347,6 +363,129 @@
       </div>
     </form>
   </dialog>
+
+	<dialog id="newPlayerDialog" class="app-dialog login-dialog">
+	  <form id="newPlayerForm" class="dialog-card">
+
+		 <button
+			id="newPlayerClose"
+			class="dialog-close"
+			type="button"
+			aria-label="Chiudi">
+			X
+		 </button>
+
+		 <div class="dialog-heading">
+			<p class="eyebrow">Anagrafica giocatori</p>
+			<h2>Nuovo giocatore</h2>
+			<p>
+			  Inserisci i dati dell'atleta non presente nell'anagrafica.
+			</p>
+		 </div>
+
+		 <div class="form-grid new-player-grid">
+
+			<label>
+			  Nome
+			  <input
+				 id="newPlayerFirstName"
+				 class="form-control"
+				 type="text"
+				 autocomplete="off"
+				 required>
+			</label>
+
+			<label>
+			  Cognome
+			  <input
+				 id="newPlayerLastName"
+				 class="form-control"
+				 type="text"
+				 autocomplete="off"
+				 required>
+			</label>
+
+			<label>
+			  Codice tessera
+			  <input
+				 id="newPlayerCardCode"
+				 class="form-control"
+				 type="text"
+				 autocomplete="off"
+				 placeholder="Es. FB12A345"
+				 required>
+			</label>
+
+			<label>
+			  Categoria
+			  <select
+				 id="newPlayerCategory"
+				 class="form-control"
+				 required>
+				 <option value="">Seleziona categoria</option>
+				 <option value="Terza">Terza</option>
+				 <option value="Seconda">Seconda</option>
+				 <option value="Prima">Prima</option>
+				 <option value="Master">Master</option>
+				 <option value="Nazionale">Nazionale</option>
+				 <option value="Nazionale Pro">Nazionale Pro</option>
+				 <option value="Junior">Junior</option>
+				 <option value="Senior">Senior</option>
+			  </select>
+			</label>
+
+			<label class="full">
+			  CSB
+			  <select
+				 id="newPlayerClub"
+				 class="form-control">
+				 <option value="">Nessun CSB / da specificare</option>
+			  </select>
+			</label>
+
+			<label>
+			  Regione
+			  <input
+				 id="newPlayerRegion"
+				 class="form-control"
+				 type="text"
+				 value="Toscana"
+				 autocomplete="off">
+			</label>
+
+			<label class="new-player-active-label">
+			  <input
+				 id="newPlayerActive"
+				 type="checkbox"
+				 checked>
+			  Giocatore attivo
+			</label>
+
+		 </div>
+
+		 <p
+			id="newPlayerError"
+			class="error-message"
+			hidden>
+		 </p>
+
+		 <div class="dialog-actions">
+			<button
+			  id="newPlayerCancel"
+			  class="btn btn-secondary"
+			  type="button">
+			  Annulla
+			</button>
+
+			<button
+			  class="btn btn-primary"
+			  type="submit">
+			  Salva giocatore
+			</button>
+		 </div>
+
+	  </form>
+	</dialog>
 
 	<dialog id="githubDialog" class="app-dialog login-dialog">
 	  <form id="githubForm" class="dialog-card">
