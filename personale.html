@@ -195,14 +195,127 @@
       </div>
 
       <input id="editId" type="hidden">
-      <div class="form-grid">
-        <label class="full">Gara
-          <select id="editEvent" class="form-control" required></select>
-        </label>
-        <label>Data giocata
-          <input id="editDate" class="form-control" type="date" required>
-        </label>
-        <label>Risultato
+<div class="form-grid">
+
+  <div class="full participation-type-selector">
+    <span class="form-field-label">Tipo di gara</span>
+
+    <label class="participation-type-option">
+      <input
+        type="radio"
+        name="eventSource"
+        id="eventSourceCalendar"
+        value="calendar"
+        checked>
+
+      <span>Gara presente nel calendario</span>
+    </label>
+
+    <label class="participation-type-option">
+      <input
+        type="radio"
+        name="eventSource"
+        id="eventSourceExternal"
+        value="external">
+
+      <span>Gara esterna / fuori regione</span>
+    </label>
+  </div>
+
+  <!-- Gara collegata a gare.json -->
+  <div id="calendarEventFields" class="full">
+    <label>
+      Gara
+
+      <select
+        id="editEvent"
+        class="form-control">
+      </select>
+    </label>
+  </div>
+
+  <!-- Gara esterna non presente in gare.json -->
+  <div
+    id="externalEventFields"
+    class="external-event-fields full"
+    hidden>
+
+    <div class="external-event-notice">
+      Questa gara sarà memorizzata direttamente nel percorso personale
+      e non sarà aggiunta al calendario pubblico.
+    </div>
+
+    <div class="external-event-grid">
+
+      <label class="full">
+        Titolo gara
+
+        <input
+          id="editExternalTitle"
+          class="form-control"
+          type="text"
+          placeholder="Es. Trofeo Nuova Accademia Verona">
+      </label>
+
+      <label>
+        Tipologia
+
+        <select
+          id="editExternalType"
+          class="form-control">
+
+          <option value="gara-libera">Gara libera</option>
+          <option value="nbc">NBC / Nazionale</option>
+          <option value="istituzionale">Istituzionale</option>
+          <option value="coppie-base">Coppie di base</option>
+          <option value="seniores">Seniores</option>
+          <option value="femminile">Femminile</option>
+        </select>
+      </label>
+
+      <label>
+        Sede
+
+        <input
+          id="editExternalVenue"
+          class="form-control"
+          type="text"
+          placeholder="Es. Verona (VR)">
+      </label>
+
+      <label>
+        Specialità
+
+        <input
+          id="editExternalSpecialty"
+          class="form-control"
+          type="text"
+          placeholder="Es. Italiana / Tutti Doppi">
+      </label>
+
+      <label>
+        Punteggio di gara
+
+        <input
+          id="editExternalPoints"
+          class="form-control"
+          type="text"
+          placeholder="Es. 100 / 500 (2 su 3)">
+      </label>
+
+    </div>
+  </div>
+
+  <label>
+    Data giocata
+
+    <input
+      id="editDate"
+      class="form-control"
+      type="date"
+      required>
+  </label>
+  <label>Risultato
           <input id="editResult" class="form-control" type="text" placeholder="Es. Eliminato ai quarti">
         </label>
         <label>Iscrizione (€)
