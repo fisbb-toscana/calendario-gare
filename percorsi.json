@@ -1184,28 +1184,37 @@
     "note": "",
     "incontri": [
       {
-        "id": 1790071299916,
+        "id": 1790085842221,
         "ordine": 1,
         "fase": "1° turno",
-        "avversario": "Innocenti, Severino",
+        "avversario": "Daniele Severino Innocenti",
         "categoria": "Prima",
-        "esito": "V"
+        "esito": "V",
+        "giocatore_id": "FB42A077",
+        "csb_id": "F42B90",
+        "csb": "MARAMEO"
       },
       {
-        "id": 1790071299917,
+        "id": 1790085842222,
         "ordine": 2,
         "fase": "2° turno",
-        "avversario": "Bianchi, Piero",
+        "avversario": "Piero Bianchi",
         "categoria": "Prima",
-        "esito": "V"
+        "esito": "V",
+        "giocatore_id": "FB05A213",
+        "csb_id": "F08B12",
+        "csb": "SALA VAL DI SERCHIO"
       },
       {
-        "id": 1790071299918,
+        "id": 1790085842223,
         "ordine": 3,
         "fase": "3° turno",
-        "avversario": "Brogi, Paolo",
+        "avversario": "Paolo Brogi",
         "categoria": "Prima",
-        "esito": "V"
+        "esito": "V",
+        "giocatore_id": "FB05A495",
+        "csb_id": "F23B55",
+        "csb": "ACC. BIL. PONTEDERA"
       }
     ]
   },
