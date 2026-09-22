@@ -189,6 +189,95 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .match-editor-row label { display: grid; gap: 4px; color: var(--muted); font-size: .62rem; font-weight: 800; }
 .remove-match { width: 34px; height: 34px; border: 0; border-radius: 7px; background: #fee2e2; color: #b91c1c; cursor: pointer; }
 .sidebar-overlay { display: none; }
+
+/* =====================================================
+   TIPO DI GARA NEL MODULO PARTECIPAZIONE
+===================================================== */
+
+.participation-type-selector {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 12px;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 9px;
+}
+
+.form-field-label {
+  color: #64748b;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.participation-type-option {
+  display: inline-flex !important;
+  grid-template-columns: none !important;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+  color: #334155 !important;
+  font-size: 0.78rem !important;
+  font-weight: 700 !important;
+  cursor: pointer;
+}
+
+.participation-type-option input {
+  margin: 0;
+  accent-color: #2563eb;
+}
+
+#calendarEventFields > label {
+  display: grid;
+  gap: 5px;
+  color: #64748b;
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+/* =====================================================
+   DATI DELLA GARA ESTERNA
+===================================================== */
+
+.external-event-fields {
+  padding: 12px;
+  background-color: #faf5ff;
+  border: 1px solid #d8b4fe;
+  border-radius: 10px;
+}
+
+.external-event-notice {
+  margin-bottom: 12px;
+  padding: 9px 11px;
+  background-color: #f5f3ff;
+  border: 1px solid #c4b5fd;
+  border-radius: 7px;
+  color: #6d28d9;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.external-event-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 11px;
+}
+
+.external-event-grid label {
+  display: grid;
+  gap: 5px;
+  color: #64748b;
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+.external-event-grid .full {
+  grid-column: 1 / -1;
+}
+
 @media (max-width: 1000px) { .summary-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 767px) {
   .app-shell { display: block; padding-top: 64px; }
@@ -221,4 +310,18 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .match-editor-row { grid-template-columns: 1fr 1fr; }
   .remove-match { width: 100%; grid-column: 1 / -1; }
   .dialog-actions { flex-wrap: wrap; }
+	.participation-type-selector {
+	  flex-direction: column;
+	  align-items: flex-start;
+	  gap: 10px;
+	}
+
+	.external-event-grid {
+	  grid-template-columns: 1fr;
+	}
+
+	.external-event-grid .full {
+	  grid-column: auto;
+	}
+  
 }
