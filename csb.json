@@ -1,0 +1,570 @@
+[
+  {
+    "id": "F07B00",
+    "codice_affiliazione": "F07B00",
+    "denominazione": "CARRARESI",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F07B09",
+    "codice_affiliazione": "F07B09",
+    "denominazione": "LA CORALE",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F07B24",
+    "codice_affiliazione": "F07B24",
+    "denominazione": "BILIARDO AVANE",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F07B48",
+    "codice_affiliazione": "F07B48",
+    "denominazione": "UL SAN FELICE A EMA",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F07B53",
+    "codice_affiliazione": "F07B53",
+    "denominazione": "LA TORRETTA",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F07B55",
+    "codice_affiliazione": "F07B55",
+    "denominazione": "TAVARNUZZE - LE SFERE",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F07B60",
+    "codice_affiliazione": "F07B60",
+    "denominazione": "ENJOY LAB",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F07B71",
+    "codice_affiliazione": "F07B71",
+    "denominazione": "CIRCOLO BILIARDO SOLVAY",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F07B79",
+    "codice_affiliazione": "F07B79",
+    "denominazione": "BAR LUCIANA",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F07B81",
+    "codice_affiliazione": "F07B81",
+    "denominazione": "BILIARDO CLUB",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F07B87",
+    "codice_affiliazione": "F07B87",
+    "denominazione": "SPORTING CLUB",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F07B91",
+    "codice_affiliazione": "F07B91",
+    "denominazione": "IL BILIARDO",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F08B02",
+    "codice_affiliazione": "F08B02",
+    "denominazione": "GR. POLISP. CATENESE",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F08B06",
+    "codice_affiliazione": "F08B06",
+    "denominazione": "BARCOLLO",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F08B12",
+    "codice_affiliazione": "F08B12",
+    "denominazione": "SALA VAL DI SERCHIO",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F08B26",
+    "codice_affiliazione": "F08B26",
+    "denominazione": "COIANO",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F08B31",
+    "codice_affiliazione": "F08B31",
+    "denominazione": "NARNALI",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F14B42",
+    "codice_affiliazione": "F14B42",
+    "denominazione": "TENNIS CLUB AGLIANA",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F15B20",
+    "codice_affiliazione": "F15B20",
+    "denominazione": "G.S. DISCOTECA Y",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F18B43",
+    "codice_affiliazione": "F18B43",
+    "denominazione": "MAXIM LUDO CLUB",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F18B59",
+    "codice_affiliazione": "F18B59",
+    "denominazione": "AMICI DEL BILIARDO",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F19B36",
+    "codice_affiliazione": "F19B36",
+    "denominazione": "BASSA MAREA A.S.D.",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F20B76",
+    "codice_affiliazione": "F20B76",
+    "denominazione": "ANTELLA",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F20B78",
+    "codice_affiliazione": "F20B78",
+    "denominazione": "D.L.F. IMELDE",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F21B52",
+    "codice_affiliazione": "F21B52",
+    "denominazione": "IL RISVEGLIO",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F22B35",
+    "codice_affiliazione": "F22B35",
+    "denominazione": "TOBBIANA",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F23B55",
+    "codice_affiliazione": "F23B55",
+    "denominazione": "ACC. BIL. PONTEDERA",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F26B41",
+    "codice_affiliazione": "F26B41",
+    "denominazione": "IL TAVOLO VERDE",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F27B57",
+    "codice_affiliazione": "F27B57",
+    "denominazione": "LONDA BILIARDO",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F28B24",
+    "codice_affiliazione": "F28B24",
+    "denominazione": "L'ACCHITO",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F28B37",
+    "codice_affiliazione": "F28B37",
+    "denominazione": "RED LION",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F28B54",
+    "codice_affiliazione": "F28B54",
+    "denominazione": "BILIARDO FOLLONICA",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F30B15",
+    "codice_affiliazione": "F30B15",
+    "denominazione": "CENTRO SPORT. DALFA",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F30B24",
+    "codice_affiliazione": "F30B24",
+    "denominazione": "BILIARDI MANOLO",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F30B27",
+    "codice_affiliazione": "F30B27",
+    "denominazione": "PROGETTO 5",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F41B79",
+    "codice_affiliazione": "F41B79",
+    "denominazione": "CRYSTAL BILLIARDS",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F41B85",
+    "codice_affiliazione": "F41B85",
+    "denominazione": "ALBERGHI BILIARDO",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F42B59",
+    "codice_affiliazione": "F42B59",
+    "denominazione": "BIL. CLUB VAL D'ELSA",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F42B90",
+    "codice_affiliazione": "F42B90",
+    "denominazione": "MARAMEO",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F43B75",
+    "codice_affiliazione": "F43B75",
+    "denominazione": "BALALAIKA BILIARDO",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F43B87",
+    "codice_affiliazione": "F43B87",
+    "denominazione": "IL PESCIAIO",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F43B88",
+    "codice_affiliazione": "F43B88",
+    "denominazione": "IN UN COLPO DI STECCA",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F45B10",
+    "codice_affiliazione": "F45B10",
+    "denominazione": "LA GARUFFA S.S.D.R.L.",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F45B12",
+    "codice_affiliazione": "F45B12",
+    "denominazione": "CIRCOLO TENNIS LA SPEZIA",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F45B18",
+    "codice_affiliazione": "F45B18",
+    "denominazione": "CANTAGRILLO BILIARDO",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F45B25",
+    "codice_affiliazione": "F45B25",
+    "denominazione": "BILLIARD SUITE",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F45B37",
+    "codice_affiliazione": "F45B37",
+    "denominazione": "NUOVA ACCADEMIA DEL BILIARDO",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F45B76",
+    "codice_affiliazione": "F45B76",
+    "denominazione": "PALABILIARDO FIRENZE",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F46B04",
+    "codice_affiliazione": "F46B04",
+    "denominazione": "ACCADEMIA GROSSETO",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F46B20",
+    "codice_affiliazione": "F46B20",
+    "denominazione": "POGGIO ARGENTALE",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F46B28",
+    "codice_affiliazione": "F46B28",
+    "denominazione": "CAIMANO A.C.S.I. CLUB",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F47B47",
+    "codice_affiliazione": "F47B47",
+    "denominazione": "CIRCOLO BILIARDI TRAVERSAGNA",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F47B64",
+    "codice_affiliazione": "F47B64",
+    "denominazione": "KING SALA BILIARDI",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F47B65",
+    "codice_affiliazione": "F47B65",
+    "denominazione": "CENTRO BILIARDO SPORTIVO GIBO",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F47B91",
+    "codice_affiliazione": "F47B91",
+    "denominazione": "BILIARDO CLUB SPEDALINO",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F48B20",
+    "codice_affiliazione": "F48B20",
+    "denominazione": "PENNA 1985",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F48B51",
+    "codice_affiliazione": "F48B51",
+    "denominazione": "LA CISTERNA",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F48B54",
+    "codice_affiliazione": "F48B54",
+    "denominazione": "JOHNNY CLUB",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F48B57",
+    "codice_affiliazione": "F48B57",
+    "denominazione": "PASSIONE BILIARDO AGNORELLI",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F48B94",
+    "codice_affiliazione": "F48B94",
+    "denominazione": "GALCIANA",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F50B99",
+    "codice_affiliazione": "F50B99",
+    "denominazione": "US. FABIANO BOCCE",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F51B01",
+    "codice_affiliazione": "F51B01",
+    "denominazione": "ASD IN BILIARDOTECA",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F51B31",
+    "codice_affiliazione": "F51B31",
+    "denominazione": "IL BIRILLO",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F51B32",
+    "codice_affiliazione": "F51B32",
+    "denominazione": "GOLD FINGER",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F51B37",
+    "codice_affiliazione": "F51B37",
+    "denominazione": "VALDARNO BILLIARD",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F51B64",
+    "codice_affiliazione": "F51B64",
+    "denominazione": "TRIP",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F52B50",
+    "codice_affiliazione": "F52B50",
+    "denominazione": "DONKEY BILLIARDS",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F52B67",
+    "codice_affiliazione": "F52B67",
+    "denominazione": "BLACK OUT IOLO",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F52B79",
+    "codice_affiliazione": "F52B79",
+    "denominazione": "NUOVA ACCADEMIA A.S.D.",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F52B82",
+    "codice_affiliazione": "F52B82",
+    "denominazione": "BECAGLI BILIARDI",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  },
+  {
+    "id": "F53B70",
+    "codice_affiliazione": "F53B70",
+    "denominazione": "BILIARDI ELBA",
+    "regione": "Toscana",
+    "provenienza": "federale",
+    "attivo": true
+  }
+]
