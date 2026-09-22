@@ -184,8 +184,53 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 11px; }
 .form-grid label { display: grid; gap: 5px; color: var(--muted); font-size: .7rem; font-weight: 800; }
 .form-grid .full { grid-column: 1 / -1; }
+.match-opponent-field {
+  min-width: 220px;
+}
+
+.match-club-field {
+  min-width: 220px;
+}
+
+.match-player-status {
+  display: block;
+  min-height: 1em;
+  margin-top: 3px;
+  font-size: 0.62rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.match-player-status.linked {
+  color: #15803d;
+}
+
+.match-player-status.unlinked {
+  color: #b45309;
+}
+
+.match-club-input[readonly] {
+  background-color: #f1f5f9;
+  color: #475569;
+  cursor: default;
+}
 .matches-editor { display: grid; gap: 8px; }
-.match-editor-row { display: grid; grid-template-columns: 1fr 1.5fr 1fr .75fr auto; gap: 7px; align-items: end; padding: 9px; background: var(--soft); border: 1px solid var(--line); border-radius: 9px; }
+.match-editor-row {
+  display: grid;
+  grid-template-columns:
+    minmax(110px, 0.8fr)
+    minmax(220px, 1.6fr)
+    minmax(120px, 0.8fr)
+    minmax(220px, 1.5fr)
+    minmax(95px, 0.65fr)
+    auto;
+  gap: 7px;
+  align-items: end;
+  padding: 9px;
+  background: var(--soft);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+}
 .match-editor-row label { display: grid; gap: 4px; color: var(--muted); font-size: .62rem; font-weight: 800; }
 .remove-match { width: 34px; height: 34px; border: 0; border-radius: 7px; background: #fee2e2; color: #b91c1c; cursor: pointer; }
 .sidebar-overlay { display: none; }
@@ -308,6 +353,11 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .form-grid { grid-template-columns: 1fr; }
   .form-grid .full { grid-column: auto; }
   .match-editor-row { grid-template-columns: 1fr 1fr; }
+	.match-opponent-field,
+	.match-club-field {
+	  grid-column: 1 / -1;
+	  min-width: 0;
+	}
   .remove-match { width: 100%; grid-column: 1 / -1; }
   .dialog-actions { flex-wrap: wrap; }
 	.participation-type-selector {
