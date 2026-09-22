@@ -187,51 +187,50 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .match-opponent-field {
   min-width: 220px;
 }
-
-.match-club-field {
-  min-width: 220px;
-}
-
-.match-player-status {
-  display: block;
-  min-height: 1em;
-  margin-top: 3px;
-  font-size: 0.62rem;
-  font-weight: 700;
-  line-height: 1.2;
-}
-
-.match-player-status.linked {
-  color: #15803d;
-}
-
-.match-player-status.unlinked {
-  color: #b45309;
-}
-
-.match-club-input[readonly] {
-  background-color: #f1f5f9;
-  color: #475569;
-  cursor: default;
-}
 .matches-editor { display: grid; gap: 8px; }
 .match-editor-row {
   display: grid;
   grid-template-columns:
-    minmax(110px, 0.8fr)
-    minmax(220px, 1.6fr)
-    minmax(120px, 0.8fr)
-    minmax(220px, 1.5fr)
-    minmax(95px, 0.65fr)
-    auto;
-  gap: 7px;
+    minmax(105px, 0.8fr)
+    minmax(200px, 1.8fr)
+    minmax(115px, 0.85fr)
+    minmax(90px, 0.65fr)
+    34px;
+  gap: 8px;
   align-items: end;
-  padding: 9px;
+  padding: 10px;
   background: var(--soft);
   border: 1px solid var(--line);
   border-radius: 9px;
 }
-.match-editor-row label { display: grid; gap: 4px; color: var(--muted); font-size: .62rem; font-weight: 800; }
+
+.match-editor-row label {
+  min-width: 0;
+}
+
+.match-opponent-field {
+  min-width: 0;
+}
+
+.matches-editor-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.new-player-active-label {
+  display: flex !important;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  min-height: 38px;
+  color: var(--text) !important;
+}
+
+.new-player-active-label input {
+  margin: 0;
+}
 .remove-match { width: 34px; height: 34px; border: 0; border-radius: 7px; background: #fee2e2; color: #b91c1c; cursor: pointer; }
 .sidebar-overlay { display: none; }
 
@@ -353,12 +352,22 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .form-grid { grid-template-columns: 1fr; }
   .form-grid .full { grid-column: auto; }
   .match-editor-row { grid-template-columns: 1fr 1fr; }
-	.match-opponent-field,
-	.match-club-field {
+	.match-opponent-field {
 	  grid-column: 1 / -1;
-	  min-width: 0;
 	}
   .remove-match { width: 100%; grid-column: 1 / -1; }
+	.matches-editor-heading {
+	  align-items: flex-start;
+	  gap: 10px;
+	}
+
+	.matches-editor-actions {
+	  width: 100%;
+	}
+
+	.matches-editor-actions .btn {
+	  flex: 1 1 auto;
+	}
   .dialog-actions { flex-wrap: wrap; }
 	.participation-type-selector {
 	  flex-direction: column;
