@@ -108,6 +108,15 @@ function bindEvents() {
 	  });
   document.getElementById("searchInput").addEventListener("input", renderList);
   document.getElementById("newParticipationBtn").addEventListener("click", () => openEdit());
+  document
+  .querySelectorAll('input[name="eventSource"]')
+  .forEach(radio => {
+    radio.addEventListener(
+      "change",
+      updateEventSourceFields
+    );
+  });
+
   document.getElementById("detailClose").addEventListener("click", () => document.getElementById("detailDialog").close());
   document.getElementById("editParticipationBtn").addEventListener("click", () => { document.getElementById("detailDialog").close(); openEdit(currentPathId); });
   document.getElementById("deleteParticipationBtn").addEventListener("click", deleteCurrentPath);
@@ -394,7 +403,42 @@ function selectedPaths() {
   });
 }
 
-function eventFor(path) { return events.find(e => String(e.id) === String(path.gara_id)) || { title: path.titolo_gara || "Gara non presente nel calendario", className: path.className || "gara-libera", sede: path.sede || "" }; }
+function eventFor(path) {
+  const linkedEvent = events.find(
+    event =>
+      String(event.id) ===
+      String(path.gara_id)
+  );
+
+  if (linkedEvent) {
+    return linkedEvent;
+  }
+
+  return {
+    id: path.gara_id,
+    title:
+      path.titolo_gara ||
+      "Gara non presente nel calendario",
+
+    className:
+      path.className ||
+      "gara-libera",
+
+    sede:
+      path.sede ||
+      "Fuori regione",
+
+    specialita:
+      path.specialita ||
+      path.specialita_excel ||
+      "",
+
+    punti:
+      path.punti ||
+      path.punti_excel ||
+      ""
+  };
+}
 
 function renderAll() { if (!currentUser) return; renderSummary(); renderList(); }
 
@@ -426,7 +470,17 @@ function renderList() {
 function openDetail(id) {
   const path = paths.find(p => String(p.id) === String(id)); if (!path) return; currentPathId = path.id; const evt = eventFor(path), color = TYPE_COLORS[evt.className] || "#64748b";
   const badge = document.getElementById("detailType"); badge.textContent = typeLabel(evt.className); badge.style.background = color;
-  document.getElementById("detailTitle").textContent = evt.title; document.getElementById("detailVenue").textContent = evt.sede || "Sede non indicata";
+  document.getElementById("detailTitle").textContent = evt.title; 
+const externalEvent =
+  isExternalParticipation(path);
+
+document.getElementById(
+  "detailVenue"
+).textContent = externalEvent
+  ? `Gara esterna · ${
+      evt.sede || "Sede non indicata"
+    }`
+  : evt.sede || "Sede non indicata";
   document.getElementById("detailDate").textContent = formatDate(path.data_giocata); document.getElementById("detailResult").textContent = path.risultato || "-";
   document.getElementById("detailEntry").textContent = euro(path.iscrizione); document.getElementById("detailPrize").textContent = euro(path.premio); document.getElementById("detailRanking").textContent = signed(number(path.ranking)); document.getElementById("detailBattery").textContent = path.batteria_superata ? "Superata" : "Non superata";
   const matches = [...(path.incontri || [])].sort((a,b) => number(a.ordine)-number(b.ordine)); document.getElementById("detailMatchCount").textContent = `${matches.length} ${matches.length === 1 ? "incontro" : "incontri"}`;
@@ -436,39 +490,199 @@ function openDetail(id) {
 }
 
 function openEdit(id = null) {
-  currentPathId = id; 
-  const path = id ? paths.find(p => String(p.id) === String(id)) : null;
+  currentPathId = id;
+
+  const path = id
+    ? paths.find(item =>
+        String(item.id) === String(id)
+      )
+    : null;
+
   if (path) {
-  const linkedEvent =
-    events.find(event =>
+    const linkedEvent = events.find(event =>
       String(event.id) ===
       String(path.gara_id)
     );
 
-  const pathSeason =
-    linkedEvent
+    const pathSeason = linkedEvent
       ? getEventSeason(linkedEvent)
       : path.stagione;
 
-  if (pathSeason) {
-    currentSeason = pathSeason;
+    if (pathSeason) {
+      currentSeason = pathSeason;
 
-    document.getElementById(
-      "seasonSelector"
-    ).value = pathSeason;
+      document.getElementById(
+        "seasonSelector"
+      ).value = pathSeason;
+    }
   }
+
+  populateEventSelect(
+    path?.gara_id || ""
+  );
+
+  document.getElementById(
+    "editDialogTitle"
+  ).textContent = path
+    ? "Modifica partecipazione"
+    : "Nuova partecipazione";
+
+  document.getElementById(
+    "editId"
+  ).value = path?.id || "";
+
+  const externalMode =
+    isExternalParticipation(path);
+
+  document.getElementById(
+    "eventSourceCalendar"
+  ).checked = !externalMode;
+
+  document.getElementById(
+    "eventSourceExternal"
+  ).checked = externalMode;
+
+  updateEventSourceFields();
+
+  document.getElementById(
+    "editEvent"
+  ).value = externalMode
+    ? ""
+    : path?.gara_id || "";
+
+  document.getElementById(
+    "editExternalTitle"
+  ).value = externalMode
+    ? path?.titolo_gara || ""
+    : "";
+
+  document.getElementById(
+    "editExternalType"
+  ).value = externalMode
+    ? path?.className || "gara-libera"
+    : "gara-libera";
+
+  document.getElementById(
+    "editExternalVenue"
+  ).value = externalMode
+    ? path?.sede || ""
+    : "";
+
+  document.getElementById(
+    "editExternalSpecialty"
+  ).value = externalMode
+    ? (
+        path?.specialita ||
+        path?.specialita_excel ||
+        ""
+      )
+    : "";
+
+  document.getElementById(
+    "editExternalPoints"
+  ).value = externalMode
+    ? (
+        path?.punti ||
+        path?.punti_excel ||
+        ""
+      )
+    : "";
+
+  document.getElementById(
+    "editDate"
+  ).value =
+    path?.data_giocata ||
+    new Date().toISOString().slice(0, 10);
+
+  document.getElementById(
+    "editResult"
+  ).value = path?.risultato || "";
+
+  document.getElementById(
+    "editEntry"
+  ).value = path?.iscrizione ?? 0;
+
+  document.getElementById(
+    "editPrize"
+  ).value = path?.premio ?? 0;
+
+  document.getElementById(
+    "editRanking"
+  ).value = path?.ranking ?? "";
+
+  document.getElementById(
+    "editBattery"
+  ).value = String(
+    path?.batteria_superata ?? false
+  );
+
+  document.getElementById(
+    "editNotes"
+  ).value = path?.note || "";
+
+  const editor =
+    document.getElementById(
+      "matchesEditor"
+    );
+
+  editor.innerHTML = "";
+
+  const matches =
+    [...(path?.incontri || [])]
+      .sort(
+        (matchA, matchB) =>
+          number(matchA.ordine) -
+          number(matchB.ordine)
+      );
+
+  matches.forEach(match =>
+    addMatchEditorRow(match)
+  );
+
+  if (matches.length === 0) {
+    addMatchEditorRow();
+  }
+
+  document
+    .getElementById("editDialog")
+    .showModal();
 }
 
-populateEventSelect(
-  path?.gara_id || ""
-);
-  document.getElementById("editDialogTitle").textContent = path ? "Modifica partecipazione" : "Nuova partecipazione";
-  document.getElementById("editId").value = path?.id || ""; 
-  document.getElementById("editEvent").value = path?.gara_id || ""; document.getElementById("editDate").value = path?.data_giocata || new Date().toISOString().slice(0,10); document.getElementById("editResult").value = path?.risultato || ""; document.getElementById("editEntry").value = path?.iscrizione ?? 0; document.getElementById("editPrize").value = path?.premio ?? 0; document.getElementById("editRanking").value = path?.ranking ?? 0; document.getElementById("editBattery").value = String(path?.batteria_superata ?? false); document.getElementById("editNotes").value = path?.note || "";
-  const editor = document.getElementById("matchesEditor"); editor.innerHTML = ""; (path?.incontri || []).sort((a,b) => number(a.ordine)-number(b.ordine)).forEach(addMatchEditorRow); if (!path?.incontri?.length) addMatchEditorRow(); document.getElementById("editDialog").showModal();
-}
 
 function closeEdit() { document.getElementById("editDialog").close(); }
+
+function updateEventSourceFields() {
+  const externalMode =
+    document.getElementById(
+      "eventSourceExternal"
+    ).checked;
+
+  const calendarFields =
+    document.getElementById(
+      "calendarEventFields"
+    );
+
+  const externalFields =
+    document.getElementById(
+      "externalEventFields"
+    );
+
+  calendarFields.hidden = externalMode;
+  externalFields.hidden = !externalMode;
+}
+
+function isExternalParticipation(path) {
+  if (!path) {
+    return false;
+  }
+
+  const linkedEvent = events.find(event =>
+    String(event.id) ===
+    String(path.gara_id)
+  );
+
+  return !linkedEvent;
+}
 
 function addMatchEditorRow(match = {}) {
   const container = document.getElementById("matchesEditor"), row = document.createElement("div"); row.className = "match-editor-row";
@@ -476,44 +690,279 @@ function addMatchEditorRow(match = {}) {
   row.querySelector(".remove-match").addEventListener("click", () => row.remove()); container.appendChild(row);
 }
 
-async function saveEdit(e) {
-  e.preventDefault(); const id = document.getElementById("editId").value || `path-${Date.now()}`;
+async function saveEdit(event) {
+  event.preventDefault();
 
-	const selectedEventId =
-	  document.getElementById(
-		 "editEvent"
-	  ).value;
+  const existingId =
+    document
+      .getElementById("editId")
+      .value;
 
-	const selectedEvent =
-	  events.find(event =>
-		 String(event.id) ===
-		 String(selectedEventId)
-	  );
+  const participationId =
+    existingId ||
+    `${currentUser.id}-${Date.now()}`;
 
-	const participationSeason =
-	  selectedEvent
-		 ? getEventSeason(selectedEvent)
-		 : currentSeason; 
+  const externalMode =
+    document.getElementById(
+      "eventSourceExternal"
+    ).checked;
 
- const matches = [...document.querySelectorAll(".match-editor-row")].map((row, i) => ({ id: Date.now()+i, ordine: i+1, fase: row.querySelector(".match-phase-input").value.trim(), avversario: row.querySelector(".match-opponent-input").value.trim(), categoria: row.querySelector(".match-category-input").value, esito: row.querySelector(".match-result-input").value })).filter(m => m.avversario);
+  const playedDate =
+    document.getElementById(
+      "editDate"
+    ).value;
 
-  const path = { 
-		id, 
-		utente_id: currentUser.id, 
-		gara_id: selectedEventId, 
-		stagione: participationSeason, 
-		data_giocata: document.getElementById("editDate").value, 
-		iscrizione: number(document.getElementById("editEntry").value), 
-		premio: number(document.getElementById("editPrize").value), 
-		risultato: document.getElementById("editResult").value.trim(), 
-		ranking: number(document.getElementById("editRanking").value), 
-		batteria_superata: document.getElementById("editBattery").value === "true", 
-		note: document.getElementById("editNotes").value.trim(), 
-		incontri: matches 
-	};
-	
-  const index = paths.findIndex(p => String(p.id) === String(id)); if (index >= 0) paths[index] = path; else paths.push(path);
-  closeEdit(); populateSeasons(); renderAll(); await trySync();
+  let eventId;
+  let participationSeason;
+  let externalData = {};
+
+  if (externalMode) {
+    const externalTitle =
+      document
+        .getElementById(
+          "editExternalTitle"
+        )
+        .value
+        .trim();
+
+    if (!externalTitle) {
+      alert(
+        "Inserisci il titolo della gara esterna."
+      );
+
+      document
+        .getElementById(
+          "editExternalTitle"
+        )
+        .focus();
+
+      return;
+    }
+
+    const existingPath =
+      existingId
+        ? paths.find(path =>
+            String(path.id) ===
+            String(existingId)
+          )
+        : null;
+
+    if (
+      existingPath &&
+      isExternalParticipation(existingPath)
+    ) {
+      eventId = existingPath.gara_id;
+    } else {
+      eventId =
+        `storico-${playedDate}-${Date.now()}`;
+    }
+
+    participationSeason =
+      getSeasonFromDate(playedDate);
+
+    externalData = {
+      titolo_gara: externalTitle,
+
+      className:
+        document
+          .getElementById(
+            "editExternalType"
+          )
+          .value,
+
+      sede:
+        document
+          .getElementById(
+            "editExternalVenue"
+          )
+          .value
+          .trim(),
+
+      specialita:
+        document
+          .getElementById(
+            "editExternalSpecialty"
+          )
+          .value
+          .trim(),
+
+      punti:
+        document
+          .getElementById(
+            "editExternalPoints"
+          )
+          .value
+          .trim()
+    };
+  } else {
+    eventId =
+      document
+        .getElementById("editEvent")
+        .value;
+
+    if (!eventId) {
+      alert(
+        "Seleziona una gara dal calendario."
+      );
+
+      document
+        .getElementById("editEvent")
+        .focus();
+
+      return;
+    }
+
+    const selectedEvent =
+      events.find(calendarEvent =>
+        String(calendarEvent.id) ===
+        String(eventId)
+      );
+
+    if (!selectedEvent) {
+      alert(
+        "La gara selezionata non è disponibile."
+      );
+
+      return;
+    }
+
+    participationSeason =
+      getEventSeason(selectedEvent);
+  }
+
+  const matches = [
+    ...document.querySelectorAll(
+      ".match-editor-row"
+    )
+  ]
+    .map((row, index) => {
+      return {
+        id: Date.now() + index,
+        ordine: index + 1,
+
+        fase:
+          row
+            .querySelector(
+              ".match-phase-input"
+            )
+            .value
+            .trim(),
+
+        avversario:
+          row
+            .querySelector(
+              ".match-opponent-input"
+            )
+            .value
+            .trim(),
+
+        categoria:
+          row
+            .querySelector(
+              ".match-category-input"
+            )
+            .value,
+
+        esito:
+          row
+            .querySelector(
+              ".match-result-input"
+            )
+            .value
+      };
+    })
+    .filter(match =>
+      match.avversario !== ""
+    );
+
+  const rankingValue =
+    document
+      .getElementById("editRanking")
+      .value;
+
+  const path = {
+    id: participationId,
+    utente_id: currentUser.id,
+    gara_id: eventId,
+    stagione:
+      participationSeason ||
+      currentSeason,
+    data_giocata: playedDate,
+
+    iscrizione:
+      number(
+        document.getElementById(
+          "editEntry"
+        ).value
+      ),
+
+    premio:
+      number(
+        document.getElementById(
+          "editPrize"
+        ).value
+      ),
+
+    risultato:
+      document
+        .getElementById(
+          "editResult"
+        )
+        .value
+        .trim(),
+
+    ranking:
+      rankingValue === ""
+        ? null
+        : number(rankingValue),
+
+    batteria_superata:
+      document
+        .getElementById(
+          "editBattery"
+        )
+        .value === "true",
+
+    note:
+      document
+        .getElementById(
+          "editNotes"
+        )
+        .value
+        .trim(),
+
+    incontri: matches,
+
+    ...externalData
+  };
+
+  const pathIndex =
+    paths.findIndex(item =>
+      String(item.id) ===
+      String(participationId)
+    );
+
+  if (pathIndex >= 0) {
+    paths[pathIndex] = path;
+  } else {
+    paths.push(path);
+  }
+
+  currentSeason =
+    participationSeason ||
+    currentSeason;
+
+  closeEdit();
+  populateSeasons();
+
+  document.getElementById(
+    "seasonSelector"
+  ).value = currentSeason;
+
+  populateEventSelect();
+  renderAll();
+
+  await trySync();
 }
 
 async function deleteCurrentPath() {
