@@ -7,7 +7,8 @@ const GITHUB_CONFIG = {
   owner: "fisbb-toscana",
   repo: "calendario-gare",
   branch: "main",
-  filePath: "percorsi.json"
+  filePath: "percorsi.json",
+  filePathPlayers: "giocatori.json"
 };
 
 const demoUsers = [
@@ -68,6 +69,7 @@ let offlineMode = false;
 let githubSaveInProgress = false;
 let playersById = new Map();
 let clubsById = new Map();
+let currentMatchEditorRow = null;
 
 async function loadJson(url) {
   const response = await fetch(url, { cache: "no-store" });
@@ -164,11 +166,292 @@ function getPlayerDisplayName(player) {
 function initializeApp() {
   populateLoginUsers();
   populatePlayersDataList();
+  populateNewPlayerClubSelect();
   bindEvents();
 	updateGitHubButton();
   const savedUserId = sessionStorage.getItem("personal_user_id");
   const savedUser = users.find(u => String(u.id) === savedUserId && u.attivo !== false);
   if (savedUser) loginUser(savedUser); else openLogin();
+}
+
+function openNewPlayerDialog() {
+  const activeOpponentInput =
+    document.activeElement?.classList?.contains(
+      "match-opponent-input"
+    )
+      ? document.activeElement
+      : null;
+
+  if (activeOpponentInput) {
+    currentMatchEditorRow =
+      activeOpponentInput.closest(
+        ".match-editor-row"
+      );
+  }
+
+  const currentText =
+    currentMatchEditorRow
+      ? currentMatchEditorRow
+          .querySelector(
+            ".match-opponent-input"
+          )
+          .value
+          .trim()
+      : "";
+
+  document.getElementById(
+    "newPlayerForm"
+  ).reset();
+
+  document.getElementById(
+    "newPlayerActive"
+  ).checked = true;
+
+  document.getElementById(
+    "newPlayerRegion"
+  ).value = "Toscana";
+
+  document.getElementById(
+    "newPlayerError"
+  ).hidden = true;
+
+  /*
+    Se nel campo avversario è già stato scritto qualcosa,
+    proviamo a usarlo come cognome iniziale.
+  */
+  if (currentText) {
+    document.getElementById(
+      "newPlayerLastName"
+    ).value = currentText;
+  }
+
+  document
+    .getElementById("newPlayerDialog")
+    .showModal();
+
+  window.setTimeout(() => {
+    const firstNameInput =
+      document.getElementById(
+        "newPlayerFirstName"
+      );
+
+    const lastNameInput =
+      document.getElementById(
+        "newPlayerLastName"
+      );
+
+    if (currentText) {
+      firstNameInput.focus();
+    } else {
+      lastNameInput.focus();
+    }
+  }, 50);
+}
+
+function closeNewPlayerDialog() {
+  document
+    .getElementById("newPlayerDialog")
+    .close();
+}
+
+async function saveNewPlayer(event) {
+  event.preventDefault();
+
+  const firstName =
+    document
+      .getElementById("newPlayerFirstName")
+      .value
+      .trim();
+
+  const lastName =
+    document
+      .getElementById("newPlayerLastName")
+      .value
+      .trim();
+
+  const cardCode =
+    document
+      .getElementById("newPlayerCardCode")
+      .value
+      .trim()
+      .toUpperCase();
+
+  const category =
+    document
+      .getElementById("newPlayerCategory")
+      .value;
+
+  const clubId =
+    document
+      .getElementById("newPlayerClub")
+      .value;
+
+  const region =
+    document
+      .getElementById("newPlayerRegion")
+      .value
+      .trim();
+
+  const active =
+    document
+      .getElementById("newPlayerActive")
+      .checked;
+
+  const errorElement =
+    document.getElementById("newPlayerError");
+
+  if (
+    !firstName ||
+    !lastName ||
+    !cardCode ||
+    !category
+  ) {
+    errorElement.textContent =
+      "Compila nome, cognome, codice tessera e categoria.";
+
+    errorElement.hidden = false;
+    return;
+  }
+
+  const duplicateCard = players.find(player =>
+    String(player.codice_tessera || player.id)
+      .toUpperCase() === cardCode
+  );
+
+  if (duplicateCard) {
+    errorElement.textContent =
+      `Il codice tessera ${cardCode} è già associato a ` +
+      `${getPlayerDisplayName(duplicateCard)}.`;
+
+    errorElement.hidden = false;
+    return;
+  }
+
+  const newPlayer = {
+    id: cardCode,
+    codice_tessera: cardCode,
+    nome: firstName,
+    cognome: lastName,
+    nome_visualizzato:
+      `${firstName} ${lastName}`.trim(),
+    categoria: category,
+    csb_id: clubId || null,
+    regione: region || "",
+    provenienza: "manuale",
+    attivo: active
+  };
+
+  players.push(newPlayer);
+
+  players.sort((playerA, playerB) => {
+    const surnameComparison =
+      String(playerA.cognome || "")
+        .localeCompare(
+          String(playerB.cognome || ""),
+          "it",
+          { sensitivity: "base" }
+        );
+
+    if (surnameComparison !== 0) {
+      return surnameComparison;
+    }
+
+    return String(playerA.nome || "")
+      .localeCompare(
+        String(playerB.nome || ""),
+        "it",
+        { sensitivity: "base" }
+      );
+  });
+
+  buildPlayerIndexes();
+  populatePlayersDataList();
+
+  if (currentMatchEditorRow) {
+    currentMatchEditorRow
+      .querySelector(
+        ".match-opponent-input"
+      )
+      .value =
+        getPlayerDisplayName(newPlayer);
+
+    currentMatchEditorRow
+      .querySelector(
+        ".match-player-id"
+      )
+      .value = newPlayer.id;
+
+    currentMatchEditorRow
+      .querySelector(
+        ".match-club-id"
+      )
+      .value = newPlayer.csb_id || "";
+
+    currentMatchEditorRow
+      .querySelector(
+        ".match-category-input"
+      )
+      .value = newPlayer.categoria;
+  }
+
+  closeNewPlayerDialog();
+
+  try {
+    await pushJsonToGitHub(
+      GITHUB_CONFIG.filePathPlayers,
+      players,
+      `Aggiunta giocatore ${newPlayer.nome_visualizzato}`
+    );
+
+    alert(
+      "Giocatore aggiunto e salvato su GitHub."
+    );
+  } catch (error) {
+    console.error(
+      "Errore salvataggio giocatore:",
+      error
+    );
+
+    alert(
+      "Il giocatore è disponibile nella sessione corrente, " +
+      "ma il salvataggio su GitHub è fallito.\n\n" +
+      error.message
+    );
+  }
+}
+
+function populateNewPlayerClubSelect() {
+  const select =
+    document.getElementById("newPlayerClub");
+
+  if (!select) {
+    return;
+  }
+
+  select.innerHTML =
+    '<option value="">Nessun CSB / da specificare</option>';
+
+  clubs
+    .filter(club => club.attivo !== false)
+    .sort((clubA, clubB) =>
+      String(clubA.denominazione || "")
+        .localeCompare(
+          String(clubB.denominazione || ""),
+          "it",
+          { sensitivity: "base" }
+        )
+    )
+    .forEach(club => {
+      const option =
+        document.createElement("option");
+
+      option.value = club.id;
+
+      option.textContent =
+        `${club.denominazione} (${club.codice_affiliazione || club.id})`;
+
+      select.appendChild(option);
+    });
 }
 
 function populatePlayersDataList() {
@@ -326,8 +609,48 @@ function bindEvents() {
 			? "text"
 			: "password";
 	  });  
+
+	const newPlayerButton =
+	  document.getElementById("newPlayerBtn");
+
+	const newPlayerCloseButton =
+	  document.getElementById("newPlayerClose");
+
+	const newPlayerCancelButton =
+	  document.getElementById("newPlayerCancel");
+
+	const newPlayerForm =
+	  document.getElementById("newPlayerForm");
+
+	if (newPlayerButton) {
+	  newPlayerButton.addEventListener(
+		 "click",
+		 openNewPlayerDialog
+	  );
+	}
+
+	if (newPlayerCloseButton) {
+	  newPlayerCloseButton.addEventListener(
+		 "click",
+		 closeNewPlayerDialog
+	  );
+	}
+
+	if (newPlayerCancelButton) {
+	  newPlayerCancelButton.addEventListener(
+		 "click",
+		 closeNewPlayerDialog
+	  );
+	}
+
+	if (newPlayerForm) {
+	  newPlayerForm.addEventListener(
+		 "submit",
+		 saveNewPlayer
+	  );
+	}
 	  
-  ["detailDialog", "editDialog", "githubDialog"].forEach(id => {
+  ["detailDialog", "editDialog", "githubDialog", "newPlayerDialog"].forEach(id => {
     document.getElementById(id).addEventListener("click", e => { if (e.target.id === id) e.target.close(); });
   });
 }
@@ -953,10 +1276,9 @@ function addMatchEditorRow(match = {}) {
     ? getPlayerById(match.giocatore_id)
     : null;
 
-  const opponentName =
-    linkedPlayer
-      ? getPlayerDisplayName(linkedPlayer)
-      : match.avversario || "";
+  const opponentName = linkedPlayer
+    ? getPlayerDisplayName(linkedPlayer)
+    : match.avversario || "";
 
   const playerId =
     linkedPlayer?.id ||
@@ -973,11 +1295,6 @@ function addMatchEditorRow(match = {}) {
     linkedPlayer?.csb_id ||
     "";
 
-  const clubName =
-    match.csb ||
-    getClubName(clubId) ||
-    "";
-
   row.innerHTML = `
     <input
       type="hidden"
@@ -991,7 +1308,6 @@ function addMatchEditorRow(match = {}) {
 
     <label>
       Fase
-
       <input
         class="form-control match-phase-input"
         value="${escapeAttr(match.fase || "")}"
@@ -1000,40 +1316,24 @@ function addMatchEditorRow(match = {}) {
 
     <label class="match-opponent-field">
       Avversario
-
       <input
         class="form-control match-opponent-input"
         type="text"
         list="playersDataList"
         value="${escapeAttr(opponentName)}"
-        placeholder="Cerca nome, cognome o tessera"
+        placeholder="Cerca nome o cognome"
         autocomplete="off">
-
-      <small class="match-player-status"></small>
     </label>
 
     <label>
       Categoria
-
       <select class="form-control match-category-input">
         ${buildCategoryOptions(category)}
       </select>
     </label>
 
-    <label class="match-club-field">
-      CSB
-
-      <input
-        class="form-control match-club-input"
-        type="text"
-        value="${escapeAttr(clubName)}"
-        placeholder="CSB"
-        readonly>
-    </label>
-
     <label>
       Esito
-
       <select class="form-control match-result-input">
         <option
           value="V"
@@ -1061,22 +1361,29 @@ function addMatchEditorRow(match = {}) {
     row.querySelector(".match-opponent-input");
 
   opponentInput.addEventListener(
+    "focus",
+    () => {
+      currentMatchEditorRow = row;
+    }
+  );
+
+  opponentInput.addEventListener(
     "change",
     () => handleOpponentSelection(row)
   );
 
   opponentInput.addEventListener(
     "blur",
-    () => handleOpponentSelection(row)
+    () => {
+      window.setTimeout(() => {
+        handleOpponentSelection(row);
+      }, 100);
+    }
   );
 
   opponentInput.addEventListener(
     "input",
     () => {
-      /*
-        Se l'utente modifica il testo dopo aver scelto
-        un atleta, il collegamento precedente viene rimosso.
-      */
       const hiddenPlayerId =
         row.querySelector(".match-player-id");
 
@@ -1090,7 +1397,13 @@ function addMatchEditorRow(match = {}) {
           getPlayerDisplayName(linked)
         )
       ) {
-        clearLinkedPlayer(row, false);
+        row.querySelector(
+          ".match-player-id"
+        ).value = "";
+
+        row.querySelector(
+          ".match-club-id"
+        ).value = "";
       }
     }
   );
@@ -1099,12 +1412,16 @@ function addMatchEditorRow(match = {}) {
     .querySelector(".remove-match")
     .addEventListener(
       "click",
-      () => row.remove()
+      () => {
+        if (currentMatchEditorRow === row) {
+          currentMatchEditorRow = null;
+        }
+
+        row.remove();
+      }
     );
 
   container.appendChild(row);
-
-  updatePlayerStatus(row);
 }
 
 function buildCategoryOptions(selectedCategory = "") {
@@ -1155,13 +1472,16 @@ function handleOpponentSelection(row) {
     );
 
   if (!player) {
-    clearLinkedPlayer(row, true);
-    updatePlayerStatus(row);
+    row.querySelector(
+      ".match-player-id"
+    ).value = "";
+
+    row.querySelector(
+      ".match-club-id"
+    ).value = "";
+
     return;
   }
-
-  const club =
-    getClubById(player.csb_id);
 
   row.querySelector(
     ".match-player-id"
@@ -1176,72 +1496,8 @@ function handleOpponentSelection(row) {
 
   row.querySelector(
     ".match-category-input"
-  ).value = player.categoria || "Non indicata";
-
-  row.querySelector(
-    ".match-club-input"
-  ).value = club?.denominazione || "";
-
-  updatePlayerStatus(row);
-}
-
-function clearLinkedPlayer(
-  row,
-  preserveManualData = true
-) {
-  row.querySelector(
-    ".match-player-id"
-  ).value = "";
-
-  row.querySelector(
-    ".match-club-id"
-  ).value = "";
-
-  if (!preserveManualData) {
-    row.querySelector(
-      ".match-club-input"
-    ).value = "";
-  }
-}
-
-function updatePlayerStatus(row) {
-  const playerId =
-    row.querySelector(
-      ".match-player-id"
-    ).value;
-
-  const opponentName =
-    row.querySelector(
-      ".match-opponent-input"
-    ).value.trim();
-
-  const status =
-    row.querySelector(
-      ".match-player-status"
-    );
-
-  if (playerId) {
-    const player = getPlayerById(playerId);
-
-    status.textContent = player
-      ? `Collegato alla tessera ${
-          player.codice_tessera || player.id
-        }`
-      : "Giocatore collegato";
-
-    status.className =
-      "match-player-status linked";
-  } else if (opponentName) {
-    status.textContent =
-      "Nome non collegato all'anagrafica";
-
-    status.className =
-      "match-player-status unlinked";
-  } else {
-    status.textContent = "";
-    status.className =
-      "match-player-status";
-  }
+  ).value =
+    player.categoria || "Non indicata";
 }
 
 async function saveEdit(event) {
@@ -1413,11 +1669,15 @@ const matches = [
         .querySelector(".match-category-input")
         .value;
 
-    const clubName =
-      row
-        .querySelector(".match-club-input")
-        .value
-        .trim();
+    const linkedPlayer =
+      playerId
+        ? getPlayerById(playerId)
+        : null;
+
+    const historicalClubName =
+      clubId
+        ? getClubName(clubId)
+        : "";
 
     const match = {
       id: Date.now() + index,
@@ -1429,31 +1689,29 @@ const matches = [
           .value
           .trim(),
 
-      avversario: opponentName,
+      avversario:
+        linkedPlayer
+          ? getPlayerDisplayName(linkedPlayer)
+          : opponentName,
+
       categoria: category,
+
       esito:
         row
           .querySelector(".match-result-input")
           .value
     };
 
-    /*
-      giocatore_id viene salvato soltanto
-      se il giocatore è stato riconosciuto.
-    */
     if (playerId) {
       match.giocatore_id = playerId;
     }
 
-    /*
-      Copia storica del CSB al momento dell'incontro.
-    */
     if (clubId) {
       match.csb_id = clubId;
     }
 
-    if (clubName) {
-      match.csb = clubName;
+    if (historicalClubName) {
+      match.csb = historicalClubName;
     }
 
     return match;
