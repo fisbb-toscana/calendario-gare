@@ -1,39 +1,1171 @@
 [
   {
-    "id": "ematerz-marameo-2025",
-    "utente_id": "ematerz",
-    "gara_id": 1786454942647,
+    "id": "emanuele-2025-09-21-2",
+    "utente_id": "emanuele",
+    "gara_id": "storico-2025-09-21-2",
     "stagione": "2025-2026",
-    "data_giocata": "2025-09-30",
-    "iscrizione": 35,
-    "premio": 0,
-    "risultato": "3° Turno",
-    "ranking": 9,
+    "data_giocata": "2025-09-21",
+    "iscrizione": 35.0,
+    "premio": 0.0,
+    "risultato": "Batteria non superata",
+    "ranking": -2.0,
     "batteria_superata": false,
     "note": "",
     "incontri": [
       {
-        "id": 1,
+        "id": 201,
+        "ordine": 1,
+        "fase": "2° turno",
+        "avversario": "Cimatti (2)",
+        "categoria": "Seconda",
+        "esito": "V"
+      },
+      {
+        "id": 202,
+        "ordine": 2,
+        "fase": "3° turno",
+        "avversario": "Iacoponi (1)",
+        "categoria": "Prima",
+        "esito": "P"
+      }
+    ],
+    "titolo_gara": "Circolino Badabum Pesaro",
+    "className": "gara-libera",
+    "sede": "",
+    "specialita_excel": "Ita/TD",
+    "punti_excel": "100/500 (2 su 3)"
+  },
+  {
+    "id": "emanuele-2025-09-24-3",
+    "utente_id": "emanuele",
+    "gara_id": 1786454942648,
+    "stagione": "2025-2026",
+    "data_giocata": "2025-09-24",
+    "iscrizione": 35.0,
+    "premio": 35.0,
+    "risultato": "Batteria non superata",
+    "ranking": 4.0,
+    "batteria_superata": false,
+    "note": "",
+    "incontri": [
+      {
+        "id": 301,
         "ordine": 1,
         "fase": "1° turno",
-        "avversario": "Quintavalle",
+        "avversario": "Pellegrini (1)",
         "categoria": "Prima",
         "esito": "V"
       },
       {
-        "id": 2,
+        "id": 302,
         "ordine": 2,
         "fase": "2° turno",
-        "avversario": "Berretta",
+        "avversario": "Piemonte (2)",
+        "categoria": "Seconda",
+        "esito": "V"
+      },
+      {
+        "id": 303,
+        "ordine": 3,
+        "fase": "3° turno",
+        "avversario": "Bellucci (M)",
+        "categoria": "Master",
+        "esito": "P"
+      }
+    ]
+  },
+  {
+    "id": "emanuele-2025-09-30-4",
+    "utente_id": "emanuele",
+    "gara_id": 1786454942647,
+    "stagione": "2025-2026",
+    "data_giocata": "2025-09-30",
+    "iscrizione": 35.0,
+    "premio": 0.0,
+    "risultato": "Batteria non superata",
+    "ranking": 9.0,
+    "batteria_superata": false,
+    "note": "",
+    "incontri": [
+      {
+        "id": 401,
+        "ordine": 1,
+        "fase": "1° turno",
+        "avversario": "Quintavalle (1)",
+        "categoria": "Prima",
+        "esito": "V"
+      },
+      {
+        "id": 402,
+        "ordine": 2,
+        "fase": "2° turno",
+        "avversario": "Berretta (M)",
         "categoria": "Master",
         "esito": "V"
       },
       {
-        "id": 3,
+        "id": 403,
         "ordine": 3,
         "fase": "3° turno",
-        "avversario": "Barbini",
+        "avversario": "BARBINI (N)",
         "categoria": "Nazionale",
+        "esito": "P"
+      }
+    ]
+  },
+  {
+    "id": "emanuele-2025-10-13-5",
+    "utente_id": "emanuele",
+    "gara_id": 1786454942644,
+    "stagione": "2025-2026",
+    "data_giocata": "2025-10-13",
+    "iscrizione": 30.0,
+    "premio": 0.0,
+    "risultato": "Batteria non superata",
+    "ranking": -5.0,
+    "batteria_superata": false,
+    "note": "",
+    "incontri": [
+      {
+        "id": 501,
+        "ordine": 1,
+        "fase": "1° turno",
+        "avversario": "Becuzzi (1)",
+        "categoria": "Prima",
+        "esito": "V"
+      },
+      {
+        "id": 502,
+        "ordine": 2,
+        "fase": "2° turno",
+        "avversario": "Giannelli (1)",
+        "categoria": "Prima",
+        "esito": "P"
+      }
+    ]
+  },
+  {
+    "id": "emanuele-2025-10-20-6",
+    "utente_id": "emanuele",
+    "gara_id": 1786454942646,
+    "stagione": "2025-2026",
+    "data_giocata": "2025-10-20",
+    "iscrizione": 40.0,
+    "premio": 0.0,
+    "risultato": "Batteria non superata",
+    "ranking": 4.0,
+    "batteria_superata": false,
+    "note": "",
+    "incontri": [
+      {
+        "id": 601,
+        "ordine": 1,
+        "fase": "1° turno",
+        "avversario": "Fenini (2)",
+        "categoria": "Seconda",
+        "esito": "V"
+      },
+      {
+        "id": 602,
+        "ordine": 2,
+        "fase": "2° turno",
+        "avversario": "Sedoni (1)",
+        "categoria": "Prima",
+        "esito": "V"
+      },
+      {
+        "id": 603,
+        "ordine": 3,
+        "fase": "3° turno",
+        "avversario": "Voccia (M)",
+        "categoria": "Master",
+        "esito": "P"
+      }
+    ]
+  },
+  {
+    "id": "emanuele-2025-10-21-7",
+    "utente_id": "emanuele",
+    "gara_id": 1786454942643,
+    "stagione": "2025-2026",
+    "data_giocata": "2025-10-21",
+    "iscrizione": 30.0,
+    "premio": 136.0,
+    "risultato": "Eliminato ai Quarti",
+    "ranking": 10.0,
+    "batteria_superata": true,
+    "note": "",
+    "incontri": [
+      {
+        "id": 701,
+        "ordine": 1,
+        "fase": "1° turno",
+        "avversario": "Malasoma (1)",
+        "categoria": "Prima",
+        "esito": "V"
+      },
+      {
+        "id": 702,
+        "ordine": 2,
+        "fase": "2° turno",
+        "avversario": "Ferri (1)",
+        "categoria": "Prima",
+        "esito": "V"
+      },
+      {
+        "id": 703,
+        "ordine": 3,
+        "fase": "3° turno",
+        "avversario": "Galassi (1)",
+        "categoria": "Prima",
+        "esito": "V"
+      },
+      {
+        "id": 704,
+        "ordine": 4,
+        "fase": "16esimi",
+        "avversario": "Caroppo (3)",
+        "categoria": "Terza",
+        "esito": "V"
+      },
+      {
+        "id": 705,
+        "ordine": 5,
+        "fase": "Ottavi",
+        "avversario": "De Angelis (1)",
+        "categoria": "Prima",
+        "esito": "V"
+      },
+      {
+        "id": 706,
+        "ordine": 6,
+        "fase": "Quarti",
+        "avversario": "Mezzanotte (M)",
+        "categoria": "Master",
+        "esito": "P"
+      }
+    ]
+  },
+  {
+    "id": "emanuele-2025-10-27-8",
+    "utente_id": "emanuele",
+    "gara_id": "storico-2025-10-27-8",
+    "stagione": "2025-2026",
+    "data_giocata": "2025-10-27",
+    "iscrizione": 35.0,
+    "premio": 160.0,
+    "risultato": "Eliminato ai 16esimi",
+    "ranking": 1.0,
+    "batteria_superata": true,
+    "note": "",
+    "incontri": [
+      {
+        "id": 801,
+        "ordine": 1,
+        "fase": "1° turno",
+        "avversario": "Bevilacqua (2)",
+        "categoria": "Seconda",
+        "esito": "V"
+      },
+      {
+        "id": 802,
+        "ordine": 2,
+        "fase": "2° turno",
+        "avversario": "Tosto (2)",
+        "categoria": "Seconda",
+        "esito": "V"
+      },
+      {
+        "id": 803,
+        "ordine": 3,
+        "fase": "3° turno",
+        "avversario": "Del Gobbo (2)",
+        "categoria": "Seconda",
+        "esito": "V"
+      },
+      {
+        "id": 804,
+        "ordine": 4,
+        "fase": "16esimi",
+        "avversario": "Caria (M)",
+        "categoria": "Master",
+        "esito": "P"
+      }
+    ],
+    "titolo_gara": "1° TROFEO NUOVA ACCADEMIA VERONA",
+    "className": "gara-libera",
+    "sede": "",
+    "specialita_excel": "Ita/TD",
+    "punti_excel": "100/500 (2 su 3)"
+  },
+  {
+    "id": "emanuele-2025-10-29-9",
+    "utente_id": "emanuele",
+    "gara_id": 1786454942641,
+    "stagione": "2025-2026",
+    "data_giocata": "2025-10-29",
+    "iscrizione": 30.0,
+    "premio": 30.0,
+    "risultato": "Batteria non superata",
+    "ranking": 1.0,
+    "batteria_superata": false,
+    "note": "",
+    "incontri": [
+      {
+        "id": 901,
+        "ordine": 1,
+        "fase": "2° turno",
+        "avversario": "Toschi (1)",
+        "categoria": "Prima",
+        "esito": "V"
+      },
+      {
+        "id": 902,
+        "ordine": 2,
+        "fase": "3° turno",
+        "avversario": "Burchielli (M)",
+        "categoria": "Master",
+        "esito": "P"
+      }
+    ]
+  },
+  {
+    "id": "emanuele-2025-11-19-10",
+    "utente_id": "emanuele",
+    "gara_id": 1786454942635,
+    "stagione": "2025-2026",
+    "data_giocata": "2025-11-19",
+    "iscrizione": 35.0,
+    "premio": 0.0,
+    "risultato": "Batteria non superata",
+    "ranking": -8.0,
+    "batteria_superata": false,
+    "note": "",
+    "incontri": [
+      {
+        "id": 1001,
+        "ordine": 1,
+        "fase": "1° turno",
+        "avversario": "Michi (1)",
+        "categoria": "Prima",
+        "esito": "P"
+      }
+    ]
+  },
+  {
+    "id": "emanuele-2025-11-22-11",
+    "utente_id": "emanuele",
+    "gara_id": 1786454942642,
+    "stagione": "2025-2026",
+    "data_giocata": "2025-11-22",
+    "iscrizione": 40.0,
+    "premio": 240.0,
+    "risultato": "Eliminato ai 32esimi",
+    "ranking": 35.0,
+    "batteria_superata": true,
+    "note": "",
+    "incontri": [
+      {
+        "id": 1101,
+        "ordine": 1,
+        "fase": "1° turno",
+        "avversario": "Vania (2)",
+        "categoria": "Seconda",
+        "esito": "V"
+      },
+      {
+        "id": 1102,
+        "ordine": 2,
+        "fase": "2° turno",
+        "avversario": "Rotunno (1)",
+        "categoria": "Prima",
+        "esito": "V"
+      },
+      {
+        "id": 1103,
+        "ordine": 3,
+        "fase": "3° turno",
+        "avversario": "Rossi (2)",
+        "categoria": "Seconda",
+        "esito": "V"
+      },
+      {
+        "id": 1104,
+        "ordine": 4,
+        "fase": "128esimi",
+        "avversario": "Gallotta (M)",
+        "categoria": "Master",
+        "esito": "V"
+      },
+      {
+        "id": 1105,
+        "ordine": 5,
+        "fase": "64esimi",
+        "avversario": "PRIMON (N)",
+        "categoria": "Nazionale",
+        "esito": "V"
+      },
+      {
+        "id": 1106,
+        "ordine": 6,
+        "fase": "32esimi",
+        "avversario": "Paragone (M)",
+        "categoria": "Master",
+        "esito": "P"
+      }
+    ]
+  },
+  {
+    "id": "emanuele-2025-12-01-12",
+    "utente_id": "emanuele",
+    "gara_id": 1786454942634,
+    "stagione": "2025-2026",
+    "data_giocata": "2025-12-01",
+    "iscrizione": 30.0,
+    "premio": 0.0,
+    "risultato": "Batteria non superata",
+    "ranking": -8.0,
+    "batteria_superata": false,
+    "note": "",
+    "incontri": [
+      {
+        "id": 1201,
+        "ordine": 1,
+        "fase": "1° turno",
+        "avversario": "Bucchianeri (1)",
+        "categoria": "Prima",
+        "esito": "P"
+      }
+    ]
+  },
+  {
+    "id": "emanuele-2025-12-06-13",
+    "utente_id": "emanuele",
+    "gara_id": "storico-2025-12-06-13",
+    "stagione": "2025-2026",
+    "data_giocata": "2025-12-06",
+    "iscrizione": 35.0,
+    "premio": 0.0,
+    "risultato": "Batteria non superata",
+    "ranking": -1.0,
+    "batteria_superata": false,
+    "note": "",
+    "incontri": [
+      {
+        "id": 1301,
+        "ordine": 1,
+        "fase": "2° turno",
+        "avversario": "Frassini (1)",
+        "categoria": "Prima",
+        "esito": "V"
+      },
+      {
+        "id": 1302,
+        "ordine": 2,
+        "fase": "3° turno",
+        "avversario": "Bertoloni (M)",
+        "categoria": "Master",
+        "esito": "P"
+      }
+    ],
+    "titolo_gara": "1° TROFEO JOHNNY CLUB",
+    "className": "gara-libera",
+    "sede": "",
+    "specialita_excel": "Ita/TD",
+    "punti_excel": "80/500 (2 su 3)"
+  },
+  {
+    "id": "emanuele-2025-12-17-14",
+    "utente_id": "emanuele",
+    "gara_id": 1786454942632,
+    "stagione": "2025-2026",
+    "data_giocata": "2025-12-17",
+    "iscrizione": 30.0,
+    "premio": 0.0,
+    "risultato": "Batteria non superata",
+    "ranking": 0.0,
+    "batteria_superata": false,
+    "note": "",
+    "incontri": [
+      {
+        "id": 1401,
+        "ordine": 1,
+        "fase": "1° turno",
+        "avversario": "Giannelli (1)",
+        "categoria": "Prima",
+        "esito": "V"
+      },
+      {
+        "id": 1402,
+        "ordine": 2,
+        "fase": "2° turno",
+        "avversario": "Pezzatini (1)",
+        "categoria": "Prima",
+        "esito": "P"
+      }
+    ]
+  },
+  {
+    "id": "emanuele-2025-12-22-15",
+    "utente_id": "emanuele",
+    "gara_id": "storico-2025-12-22-15",
+    "stagione": "2025-2026",
+    "data_giocata": "2025-12-22",
+    "iscrizione": 35.0,
+    "premio": 0.0,
+    "risultato": "Batteria non superata",
+    "ranking": -8.0,
+    "batteria_superata": false,
+    "note": "",
+    "incontri": [
+      {
+        "id": 1501,
+        "ordine": 1,
+        "fase": "1° turno",
+        "avversario": "Zampierin (1)",
+        "categoria": "Prima",
+        "esito": "P"
+      }
+    ],
+    "titolo_gara": "22° CAMPIONATO ITALIANO A.I.C.S.",
+    "className": "gara-libera",
+    "sede": "",
+    "specialita_excel": "Italiana",
+    "punti_excel": "80 (2 su 3)"
+  },
+  {
+    "id": "emanuele-2025-12-30-16",
+    "utente_id": "emanuele",
+    "gara_id": "storico-2025-12-30-16",
+    "stagione": "2025-2026",
+    "data_giocata": "2025-12-30",
+    "iscrizione": 35.0,
+    "premio": 0.0,
+    "risultato": "Batteria non superata",
+    "ranking": -1.0,
+    "batteria_superata": false,
+    "note": "",
+    "incontri": [
+      {
+        "id": 1601,
+        "ordine": 1,
+        "fase": "1° turno",
+        "avversario": "Palini (1)",
+        "categoria": "Prima",
+        "esito": "V"
+      },
+      {
+        "id": 1602,
+        "ordine": 2,
+        "fase": "2° turno",
+        "avversario": "Leto (M)",
+        "categoria": "Master",
+        "esito": "P"
+      }
+    ],
+    "titolo_gara": "2° MEMORIAL GERBONIO ARDUINI",
+    "className": "gara-libera",
+    "sede": "",
+    "specialita_excel": "Ita/TD",
+    "punti_excel": "80/500 (2 su 3)"
+  },
+  {
+    "id": "emanuele-2026-01-05-17",
+    "utente_id": "emanuele",
+    "gara_id": 1786454942631,
+    "stagione": "2025-2026",
+    "data_giocata": "2026-01-05",
+    "iscrizione": 30.0,
+    "premio": 96.0,
+    "risultato": "Eliminato ai 16esimi",
+    "ranking": 10.0,
+    "batteria_superata": true,
+    "note": "",
+    "incontri": [
+      {
+        "id": 1701,
+        "ordine": 1,
+        "fase": "1° turno",
+        "avversario": "Frangioni (1)",
+        "categoria": "Prima",
+        "esito": "V"
+      },
+      {
+        "id": 1702,
+        "ordine": 2,
+        "fase": "2° turno",
+        "avversario": "Benvenuti (1)",
+        "categoria": "Prima",
+        "esito": "V"
+      },
+      {
+        "id": 1703,
+        "ordine": 3,
+        "fase": "3° turno",
+        "avversario": "Giuntoli (1)",
+        "categoria": "Prima",
+        "esito": "V"
+      },
+      {
+        "id": 1704,
+        "ordine": 4,
+        "fase": "16esimi",
+        "avversario": "Bonanni (3)",
+        "categoria": "Terza",
+        "esito": "P"
+      }
+    ]
+  },
+  {
+    "id": "emanuele-2026-01-19-18",
+    "utente_id": "emanuele",
+    "gara_id": 1786454942627,
+    "stagione": "2025-2026",
+    "data_giocata": "2026-01-19",
+    "iscrizione": 30.0,
+    "premio": 120.0,
+    "risultato": "Eliminato ai Quarti",
+    "ranking": 17.0,
+    "batteria_superata": true,
+    "note": "",
+    "incontri": [
+      {
+        "id": 1801,
+        "ordine": 1,
+        "fase": "1° turno",
+        "avversario": "Morelli (1)",
+        "categoria": "Prima",
+        "esito": "V"
+      },
+      {
+        "id": 1802,
+        "ordine": 2,
+        "fase": "2° turno",
+        "avversario": "Tommasi (M)",
+        "categoria": "Master",
+        "esito": "V"
+      },
+      {
+        "id": 1803,
+        "ordine": 3,
+        "fase": "3° turno",
+        "avversario": "Martinelli (M)",
+        "categoria": "Master",
+        "esito": "V"
+      },
+      {
+        "id": 1804,
+        "ordine": 4,
+        "fase": "Ottavi",
+        "avversario": "Balestri (2)",
+        "categoria": "Seconda",
+        "esito": "V"
+      },
+      {
+        "id": 1805,
+        "ordine": 5,
+        "fase": "Quarti",
+        "avversario": "Buttino (1)",
+        "categoria": "Prima",
+        "esito": "P"
+      }
+    ]
+  },
+  {
+    "id": "emanuele-2026-01-30-19",
+    "utente_id": "emanuele",
+    "gara_id": 1786454942630,
+    "stagione": "2025-2026",
+    "data_giocata": "2026-01-30",
+    "iscrizione": 40.0,
+    "premio": 0.0,
+    "risultato": "Batteria non superata",
+    "ranking": -4.0,
+    "batteria_superata": false,
+    "note": "",
+    "incontri": [
+      {
+        "id": 1901,
+        "ordine": 1,
+        "fase": "1° turno",
+        "avversario": "Morettini (M)",
+        "categoria": "Master",
+        "esito": "P"
+      }
+    ]
+  },
+  {
+    "id": "emanuele-2026-02-16-20",
+    "utente_id": "emanuele",
+    "gara_id": 1786454942629,
+    "stagione": "2025-2026",
+    "data_giocata": "2026-02-16",
+    "iscrizione": 35.0,
+    "premio": 0.0,
+    "risultato": "Batteria non superata",
+    "ranking": -8.0,
+    "batteria_superata": false,
+    "note": "",
+    "incontri": [
+      {
+        "id": 2001,
+        "ordine": 1,
+        "fase": "1° turno",
+        "avversario": "Menichetti (1)",
+        "categoria": "Prima",
+        "esito": "P"
+      }
+    ]
+  },
+  {
+    "id": "emanuele-2026-02-23-21",
+    "utente_id": "emanuele",
+    "gara_id": 1786454942622,
+    "stagione": "2025-2026",
+    "data_giocata": "2026-02-23",
+    "iscrizione": 40.0,
+    "premio": 160.0,
+    "risultato": "Eliminato ai 64esimi",
+    "ranking": 14.0,
+    "batteria_superata": true,
+    "note": "",
+    "incontri": [
+      {
+        "id": 2101,
+        "ordine": 1,
+        "fase": "1° turno",
+        "avversario": "Pasquini (1)",
+        "categoria": "Prima",
+        "esito": "V"
+      },
+      {
+        "id": 2102,
+        "ordine": 2,
+        "fase": "2° turno",
+        "avversario": "Di Marzo (2)",
+        "categoria": "Seconda",
+        "esito": "V"
+      },
+      {
+        "id": 2103,
+        "ordine": 3,
+        "fase": "3° turno",
+        "avversario": "Del Chicca (1)",
+        "categoria": "Prima",
+        "esito": "V"
+      },
+      {
+        "id": 2104,
+        "ordine": 4,
+        "fase": "64esimi",
+        "avversario": "Del Sesto (1)",
+        "categoria": "Prima",
+        "esito": "P"
+      }
+    ]
+  },
+  {
+    "id": "emanuele-2026-03-06-22",
+    "utente_id": "emanuele",
+    "gara_id": "storico-2026-03-06-22",
+    "stagione": "2025-2026",
+    "data_giocata": "2026-03-06",
+    "iscrizione": 35.0,
+    "premio": 0.0,
+    "risultato": "Batteria non superata",
+    "ranking": -7.0,
+    "batteria_superata": false,
+    "note": "",
+    "incontri": [
+      {
+        "id": 2201,
+        "ordine": 1,
+        "fase": "1° turno",
+        "avversario": "Zocco (2)",
+        "categoria": "Seconda",
+        "esito": "V"
+      },
+      {
+        "id": 2202,
+        "ordine": 2,
+        "fase": "2° turno",
+        "avversario": "Stelletti (1)",
+        "categoria": "Prima",
+        "esito": "P"
+      }
+    ],
+    "titolo_gara": "2° TROFEO MAX LANDI'S FERRARA",
+    "className": "gara-libera",
+    "sede": "",
+    "specialita_excel": "Italiana",
+    "punti_excel": "60 (3 su 5)"
+  },
+  {
+    "id": "emanuele-2026-03-23-23",
+    "utente_id": "emanuele",
+    "gara_id": "storico-2026-03-23-23",
+    "stagione": "2025-2026",
+    "data_giocata": "2026-03-23",
+    "iscrizione": 50.0,
+    "premio": 0.0,
+    "risultato": "Nessun incontro registrato",
+    "ranking": null,
+    "batteria_superata": false,
+    "note": "",
+    "incontri": [],
+    "titolo_gara": "QUALIFICAZIONE al RE d'ITALIA BILLIARDS - 27° Campionato del Mondo - ARGENTINA",
+    "className": "gara-libera",
+    "sede": "",
+    "specialita_excel": "Italiana",
+    "punti_excel": "60 (3 su 5)"
+  },
+  {
+    "id": "emanuele-2026-03-30-24",
+    "utente_id": "emanuele",
+    "gara_id": 1786454942618,
+    "stagione": "2025-2026",
+    "data_giocata": "2026-03-30",
+    "iscrizione": 35.0,
+    "premio": 0.0,
+    "risultato": "Nessun incontro registrato",
+    "ranking": null,
+    "batteria_superata": false,
+    "note": "",
+    "incontri": []
+  },
+  {
+    "id": "emanuele-2026-04-13-25",
+    "utente_id": "emanuele",
+    "gara_id": 1786454942616,
+    "stagione": "2025-2026",
+    "data_giocata": "2026-04-13",
+    "iscrizione": 40.0,
+    "premio": 0.0,
+    "risultato": "Nessun incontro registrato",
+    "ranking": null,
+    "batteria_superata": false,
+    "note": "",
+    "incontri": []
+  },
+  {
+    "id": "emanuele-2026-04-20-26",
+    "utente_id": "emanuele",
+    "gara_id": 1786454942619,
+    "stagione": "2025-2026",
+    "data_giocata": "2026-04-20",
+    "iscrizione": 35.0,
+    "premio": 200.0,
+    "risultato": "Eliminato ai 16esimi",
+    "ranking": 8.0,
+    "batteria_superata": true,
+    "note": "",
+    "incontri": [
+      {
+        "id": 2601,
+        "ordine": 1,
+        "fase": "1° turno",
+        "avversario": "Casprini (1)",
+        "categoria": "Prima",
+        "esito": "V"
+      },
+      {
+        "id": 2602,
+        "ordine": 2,
+        "fase": "2° turno",
+        "avversario": "Miccoli (2)",
+        "categoria": "Seconda",
+        "esito": "V"
+      },
+      {
+        "id": 2603,
+        "ordine": 3,
+        "fase": "3° turno",
+        "avversario": "Ceccarelli (M)",
+        "categoria": "Master",
+        "esito": "V"
+      },
+      {
+        "id": 2604,
+        "ordine": 4,
+        "fase": "16esimi",
+        "avversario": "Casarotto (M)",
+        "categoria": "Master",
+        "esito": "P"
+      }
+    ]
+  },
+  {
+    "id": "emanuele-2026-04-27-27",
+    "utente_id": "emanuele",
+    "gara_id": 1786454942613,
+    "stagione": "2025-2026",
+    "data_giocata": "2026-04-27",
+    "iscrizione": 35.0,
+    "premio": 0.0,
+    "risultato": "Batteria non superata",
+    "ranking": -1.0,
+    "batteria_superata": false,
+    "note": "",
+    "incontri": [
+      {
+        "id": 2701,
+        "ordine": 1,
+        "fase": "1° turno",
+        "avversario": "Molinaro (1)",
+        "categoria": "Prima",
+        "esito": "V"
+      },
+      {
+        "id": 2702,
+        "ordine": 2,
+        "fase": "2° turno",
+        "avversario": "Raffaelli (M)",
+        "categoria": "Master",
+        "esito": "P"
+      }
+    ]
+  },
+  {
+    "id": "emanuele-2026-05-04-28",
+    "utente_id": "emanuele",
+    "gara_id": 1786454942625,
+    "stagione": "2025-2026",
+    "data_giocata": "2026-05-04",
+    "iscrizione": 35.0,
+    "premio": 0.0,
+    "risultato": "Batteria non superata",
+    "ranking": 6.0,
+    "batteria_superata": false,
+    "note": "",
+    "incontri": [
+      {
+        "id": 2801,
+        "ordine": 1,
+        "fase": "1° turno",
+        "avversario": "Capitoni (1)",
+        "categoria": "Prima",
+        "esito": "V"
+      },
+      {
+        "id": 2802,
+        "ordine": 2,
+        "fase": "2° turno",
+        "avversario": "Beani (1)",
+        "categoria": "Prima",
+        "esito": "V"
+      },
+      {
+        "id": 2803,
+        "ordine": 3,
+        "fase": "3° turno",
+        "avversario": "MARTINELLI (N)",
+        "categoria": "Nazionale",
+        "esito": "P"
+      }
+    ]
+  },
+  {
+    "id": "emanuele-2026-05-11-29",
+    "utente_id": "emanuele",
+    "gara_id": 1786454942608,
+    "stagione": "2025-2026",
+    "data_giocata": "2026-05-11",
+    "iscrizione": 40.0,
+    "premio": 0.0,
+    "risultato": "Batteria non superata",
+    "ranking": 4.0,
+    "batteria_superata": false,
+    "note": "",
+    "incontri": [
+      {
+        "id": 2901,
+        "ordine": 1,
+        "fase": "1° turno",
+        "avversario": "De Bernardi (1)",
+        "categoria": "Prima",
+        "esito": "V"
+      },
+      {
+        "id": 2902,
+        "ordine": 2,
+        "fase": "2° turno",
+        "avversario": "Del Gobbo (2)",
+        "categoria": "Seconda",
+        "esito": "V"
+      },
+      {
+        "id": 2903,
+        "ordine": 3,
+        "fase": "3° turno",
+        "avversario": "Voccia (M)",
+        "categoria": "Master",
+        "esito": "P"
+      }
+    ]
+  },
+  {
+    "id": "emanuele-2026-05-19-30",
+    "utente_id": "emanuele",
+    "gara_id": 1786454942598,
+    "stagione": "2025-2026",
+    "data_giocata": "2026-05-19",
+    "iscrizione": 30.0,
+    "premio": 0.0,
+    "risultato": "Batteria non superata",
+    "ranking": -5.0,
+    "batteria_superata": false,
+    "note": "",
+    "incontri": [
+      {
+        "id": 3001,
+        "ordine": 1,
+        "fase": "1° turno",
+        "avversario": "Izzo F. (1)",
+        "categoria": "Prima",
+        "esito": "P"
+      }
+    ]
+  },
+  {
+    "id": "emanuele-2026-06-01-31",
+    "utente_id": "emanuele",
+    "gara_id": 1786454942600,
+    "stagione": "2025-2026",
+    "data_giocata": "2026-06-01",
+    "iscrizione": 0.0,
+    "premio": 0.0,
+    "risultato": "Eliminato ai Ottavi",
+    "ranking": 2.0,
+    "batteria_superata": true,
+    "note": "",
+    "incontri": [
+      {
+        "id": 3101,
+        "ordine": 1,
+        "fase": "16esimi",
+        "avversario": "Marchi (M)",
+        "categoria": "Master",
+        "esito": "V"
+      },
+      {
+        "id": 3102,
+        "ordine": 2,
+        "fase": "Ottavi",
+        "avversario": "Deiana (M)",
+        "categoria": "Master",
+        "esito": "P"
+      }
+    ]
+  },
+  {
+    "id": "emanuele-2026-06-01-32",
+    "utente_id": "emanuele",
+    "gara_id": 1786454942597,
+    "stagione": "2025-2026",
+    "data_giocata": "2026-06-01",
+    "iscrizione": 35.0,
+    "premio": 0.0,
+    "risultato": "Batteria non superata",
+    "ranking": -7.0,
+    "batteria_superata": false,
+    "note": "",
+    "incontri": [
+      {
+        "id": 3201,
+        "ordine": 1,
+        "fase": "1° turno",
+        "avversario": "Tosi (2)",
+        "categoria": "Seconda",
+        "esito": "V"
+      },
+      {
+        "id": 3202,
+        "ordine": 2,
+        "fase": "2° turno",
+        "avversario": "De Santis (1)",
+        "categoria": "Prima",
+        "esito": "V"
+      },
+      {
+        "id": 3203,
+        "ordine": 3,
+        "fase": "3° turno",
+        "avversario": "Mariotti (2)",
+        "categoria": "Seconda",
+        "esito": "P"
+      }
+    ]
+  },
+  {
+    "id": "emanuele-2026-06-10-33",
+    "utente_id": "emanuele",
+    "gara_id": "storico-2026-06-10-33",
+    "stagione": "2025-2026",
+    "data_giocata": "2026-06-10",
+    "iscrizione": 35.0,
+    "premio": 0.0,
+    "risultato": "Batteria non superata",
+    "ranking": -8.0,
+    "batteria_superata": false,
+    "note": "",
+    "incontri": [
+      {
+        "id": 3301,
+        "ordine": 1,
+        "fase": "1° turno",
+        "avversario": "Rapino (1)",
+        "categoria": "Prima",
+        "esito": "P"
+      }
+    ],
+    "titolo_gara": "I°  MEMORIAL  LUCA BACCIOTTINI",
+    "className": "gara-libera",
+    "sede": "",
+    "specialita_excel": "Ita/TD",
+    "punti_excel": "80/500 (2 su 3)"
+  },
+  {
+    "id": "emanuele-2026-06-29-34",
+    "utente_id": "emanuele",
+    "gara_id": 1786454942611,
+    "stagione": "2025-2026",
+    "data_giocata": "2026-06-29",
+    "iscrizione": 40.0,
+    "premio": 0.0,
+    "risultato": "Batteria non superata",
+    "ranking": 0.0,
+    "batteria_superata": false,
+    "note": "",
+    "incontri": [
+      {
+        "id": 3401,
+        "ordine": 1,
+        "fase": "1° turno",
+        "avversario": "Bonandin (M)",
+        "categoria": "Master",
+        "esito": "P"
+      }
+    ]
+  },
+  {
+    "id": "emanuele-2026-07-13-35",
+    "utente_id": "emanuele",
+    "gara_id": 1786454942595,
+    "stagione": "2025-2026",
+    "data_giocata": "2026-07-13",
+    "iscrizione": 35.0,
+    "premio": 0.0,
+    "risultato": "Batteria non superata",
+    "ranking": null,
+    "batteria_superata": false,
+    "note": "",
+    "incontri": [
+      {
+        "id": 3501,
+        "ordine": 1,
+        "fase": "1° turno",
+        "avversario": "D'Anna (1)/Ferrara (1)",
+        "categoria": "Prima / Prima",
         "esito": "P"
       }
     ]
