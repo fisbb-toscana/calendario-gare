@@ -1094,16 +1094,16 @@ document.getElementById(
 	const win = String(m.esito).toUpperCase() === "V"; 
 	row.className = "match-row"; 
 const historicalClub =
-  match.csb ||
-  getClubName(match.csb_id) ||
+  m.csb ||
+  getClubName(m.csb_id) ||
   "";
 
 const categoryBadge =
-  getCategoryBadge(match.categoria);
+  getCategoryBadge(m.categoria);
 
 row.innerHTML = `
   <span class="match-phase">
-    ${escapeHtml(match.fase || "-")}
+    ${escapeHtml(m.fase || "-")}
   </span>
 
   <div class="match-player-info">
@@ -1112,7 +1112,7 @@ row.innerHTML = `
       class="opponent-category-badge
              ${categoryBadge.className}"
       title="${escapeAttr(
-        match.categoria ||
+        m.categoria ||
         "Categoria non indicata"
       )}">
       ${escapeHtml(categoryBadge.label)}
@@ -1122,7 +1122,7 @@ row.innerHTML = `
 
       <strong class="match-opponent">
         ${escapeHtml(
-          match.avversario || "-"
+          m.avversario || "-"
         )}
       </strong>
 
