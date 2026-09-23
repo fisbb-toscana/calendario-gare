@@ -421,6 +421,61 @@ button, a { -webkit-tap-highlight-color: transparent; }
   grid-column: 1 / -1;
 }
 
+/* =====================================================
+   NUOVO GIOCATORE - SELEZIONE CSB
+===================================================== */
+
+.new-player-club-section {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: end;
+}
+
+.new-player-club-section label {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+  color: var(--muted);
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+.new-player-club-section .btn {
+  min-height: 38px;
+  white-space: nowrap;
+}
+
+/* =====================================================
+   DIALOG NUOVO CSB
+===================================================== */
+
+.new-club-grid {
+  margin-top: 4px;
+}
+
+.new-club-active-label {
+  display: flex !important;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  min-height: 38px;
+  color: var(--text) !important;
+  cursor: pointer;
+}
+
+.new-club-active-label input {
+  margin: 0;
+}
+
+#newClubCode {
+  text-transform: uppercase;
+}
+
+#newClubName {
+  text-transform: uppercase;
+}
+
 @media (max-width: 1000px) { .summary-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 767px) {
   .app-shell { display: block; padding-top: 64px; }
@@ -480,6 +535,14 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 	.external-event-grid .full {
 	  grid-column: auto;
+	}
+	
+	.new-player-club-section {
+	  grid-template-columns: 1fr;
+	}
+
+	.new-player-club-section .btn {
+	  width: 100%;
 	}
   
 }
