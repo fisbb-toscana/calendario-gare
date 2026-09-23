@@ -128,6 +128,65 @@ function buildPlayerIndexes() {
   );
 }
 
+function getCategoryBadge(category) {
+  const normalizedCategory =
+    String(category || "")
+      .trim()
+      .toLowerCase();
+
+  const categoryMap = {
+    "nazionale pro": {
+      label: "NP",
+      className: "category-np"
+    },
+
+    "nazionale": {
+      label: "N",
+      className: "category-n"
+    },
+
+    "master": {
+      label: "M",
+      className: "category-m"
+    },
+
+    "prima": {
+      label: "1",
+      className: "category-1"
+    },
+
+    "seconda": {
+      label: "2",
+      className: "category-2"
+    },
+
+    "terza": {
+      label: "3",
+      className: "category-3"
+    },
+
+    "junior": {
+      label: "J",
+      className: "category-other"
+    },
+
+    "senior": {
+      label: "S",
+      className: "category-other"
+    },
+
+    "coppia": {
+      label: "C",
+      className: "category-other"
+    }
+  };
+
+  return categoryMap[normalizedCategory] || {
+    label: "?",
+    className: "category-other"
+  };
+}
+
 function getClubById(clubId) {
   if (!clubId) {
     return null;
@@ -1034,37 +1093,59 @@ document.getElementById(
 	const row = document.createElement("div"); 
 	const win = String(m.esito).toUpperCase() === "V"; 
 	row.className = "match-row"; 
-	const historicalClub =
-	  m.csb ||
-	  getClubName(m.csb_id) ||
-	  "";
+const historicalClub =
+  match.csb ||
+  getClubName(match.csb_id) ||
+  "";
 
-	const categoryAndClub = [
-	  m.categoria || "-",
-	  historicalClub
-	]
-	  .filter(Boolean)
-	  .join(" · ");
+const categoryBadge =
+  getCategoryBadge(match.categoria);
 
-	row.innerHTML = `
-	  <span class="match-phase">
-		 ${escapeHtml(m.fase || "-")}
-	  </span>
+row.innerHTML = `
+  <span class="match-phase">
+    ${escapeHtml(match.fase || "-")}
+  </span>
 
-	  <strong class="match-opponent">
-		 ${escapeHtml(m.avversario || "-")}
-	  </strong>
+  <div class="match-player-info">
 
-	  <span class="match-category">
-		 ${escapeHtml(categoryAndClub)}
-	  </span>
+    <span
+      class="opponent-category-badge
+             ${categoryBadge.className}"
+      title="${escapeAttr(
+        match.categoria ||
+        "Categoria non indicata"
+      )}">
+      ${escapeHtml(categoryBadge.label)}
+    </span>
 
-	  <span class="match-result ${
-		 win ? "win" : "loss"
-	  }">
-		 ${win ? "V" : "P"}
-	  </span>
-	`;
+    <div class="match-player-text">
+
+      <strong class="match-opponent">
+        ${escapeHtml(
+          match.avversario || "-"
+        )}
+      </strong>
+
+      ${
+        historicalClub
+          ? `
+            <span class="match-club-name">
+              ${escapeHtml(historicalClub)}
+            </span>
+          `
+          : ""
+      }
+
+    </div>
+
+  </div>
+
+  <span class="match-result ${
+    win ? "win" : "loss"
+  }">
+    ${win ? "V" : "P"}
+  </span>
+`;
 	box.appendChild(row); });
   const noteSection = document.getElementById("detailNotesSection"); noteSection.hidden = !path.note?.trim(); document.getElementById("detailNotes").textContent = path.note || "";
   document.getElementById("detailDialog").showModal();
