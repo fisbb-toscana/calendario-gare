@@ -34,6 +34,7 @@ const demoPaths = [
     { id: 4, ordine: 4, fase: "Quarti", avversario: "Martinelli", categoria: "Master", esito: "P" }
   ]}
 ];
+
 const demoClubs = [
   {
     id: "F19B36",
