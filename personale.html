@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html lang="it">
-	
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="FISBB Toscana - Vista personale tornei">
   <title>FISBB Toscana - Vista Personale</title>
   <link rel="icon" type="image/jpeg" href="avatar_fisbbtoscana.jpeg">
-  <link rel="stylesheet" href="personale-style.css?v=1">
+  <link rel="stylesheet" href="personale-style.css?v=2">
 </head>
-	
 <body>
   <div class="app-shell">
     <button id="menuToggle" class="menu-toggle" type="button">☰ Menu</button>
@@ -436,14 +434,26 @@
 			  </select>
 			</label>
 
-			<label class="full">
-			  CSB
-			  <select
-				 id="newPlayerClub"
-				 class="form-control">
-				 <option value="">Nessun CSB / da specificare</option>
-			  </select>
-			</label>
+			<div class="full new-player-club-section">
+			  <label>
+				 CSB
+
+				 <select
+					id="newPlayerClub"
+					class="form-control">
+					<option value="">
+					  Nessun CSB / da specificare
+					</option>
+				 </select>
+			  </label>
+
+			  <button
+				 id="newClubBtn"
+				 class="btn btn-small btn-ghost"
+				 type="button">
+				 + Nuovo CSB
+			  </button>
+			</div>
 
 			<label>
 			  Regione
@@ -487,6 +497,112 @@
 		 </div>
 
 	  </form>
+	</dialog>
+
+	<dialog
+	  id="newClubDialog"
+	  class="app-dialog login-dialog">
+
+	  <form
+		 id="newClubForm"
+		 class="dialog-card">
+
+		 <button
+			id="newClubClose"
+			class="dialog-close"
+			type="button"
+			aria-label="Chiudi">
+			X
+		 </button>
+
+		 <div class="dialog-heading">
+			<p class="eyebrow">
+			  Anagrafica CSB
+			</p>
+
+			<h2>
+			  Nuovo CSB
+			</h2>
+
+			<p>
+			  Inserisci il codice di affiliazione e la denominazione del circolo.
+			</p>
+		 </div>
+
+		 <div class="form-grid new-club-grid">
+
+			<label>
+			  Codice affiliazione
+
+			  <input
+				 id="newClubCode"
+				 class="form-control"
+				 type="text"
+				 placeholder="Es. V12B34"
+				 autocomplete="off"
+				 required>
+			</label>
+
+			<label>
+			  Regione
+
+			  <input
+				 id="newClubRegion"
+				 class="form-control"
+				 type="text"
+				 value="Toscana"
+				 autocomplete="off">
+			</label>
+
+			<label class="full">
+			  Denominazione
+
+			  <input
+				 id="newClubName"
+				 class="form-control"
+				 type="text"
+				 placeholder="Es. NUOVA ACCADEMIA VERONA A.S.D."
+				 autocomplete="off"
+				 required>
+			</label>
+
+			<label class="new-club-active-label full">
+			  <input
+				 id="newClubActive"
+				 type="checkbox"
+				 checked>
+
+			  CSB attivo
+			</label>
+
+		 </div>
+
+		 <p
+			id="newClubError"
+			class="error-message"
+			hidden>
+		 </p>
+
+		 <div class="dialog-actions">
+
+			<button
+			  id="newClubCancel"
+			  class="btn btn-secondary"
+			  type="button">
+			  Annulla
+			</button>
+
+			<button
+			  id="newClubSaveBtn"
+			  class="btn btn-primary"
+			  type="submit">
+			  Salva CSB
+			</button>
+
+		 </div>
+
+	  </form>
+
 	</dialog>
 
 	<dialog id="githubDialog" class="app-dialog login-dialog">
@@ -537,6 +653,6 @@
 
 	<datalist id="playersDataList"></datalist>
 	
-  <script src="personale-script.js?v=1"></script>
+  <script src="personale-script.js?v=2"></script>
 </body>
 </html>
