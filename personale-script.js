@@ -1200,7 +1200,8 @@ function getSeasonFromDate(value) {
     if (
       !Number.isInteger(year) ||
       !Number.isInteger(month) ||
-      month < 0 || month> 11
+      month < 0 ||
+      month > 11
     ) {
       return null;
     }
@@ -1355,24 +1356,20 @@ function renderSummary() {
   document.getElementById("summaryMatches").textContent = matches.length;
   document.getElementById("summaryMatchesDetail").textContent = `${wins} vinte · ${losses} perse`;
   document.getElementById("summaryRanking").textContent = signed(ranking);
-  const balanceEl = document.getElementById("summaryBalance"); balanceEl.textContent = euro(balance); balanceEl.className = balance > 0 ? "rank-positive" : balance < 0 ?"rank-negative" :"rank-zero" ; document.getElementById("summaryBalanceDetail").textContent=`${euro(prizes)} premi · ${euro(entries)} iscrizioni`; } function renderList() { const term=document.getElementById("searchInput" ).value.trim().toLowerCase(); const list=selectedPaths().filter(p=> eventFor(p).title.toLowerCase().includes(term)).sort((a,b) => String(b.data_giocata).localeCompare(String(a.data_giocata)));
+  const balanceEl = document.getElementById("summaryBalance"); balanceEl.textContent = euro(balance); balanceEl.className = balance > 0 ? "rank-positive" : balance < 0 ? "rank-negative" : "rank-zero";
+  document.getElementById("summaryBalanceDetail").textContent = `${euro(prizes)} premi · ${euro(entries)} iscrizioni`;
+}
+
+function renderList() {
+  const term = document.getElementById("searchInput").value.trim().toLowerCase();
+  const list = selectedPaths().filter(p => eventFor(p).title.toLowerCase().includes(term)).sort((a,b) => String(b.data_giocata).localeCompare(String(a.data_giocata)));
   const body = document.getElementById("participationsBody"), mobile = document.getElementById("mobileList"); body.innerHTML = ""; mobile.innerHTML = "";
   document.getElementById("visibleCount").textContent = `${list.length} ${list.length === 1 ? "gara visualizzata" : "gare visualizzate"}`;
-  if (!list.length) { body.innerHTML = '<tr>
-			<td colspan="5" class="empty-row">Nessuna partecipazione trovata</td>
-		</tr>'; mobile.innerHTML = '<p class="empty-row">Nessuna partecipazione trovata</p>'; return; }
+  if (!list.length) { body.innerHTML = '<tr><td colspan="5" class="empty-row">Nessuna partecipazione trovata</td></tr>'; mobile.innerHTML = '<p class="empty-row">Nessuna partecipazione trovata</p>'; return; }
   list.forEach(path => {
-    const evt = eventFor(path), color = TYPE_COLORS[evt.className] || "#64748b", rankClass = number(path.ranking) > 0 ? "rank-positive" : number(path.ranking) < 0 ?"rank-negative" :"rank-zero" ; const tr=document.createElement("tr" ); tr.innerHTML=`<td>${formatDate(path.data_giocata)}</td><td><span class="type-badge" style="background:${color}">${typeLabel(evt.className)}</span>
-	</td>
-	<td class="event-title">${escapeHtml(evt.title)}</td>
-	<td>${escapeHtml(path.risultato || "-")}</td>
-	<td class="numeric ${rankClass}">${signed(number(path.ranking))}</td>`; tr.addEventListener("click", () => openDetail(path.id)); body.appendChild(tr);
-    const card = document.createElement("article"); card.className = "mobile-card"; card.innerHTML = `<div class="mobile-card-top">
-		<span class="type-badge" style="background:${color}">${typeLabel(evt.className)}</span>
-		<strong class="mobile-card-rank ${rankClass}">${signed(number(path.ranking))}</strong>
-	</div>
-	<h4>${escapeHtml(evt.title)}</h4>
-	<p>${formatDate(path.data_giocata)} · ${escapeHtml(path.risultato || "-")}</p>`; card.addEventListener("click", () => openDetail(path.id)); mobile.appendChild(card);
+    const evt = eventFor(path), color = TYPE_COLORS[evt.className] || "#64748b", rankClass = number(path.ranking) > 0 ? "rank-positive" : number(path.ranking) < 0 ? "rank-negative" : "rank-zero";
+    const tr = document.createElement("tr"); tr.innerHTML = `<td>${formatDate(path.data_giocata)}</td><td><span class="type-badge" style="background:${color}">${typeLabel(evt.className)}</span></td><td class="event-title">${escapeHtml(evt.title)}</td><td>${escapeHtml(path.risultato || "-")}</td><td class="numeric ${rankClass}">${signed(number(path.ranking))}</td>`; tr.addEventListener("click", () => openDetail(path.id)); body.appendChild(tr);
+    const card = document.createElement("article"); card.className = "mobile-card"; card.innerHTML = `<div class="mobile-card-top"><span class="type-badge" style="background:${color}">${typeLabel(evt.className)}</span><strong class="mobile-card-rank ${rankClass}">${signed(number(path.ranking))}</strong></div><h4>${escapeHtml(evt.title)}</h4><p>${formatDate(path.data_giocata)} · ${escapeHtml(path.risultato || "-")}</p>`; card.addEventListener("click", () => openDetail(path.id)); mobile.appendChild(card);
   });
 }
 
@@ -1411,14 +1408,22 @@ row.innerHTML = `
   <span class="match-phase">
     ${escapeHtml(m.fase || "-")}
   </span>
-	<div class="match-player-info">
-		<span class="opponent-category-badge
-             ${categoryBadge.className}" title="${escapeAttr(
+
+  <div class="match-player-info">
+
+    <span
+      class="opponent-category-badge
+             ${categoryBadge.className}"
+      title="${escapeAttr(
         m.categoria ||
-        " Categoria non indicata" )}"> ${escapeHtml(categoryBadge.label)}
-	</span>
-	<div class="match-player-text">
-		<strong class="match-opponent">
+        "Categoria non indicata"
+      )}">
+      ${escapeHtml(categoryBadge.label)}
+    </span>
+
+    <div class="match-player-text">
+
+      <strong class="match-opponent">
         ${escapeHtml(
           m.avversario || "-"
         )}
@@ -1435,10 +1440,14 @@ row.innerHTML = `
       }
 
     </div>
-</div>
-<span class="match-result ${
-    win ? " win" :"loss" }"> ${win ?"V" :"P" }
-</span>
+
+  </div>
+
+  <span class="match-result ${
+    win ? "win" : "loss"
+  }">
+    ${win ? "V" : "P"}
+  </span>
 `;
 	box.appendChild(row); });
   const noteSection = document.getElementById("detailNotesSection"); noteSection.hidden = !path.note?.trim(); document.getElementById("detailNotes").textContent = path.note || "";
@@ -1671,32 +1680,63 @@ function addMatchEditorRow(match = {}) {
     "";
 
   row.innerHTML = `
-    <input type="hidden" class="match-player-id" value="${escapeAttr(playerId)}">
-	<input type="hidden" class="match-club-id" value="${escapeAttr(clubId)}">
-		<label>
+    <input
+      type="hidden"
+      class="match-player-id"
+      value="${escapeAttr(playerId)}">
+
+    <input
+      type="hidden"
+      class="match-club-id"
+      value="${escapeAttr(clubId)}">
+
+    <label>
       Fase
-      <input class="form-control match-phase-input" value="${escapeAttr(match.fase || " ")}" placeholder="1° turno">
+      <input
+        class="form-control match-phase-input"
+        value="${escapeAttr(match.fase || "")}"
+        placeholder="1° turno">
     </label>
-			<label class="match-opponent-field">
+
+    <label class="match-opponent-field">
       Avversario
-      <input class="form-control match-opponent-input" type="text" list="playersDataList" value="${escapeAttr(opponentName)}" placeholder="Cerca nome o cognome" autocomplete="off">
+      <input
+        class="form-control match-opponent-input"
+        type="text"
+        list="playersDataList"
+        value="${escapeAttr(opponentName)}"
+        placeholder="Cerca nome o cognome"
+        autocomplete="off">
     </label>
-				<label>
+
+    <label>
       Categoria
       <select class="form-control match-category-input">
         ${buildCategoryOptions(category)}
       </select>
-				</label>
-				<label>
+    </label>
+
+    <label>
       Esito
       <select class="form-control match-result-input">
-						<option value="V" ${match.esito==="V" ?"selected" :"" }> Vinta
-					</option>
-					<option value="P" ${match.esito==="P" ?"selected" :"" }> Persa
-				</option>
-			</select>
-		</label>
-		<button class="remove-match" type="button" title="Elimina incontro">
+        <option
+          value="V"
+          ${match.esito === "V" ? "selected" : ""}>
+          Vinta
+        </option>
+
+        <option
+          value="P"
+          ${match.esito === "P" ? "selected" : ""}>
+          Persa
+        </option>
+      </select>
+    </label>
+
+    <button
+      class="remove-match"
+      type="button"
+      title="Elimina incontro">
       X
     </button>
   `;
@@ -1797,7 +1837,105 @@ function buildCategoryOptions(selectedCategory = "") {
           : "";
 
       return (
-        `<option value="${escapeAttr(category)}" ` + `${selected}>` + `${escapeHtml(category)}` + `< option>` ); }) .join(""); } function handleOpponentSelection(row) { const opponentInput=row.querySelector(".match-opponent-input" ); const player=findPlayerFromInputValue( opponentInput.value ); if (!player) { row.querySelector(".match-player-id" ).value="" ; row.querySelector(".match-club-id" ).value="" ; return; } row.querySelector(".match-player-id" ).value=player.id; row.querySelector(".match-club-id" ).value=player.csb_id ||"" ; opponentInput.value=getPlayerDisplayName(player); row.querySelector(".match-category-input" ).value=player.categoria ||"Non indicata" ; } async function saveEdit(event) { event.preventDefault(); const existingId=document .getElementById("editId") .value; const participationId=existingId || `${currentUser.id}-${Date.now()}`; const externalMode=document.getElementById( "eventSourceExternal" ).checked; const playedDate=document.getElementById( "editDate" ).value; let eventId; let participationSeason; let externalData={}; if (externalMode) { const externalTitle=document .getElementById("editExternalTitle" ) .value .trim(); if (!externalTitle) { alert("Inserisci il titolo della gara esterna." ); document .getElementById("editExternalTitle" ) .focus(); return; } const existingPath=existingId ? paths.find(path=>
+        `<option value="${escapeAttr(category)}" ` +
+        `${selected}>` +
+        `${escapeHtml(category)}` +
+        `</option>`
+      );
+    })
+    .join("");
+}
+
+function handleOpponentSelection(row) {
+  const opponentInput =
+    row.querySelector(".match-opponent-input");
+
+  const player =
+    findPlayerFromInputValue(
+      opponentInput.value
+    );
+
+  if (!player) {
+    row.querySelector(
+      ".match-player-id"
+    ).value = "";
+
+    row.querySelector(
+      ".match-club-id"
+    ).value = "";
+
+    return;
+  }
+
+  row.querySelector(
+    ".match-player-id"
+  ).value = player.id;
+
+  row.querySelector(
+    ".match-club-id"
+  ).value = player.csb_id || "";
+
+  opponentInput.value =
+    getPlayerDisplayName(player);
+
+  row.querySelector(
+    ".match-category-input"
+  ).value =
+    player.categoria || "Non indicata";
+}
+
+async function saveEdit(event) {
+  event.preventDefault();
+
+  const existingId =
+    document
+      .getElementById("editId")
+      .value;
+
+  const participationId =
+    existingId ||
+    `${currentUser.id}-${Date.now()}`;
+
+  const externalMode =
+    document.getElementById(
+      "eventSourceExternal"
+    ).checked;
+
+  const playedDate =
+    document.getElementById(
+      "editDate"
+    ).value;
+
+  let eventId;
+  let participationSeason;
+  let externalData = {};
+
+  if (externalMode) {
+    const externalTitle =
+      document
+        .getElementById(
+          "editExternalTitle"
+        )
+        .value
+        .trim();
+
+    if (!externalTitle) {
+      alert(
+        "Inserisci il titolo della gara esterna."
+      );
+
+      document
+        .getElementById(
+          "editExternalTitle"
+        )
+        .focus();
+
+      return;
+    }
+
+    const existingPath =
+      existingId
+        ? paths.find(path =>
             String(path.id) ===
             String(existingId)
           )
@@ -2370,8 +2508,74 @@ async function pushJsonToGitHub(
 
   for (
     let index = 0;
-    index < utf8Bytes.length;index++ ) { binaryString +=String.fromCharCode( utf8Bytes[index] ); } const putBody={ message, content: btoa(binaryString), sha: currentFile.sha, branch }; const putResponse=await fetch( url, { method:"PUT" , headers, body: JSON.stringify(putBody) } ); * Lo SHA non è più corrente. Attendiamo e ripetiamo l'intero ciclo, compresa una nuova lettura dello SHA. * if ( putResponse.status===409 && attempt
-			< 4 ) { const waitMilliseconds=attempt * 1500; console.warn( `Conflitto GitHub 409. ` + `Nuovo tentativo tra ` + `${waitMilliseconds} ms.` ); await wait(waitMilliseconds); return pushJsonToGitHub( filePath, data, message, attempt + 1 ); } if (!putResponse.ok) { const errorText=await putResponse.text(); throw new Error( `Errore durante la scrittura di ` + `${filePath}: ` + `${putResponse.status} ${errorText}` ); } return await putResponse.json(); } function wait(milliseconds) { return new Promise(resolve=> {
+    index < utf8Bytes.length;
+    index++
+  ) {
+    binaryString += String.fromCharCode(
+      utf8Bytes[index]
+    );
+  }
+
+  const putBody = {
+    message,
+    content: btoa(binaryString),
+    sha: currentFile.sha,
+    branch
+  };
+
+  const putResponse = await fetch(
+    url,
+    {
+      method: "PUT",
+      headers,
+      body: JSON.stringify(putBody)
+    }
+  );
+
+  /*
+    Lo SHA non è più corrente.
+    Attendiamo e ripetiamo l'intero ciclo,
+    compresa una nuova lettura dello SHA.
+  */
+  if (
+    putResponse.status === 409 &&
+    attempt < 4
+  ) {
+    const waitMilliseconds =
+      attempt * 1500;
+
+    console.warn(
+      `Conflitto GitHub 409. ` +
+      `Nuovo tentativo tra ` +
+      `${waitMilliseconds} ms.`
+    );
+
+    await wait(waitMilliseconds);
+
+    return pushJsonToGitHub(
+      filePath,
+      data,
+      message,
+      attempt + 1
+    );
+  }
+
+  if (!putResponse.ok) {
+    const errorText =
+      await putResponse.text();
+
+    throw new Error(
+      `Errore durante la scrittura di ` +
+      `${filePath}: ` +
+      `${putResponse.status} ${errorText}`
+    );
+  }
+
+  return await putResponse.json();
+}
+
+function wait(milliseconds) {
+  return new Promise(resolve => {
     setTimeout(resolve, milliseconds);
   });
 }
