@@ -173,7 +173,6 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .match-row { display: grid; grid-template-columns: 1fr 2fr 1fr auto; gap: 8px; align-items: center; padding: 10px; border: 1px solid var(--line); border-radius: 9px; }
 .match-phase { color: var(--muted); font-size: .72rem; font-weight: 700; }
 .match-opponent { color: var(--title); font-weight: 750; }
-.match-category { color: var(--muted); font-size: .72rem; }
 .match-result { width: 27px; height: 27px; display: grid; place-items: center; border-radius: 50%; color: white; font-size: .72rem; font-weight: 900; }
 .match-result.win { background: var(--green); }
 .match-result.loss { background: var(--red); }
@@ -217,6 +216,106 @@ button, a { -webkit-tap-highlight-color: transparent; }
   align-items: center;
   gap: 8px;
   flex-wrap: wrap;
+}
+
+/* =====================================================
+   BADGE CATEGORIA AVVERSARIO
+===================================================== */
+
+.match-player-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.match-player-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.match-opponent {
+  color: var(--text);
+  font-size: 0.86rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.match-club-name {
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 600;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.opponent-category-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 28px;
+  width: 28px;
+  height: 28px;
+  border: 2px solid transparent;
+  border-radius: 7px;
+  font-size: 0.82rem;
+  font-weight: 900;
+  line-height: 1;
+  box-sizing: border-box;
+  box-shadow:
+    0 1px 2px rgb(15 23 42 / 18%),
+    inset 0 1px 0 rgb(255 255 255 / 25%);
+}
+
+/* Nazionale Pro */
+.opponent-category-badge.category-np {
+  background-color: #dc2626;
+  border-color: #991b1b;
+  color: #ffffff;
+}
+
+/* Nazionale */
+.opponent-category-badge.category-n {
+  background-color: #2563eb;
+  border-color: #1e40af;
+  color: #ffffff;
+}
+
+/* Master */
+.opponent-category-badge.category-m {
+  background-color: #ffffff;
+  border-color: #475569;
+  color: #0f172a;
+}
+
+/* Prima categoria */
+.opponent-category-badge.category-1 {
+  background-color: #facc15;
+  border-color: #a16207;
+  color: #422006;
+}
+
+/* Seconda categoria */
+.opponent-category-badge.category-2 {
+  background-color: #22c55e;
+  border-color: #15803d;
+  color: #052e16;
+}
+
+/* Terza categoria */
+.opponent-category-badge.category-3 {
+  background-color: #38bdf8;
+  border-color: #0369a1;
+  color: #082f49;
+}
+
+/* Categoria non standard */
+.opponent-category-badge.category-other {
+  background-color: #e2e8f0;
+  border-color: #94a3b8;
+  color: #334155;
 }
 
 .new-player-active-label {
