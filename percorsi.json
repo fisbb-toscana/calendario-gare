@@ -1223,7 +1223,7 @@
     "utente_id": "ematerz",
     "gara_id": "1786517218185",
     "stagione": "2026-2027",
-    "data_giocata": "2026-09-14",
+    "data_giocata": "2026-09-16",
     "iscrizione": 35,
     "premio": 0,
     "risultato": "1° turno",
@@ -1232,7 +1232,7 @@
     "note": "",
     "incontri": [
       {
-        "id": 1790085148412,
+        "id": 1790170301557,
         "ordine": 1,
         "fase": "1° turno",
         "avversario": "Aleksander Lisi",
