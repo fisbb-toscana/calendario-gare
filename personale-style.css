@@ -170,7 +170,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .matches-heading h3, .matches-editor-heading h3 { margin: 0; color: var(--title); font-size: .92rem; }
 .matches-heading span { color: var(--muted); font-size: .72rem; font-weight: 700; }
 .matches-list { display: grid; gap: 7px; }
-.match-row { display: grid; grid-template-columns: 1fr 2fr 1fr auto; gap: 8px; align-items: center; padding: 10px; border: 1px solid var(--line); border-radius: 9px; }
+.match-row { display: grid; grid-template-columns: 1fr 2fr 0.3fr auto; gap: 8px; align-items: center; padding: 10px; border: 1px solid var(--line); border-radius: 9px; }
 .match-phase { color: var(--muted); font-size: .72rem; font-weight: 700; }
 .match-opponent { color: var(--title); font-weight: 750; }
 .match-result { width: 27px; height: 27px; display: grid; place-items: center; border-radius: 50%; color: white; font-size: .72rem; font-weight: 900; }
