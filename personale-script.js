@@ -1656,9 +1656,9 @@ function openEdit(id = null) {
     path?.data_giocata ||
     new Date().toISOString().slice(0, 10);
 
-  document.getElementById(
-    "editResult"
-  ).value = path?.risultato || "";
+	document.getElementById(
+	  "editResult"
+	).value = "";
 
   document.getElementById(
     "editEntry"
@@ -1704,6 +1704,8 @@ function openEdit(id = null) {
   if (matches.length === 0) {
     addMatchEditorRow();
   }
+  
+	updateTournamentResult();
 
   document
     .getElementById("editDialog")
@@ -1863,6 +1865,22 @@ function addMatchEditorRow(match = null) {
     </button>
   `;
 
+	const phaseSelect =
+  row.querySelector(".match-phase-input");
+
+	phaseSelect.addEventListener(
+	  "change",
+	  updateTournamentResult
+	);
+
+	const resultSelect =
+	  row.querySelector(".match-result-input");
+
+	resultSelect.addEventListener(
+	  "change",
+	  updateTournamentResult
+	);
+
   const opponentInput =
     row.querySelector(".match-opponent-input");
 
@@ -1924,10 +1942,62 @@ function addMatchEditorRow(match = null) {
         }
 
         row.remove();
+		  updateTournamentResult();
       }
     );
 
   container.appendChild(row);
+	updateTournamentResult();
+	
+}
+
+function calculateTournamentResult() {
+  const rows = [
+    ...document.querySelectorAll(
+      ".match-editor-row"
+    )
+  ];
+
+  if (rows.length === 0) {
+    return "";
+  }
+
+  const lastRow = rows[rows.length - 1];
+
+  const phase =
+    lastRow
+      .querySelector(".match-phase-input")
+      ?.value
+      .trim() || "";
+
+  const result =
+    lastRow
+      .querySelector(".match-result-input")
+      ?.value || "";
+
+  if (!phase) {
+    return "";
+  }
+
+  if (phase === "Finale") {
+    return result === "V"
+      ? "Vittoria"
+      : "Finale";
+  }
+
+  return phase;
+}
+
+function updateTournamentResult() {
+  const resultInput =
+    document.getElementById("editResult");
+
+  if (!resultInput) {
+    return;
+  }
+
+  resultInput.value =
+    calculateTournamentResult();
 }
 
 function buildCategoryOptions(selectedCategory = "") {
@@ -2231,6 +2301,18 @@ const matches = [
       .getElementById("editRanking")
       .value;
 
+	const calculatedResult =
+	  calculateTournamentResult();
+
+	if (matches.length > 0 && !calculatedResult) {
+	  alert(
+		 "Non e stato possibile determinare il risultato del torneo. " +
+		 "Controlla il turno dell'ultimo incontro."
+	  );
+
+	  return;
+	}
+
   const path = {
     id: participationId,
     utente_id: currentUser.id,
@@ -2254,13 +2336,7 @@ const matches = [
         ).value
       ),
 
-    risultato:
-      document
-        .getElementById(
-          "editResult"
-        )
-        .value
-        .trim(),
+    risultato: calculatedResult,
 
     ranking:
       rankingValue === ""
