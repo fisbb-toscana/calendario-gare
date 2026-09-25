@@ -1979,6 +1979,12 @@ function calculateTournamentResult() {
     return "";
   }
 
+  if (phase === "Finale di batteria") {
+    return result === "V"
+      ? "Vittoria di batteria"
+      : "Finale di batteria";
+  }
+
   if (phase === "Finale") {
     return result === "V"
       ? "Vittoria"
