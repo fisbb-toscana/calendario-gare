@@ -1178,13 +1178,13 @@
     "data_giocata": "2026-09-14",
     "iscrizione": 30,
     "premio": 0,
-    "risultato": "",
+    "risultato": "Finale di batteria",
     "ranking": 9,
     "batteria_superata": true,
     "note": "",
     "incontri": [
       {
-        "id": 1790325514593,
+        "id": 1790327242232,
         "ordine": 1,
         "fase": "1° turno",
         "avversario": "Daniele Severino Innocenti",
@@ -1195,7 +1195,7 @@
         "csb": "MARAMEO"
       },
       {
-        "id": 1790325514594,
+        "id": 1790327242233,
         "ordine": 2,
         "fase": "2° turno",
         "avversario": "Piero Bianchi",
@@ -1206,7 +1206,7 @@
         "csb": "SALA VAL DI SERCHIO"
       },
       {
-        "id": 1790325514595,
+        "id": 1790327242234,
         "ordine": 3,
         "fase": "Finale di batteria",
         "avversario": "Paolo Brogi",
