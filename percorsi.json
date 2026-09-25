@@ -1184,7 +1184,7 @@
     "note": "",
     "incontri": [
       {
-        "id": 1790085842221,
+        "id": 1790325514593,
         "ordine": 1,
         "fase": "1° turno",
         "avversario": "Daniele Severino Innocenti",
@@ -1195,7 +1195,7 @@
         "csb": "MARAMEO"
       },
       {
-        "id": 1790085842222,
+        "id": 1790325514594,
         "ordine": 2,
         "fase": "2° turno",
         "avversario": "Piero Bianchi",
@@ -1206,9 +1206,9 @@
         "csb": "SALA VAL DI SERCHIO"
       },
       {
-        "id": 1790085842223,
+        "id": 1790325514595,
         "ordine": 3,
-        "fase": "3° turno",
+        "fase": "Finale di batteria",
         "avversario": "Paolo Brogi",
         "categoria": "Prima",
         "esito": "V",
