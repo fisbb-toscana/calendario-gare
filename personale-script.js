@@ -12,6 +12,21 @@ const GITHUB_CONFIG = {
   filePathClubs: "csb.json"
 };
 
+const MATCH_PHASES = [
+  "1° turno",
+  "2° turno",
+  "Finale di batteria",
+  "Spareggio",
+  "Centoventottesimi di finale",
+  "Sessantaquattresimi di finale",
+  "Trentaduesimi di finale",
+  "Sedicesimi di finale",
+  "Ottavi di finale",
+  "Quarti di finale",
+  "Semifinale",
+  "Finale"
+];
+
 const demoUsers = [
   { id: "emanuele", nome: "Emanuele", cognome: "Terzuoli", nome_visualizzato: "Emanuele Terzuoli", pin: "1234", categoria: "Master", csb: "CSB Dimostrativo", attivo: true },
   { id: "utente-demo", nome: "Utente", cognome: "Demo", nome_visualizzato: "Utente Dimostrativo", pin: "5678", categoria: "Prima", csb: "CSB Demo", attivo: true }
@@ -34,7 +49,6 @@ const demoPaths = [
     { id: 4, ordine: 4, fase: "Quarti", avversario: "Martinelli", categoria: "Master", esito: "P" }
   ]}
 ];
-
 const demoClubs = [
   {
     id: "F19B36",
@@ -112,6 +126,88 @@ async function loadData() {
   document.getElementById("offlineNotice").hidden = !offlineMode;
 	buildPlayerIndexes();
   initializeApp();
+}
+
+function buildPhaseOptions(
+  selectedPhase = "1° turno"
+) {
+  const phases = [...MATCH_PHASES];
+
+  /*
+    Se lo storico contiene una fase non prevista dalla nuova lista,
+    la aggiungiamo per non perdere il valore esistente.
+  */
+  if (
+    selectedPhase &&
+    !phases.includes(selectedPhase)
+  ) {
+    phases.push(selectedPhase);
+  }
+
+  return phases
+    .map(phase => {
+      const selected =
+        phase === selectedPhase
+          ? "selected"
+          : "";
+
+      return (
+        `<option value="${escapeAttr(phase)}" ${selected}>` +
+        `${escapeHtml(phase)}` +
+        `</option>`
+      );
+    })
+    .join("");
+}
+
+
+function getNextMatchPhase() {
+  const rows = [
+    ...document.querySelectorAll(
+      ".match-editor-row"
+    )
+  ];
+
+  if (rows.length === 0) {
+    return MATCH_PHASES[0];
+  }
+
+  const lastRow = rows[rows.length - 1];
+
+  const lastPhaseSelect =
+    lastRow.querySelector(
+      ".match-phase-input"
+    );
+
+  const lastPhase =
+    lastPhaseSelect?.value || "";
+
+  const currentIndex =
+    MATCH_PHASES.indexOf(lastPhase);
+
+  /*
+    Se l'ultimo valore non appartiene alla sequenza standard,
+    proponiamo il primo turno.
+  */
+  if (currentIndex < 0) {
+    return MATCH_PHASES[0];
+  }
+
+  /*
+    Se l'ultimo incontro e gia la Finale, manteniamo Finale.
+  */
+  if (currentIndex >= MATCH_PHASES.length - 1) {
+    return MATCH_PHASES[MATCH_PHASES.length - 1];
+  }
+  
+  /*
+	Dopo la finale di batteria, di default si invia Sedicesimi di Finale
+  */
+  if (currentIndex == 2) {
+		return MATCH_PHASES[7];
+  }
+
+  return MATCH_PHASES[currentIndex + 1];
 }
 
 function buildPlayerIndexes() {
@@ -1650,35 +1746,45 @@ function isExternalParticipation(path) {
   return !linkedEvent;
 }
 
-function addMatchEditorRow(match = {}) {
+function addMatchEditorRow(match = null) {
   const container =
     document.getElementById("matchesEditor");
 
   const row = document.createElement("div");
   row.className = "match-editor-row";
 
-  const linkedPlayer = match.giocatore_id
+  /*
+    Se match non e stato passato, significa che l'utente ha
+    premuto Aggiungi incontro. In questo caso calcoliamo il
+    turno successivo.
+  */
+  const phase = match?.fase || getNextMatchPhase();
+
+  const linkedPlayer = match?.giocatore_id
     ? getPlayerById(match.giocatore_id)
     : null;
 
   const opponentName = linkedPlayer
     ? getPlayerDisplayName(linkedPlayer)
-    : match.avversario || "";
+    : match?.avversario || "";
 
   const playerId =
     linkedPlayer?.id ||
-    match.giocatore_id ||
+    match?.giocatore_id ||
     "";
 
   const category =
-    match.categoria ||
+    match?.categoria ||
     linkedPlayer?.categoria ||
-    "";
+    "Terza";
 
   const clubId =
-    match.csb_id ||
+    match?.csb_id ||
     linkedPlayer?.csb_id ||
     "";
+
+  const result =
+    match?.esito || "V";
 
   row.innerHTML = `
     <input
@@ -1691,16 +1797,22 @@ function addMatchEditorRow(match = {}) {
       class="match-club-id"
       value="${escapeAttr(clubId)}">
 
-    <label>
-      Fase
-      <input
-        class="form-control match-phase-input"
-        value="${escapeAttr(match.fase || "")}"
-        placeholder="1° turno">
+    <label class="match-field match-phase-field">
+      <span class="match-field-label">
+        Fase
+      </span>
+
+      <select
+        class="form-control match-phase-input">
+        ${buildPhaseOptions(phase)}
+      </select>
     </label>
 
-    <label class="match-opponent-field">
-      Avversario
+    <label class="match-field match-opponent-field">
+      <span class="match-field-label">
+        Avversario
+      </span>
+
       <input
         class="form-control match-opponent-input"
         type="text"
@@ -1710,25 +1822,33 @@ function addMatchEditorRow(match = {}) {
         autocomplete="off">
     </label>
 
-    <label>
-      Categoria
-      <select class="form-control match-category-input">
+    <label class="match-field match-category-field">
+      <span class="match-field-label">
+        Categoria
+      </span>
+
+      <select
+        class="form-control match-category-input">
         ${buildCategoryOptions(category)}
       </select>
     </label>
 
-    <label>
-      Esito
-      <select class="form-control match-result-input">
+    <label class="match-field match-result-field">
+      <span class="match-field-label">
+        Esito
+      </span>
+
+      <select
+        class="form-control match-result-input">
         <option
           value="V"
-          ${match.esito === "V" ? "selected" : ""}>
+          ${result === "V" ? "selected" : ""}>
           Vinta
         </option>
 
         <option
           value="P"
-          ${match.esito === "P" ? "selected" : ""}>
+          ${result === "P" ? "selected" : ""}>
           Persa
         </option>
       </select>
@@ -1737,7 +1857,8 @@ function addMatchEditorRow(match = {}) {
     <button
       class="remove-match"
       type="button"
-      title="Elimina incontro">
+      title="Elimina incontro"
+      aria-label="Elimina incontro">
       X
     </button>
   `;
