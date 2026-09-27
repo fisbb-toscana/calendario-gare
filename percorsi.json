@@ -1179,12 +1179,12 @@
     "iscrizione": 30,
     "premio": 0,
     "risultato": "Sedicesimi di finale",
-    "ranking": 9,
+    "ranking": 4,
     "batteria_superata": true,
     "note": "",
     "incontri": [
       {
-        "id": 1790500646490,
+        "id": 1790500707778,
         "ordine": 1,
         "fase": "1° turno",
         "avversario": "Daniele Severino Innocenti",
@@ -1195,7 +1195,7 @@
         "csb": "MARAMEO"
       },
       {
-        "id": 1790500646491,
+        "id": 1790500707779,
         "ordine": 2,
         "fase": "2° turno",
         "avversario": "Piero Bianchi",
@@ -1206,7 +1206,7 @@
         "csb": "SALA VAL DI SERCHIO"
       },
       {
-        "id": 1790500646492,
+        "id": 1790500707780,
         "ordine": 3,
         "fase": "Finale di batteria",
         "avversario": "Paolo Brogi",
@@ -1217,7 +1217,7 @@
         "csb": "ACC. BIL. PONTEDERA"
       },
       {
-        "id": 1790500646493,
+        "id": 1790500707781,
         "ordine": 4,
         "fase": "Trentaduesimi di finale",
         "avversario": "Tiziano Lazzereschi",
@@ -1228,7 +1228,7 @@
         "csb": "ACC. BIL. PONTEDERA"
       },
       {
-        "id": 1790500646494,
+        "id": 1790500707782,
         "ordine": 5,
         "fase": "Sedicesimi di finale",
         "avversario": "Francesco Galli",
