@@ -1978,5 +1978,24 @@
     "arbitri": "NO",
     "vincitore": "",
     "locandina": "locandina_non_disponibile.png"
+  },
+  {
+    "id": 1790598646987,
+    "title": "3° TROFEO ANDREONI",
+    "className": "gara-libera",
+    "stato": "pianificata",
+    "sede": "Palabiliardo Firenze",
+    "premio": "€",
+    "iscrizione": "€",
+    "entro": "",
+    "start": "",
+    "end_date": "2027-01-17",
+    "specialita": "",
+    "categorie": "Seconda, Terza",
+    "separate": "NO",
+    "handicap": "NO",
+    "arbitri": "NO",
+    "vincitore": "",
+    "locandina": "locandina_non_disponibile.png"
   }
 ]
