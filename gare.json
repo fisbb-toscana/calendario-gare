@@ -1594,7 +1594,7 @@
     "id": 1786525603618,
     "title": "3° TROFEO IL BILIARDO",
     "className": "gara-libera",
-    "stato": "pianificata",
+    "stato": "ufficiale",
     "sede": "IL BILIARDO (PI)",
     "premio": "€ 900",
     "iscrizione": "€ 30",
@@ -1606,8 +1606,8 @@
     "separate": "SI",
     "handicap": "NO",
     "arbitri": "NO",
-    "locandina": "locandina_non_disponibile.png",
-    "vincitore": ""
+    "vincitore": "",
+    "locandina": "https://trello.com/1/cards/6abc107d60bbbce316950e42/attachments/6ac0e165ee3aa41937b93715/download/biliardo_2026_27.jpg"
   },
   {
     "id": 1786525814813,
