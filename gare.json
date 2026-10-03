@@ -3,6 +3,7 @@
     "id": 1786454942570,
     "title": "TROFEO BAR LUCIANA",
     "className": "gara-libera",
+    "stato": "ufficiale",
     "sede": "BAR LUCIANA (LU)",
     "premio": "€ 500",
     "iscrizione": "€ 30",
@@ -14,6 +15,7 @@
     "separate": "SI",
     "handicap": "SI",
     "arbitri": "NO",
+    "vincitore": "Lorenzo Meoni (1)",
     "locandina": "https://trello.com/1/cards/6a7d6e61e24d6f56a9d8ca6c/attachments/6a7d6e881b8ea3c22da9dc6b/download/Bar_Luciana_2027.jpg"
   },
   {
