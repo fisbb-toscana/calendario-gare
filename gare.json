@@ -1999,5 +1999,24 @@
     "arbitri": "NO",
     "vincitore": "",
     "locandina": "locandina_non_disponibile.png"
+  },
+  {
+    "id": 1791201914141,
+    "title": "3° TROFEO LA GARUFFA",
+    "className": "gara-libera",
+    "stato": "pianificata",
+    "sede": "LA GARUFFA (LI)",
+    "premio": "€",
+    "iscrizione": "€",
+    "entro": "",
+    "start": "",
+    "end_date": "2026-12-20",
+    "specialita": "Italiana a 150 punti",
+    "categorie": "Nazionale / Naz. Pro, Master, Prima, Seconda, Terza",
+    "separate": "NO",
+    "handicap": "NO",
+    "arbitri": "NO",
+    "vincitore": "",
+    "locandina": "locandina_non_disponibile.png"
   }
 ]
