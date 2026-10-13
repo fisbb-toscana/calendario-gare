@@ -1312,10 +1312,22 @@
     "iscrizione": 30,
     "premio": 0,
     "risultato": "1° turno",
-    "ranking": null,
+    "ranking": -5,
     "batteria_superata": false,
     "note": "",
-    "incontri": []
+    "incontri": [
+      {
+        "id": 1791873823800,
+        "ordine": 1,
+        "fase": "1° turno",
+        "avversario": "Mike Ferrara",
+        "categoria": "Prima",
+        "esito": "P",
+        "giocatore_id": "FB38A118",
+        "csb_id": "F07B55",
+        "csb": "TAVARNUZZE - LE SFERE"
+      }
+    ]
   },
   {
     "id": "ematerz-1791059850749",
