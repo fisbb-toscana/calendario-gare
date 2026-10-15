@@ -2018,5 +2018,24 @@
     "arbitri": "NO",
     "vincitore": "",
     "locandina": "locandina_non_disponibile.png"
+  },
+  {
+    "id": 1792048320193,
+    "title": "Progetto 5",
+    "className": "gara-libera",
+    "stato": "pianificata",
+    "sede": "",
+    "premio": "€",
+    "iscrizione": "€",
+    "entro": "",
+    "start": "",
+    "end_date": "2027-06-13",
+    "specialita": "",
+    "categorie": "Nazionale / Naz. Pro, Master, Prima, Seconda, Terza",
+    "separate": "NO",
+    "handicap": "NO",
+    "arbitri": "NO",
+    "vincitore": "",
+    "locandina": "locandina_non_disponibile.png"
   }
 ]
