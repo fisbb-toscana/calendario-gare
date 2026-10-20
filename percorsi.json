@@ -1337,18 +1337,32 @@
     "data_giocata": "2026-10-19",
     "iscrizione": 40,
     "premio": 0,
-    "risultato": "1° turno",
+    "risultato": "2° turno",
     "ranking": null,
     "batteria_superata": false,
     "note": "",
     "incontri": [
       {
-        "id": 1792489539408,
+        "id": 1792490079484,
         "ordine": 1,
         "fase": "1° turno",
-        "avversario": "Bonnì, Salvatore",
+        "avversario": "Salvatore Bonnì",
         "categoria": "Prima",
-        "esito": "V"
+        "esito": "V",
+        "giocatore_id": "FB76A195",
+        "csb_id": "F51B27",
+        "csb": "LA PINETA A.S.D."
+      },
+      {
+        "id": 1792490079485,
+        "ordine": 2,
+        "fase": "2° turno",
+        "avversario": "Fabio Denti",
+        "categoria": "Master",
+        "esito": "P",
+        "giocatore_id": "FB06A638",
+        "csb_id": "F03B47",
+        "csb": "OLONA 96"
       }
     ]
   },
