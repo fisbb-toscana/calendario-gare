@@ -1341,7 +1341,16 @@
     "ranking": null,
     "batteria_superata": false,
     "note": "",
-    "incontri": []
+    "incontri": [
+      {
+        "id": 1792489539408,
+        "ordine": 1,
+        "fase": "1° turno",
+        "avversario": "Bonnì, Salvatore",
+        "categoria": "Prima",
+        "esito": "V"
+      }
+    ]
   },
   {
     "id": "ematerz-1791059884134",
