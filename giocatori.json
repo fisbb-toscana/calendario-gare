@@ -2916,6 +2916,18 @@
     "attivo": true
   },
   {
+    "id": "FB76A195",
+    "codice_tessera": "FB76A195",
+    "nome": "Salvatore",
+    "cognome": "Bonnì",
+    "nome_visualizzato": "Salvatore Bonnì",
+    "categoria": "Prima",
+    "csb_id": "F51B27",
+    "regione": "Veneto",
+    "provenienza": "manuale",
+    "attivo": true
+  },
+  {
     "id": "FB66A492",
     "codice_tessera": "FB66A492",
     "nome": "Luca",
