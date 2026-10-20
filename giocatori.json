@@ -6276,6 +6276,18 @@
     "attivo": true
   },
   {
+    "id": "FB06A638",
+    "codice_tessera": "FB06A638",
+    "nome": "Fabio",
+    "cognome": "Denti",
+    "nome_visualizzato": "Fabio Denti",
+    "categoria": "Master",
+    "csb_id": "F03B47",
+    "regione": "Lombardia",
+    "provenienza": "manuale",
+    "attivo": true
+  },
+  {
     "id": "FB78A104",
     "codice_tessera": "FB78A104",
     "nome": "Diego",
