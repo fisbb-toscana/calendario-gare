@@ -159,18 +159,20 @@
     "id": 1786454942579,
     "title": "2° PROVA di QUALIFICAZIONE ai CAMPIONATI ITALIANI",
     "className": "istituzionale",
-    "start": "2026-11-02",
-    "end_date": "2026-11-08",
+    "stato": "ufficiale",
     "sede": "varie sedi",
     "premio": "€ 300",
     "iscrizione": "€ 30",
     "entro": "2026-10-30",
+    "start": "2026-11-02",
+    "end_date": "2026-11-08",
     "specialita": "Goriziana a 500 punti",
     "categorie": "Prima, Seconda, Terza",
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "1 su 2",
-    "locandina": "locandina_non_disponibile.png"
+    "vincitore": "",
+    "locandina": "https://trello.com/1/cards/6ad7876fb0dfaa2c83f11704/attachments/6ad89b7e9946a5d32a5cf2c1/download/Selezioni_02_corretta.jpg"
   },
   {
     "id": 1786454942580,
