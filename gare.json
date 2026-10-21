@@ -248,18 +248,20 @@
     "id": 1786454942584,
     "title": "2° PROVA di QUALIFICAZIONE ai CAMPIONATI ITALIANI a COPPIE di BASE",
     "className": "coppie-base",
-    "start": "2026-10-31",
-    "end_date": "2026-11-11",
+    "stato": "ufficiale",
     "sede": "da stabilire",
     "premio": "€ 600",
     "iscrizione": "€ 60",
     "entro": "2026-10-28",
+    "start": "2026-10-31",
+    "end_date": "2026-11-11",
     "specialita": "Tutti Doppi a 800 punti",
     "categorie": "Prima, Seconda, Terza",
     "separate": "NO",
     "handicap": "SI",
     "arbitri": "1 su 2",
-    "locandina": "locandina_non_disponibile.png"
+    "vincitore": "",
+    "locandina": "https://trello.com/1/cards/6ad7875691c7f862adf40856/attachments/6ad787947bf101e3dd7db0f6/download/Selezioni_02_coppie.jpg"
   },
   {
     "id": 1786454942585,
