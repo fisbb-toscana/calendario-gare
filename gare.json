@@ -60,17 +60,20 @@
     "id": 1786454942573,
     "title": "46° GRAN PREMIO GORIZIANA di SAINT-VINCENT",
     "className": "nbc",
-    "start": "2026-11-14",
-    "end_date": "2026-11-29",
+    "stato": "ufficiale",
     "sede": "Palazzetto dello Sport Saint Vincent (AO)",
     "premio": "€ 10.000",
     "iscrizione": "€ 40",
+    "entro": "",
+    "start": "2026-11-14",
+    "end_date": "2026-11-29",
     "specialita": "Goriziana a 400 punti (2 set su 3)",
     "categorie": "Nazionale / Naz. Pro, Master, Prima, Seconda, Terza",
     "separate": "NO",
     "handicap": "NO",
     "arbitri": "SI",
-    "locandina": "locandina_non_disponibile"
+    "vincitore": "",
+    "locandina": "https://trello.com/1/cards/6ad89cd5cd3d9840ac0df925/attachments/6ad89cdd0934a1f6ebc19794/download/DOC00091075409000001.jpg"
   },
   {
     "id": 1786454942574,
