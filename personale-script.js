@@ -1500,6 +1500,21 @@ function renderSummary() {
   document.getElementById("summaryBalanceDetail").textContent = `${euro(prizes)} premi · ${euro(entries)} iscrizioni`;
 }
 
+function getDisplayedTournamentResult(path) {
+  const matches =
+    Array.isArray(path.incontri)
+      ? path.incontri.filter(match =>
+          String(match.avversario || "").trim() !== ""
+        )
+      : [];
+
+  if (matches.length === 0) {
+    return "Da disputare";
+  }
+
+  return path.risultato || "Da disputare";
+}
+
 function renderList() {
   const term = document.getElementById("searchInput").value.trim().toLowerCase();
   const list = selectedPaths().filter(p => eventFor(p).title.toLowerCase().includes(term)).sort((a,b) => String(b.data_giocata).localeCompare(String(a.data_giocata)));
@@ -1508,8 +1523,37 @@ function renderList() {
   if (!list.length) { body.innerHTML = '<tr><td colspan="5" class="empty-row">Nessuna partecipazione trovata</td></tr>'; mobile.innerHTML = '<p class="empty-row">Nessuna partecipazione trovata</p>'; return; }
   list.forEach(path => {
     const evt = eventFor(path), color = TYPE_COLORS[evt.className] || "#64748b", rankClass = number(path.ranking) > 0 ? "rank-positive" : number(path.ranking) < 0 ? "rank-negative" : "rank-zero";
-    const tr = document.createElement("tr"); tr.innerHTML = `<td>${formatDate(path.data_giocata)}</td><td><span class="type-badge" style="background:${color}">${typeLabel(evt.className)}</span></td><td class="event-title">${escapeHtml(evt.title)}</td><td>${escapeHtml(path.risultato || "-")}</td><td class="numeric ${rankClass}">${signed(number(path.ranking))}</td>`; tr.addEventListener("click", () => openDetail(path.id)); body.appendChild(tr);
-    const card = document.createElement("article"); card.className = "mobile-card"; card.innerHTML = `<div class="mobile-card-top"><span class="type-badge" style="background:${color}">${typeLabel(evt.className)}</span><strong class="mobile-card-rank ${rankClass}">${signed(number(path.ranking))}</strong></div><h4>${escapeHtml(evt.title)}</h4><p>${formatDate(path.data_giocata)} · ${escapeHtml(path.risultato || "-")}</p>`; card.addEventListener("click", () => openDetail(path.id)); mobile.appendChild(card);
+	 const progress = getTournamentProgress(path);
+	 const displayedResult = getDisplayedTournamentResult(path);
+    const tr = document.createElement("tr");
+		tr.className =
+		  `participation-row progress-${progress.className}`;
+
+		tr.style.setProperty(
+		  "--progress-value",
+		  `${progress.percentage}%`
+		);
+
+		tr.style.setProperty(
+		  "--progress-color",
+		  progress.color
+		);
+		tr.innerHTML = `<td>${formatDate(path.data_giocata)}</td><td><span class="type-badge" style="background:${color}">${typeLabel(evt.className)}</span></td><td class="event-title">${escapeHtml(evt.title)}</td><td>${escapeHtml(displayedResult)}</td><td class="numeric ${rankClass}">${signed(number(path.ranking))}</td>`; tr.addEventListener("click", () => openDetail(path.id)); body.appendChild(tr);
+    const card = document.createElement("article"); 
+	card.className =
+	  `mobile-card participation-progress-card ` +
+	  `progress-${progress.className}`;
+
+	card.style.setProperty(
+	  "--progress-value",
+	  `${progress.percentage}%`
+	);
+
+	card.style.setProperty(
+	  "--progress-color",
+	  progress.color
+	);
+	card.innerHTML = `<div class="mobile-card-top"><span class="type-badge" style="background:${color}">${typeLabel(evt.className)}</span><strong class="mobile-card-rank ${rankClass}">${signed(number(path.ranking))}</strong></div><h4>${escapeHtml(evt.title)}</h4><p>${formatDate(path.data_giocata)} · ${escapeHtml(displayedResult)}</p>`; card.addEventListener("click", () => openDetail(path.id)); mobile.appendChild(card);
   });
 }
 
@@ -1972,6 +2016,9 @@ function addMatchEditorRow(match = null) {
           ".match-club-id"
         ).value = "";
       }
+
+		updateTournamentResult();
+
     }
   );
 
@@ -1995,17 +2042,26 @@ function addMatchEditorRow(match = null) {
 }
 
 function calculateTournamentResult() {
-  const rows = [
+  const completedRows = [
     ...document.querySelectorAll(
       ".match-editor-row"
     )
-  ];
+  ].filter(row => {
+    const opponent =
+      row
+        .querySelector(".match-opponent-input")
+        ?.value
+        .trim() || "";
 
-  if (rows.length === 0) {
-    return "";
+    return opponent !== "";
+  });
+
+  if (completedRows.length === 0) {
+    return "Da disputare";
   }
 
-  const lastRow = rows[rows.length - 1];
+  const lastRow =
+    completedRows[completedRows.length - 1];
 
   const phase =
     lastRow
@@ -2013,29 +2069,24 @@ function calculateTournamentResult() {
       ?.value
       .trim() || "";
 
-  const result =
+  const matchResult =
     lastRow
       .querySelector(".match-result-input")
       ?.value || "";
 
   if (!phase) {
-    return "";
-  }
-
-  if (phase === "Finale di batteria") {
-    return result === "V"
-      ? "Vittoria di batteria"
-      : "Finale di batteria";
+    return "Da disputare";
   }
 
   if (phase === "Finale") {
-    return result === "V"
+    return matchResult === "V"
       ? "Vittoria"
       : "Finale";
   }
 
   return phase;
 }
+
 
 function updateTournamentResult() {
   const resultInput =
@@ -2085,6 +2136,172 @@ function buildCategoryOptions(selectedCategory = "") {
       );
     })
     .join("");
+}
+
+function normalizeTournamentResult(value) {
+  return String(value || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim()
+    .toLowerCase();
+}
+
+function getTournamentProgress(path) {
+  const result =
+    normalizeTournamentResult(
+      getDisplayedTournamentResult(path)
+    );
+
+  const progressMap = {
+    "da disputare": {
+      percentage: 0,
+      color: "#cbd5e1",
+      className: "pending"
+    },
+
+    "1° turno": {
+      percentage: 10,
+      color: "#ef4444",
+      className: "early"
+    },
+
+    "2° turno": {
+      percentage: 20,
+      color: "#f97316",
+      className: "early"
+    },
+
+    "Finale di batteria": {
+      percentage: 30,
+      color: "#f59e0b",
+      className: "battery"
+    },
+
+    "Spareggio": {
+      percentage: 40,
+      color: "#c3cc16",
+      className: "final-board"
+    },
+
+    "128simi di finale": {
+      percentage: 44,
+      color: "#bacc16",
+      className: "final-board"
+    },
+
+    "64simi di finale": {
+      percentage: 48,
+      color: "#b4cc16",
+      className: "final-board"
+    },
+
+    "32simi di finale": {
+      percentage: 52,
+      color: "#a5cc16",
+      className: "final-board"
+    },
+
+    "16simi di finale": {
+      percentage: 56,
+      color: "#84cc16",
+      className: "final-board"
+    },
+
+    "Ottavi di finale": {
+      percentage: 66,
+      color: "#22c55e",
+      className: "final-board"
+    },
+
+    "Quarti di finale": {
+      percentage: 78,
+      color: "#14b8a6",
+      className: "advanced"
+    },
+
+    "Semifinale": {
+      percentage: 90,
+      color: "#06b6d4",
+      className: "advanced"
+    },
+
+    "Finale": {
+      percentage: 96,
+      color: "#0ea5e9",
+      className: "final"
+    },
+
+    "Vittoria": {
+      percentage: 100,
+      color: "#2563eb",
+      className: "victory"
+    }
+  };
+
+  if (progressMap[result]) {
+    return progressMap[result];
+  }
+
+  /* Compatibilita con le vecchie diciture dello storico. */
+  if (
+    result.includes("batteria non superata") ||
+    result.includes("primo turno")
+  ) {
+    return {
+      percentage: 12,
+      color: "#ef4444",
+      className: "early"
+    };
+  }
+
+  if (result.includes("batteria superata")) {
+    return {
+      percentage: 38,
+      color: "#f59e0b",
+      className: "battery"
+    };
+  }
+
+  if (
+    result.includes("16esimi") ||
+    result.includes("sedicesimi")
+  ) {
+    return {
+      percentage: 52,
+      color: "#84cc16",
+      className: "final-board"
+    };
+  }
+
+  if (result.includes("ottavi")) {
+    return {
+      percentage: 66,
+      color: "#22c55e",
+      className: "final-board"
+    };
+  }
+
+  if (result.includes("quarti")) {
+    return {
+      percentage: 78,
+      color: "#14b8a6",
+      className: "advanced"
+    };
+  }
+
+  if (result.includes("semifinale")) {
+    return {
+      percentage: 90,
+      color: "#06b6d4",
+      className: "advanced"
+    };
+  }
+
+  return {
+    percentage: 0,
+    color: "#cbd5e1",
+    className: "pending"
+  };
 }
 
 function handleOpponentSelection(row) {
@@ -2351,7 +2568,9 @@ const matches = [
       .value;
 
 	const calculatedResult =
-	  calculateTournamentResult();
+	  matches.length === 0
+		 ? "Da disputare"
+		 : calculateTournamentResult();
 
 	if (matches.length > 0 && !calculatedResult) {
 	  alert(
