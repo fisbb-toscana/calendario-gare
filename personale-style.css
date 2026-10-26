@@ -141,6 +141,112 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .personal-table tbody tr { cursor: pointer; }
 .personal-table tbody tr:hover { background: #f8fafc; }
 .personal-table .numeric { text-align: right; }
+/* =====================================================
+   AVANZAMENTO NELL'ELENCO PARTECIPAZIONI
+===================================================== */
+
+.personal-table tbody tr.participation-row {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  --progress-value: 0%;
+  --progress-color: #cbd5e1;
+}
+
+.personal-table tbody tr.participation-row::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: var(--progress-value);
+  background: rgb(37 99 235 / 10%);
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--progress-color) 18%, white),
+      color-mix(in srgb, var(--progress-color) 8%, white)
+    );
+  border-right: 3px solid var(--progress-color);
+  pointer-events: none;
+  transition:
+    width 0.35s ease,
+    background-color 0.35s ease;
+}
+
+.personal-table tbody tr.participation-row td {
+  position: relative;
+  z-index: 1;
+  background-color: transparent;
+}
+
+.personal-table tbody tr.participation-row:hover::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: rgb(15 23 42 / 3%);
+  pointer-events: none;
+}
+
+.personal-table tbody tr.progress-pending::before {
+  width: 0;
+  border-right: 0;
+}
+
+.personal-table tbody tr.progress-pending td:first-child {
+  box-shadow: inset 4px 0 0 #cbd5e1;
+}
+
+.mobile-card.participation-progress-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  --progress-value: 0%;
+  --progress-color: #cbd5e1;
+}
+
+.mobile-card.participation-progress-card::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: var(--progress-value);
+  background: rgb(37 99 235 / 10%);
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--progress-color) 18%, white),
+      color-mix(in srgb, var(--progress-color) 8%, white)
+    );
+  border-right: 3px solid var(--progress-color);
+  pointer-events: none;
+}
+
+.mobile-card.participation-progress-card.progress-pending::before {
+  width: 0;
+  border-right: 0;
+}
+
+.mobile-card.participation-progress-card.progress-pending {
+  box-shadow: inset 4px 0 0 #cbd5e1;
+}
+
+.mobile-card.participation-progress-card::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: auto;
+  bottom: 0;
+  width: var(--progress-value);
+  height: 4px;
+  background-color: var(--progress-color);
+  pointer-events: none;
+}
+
 .event-title { color: var(--title); font-weight: 700; }
 .type-badge { display: inline-block; padding: 4px 7px; border-radius: 5px; color: white; font-size: .65rem; font-weight: 800; text-transform: uppercase; }
 .rank-positive { color: #15803d; font-weight: 800; }
