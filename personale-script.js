@@ -1526,19 +1526,44 @@ function renderList() {
 	 const progress = getTournamentProgress(path);
 	 const displayedResult = getDisplayedTournamentResult(path);
     const tr = document.createElement("tr");
-		tr.className =
-		  `participation-row progress-${progress.className}`;
+		tr.className = "participation-row";
+		
+		tr.innerHTML = `
+		  <td>
+			 ${formatDate(path.data_giocata)}
+		  </td>
 
-		tr.style.setProperty(
-		  "--progress-value",
-		  `${progress.percentage}%`
-		);
+		  <td>
+			 <span
+				class="type-badge"
+				style="background:${color}">
+				${typeLabel(evt.className)}
+			 </span>
+		  </td>
 
-		tr.style.setProperty(
-		  "--progress-color",
-		  progress.color
-		);
-		tr.innerHTML = `<td>${formatDate(path.data_giocata)}</td><td><span class="type-badge" style="background:${color}">${typeLabel(evt.className)}</span></td><td class="event-title">${escapeHtml(evt.title)}</td><td>${escapeHtml(displayedResult)}</td><td class="numeric ${rankClass}">${signed(number(path.ranking))}</td>`; tr.addEventListener("click", () => openDetail(path.id)); body.appendChild(tr);
+		  <td class="event-title">
+			 ${escapeHtml(evt.title)}
+		  </td>
+
+		  <td
+			 class="tournament-result-cell progress-${progress.className}"
+			 style="
+				--progress-value: ${progress.percentage}%;
+				--progress-color: ${progress.color};
+			 ">
+
+			 <span class="tournament-result-text">
+				${escapeHtml(displayedResult)}
+			 </span>
+
+		  </td>
+
+		  <td class="numeric ${rankClass}">
+			 ${signed(number(path.ranking))}
+		  </td>
+		`;
+		
+		tr.addEventListener("click", () => openDetail(path.id)); body.appendChild(tr);
     const card = document.createElement("article"); 
 	card.className =
 	  `mobile-card participation-progress-card ` +
