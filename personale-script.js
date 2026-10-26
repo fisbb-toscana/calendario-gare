@@ -1489,15 +1489,125 @@ function eventFor(path) {
 function renderAll() { if (!currentUser) return; renderSummary(); renderList(); }
 
 function renderSummary() {
-  const list = selectedPaths(); const matches = list.flatMap(p => p.incontri || []);
-  const wins = matches.filter(m => String(m.esito).toUpperCase() === "V").length; const losses = matches.filter(m => String(m.esito).toUpperCase() === "P").length;
-  const ranking = list.reduce((s,p) => s + number(p.ranking), 0); const entries = list.reduce((s,p) => s + number(p.iscrizione), 0); const prizes = list.reduce((s,p) => s + number(p.premio), 0); const balance = prizes - entries;
-  document.getElementById("summaryTournaments").textContent = list.length;
-  document.getElementById("summaryMatches").textContent = matches.length;
-  document.getElementById("summaryMatchesDetail").textContent = `${wins} vinte · ${losses} perse`;
-  document.getElementById("summaryRanking").textContent = signed(ranking);
-  const balanceEl = document.getElementById("summaryBalance"); balanceEl.textContent = euro(balance); balanceEl.className = balance > 0 ? "rank-positive" : balance < 0 ? "rank-negative" : "rank-zero";
-  document.getElementById("summaryBalanceDetail").textContent = `${euro(prizes)} premi · ${euro(entries)} iscrizioni`;
+  const list = selectedPaths();
+
+  const matches = list.flatMap(
+    path =>
+      Array.isArray(path.incontri)
+        ? path.incontri.filter(match =>
+            String(
+              match.avversario || ""
+            ).trim() !== ""
+          )
+        : []
+  );
+
+  const playedTournaments =
+    list.filter(path => {
+      const completedMatches =
+        Array.isArray(path.incontri)
+          ? path.incontri.filter(match =>
+              String(
+                match.avversario || ""
+              ).trim() !== ""
+            )
+          : [];
+
+      return completedMatches.length > 0;
+    }).length;
+
+  const pendingTournaments =
+    list.length - playedTournaments;
+
+  const wins = matches.filter(
+    match =>
+      String(match.esito)
+        .toUpperCase() === "V"
+  ).length;
+
+  const losses = matches.filter(
+    match =>
+      String(match.esito)
+        .toUpperCase() === "P"
+  ).length;
+
+  const ranking = list.reduce(
+    (sum, path) =>
+      sum + number(path.ranking),
+    0
+  );
+
+  const entries = list.reduce(
+    (sum, path) =>
+      sum + number(path.iscrizione),
+    0
+  );
+
+  const prizes = list.reduce(
+    (sum, path) =>
+      sum + number(path.premio),
+    0
+  );
+
+  const balance = prizes - entries;
+
+  document.getElementById(
+    "summaryTournaments"
+  ).textContent = list.length;
+
+  document.getElementById(
+    "summaryTournamentsDetail"
+  ).textContent =
+    `${playedTournaments} ${
+      playedTournaments === 1
+        ? "disputato"
+        : "disputati"
+    } · ` +
+    `${pendingTournaments} da disputare`;
+
+  document.getElementById(
+    "summaryMatches"
+  ).textContent = matches.length;
+
+  document.getElementById(
+    "summaryMatchesDetail"
+  ).textContent =
+    `${wins} ${
+      wins === 1
+        ? "vinta"
+        : "vinte"
+    } · ` +
+    `${losses} ${
+      losses === 1
+        ? "persa"
+        : "perse"
+    }`;
+
+  document.getElementById(
+    "summaryRanking"
+  ).textContent =
+    signed(ranking);
+
+  const balanceElement =
+    document.getElementById(
+      "summaryBalance"
+    );
+
+  balanceElement.textContent =
+    euro(balance);
+
+  balanceElement.className =
+    balance > 0
+      ? "rank-positive"
+      : balance < 0
+        ? "rank-negative"
+        : "rank-zero";
+
+  document.getElementById(
+    "summaryBalanceDetail"
+  ).textContent =
+    `${euro(prizes)} premi · ` +
+    `${euro(entries)} iscrizioni`;
 }
 
 function getDisplayedTournamentResult(path) {
