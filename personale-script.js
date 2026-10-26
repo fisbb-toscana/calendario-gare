@@ -17,10 +17,10 @@ const MATCH_PHASES = [
   "2° turno",
   "Finale di batteria",
   "Spareggio",
-  "Centoventottesimi di finale",
-  "Sessantaquattresimi di finale",
-  "Trentaduesimi di finale",
-  "Sedicesimi di finale",
+  "128simi di finale",
+  "64simi di finale",
+  "32simi di finale",
+  "16simi di finale",
   "Ottavi di finale",
   "Quarti di finale",
   "Semifinale",
@@ -326,7 +326,7 @@ function initializeApp() {
   populateNewPlayerClubSelect();
   bindEvents();
 	updateGitHubButton();
-  const savedUserId = sessionStorage.getItem("personal_user_id");
+  const savedUserId = localStorage.getItem("personal_user_id");
   const savedUser = users.find(u => String(u.id) === savedUserId && u.attivo !== false);
   if (savedUser) loginUser(savedUser); else openLogin();
 }
@@ -738,8 +738,26 @@ function populateLoginUsers() {
 }
 
 function bindEvents() {
-  document.getElementById("loginForm").addEventListener("submit", handleLogin);
-  document.getElementById("changeUserBtn").addEventListener("click", () => { sessionStorage.removeItem("personal_user_id"); currentUser = null; openLogin(); });
+	document.getElementById("loginForm").addEventListener("submit", handleLogin);
+	document
+	  .getElementById("changeUserBtn")
+	  .addEventListener("click", () => {
+		 localStorage.removeItem(
+			"personal_user_id"
+		 );
+
+		 currentUser = null;
+
+		 document.getElementById(
+			"loginUser"
+		 ).value = "";
+
+		 document.getElementById(
+			"loginPin"
+		 ).value = "";
+
+		 openLogin();
+	  });
 	document
 	  .getElementById("seasonSelector")
 	  .addEventListener("change", event => {
@@ -878,7 +896,7 @@ function bindEvents() {
 function loginUser(user) {
   currentUser = user;
 
-  sessionStorage.setItem(
+  localStorage.setItem(
     "personal_user_id",
     String(user.id)
   );
@@ -943,18 +961,48 @@ function findPlayerFromInputValue(value) {
 }
 
 function displayName(user) { return user.nome_visualizzato || `${user.nome || ""} ${user.cognome || ""}`.trim() || user.id; }
-function openLogin() { document.getElementById("loginPin").value = ""; document.getElementById("loginError").hidden = true; document.getElementById("loginDialog").showModal(); }
+
+function openLogin() {
+  const dialog =
+    document.getElementById(
+      "loginDialog"
+    );
+
+  document.getElementById(
+    "loginPin"
+  ).value = "";
+
+  document.getElementById(
+    "loginError"
+  ).hidden = true;
+
+  if (!dialog.open) {
+    dialog.showModal();
+  }
+}
+
 function handleLogin(e) {
   e.preventDefault();
   const user = users.find(u => String(u.id) === document.getElementById("loginUser").value);
   const pin = document.getElementById("loginPin").value;
   if (!user || String(user.pin) !== pin) { const err = document.getElementById("loginError"); err.textContent = "Utente o PIN non corretto."; err.hidden = false; return; }
-  loginUser(user); document.getElementById("loginDialog").close();
+	loginUser(user);
+
+	const loginDialog =
+	  document.getElementById(
+		 "loginDialog"
+	  );
+
+	if (loginDialog.open) {
+	  loginDialog.close();
+	}
 }
+
 function loginUser(user) {
   currentUser = user; sessionStorage.setItem("personal_user_id", String(user.id));
   renderUserCard(); populateSeasons(); populateEventSelect(); renderAll();
 }
+
 function renderUserCard() {
   const name = displayName(currentUser);
   document.getElementById("userDisplayName").textContent = name;
