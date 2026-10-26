@@ -998,11 +998,6 @@ function handleLogin(e) {
 	}
 }
 
-function loginUser(user) {
-  currentUser = user; sessionStorage.setItem("personal_user_id", String(user.id));
-  renderUserCard(); populateSeasons(); populateEventSelect(); renderAll();
-}
-
 function renderUserCard() {
   const name = displayName(currentUser);
   document.getElementById("userDisplayName").textContent = name;
