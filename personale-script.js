@@ -1536,6 +1536,8 @@ function renderSummary() {
       sum + number(path.ranking),
     0
   );
+  
+  const rankingTotale = 2050 + ranking;
 
   const entries = list.reduce(
     (sum, path) =>
@@ -1587,7 +1589,12 @@ function renderSummary() {
     "summaryRanking"
   ).textContent =
     signed(ranking);
-
+	 
+  document.getElementById(
+    "summaryRankingDetail"
+  ).textContent =
+    `${rankingTotale} punti totali`;
+	 
   const balanceElement =
     document.getElementById(
       "summaryBalance"
