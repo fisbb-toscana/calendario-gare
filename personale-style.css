@@ -147,45 +147,16 @@ button, a { -webkit-tap-highlight-color: transparent; }
 ===================================================== */
 
 .personal-table tbody tr.participation-row {
-  --progress-value: 0%;
-  --progress-color: #cbd5e1;
-
-  position: relative;
   cursor: pointer;
+  background-color: #ffffff;
+}
 
-  background:
-    linear-gradient(
-      90deg,
-      color-mix(
-        in srgb,
-        var(--progress-color) 18%,
-        white
-      ) 0%,
-      color-mix(
-        in srgb,
-        var(--progress-color) 9%,
-        white
-      ) var(--progress-value),
-      transparent var(--progress-value),
-      transparent 100%
-    );
-
-  box-shadow:
-    inset 4px 0 0 var(--progress-color);
-
-  transition:
-    background-color 0.15s ease,
-    box-shadow 0.15s ease;
+.personal-table tbody tr.participation-row:hover {
+  background-color: #f8fafc;
 }
 
 .personal-table tbody tr.participation-row td {
   background-color: transparent;
-}
-
-.personal-table tbody tr.participation-row:hover {
-  box-shadow:
-    inset 4px 0 0 var(--progress-color),
-    inset 0 0 0 999px rgb(15 23 42 / 3%);
 }
 
 /* Gara ancora da disputare */
@@ -194,6 +165,84 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
   box-shadow:
     inset 4px 0 0 #cbd5e1;
+}
+
+/* Avanzamento limitato alla cella Risultato */
+
+.tournament-result-cell {
+  --progress-value: 0%;
+  --progress-color: #cbd5e1;
+
+  position: relative;
+  overflow: hidden;
+  min-width: 170px;
+  background-color: #ffffff;
+  isolation: isolate;
+}
+
+.tournament-result-cell::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+
+  left: 5px;
+  top: 6px;
+  bottom: 6px;
+
+  width: var(--progress-value);
+  max-width: calc(100% - 10px);
+
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(
+        in srgb,
+        var(--progress-color) 15%,
+        white
+      ),
+      color-mix(
+        in srgb,
+        var(--progress-color) 7%,
+        white
+      )
+    );
+
+  border-right: 3px solid var(--progress-color);
+  border-radius: 6px;
+
+  pointer-events: none;
+  transition: width 0.3s ease;
+}
+
+.tournament-result-text {
+  position: relative;
+  z-index: 1;
+
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+
+  color: #334155;
+  font-size: 0.78rem;
+  font-weight: 750;
+}
+
+.tournament-result-cell.progress-pending::before {
+  display: none;
+}
+
+.tournament-result-cell.progress-pending {
+  background-color: #f8fafc;
+}
+
+.tournament-result-cell.progress-pending
+.tournament-result-text {
+  color: #64748b;
+  font-weight: 650;
+}
+
+.tournament-result-cell.progress-victory::before {
+  width: calc(100% - 10px);
 }
 
 .mobile-card.participation-progress-card {
