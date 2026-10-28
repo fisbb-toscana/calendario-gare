@@ -619,55 +619,70 @@
   {
     "id": "ematerz-2026-01-19-18",
     "utente_id": "ematerz",
-    "gara_id": 1786454942627,
+    "gara_id": "1786454942627",
     "stagione": "2025-2026",
     "data_giocata": "2026-01-19",
     "iscrizione": 30,
     "premio": 120,
-    "risultato": "Eliminato ai Quarti",
+    "risultato": "Quarti",
     "ranking": 17,
     "batteria_superata": true,
     "note": "",
     "incontri": [
       {
-        "id": 1801,
+        "id": 1793179769776,
         "ordine": 1,
         "fase": "1° turno",
-        "avversario": "Morelli (1)",
+        "avversario": "Andrea Morelli",
         "categoria": "Prima",
-        "esito": "V"
+        "esito": "V",
+        "giocatore_id": "FB08A947",
+        "csb_id": "F07B91",
+        "csb": "IL BILIARDO"
       },
       {
-        "id": 1802,
+        "id": 1793179769777,
         "ordine": 2,
         "fase": "2° turno",
-        "avversario": "Tommasi (M)",
+        "avversario": "Massimo Tommasi",
         "categoria": "Master",
-        "esito": "V"
+        "esito": "V",
+        "giocatore_id": "FB19A660",
+        "csb_id": "F07B87",
+        "csb": "SPORTING CLUB"
       },
       {
-        "id": 1803,
+        "id": 1793179769778,
         "ordine": 3,
         "fase": "3° turno",
-        "avversario": "Martinelli (M)",
+        "avversario": "Andrea Martinelli",
         "categoria": "Master",
-        "esito": "V"
+        "esito": "V",
+        "giocatore_id": "FB08A513",
+        "csb_id": "F23B55",
+        "csb": "ACC. BIL. PONTEDERA"
       },
       {
-        "id": 1804,
+        "id": 1793179769779,
         "ordine": 4,
         "fase": "Ottavi",
-        "avversario": "Balestri (2)",
+        "avversario": "Paolo Balestri",
         "categoria": "Seconda",
-        "esito": "V"
+        "esito": "V",
+        "giocatore_id": "FB93A608",
+        "csb_id": "F07B91",
+        "csb": "IL BILIARDO"
       },
       {
-        "id": 1805,
+        "id": 1793179769780,
         "ordine": 5,
         "fase": "Quarti",
-        "avversario": "Buttino (1)",
+        "avversario": "Giuseppe Buttino",
         "categoria": "Prima",
-        "esito": "P"
+        "esito": "P",
+        "giocatore_id": "FB32A686",
+        "csb_id": "F18B43",
+        "csb": "MAXIM LUDO CLUB"
       }
     ]
   },
