@@ -418,23 +418,26 @@
   {
     "id": "ematerz-2025-12-01-12",
     "utente_id": "ematerz",
-    "gara_id": 1786454942634,
+    "gara_id": "1786454942634",
     "stagione": "2025-2026",
     "data_giocata": "2025-12-01",
     "iscrizione": 30,
     "premio": 0,
-    "risultato": "Batteria non superata",
+    "risultato": "1° turno",
     "ranking": -8,
     "batteria_superata": false,
     "note": "",
     "incontri": [
       {
-        "id": 1201,
+        "id": 1793180001903,
         "ordine": 1,
         "fase": "1° turno",
-        "avversario": "Bucchianeri (1)",
+        "avversario": "Massimo Bucchianeri",
         "categoria": "Prima",
-        "esito": "P"
+        "esito": "P",
+        "giocatore_id": "FB05A527",
+        "csb_id": "F48B54",
+        "csb": "JOHNNY CLUB"
       }
     ]
   },
