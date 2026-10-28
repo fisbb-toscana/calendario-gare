@@ -1060,18 +1060,18 @@
   {
     "id": "ematerz-2026-06-01-32",
     "utente_id": "ematerz",
-    "gara_id": 1786454942597,
+    "gara_id": "1786454942597",
     "stagione": "2025-2026",
     "data_giocata": "2026-06-01",
     "iscrizione": 35,
     "premio": 0,
-    "risultato": "Batteria non superata",
+    "risultato": "3° turno",
     "ranking": -7,
     "batteria_superata": false,
     "note": "",
     "incontri": [
       {
-        "id": 3201,
+        "id": 1793178948068,
         "ordine": 1,
         "fase": "1° turno",
         "avversario": "Tosi (2)",
@@ -1079,7 +1079,7 @@
         "esito": "V"
       },
       {
-        "id": 3202,
+        "id": 1793178948069,
         "ordine": 2,
         "fase": "2° turno",
         "avversario": "De Santis (1)",
@@ -1087,7 +1087,7 @@
         "esito": "V"
       },
       {
-        "id": 3203,
+        "id": 1793178948070,
         "ordine": 3,
         "fase": "3° turno",
         "avversario": "Mariotti (2)",
