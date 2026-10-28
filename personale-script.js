@@ -17,6 +17,8 @@ const MATCH_PHASES = [
   "2° turno",
   "Finale di batteria",
   "Spareggio",
+  "512simi di finale",
+  "256simi di finale",
   "128simi di finale",
   "64simi di finale",
   "32simi di finale",
@@ -2316,12 +2318,24 @@ function getTournamentProgress(path) {
     "Finale di batteria": {
       percentage: 30,
       color: "#f59e0b",
-      className: "battery"
+      className: "early"
     },
 
     "Spareggio": {
       percentage: 40,
       color: "#c3cc16",
+      className: "final-board"
+    },
+
+    "512simi di finale": {
+      percentage: 40,
+      color: "#bacc16",
+      className: "final-board"
+    },
+
+    "256simi di finale": {
+      percentage: 40,
+      color: "#bacc16",
       className: "final-board"
     },
 
