@@ -1150,18 +1150,18 @@
   {
     "id": "ematerz-2026-07-13-35",
     "utente_id": "ematerz",
-    "gara_id": 1786454942595,
+    "gara_id": "1786454942595",
     "stagione": "2025-2026",
     "data_giocata": "2026-07-13",
     "iscrizione": 35,
     "premio": 0,
-    "risultato": "Batteria non superata",
+    "risultato": "1° turno",
     "ranking": null,
     "batteria_superata": false,
     "note": "",
     "incontri": [
       {
-        "id": 3501,
+        "id": 1793178893271,
         "ordine": 1,
         "fase": "1° turno",
         "avversario": "D'Anna (1)/Ferrara (1)",
