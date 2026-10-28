@@ -15,18 +15,19 @@ const GITHUB_CONFIG = {
 const MATCH_PHASES = [
   "1° turno",
   "2° turno",
-  "finale di batteria",
-  "spareggio",
+  "Finale di batteria",
+  "Spareggio",
   "512simi di finale",
   "256simi di finale",
   "128simi di finale",
   "64simi di finale",
   "32simi di finale",
   "16simi di finale",
-  "ottavi di finale",
-  "quarti di finale",
-  "semifinale",
-  "finale"
+  "Ottavi di finale",
+  "Quarti di finale",
+  "Semifinale",
+  "Finale",
+  "Non disputato"
 ];
 
 const demoUsers = [
@@ -2303,6 +2304,12 @@ function getTournamentProgress(path) {
       className: "pending"
     },
 
+    "non disputato": {
+      percentage: 0,
+      color: "#cbd5e1",
+      className: "pending"
+    },
+
     "1° turno": {
       percentage: 10,
       color: "#ef4444",
@@ -2315,13 +2322,13 @@ function getTournamentProgress(path) {
       className: "early"
     },
 
-    "Finale di batteria": {
+    "finale di batteria": {
       percentage: 30,
       color: "#f59e0b",
       className: "early"
     },
 
-    "Spareggio": {
+    "spareggio": {
       percentage: 40,
       color: "#c3cc16",
       className: "final-board"
@@ -2363,31 +2370,31 @@ function getTournamentProgress(path) {
       className: "final-board"
     },
 
-    "Ottavi di finale": {
+    "ottavi di finale": {
       percentage: 66,
       color: "#22c55e",
       className: "final-board"
     },
 
-    "Quarti di finale": {
+    "quarti di finale": {
       percentage: 78,
       color: "#14b8a6",
       className: "advanced"
     },
 
-    "Semifinale": {
+    "semifinale": {
       percentage: 90,
       color: "#06b6d4",
       className: "advanced"
     },
 
-    "Finale": {
+    "finale": {
       percentage: 96,
       color: "#0ea5e9",
       className: "final"
     },
 
-    "Vittoria": {
+    "vittoria": {
       percentage: 100,
       color: "#2563eb",
       className: "victory"
