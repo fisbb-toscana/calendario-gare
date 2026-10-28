@@ -15,18 +15,18 @@ const GITHUB_CONFIG = {
 const MATCH_PHASES = [
   "1° turno",
   "2° turno",
-  "Finale di batteria",
-  "Spareggio",
+  "finale di batteria",
+  "spareggio",
   "512simi di finale",
   "256simi di finale",
   "128simi di finale",
   "64simi di finale",
   "32simi di finale",
   "16simi di finale",
-  "Ottavi di finale",
-  "Quarti di finale",
-  "Semifinale",
-  "Finale"
+  "ottavi di finale",
+  "quarti di finale",
+  "semifinale",
+  "finale"
 ];
 
 const demoUsers = [
