@@ -2044,5 +2044,24 @@
     "arbitri": "NO",
     "vincitore": "",
     "locandina": "locandina_non_disponibile.png"
+  },
+  {
+    "id": 1793198346662,
+    "title": "Biliardo Follonica",
+    "className": "gara-libera",
+    "stato": "pianificata",
+    "sede": "",
+    "premio": "€",
+    "iscrizione": "€",
+    "entro": "",
+    "start": "",
+    "end_date": "2027-04-03",
+    "specialita": "",
+    "categorie": "Nazionale / Naz. Pro, Master, Prima, Seconda, Terza",
+    "separate": "NO",
+    "handicap": "NO",
+    "arbitri": "NO",
+    "vincitore": "",
+    "locandina": "locandina_non_disponibile.png"
   }
 ]
