@@ -147,18 +147,18 @@
   {
     "id": "ematerz-2025-10-20-6",
     "utente_id": "ematerz",
-    "gara_id": 1786454942646,
+    "gara_id": "1786454942646",
     "stagione": "2025-2026",
     "data_giocata": "2025-10-20",
     "iscrizione": 40,
     "premio": 0,
-    "risultato": "Batteria non superata",
+    "risultato": "Finale di batteria",
     "ranking": 4,
     "batteria_superata": false,
     "note": "",
     "incontri": [
       {
-        "id": 601,
+        "id": 1793180208615,
         "ordine": 1,
         "fase": "1° turno",
         "avversario": "Fenini (2)",
@@ -166,7 +166,7 @@
         "esito": "V"
       },
       {
-        "id": 602,
+        "id": 1793180208616,
         "ordine": 2,
         "fase": "2° turno",
         "avversario": "Sedoni (1)",
@@ -174,12 +174,15 @@
         "esito": "V"
       },
       {
-        "id": 603,
+        "id": 1793180208617,
         "ordine": 3,
-        "fase": "3° turno",
-        "avversario": "Voccia (M)",
+        "fase": "Finale di batteria",
+        "avversario": "Umberto Voccia",
         "categoria": "Master",
-        "esito": "P"
+        "esito": "P",
+        "giocatore_id": "FB19A091",
+        "csb_id": "F07B81",
+        "csb": "BILIARDO CLUB"
       }
     ]
   },
