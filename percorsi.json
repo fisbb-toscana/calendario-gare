@@ -254,13 +254,13 @@
     "data_giocata": "2025-10-27",
     "iscrizione": 35,
     "premio": 160,
-    "risultato": "Eliminato ai 16esimi",
+    "risultato": "16simi di finale",
     "ranking": 1,
     "batteria_superata": true,
     "note": "",
     "incontri": [
       {
-        "id": 801,
+        "id": 1793180124941,
         "ordine": 1,
         "fase": "1° turno",
         "avversario": "Bevilacqua (2)",
@@ -268,7 +268,7 @@
         "esito": "V"
       },
       {
-        "id": 802,
+        "id": 1793180124942,
         "ordine": 2,
         "fase": "2° turno",
         "avversario": "Tosto (2)",
@@ -276,17 +276,20 @@
         "esito": "V"
       },
       {
-        "id": 803,
+        "id": 1793180124943,
         "ordine": 3,
-        "fase": "3° turno",
-        "avversario": "Del Gobbo (2)",
-        "categoria": "Seconda",
-        "esito": "V"
+        "fase": "Finale di batteria",
+        "avversario": "Dario Del Gobbo",
+        "categoria": "Prima",
+        "esito": "V",
+        "giocatore_id": "FB76A604",
+        "csb_id": "F07B55",
+        "csb": "TAVARNUZZE - LE SFERE"
       },
       {
-        "id": 804,
+        "id": 1793180124944,
         "ordine": 4,
-        "fase": "16esimi",
+        "fase": "16simi di finale",
         "avversario": "Caria (M)",
         "categoria": "Master",
         "esito": "P"
@@ -295,8 +298,8 @@
     "titolo_gara": "1° TROFEO NUOVA ACCADEMIA VERONA",
     "className": "gara-libera",
     "sede": "",
-    "specialita_excel": "Ita/TD",
-    "punti_excel": "100/500 (2 su 3)"
+    "specialita": "Ita/TD",
+    "punti": "100/500 (2 su 3)"
   },
   {
     "id": "ematerz-2025-10-29-9",
