@@ -577,13 +577,13 @@
     "data_giocata": "2026-01-05",
     "iscrizione": 30,
     "premio": 96,
-    "risultato": "16esimi",
+    "risultato": "16simi di finale",
     "ranking": 10,
     "batteria_superata": true,
     "note": "",
     "incontri": [
       {
-        "id": 1793179837688,
+        "id": 1793179856093,
         "ordine": 1,
         "fase": "1° turno",
         "avversario": "Graziano Frangioni",
@@ -594,7 +594,7 @@
         "csb": "BILIARDO AVANE"
       },
       {
-        "id": 1793179837689,
+        "id": 1793179856094,
         "ordine": 2,
         "fase": "2° turno",
         "avversario": "Massimiliano Benvenuti",
@@ -605,7 +605,7 @@
         "csb": "IL BILIARDO"
       },
       {
-        "id": 1793179837690,
+        "id": 1793179856095,
         "ordine": 3,
         "fase": "3° turno",
         "avversario": "Luca Giuntoli",
@@ -616,9 +616,9 @@
         "csb": "SALA VAL DI SERCHIO"
       },
       {
-        "id": 1793179837691,
+        "id": 1793179856096,
         "ordine": 4,
-        "fase": "16esimi",
+        "fase": "16simi di finale",
         "avversario": "Federico Bonanni",
         "categoria": "Terza",
         "esito": "P",
