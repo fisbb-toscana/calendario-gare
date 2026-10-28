@@ -355,18 +355,18 @@
   {
     "id": "ematerz-2025-11-22-11",
     "utente_id": "ematerz",
-    "gara_id": 1786454942642,
+    "gara_id": "1786454942642",
     "stagione": "2025-2026",
     "data_giocata": "2025-11-22",
     "iscrizione": 40,
     "premio": 240,
-    "risultato": "Eliminato ai 32esimi",
+    "risultato": "32simi di finale",
     "ranking": 35,
     "batteria_superata": true,
     "note": "",
     "incontri": [
       {
-        "id": 1101,
+        "id": 1793180039950,
         "ordine": 1,
         "fase": "1° turno",
         "avversario": "Vania (2)",
@@ -374,7 +374,7 @@
         "esito": "V"
       },
       {
-        "id": 1102,
+        "id": 1793180039951,
         "ordine": 2,
         "fase": "2° turno",
         "avversario": "Rotunno (1)",
@@ -382,33 +382,33 @@
         "esito": "V"
       },
       {
-        "id": 1103,
+        "id": 1793180039952,
         "ordine": 3,
-        "fase": "3° turno",
+        "fase": "Finale di batteria",
         "avversario": "Rossi (2)",
         "categoria": "Seconda",
         "esito": "V"
       },
       {
-        "id": 1104,
+        "id": 1793180039953,
         "ordine": 4,
-        "fase": "128esimi",
+        "fase": "128simi di finale",
         "avversario": "Gallotta (M)",
         "categoria": "Master",
         "esito": "V"
       },
       {
-        "id": 1105,
+        "id": 1793180039954,
         "ordine": 5,
-        "fase": "64esimi",
+        "fase": "64simi di finale",
         "avversario": "PRIMON (N)",
         "categoria": "Nazionale",
         "esito": "V"
       },
       {
-        "id": 1106,
+        "id": 1793180039955,
         "ordine": 6,
-        "fase": "32esimi",
+        "fase": "32simi di finale",
         "avversario": "Paragone (M)",
         "categoria": "Master",
         "esito": "P"
