@@ -624,13 +624,13 @@
     "data_giocata": "2026-01-19",
     "iscrizione": 30,
     "premio": 120,
-    "risultato": "Quarti",
+    "risultato": "Quarti di finale",
     "ranking": 17,
     "batteria_superata": true,
     "note": "",
     "incontri": [
       {
-        "id": 1793179769776,
+        "id": 1793179796036,
         "ordine": 1,
         "fase": "1° turno",
         "avversario": "Andrea Morelli",
@@ -641,7 +641,7 @@
         "csb": "IL BILIARDO"
       },
       {
-        "id": 1793179769777,
+        "id": 1793179796037,
         "ordine": 2,
         "fase": "2° turno",
         "avversario": "Massimo Tommasi",
@@ -652,9 +652,9 @@
         "csb": "SPORTING CLUB"
       },
       {
-        "id": 1793179769778,
+        "id": 1793179796038,
         "ordine": 3,
-        "fase": "3° turno",
+        "fase": "Finale di batteria",
         "avversario": "Andrea Martinelli",
         "categoria": "Master",
         "esito": "V",
@@ -663,9 +663,9 @@
         "csb": "ACC. BIL. PONTEDERA"
       },
       {
-        "id": 1793179769779,
+        "id": 1793179796039,
         "ordine": 4,
-        "fase": "Ottavi",
+        "fase": "Ottavi di finale",
         "avversario": "Paolo Balestri",
         "categoria": "Seconda",
         "esito": "V",
@@ -674,9 +674,9 @@
         "csb": "IL BILIARDO"
       },
       {
-        "id": 1793179769780,
+        "id": 1793179796040,
         "ordine": 5,
-        "fase": "Quarti",
+        "fase": "Quarti di finale",
         "avversario": "Giuseppe Buttino",
         "categoria": "Prima",
         "esito": "P",
