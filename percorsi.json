@@ -1209,7 +1209,7 @@
     "note": "",
     "incontri": [
       {
-        "id": 1793179016208,
+        "id": 1793184001086,
         "ordine": 1,
         "fase": "1° turno",
         "avversario": "Piero Tosi",
@@ -1220,7 +1220,7 @@
         "csb": "MARAMEO"
       },
       {
-        "id": 1793179016209,
+        "id": 1793184001087,
         "ordine": 2,
         "fase": "2° turno",
         "avversario": "Antonio De Santis",
@@ -1231,11 +1231,11 @@
         "csb": "PASSIONE BILIARDO AGNORELLI"
       },
       {
-        "id": 1793179016210,
+        "id": 1793184001088,
         "ordine": 3,
         "fase": "Finale di batteria",
         "avversario": "Emanuele Mariotti",
-        "categoria": "Prima",
+        "categoria": "Seconda",
         "esito": "P",
         "giocatore_id": "FB73A768",
         "csb_id": "F48B57",
