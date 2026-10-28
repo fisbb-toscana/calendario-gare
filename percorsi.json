@@ -1046,20 +1046,26 @@
     "note": "",
     "incontri": [
       {
-        "id": 1793178929268,
+        "id": 1793179140576,
         "ordine": 1,
         "fase": "16esimi",
-        "avversario": "Marchi (M)",
+        "avversario": "Marco Marchi",
         "categoria": "Master",
-        "esito": "V"
+        "esito": "V",
+        "giocatore_id": "FB63A972",
+        "csb_id": "F19B36",
+        "csb": "BASSA MAREA A.S.D."
       },
       {
-        "id": 1793178929269,
+        "id": 1793179140577,
         "ordine": 2,
         "fase": "Ottavi",
-        "avversario": "Deiana (M)",
+        "avversario": "Danilo Deiana",
         "categoria": "Master",
-        "esito": "P"
+        "esito": "P",
+        "giocatore_id": "FB45A439",
+        "csb_id": "F07B91",
+        "csb": "IL BILIARDO"
       }
     ]
   },
