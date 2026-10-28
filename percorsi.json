@@ -824,13 +824,13 @@
     "data_giocata": "2026-02-23",
     "iscrizione": 40,
     "premio": 160,
-    "risultato": "64simi di finale",
+    "risultato": "512simi di finale",
     "ranking": 14,
     "batteria_superata": true,
     "note": "",
     "incontri": [
       {
-        "id": 1793179876726,
+        "id": 1793182229318,
         "ordine": 1,
         "fase": "1° turno",
         "avversario": "Pasquini (1)",
@@ -838,7 +838,7 @@
         "esito": "V"
       },
       {
-        "id": 1793179876727,
+        "id": 1793182229319,
         "ordine": 2,
         "fase": "2° turno",
         "avversario": "Di Marzo (2)",
@@ -846,9 +846,9 @@
         "esito": "V"
       },
       {
-        "id": 1793179876728,
+        "id": 1793182229320,
         "ordine": 3,
-        "fase": "3° turno",
+        "fase": "Finale di batteria",
         "avversario": "Francesco Del Chicca",
         "categoria": "Prima",
         "esito": "V",
@@ -857,9 +857,9 @@
         "csb": "SALA VAL DI SERCHIO"
       },
       {
-        "id": 1793179876729,
+        "id": 1793182229321,
         "ordine": 4,
-        "fase": "64simi di finale",
+        "fase": "512simi di finale",
         "avversario": "Del Sesto (1)",
         "categoria": "Prima",
         "esito": "P"
