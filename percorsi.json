@@ -1023,12 +1023,15 @@
     "note": "",
     "incontri": [
       {
-        "id": 1793179045686,
+        "id": 1793179170264,
         "ordine": 1,
         "fase": "1° turno",
-        "avversario": "Izzo F. (1)",
+        "avversario": "Felice Izzo",
         "categoria": "Prima",
-        "esito": "P"
+        "esito": "P",
+        "giocatore_id": "FB72A367",
+        "csb_id": "F30B15",
+        "csb": "CENTRO SPORT. DALFA"
       }
     ]
   },
