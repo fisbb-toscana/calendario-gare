@@ -928,26 +928,29 @@
   {
     "id": "ematerz-2026-05-04-28",
     "utente_id": "ematerz",
-    "gara_id": 1786454942625,
+    "gara_id": "1786454942625",
     "stagione": "2025-2026",
     "data_giocata": "2026-05-04",
     "iscrizione": 35,
     "premio": 0,
-    "risultato": "Batteria non superata",
+    "risultato": "Finale di batteria",
     "ranking": 6,
     "batteria_superata": false,
     "note": "",
     "incontri": [
       {
-        "id": 2801,
+        "id": 1793179220054,
         "ordine": 1,
         "fase": "1° turno",
-        "avversario": "Capitoni (1)",
+        "avversario": "Tommaso Capitoni",
         "categoria": "Prima",
-        "esito": "V"
+        "esito": "V",
+        "giocatore_id": "FB96A938",
+        "csb_id": "F51B31",
+        "csb": "IL BIRILLO"
       },
       {
-        "id": 2802,
+        "id": 1793179220055,
         "ordine": 2,
         "fase": "2° turno",
         "avversario": "Beani (1)",
@@ -955,12 +958,15 @@
         "esito": "V"
       },
       {
-        "id": 2803,
+        "id": 1793179220056,
         "ordine": 3,
-        "fase": "3° turno",
-        "avversario": "MARTINELLI (N)",
+        "fase": "Finale di batteria",
+        "avversario": "David Martinelli",
         "categoria": "Nazionale",
-        "esito": "P"
+        "esito": "P",
+        "giocatore_id": "FB08A506",
+        "csb_id": "F07B91",
+        "csb": "IL BILIARDO"
       }
     ]
   },
