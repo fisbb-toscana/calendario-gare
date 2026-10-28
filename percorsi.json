@@ -541,13 +541,13 @@
     "data_giocata": "2025-12-30",
     "iscrizione": 35,
     "premio": 0,
-    "risultato": "Batteria non superata",
+    "risultato": "2° turno",
     "ranking": -1,
     "batteria_superata": false,
     "note": "",
     "incontri": [
       {
-        "id": 1601,
+        "id": 1793179914485,
         "ordine": 1,
         "fase": "1° turno",
         "avversario": "Palini (1)",
@@ -555,7 +555,7 @@
         "esito": "V"
       },
       {
-        "id": 1602,
+        "id": 1793179914486,
         "ordine": 2,
         "fase": "2° turno",
         "avversario": "Leto (M)",
@@ -566,8 +566,8 @@
     "titolo_gara": "2° MEMORIAL GERBONIO ARDUINI",
     "className": "gara-libera",
     "sede": "",
-    "specialita_excel": "Ita/TD",
-    "punti_excel": "80/500 (2 su 3)"
+    "specialita": "Ita/TD",
+    "punti": "80/500 (2 su 3)"
   },
   {
     "id": "ematerz-2026-01-05-17",
