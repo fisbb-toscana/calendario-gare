@@ -952,44 +952,53 @@
   {
     "id": "ematerz-2026-04-20-26",
     "utente_id": "ematerz",
-    "gara_id": 1786454942619,
+    "gara_id": "1786454942619",
     "stagione": "2025-2026",
     "data_giocata": "2026-04-20",
     "iscrizione": 35,
     "premio": 200,
-    "risultato": "Eliminato ai 16esimi",
+    "risultato": "16simi di finale",
     "ranking": 8,
     "batteria_superata": true,
     "note": "",
     "incontri": [
       {
-        "id": 2601,
+        "id": 1793181166494,
         "ordine": 1,
         "fase": "1° turno",
-        "avversario": "Casprini (1)",
+        "avversario": "Iacopo Casprini",
         "categoria": "Prima",
-        "esito": "V"
+        "esito": "V",
+        "giocatore_id": "FB59A108",
+        "csb_id": "F48B94",
+        "csb": "GALCIANA"
       },
       {
-        "id": 2602,
+        "id": 1793181166495,
         "ordine": 2,
         "fase": "2° turno",
-        "avversario": "Miccoli (2)",
+        "avversario": "Fabio Miccoli",
         "categoria": "Seconda",
-        "esito": "V"
+        "esito": "V",
+        "giocatore_id": "FB08A770",
+        "csb_id": "F48B54",
+        "csb": "JOHNNY CLUB"
       },
       {
-        "id": 2603,
+        "id": 1793181166496,
         "ordine": 3,
-        "fase": "3° turno",
-        "avversario": "Ceccarelli (M)",
+        "fase": "Finale di batteria",
+        "avversario": "Fabio Ceccarelli",
         "categoria": "Master",
-        "esito": "V"
+        "esito": "V",
+        "giocatore_id": "FB05A982",
+        "csb_id": "F23B55",
+        "csb": "ACC. BIL. PONTEDERA"
       },
       {
-        "id": 2604,
+        "id": 1793181166497,
         "ordine": 4,
-        "fase": "16esimi",
+        "fase": "16simi di finale",
         "avversario": "Casarotto (M)",
         "categoria": "Master",
         "esito": "P"
