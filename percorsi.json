@@ -720,18 +720,18 @@
   {
     "id": "ematerz-2026-02-23-21",
     "utente_id": "ematerz",
-    "gara_id": 1786454942622,
+    "gara_id": "1786454942622",
     "stagione": "2025-2026",
     "data_giocata": "2026-02-23",
     "iscrizione": 40,
     "premio": 160,
-    "risultato": "Eliminato ai 64esimi",
+    "risultato": "64esimi",
     "ranking": 14,
     "batteria_superata": true,
     "note": "",
     "incontri": [
       {
-        "id": 2101,
+        "id": 1793179691588,
         "ordine": 1,
         "fase": "1° turno",
         "avversario": "Pasquini (1)",
@@ -739,7 +739,7 @@
         "esito": "V"
       },
       {
-        "id": 2102,
+        "id": 1793179691589,
         "ordine": 2,
         "fase": "2° turno",
         "avversario": "Di Marzo (2)",
@@ -747,15 +747,18 @@
         "esito": "V"
       },
       {
-        "id": 2103,
+        "id": 1793179691590,
         "ordine": 3,
         "fase": "3° turno",
-        "avversario": "Del Chicca (1)",
+        "avversario": "Francesco Del Chicca",
         "categoria": "Prima",
-        "esito": "V"
+        "esito": "V",
+        "giocatore_id": "FB68A882",
+        "csb_id": "F08B12",
+        "csb": "SALA VAL DI SERCHIO"
       },
       {
-        "id": 2104,
+        "id": 1793179691591,
         "ordine": 4,
         "fase": "64esimi",
         "avversario": "Del Sesto (1)",
