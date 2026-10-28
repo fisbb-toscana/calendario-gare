@@ -186,63 +186,81 @@
   {
     "id": "ematerz-2025-10-21-7",
     "utente_id": "ematerz",
-    "gara_id": 1786454942643,
+    "gara_id": "1786454942643",
     "stagione": "2025-2026",
     "data_giocata": "2025-10-21",
     "iscrizione": 30,
     "premio": 136,
-    "risultato": "Eliminato ai Quarti",
+    "risultato": "Quarti di finale",
     "ranking": 10,
     "batteria_superata": true,
     "note": "",
     "incontri": [
       {
-        "id": 701,
+        "id": 1793180188025,
         "ordine": 1,
         "fase": "1° turno",
-        "avversario": "Malasoma (1)",
+        "avversario": "Massimo Malasoma",
         "categoria": "Prima",
-        "esito": "V"
+        "esito": "V",
+        "giocatore_id": "FB08A269",
+        "csb_id": "F07B91",
+        "csb": "IL BILIARDO"
       },
       {
-        "id": 702,
+        "id": 1793180188026,
         "ordine": 2,
         "fase": "2° turno",
-        "avversario": "Ferri (1)",
+        "avversario": "Massimiliano Ferri",
         "categoria": "Prima",
-        "esito": "V"
+        "esito": "V",
+        "giocatore_id": "FB82A230",
+        "csb_id": "F42B59",
+        "csb": "BIL. CLUB VAL D'ELSA"
       },
       {
-        "id": 703,
+        "id": 1793180188027,
         "ordine": 3,
-        "fase": "3° turno",
-        "avversario": "Galassi (1)",
+        "fase": "Finale di batteria",
+        "avversario": "Leonardo Galassi",
         "categoria": "Prima",
-        "esito": "V"
+        "esito": "V",
+        "giocatore_id": "FB12A281",
+        "csb_id": "F08B26",
+        "csb": "COIANO"
       },
       {
-        "id": 704,
+        "id": 1793180188028,
         "ordine": 4,
-        "fase": "16esimi",
-        "avversario": "Caroppo (3)",
-        "categoria": "Terza",
-        "esito": "V"
+        "fase": "16simi di finale",
+        "avversario": "Emanuele Caroppo",
+        "categoria": "Seconda",
+        "esito": "V",
+        "giocatore_id": "FB10A1622",
+        "csb_id": "F46B28",
+        "csb": "CAIMANO A.C.S.I. CLUB"
       },
       {
-        "id": 705,
+        "id": 1793180188029,
         "ordine": 5,
-        "fase": "Ottavi",
-        "avversario": "De Angelis (1)",
+        "fase": "Ottavi di finale",
+        "avversario": "Stefano De Angelis",
         "categoria": "Prima",
-        "esito": "V"
+        "esito": "V",
+        "giocatore_id": "FB86A356",
+        "csb_id": "F51B31",
+        "csb": "IL BIRILLO"
       },
       {
-        "id": 706,
+        "id": 1793180188030,
         "ordine": 6,
-        "fase": "Quarti",
-        "avversario": "Mezzanotte (M)",
+        "fase": "Quarti di finale",
+        "avversario": "Iuri Mezzanotte",
         "categoria": "Master",
-        "esito": "P"
+        "esito": "P",
+        "giocatore_id": "FB12A633",
+        "csb_id": "F19B36",
+        "csb": "BASSA MAREA A.S.D."
       }
     ]
   },
