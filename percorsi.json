@@ -1029,18 +1029,18 @@
   {
     "id": "ematerz-2026-06-01-31",
     "utente_id": "ematerz",
-    "gara_id": 1786454942600,
+    "gara_id": "1786454942600",
     "stagione": "2025-2026",
     "data_giocata": "2026-06-01",
     "iscrizione": 0,
     "premio": 0,
-    "risultato": "Eliminato ai Ottavi",
+    "risultato": "Ottavi",
     "ranking": 2,
     "batteria_superata": true,
     "note": "",
     "incontri": [
       {
-        "id": 3101,
+        "id": 1793178929268,
         "ordine": 1,
         "fase": "16esimi",
         "avversario": "Marchi (M)",
@@ -1048,7 +1048,7 @@
         "esito": "V"
       },
       {
-        "id": 3102,
+        "id": 1793178929269,
         "ordine": 2,
         "fase": "Ottavi",
         "avversario": "Deiana (M)",
