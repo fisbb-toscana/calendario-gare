@@ -572,47 +572,59 @@
   {
     "id": "ematerz-2026-01-05-17",
     "utente_id": "ematerz",
-    "gara_id": 1786454942631,
+    "gara_id": "1786454942631",
     "stagione": "2025-2026",
     "data_giocata": "2026-01-05",
     "iscrizione": 30,
     "premio": 96,
-    "risultato": "Eliminato ai 16esimi",
+    "risultato": "16esimi",
     "ranking": 10,
     "batteria_superata": true,
     "note": "",
     "incontri": [
       {
-        "id": 1701,
+        "id": 1793179837688,
         "ordine": 1,
         "fase": "1° turno",
-        "avversario": "Frangioni (1)",
+        "avversario": "Graziano Frangioni",
         "categoria": "Prima",
-        "esito": "V"
+        "esito": "V",
+        "giocatore_id": "FB26A456",
+        "csb_id": "F07B24",
+        "csb": "BILIARDO AVANE"
       },
       {
-        "id": 1702,
+        "id": 1793179837689,
         "ordine": 2,
         "fase": "2° turno",
-        "avversario": "Benvenuti (1)",
+        "avversario": "Massimiliano Benvenuti",
         "categoria": "Prima",
-        "esito": "V"
+        "esito": "V",
+        "giocatore_id": "FB05A079",
+        "csb_id": "F07B91",
+        "csb": "IL BILIARDO"
       },
       {
-        "id": 1703,
+        "id": 1793179837690,
         "ordine": 3,
         "fase": "3° turno",
-        "avversario": "Giuntoli (1)",
+        "avversario": "Luca Giuntoli",
         "categoria": "Prima",
-        "esito": "V"
+        "esito": "V",
+        "giocatore_id": "FB07A584",
+        "csb_id": "F08B12",
+        "csb": "SALA VAL DI SERCHIO"
       },
       {
-        "id": 1704,
+        "id": 1793179837691,
         "ordine": 4,
         "fase": "16esimi",
-        "avversario": "Bonanni (3)",
+        "avversario": "Federico Bonanni",
         "categoria": "Terza",
-        "esito": "P"
+        "esito": "P",
+        "giocatore_id": "FB88A100",
+        "csb_id": "F08B12",
+        "csb": "SALA VAL DI SERCHIO"
       }
     ]
   },
