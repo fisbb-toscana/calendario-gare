@@ -1594,5 +1594,19 @@
     "batteria_superata": false,
     "note": "",
     "incontri": []
+  },
+  {
+    "id": "ematerz-1793622480591",
+    "utente_id": "ematerz",
+    "gara_id": "1791201914141",
+    "stagione": "2026-2027",
+    "data_giocata": "2026-11-30",
+    "iscrizione": 30,
+    "premio": 0,
+    "risultato": "Da disputare",
+    "ranking": null,
+    "batteria_superata": false,
+    "note": "",
+    "incontri": []
   }
 ]
