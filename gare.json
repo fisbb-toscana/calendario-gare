@@ -2063,5 +2063,24 @@
     "arbitri": "NO",
     "vincitore": "",
     "locandina": "locandina_non_disponibile.png"
+  },
+  {
+    "id": 1794212895600,
+    "title": "11° TORNEO a COPPIE - LONDA",
+    "className": "gara-libera",
+    "stato": "pianificata",
+    "sede": "",
+    "premio": "€",
+    "iscrizione": "€",
+    "entro": "",
+    "start": "",
+    "end_date": "2027-07-30",
+    "specialita": "",
+    "categorie": "Nazionale / Naz. Pro, Master, Prima, Seconda, Terza",
+    "separate": "NO",
+    "handicap": "SI",
+    "arbitri": "SI",
+    "vincitore": "",
+    "locandina": "locandina_non_disponibile.png"
   }
 ]
