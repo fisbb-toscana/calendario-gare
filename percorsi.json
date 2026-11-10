@@ -1521,11 +1521,45 @@
     "data_giocata": "2026-11-09",
     "iscrizione": 35,
     "premio": 0,
-    "risultato": "1° turno",
-    "ranking": null,
+    "risultato": "Finale di batteria",
+    "ranking": 0,
     "batteria_superata": false,
     "note": "",
-    "incontri": []
+    "incontri": [
+      {
+        "id": 1794321414752,
+        "ordine": 1,
+        "fase": "1° turno",
+        "avversario": "Marcello Zappitelli",
+        "categoria": "Seconda",
+        "esito": "V",
+        "giocatore_id": "FB56A858",
+        "csb_id": "F45B18",
+        "csb": "CANTAGRILLO BILIARDO"
+      },
+      {
+        "id": 1794321414753,
+        "ordine": 2,
+        "fase": "2° turno",
+        "avversario": "Paolo Tognarelli",
+        "categoria": "Prima",
+        "esito": "V",
+        "giocatore_id": "FB65A193",
+        "csb_id": "F08B26",
+        "csb": "COIANO"
+      },
+      {
+        "id": 1794321414754,
+        "ordine": 3,
+        "fase": "Finale di batteria",
+        "avversario": "Stefano Santini",
+        "categoria": "Master",
+        "esito": "P",
+        "giocatore_id": "FB04A646",
+        "csb_id": "F19B36",
+        "csb": "BASSA MAREA A.S.D."
+      }
+    ]
   },
   {
     "id": "ematerz-1791205292080",
