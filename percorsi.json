@@ -1595,11 +1595,45 @@
     "data_giocata": "2026-11-16",
     "iscrizione": 40,
     "premio": 0,
-    "risultato": "1° turno",
-    "ranking": null,
+    "risultato": "Finale di batteria",
+    "ranking": 6,
     "batteria_superata": false,
     "note": "",
-    "incontri": []
+    "incontri": [
+      {
+        "id": 1794909070465,
+        "ordine": 1,
+        "fase": "1° turno",
+        "avversario": "Massimiliano Viola",
+        "categoria": "Seconda",
+        "esito": "V",
+        "giocatore_id": "FB11A242",
+        "csb_id": "F00B73",
+        "csb": "OROPA"
+      },
+      {
+        "id": 1794909070466,
+        "ordine": 2,
+        "fase": "2° turno",
+        "avversario": "Riccardo Scavo",
+        "categoria": "Seconda",
+        "esito": "V",
+        "giocatore_id": "FB65A486",
+        "csb_id": "F52B50",
+        "csb": "DONKEY BILLIARDS"
+      },
+      {
+        "id": 1794909070467,
+        "ordine": 3,
+        "fase": "Finale di batteria",
+        "avversario": "Simone Spagna",
+        "categoria": "Nazionale",
+        "esito": "P",
+        "giocatore_id": "FB10A651",
+        "csb_id": "F48B54",
+        "csb": "JOHNNY CLUB"
+      }
+    ]
   },
   {
     "id": "ematerz-1793622277746",
