@@ -263,7 +263,7 @@
     "separate": "NO",
     "handicap": "SI",
     "arbitri": "1 su 2",
-    "vincitore": "Giuseppe Buttino (1)\nGiuseppe Sifonetti (2)",
+    "vincitore": "Simone Ballerini (1)\nGianni Cangioli (2)",
     "locandina": "https://trello.com/1/cards/6ad7875691c7f862adf40856/attachments/6ad787947bf101e3dd7db0f6/download/Selezioni_02_coppie.jpg"
   },
   {
@@ -1613,7 +1613,7 @@
     "separate": "SI",
     "handicap": "NO",
     "arbitri": "NO",
-    "vincitore": "Andrea Martinelli (M)",
+    "vincitore": "",
     "locandina": "https://trello.com/1/cards/6abc107d60bbbce316950e42/attachments/6ac0e165ee3aa41937b93715/download/biliardo_2026_27.jpg"
   },
   {
@@ -2003,25 +2003,6 @@
     "categorie": "Seconda, Terza",
     "separate": "NO",
     "handicap": "NO",
-    "arbitri": "NO",
-    "vincitore": "",
-    "locandina": "locandina_non_disponibile.png"
-  },
-  {
-    "id": 1791201914141,
-    "title": "4° TROFEO LA GARUFFA 'MEMORIAL FRANCO PERUGINI'",
-    "className": "gara-libera",
-    "stato": "pianificata",
-    "sede": "LA GARUFFA (LI)",
-    "premio": "€",
-    "iscrizione": "€",
-    "entro": "",
-    "start": "",
-    "end_date": "2026-12-20",
-    "specialita": "Italiana a 150 punti",
-    "categorie": "Master, Prima, Seconda, Terza",
-    "separate": "SI",
-    "handicap": "SI",
     "arbitri": "NO",
     "vincitore": "",
     "locandina": "locandina_non_disponibile.png"
