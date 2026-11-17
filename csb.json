@@ -464,6 +464,14 @@
     "attivo": true
   },
   {
+    "id": "F00B73",
+    "codice_affiliazione": "F00B73",
+    "denominazione": "OROPA",
+    "regione": "Piemonte",
+    "provenienza": "manuale",
+    "attivo": true
+  },
+  {
     "id": "F45B76",
     "codice_affiliazione": "F45B76",
     "denominazione": "PALABILIARDO FIRENZE",
