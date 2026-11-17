@@ -19900,6 +19900,18 @@
     "attivo": true
   },
   {
+    "id": "FB11A242",
+    "codice_tessera": "FB11A242",
+    "nome": "Massimiliano",
+    "cognome": "Viola",
+    "nome_visualizzato": "Massimiliano Viola",
+    "categoria": "Seconda",
+    "csb_id": "F00B73",
+    "regione": "Piemonte",
+    "provenienza": "manuale",
+    "attivo": true
+  },
+  {
     "id": "FB11A0478",
     "codice_tessera": "FB11A0478",
     "nome": "Luca",
