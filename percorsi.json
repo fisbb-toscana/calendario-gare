@@ -1643,11 +1643,34 @@
     "data_giocata": "2026-11-18",
     "iscrizione": 30,
     "premio": 0,
-    "risultato": "Da disputare",
+    "risultato": "2° turno",
     "ranking": null,
     "batteria_superata": false,
     "note": "",
-    "incontri": []
+    "incontri": [
+      {
+        "id": 1795083360187,
+        "ordine": 1,
+        "fase": "1° turno",
+        "avversario": "Sandro Baldassini",
+        "categoria": "Prima",
+        "esito": "V",
+        "giocatore_id": "FB00A566",
+        "csb_id": "F18B43",
+        "csb": "MAXIM LUDO CLUB"
+      },
+      {
+        "id": 1795083360188,
+        "ordine": 2,
+        "fase": "2° turno",
+        "avversario": "Luciano Antonio Cuormio",
+        "categoria": "Prima",
+        "esito": "P",
+        "giocatore_id": "FB88A361",
+        "csb_id": "F48B54",
+        "csb": "JOHNNY CLUB"
+      }
+    ]
   },
   {
     "id": "ematerz-1793622460374",
