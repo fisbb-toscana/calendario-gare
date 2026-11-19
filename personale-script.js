@@ -1586,11 +1586,10 @@ function renderSummary() {
         : "perse"
     }`;
 
-  document.getElementById(
-    "summaryRanking"
-  ).textContent = 
-    rankingTotale;
-	 
+	const rankingElement = document.getElementById("summaryRanking");
+	rankingElement.textContent = rankingTotale;
+	rankingElement.className = ranking < 0 ? "rank-negative" : "rank-positive";
+
   document.getElementById(
     "summaryRankingDetail"
   ).textContent =
