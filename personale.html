@@ -6,7 +6,7 @@
   <meta name="description" content="FISBB Toscana - Vista personale tornei">
   <title>FISBB Toscana - Vista Personale</title>
   <link rel="icon" type="image/jpeg" href="avatar_fisbbtoscana.jpeg">
-  <link rel="stylesheet" href="personale-style.css?v=4">
+  <link rel="stylesheet" href="personale-style.css?v=5">
 </head>
 <body>
   <div class="app-shell">
@@ -65,7 +65,7 @@
           <h2 id="pageTitle">Il mio percorso</h2>
           <p>Risultati, avversari, ranking e bilancio economico della stagione.</p>
         </div>
-        <button id="newParticipationBtn" class="btn btn-primary" type="button">＋ Nuova partecipazione</button>
+        <button id="newParticipationBtn" class="btn btn-primary" type="button">＋ Nuova iscrizione</button>
       </header>
 
       <section class="summary-grid" aria-label="Riepilogo stagione">
@@ -330,9 +330,40 @@
         <label>Premio (€)
           <input id="editPrize" class="form-control" type="number" min="0" step="0.01">
         </label>
+
+			<label>
+			  Regola ranking
+			  <select id="editRankingProfile" class="form-control" required>
+				 <option value="">Seleziona regola</option>
+				 <option value="nazionale_nbc_gp">Nazionale / NBC / Gran Premio</option>
+				 <option value="territoriale_senza_handicap">Territoriale libera senza handicap</option>
+				 <option value="territoriale_con_handicap">Territoriale libera con handicap</option>
+				 <option value="selezione_territoriale">Istituzionale di selezione</option>
+				 <option value="poule_provinciale">Poule finale provinciale</option>
+				 <option value="poule_regionale">Poule finale regionale</option>
+				 <option value="selezione_italiani">Selezione al Campionato Italiano</option>
+				 <option value="campionato_italiano">Campionato Italiano</option>
+			  </select>
+			</label>
+
+			<label>
+			  Tabella bonus
+			  <select id="editRankingBonusProfile" class="form-control">
+				 <option value="">Nessun bonus</option>
+				 <option value="nbc">NBC</option>
+				 <option value="gran_prix">Gran Prix</option>
+				 <option value="selezione">Selezione</option>
+				 <option value="poule_provinciale">Poule finale provinciale</option>
+				 <option value="poule_regionale">Poule finale regionale</option>
+				 <option value="campionato_italiano">Campionato Italiano</option>
+			  </select>
+			</label>
+
         <label>Ranking
-          <input id="editRanking" class="form-control" type="number" step="1">
+          <input id="editRanking" class="form-control calculated-field" type="number" readonly>
+			<small id="rankingCalculationDetail" class="ranking-calculation-detail"></small>
         </label>
+			
         <label>Batteria superata
           <select id="editBattery" class="form-control"><option value="false">No</option><option value="true">Sì</option></select>
         </label>
@@ -659,6 +690,7 @@
 
 	<datalist id="playersDataList"></datalist>
 	
-  <script src="personale-script.js?v=9"></script>
+	<script src="ranking-calculator.js?v=1"></script>
+	<script src="personale-script.js?v=10"></script>
 </body>
 </html>
