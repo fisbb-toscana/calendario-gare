@@ -124,6 +124,13 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .summary-card { min-width: 0; padding: 17px; border: 1px solid var(--line); border-radius: 14px; background: white; box-shadow: 0 2px 6px rgba(15,23,42,.06); }
 .summary-card > span { color: var(--muted); font-size: .72rem; font-weight: 800; text-transform: uppercase; letter-spacing: .07em; }
 .summary-card strong { display: block; margin: 6px 0 2px; color: var(--title); font-size: 1.65rem; }
+.summary-card strong.rank-positive,
+.summary-card strong.rank-zero {
+  color: #15803d;
+}
+.summary-card strong.rank-negative {
+  color: #dc2626;
+}
 .summary-card small { color: #94a3b8; font-size: .72rem; }
 .toolbar { display: flex; justify-content: space-between; align-items: center; gap: 14px; padding: 12px 14px; background: white; border: 1px solid var(--line); border-bottom: 0; border-radius: 14px 14px 0 0; }
 .search-box { width: min(420px, 100%); display: flex; align-items: center; gap: 8px; padding: 8px 11px; background: var(--soft); border: 1px solid var(--line); border-radius: 8px; }
