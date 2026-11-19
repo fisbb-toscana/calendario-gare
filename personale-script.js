@@ -26,8 +26,7 @@ const MATCH_PHASES = [
   "Ottavi di finale",
   "Quarti di finale",
   "Semifinale",
-  "Finale",
-  "Non disputato"
+  "Finale"
 ];
 
 const demoUsers = [
@@ -1558,17 +1557,16 @@ function renderSummary() {
 
   document.getElementById(
     "summaryTournaments"
-  ).textContent = list.length;
+  ).textContent = playedTournaments;
 
   document.getElementById(
     "summaryTournamentsDetail"
   ).textContent =
-    `${playedTournaments} ${
-      playedTournaments === 1
-        ? "disputato"
-        : "disputati"
-    } · ` +
-    `${pendingTournaments} da disputare`;
+    `${pendingTournaments}  ${
+      pendingTournaments === 1
+        ? "non disputato"
+        : "non disputati"
+    }`;
 
   document.getElementById(
     "summaryMatches"
@@ -2298,13 +2296,7 @@ function getTournamentProgress(path) {
     );
 
   const progressMap = {
-    "da disputare": {
-      percentage: 0,
-      color: "#cbd5e1",
-      className: "pending"
-    },
-
-    "non disputato": {
+    "non disputata": {
       percentage: 0,
       color: "#cbd5e1",
       className: "pending"
