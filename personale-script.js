@@ -2786,10 +2786,9 @@ const matches = [
     match.avversario !== ""
   );
 
-  const rankingValue =
-    document
-      .getElementById("editRanking")
-      .value;
+	const rankingProfile = document.getElementById("editRankingProfile").value;
+	const rankingBonusProfile = document.getElementById("editRankingBonusProfile").value;
+	const rankingValue = document.getElementById("editRanking").value;
 
 	const calculatedResult =
 	  matches.length === 0
@@ -2804,10 +2803,6 @@ const matches = [
 
 	  return;
 	}
-
-	const rankingProfile = document.getElementById("editRankingProfile").value;
-	const rankingBonusProfile = document.getElementById("editRankingBonusProfile").value;
-	const rankingValue = document.getElementById("editRanking").value;
 
   const path = {
     id: participationId,
