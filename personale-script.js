@@ -1,80 +1,80 @@
 const TYPE_COLORS = {
-  "nbc": "#DC2626", "istituzionale": "#0066cc", "coppie-base": "#4F46E5",
-  "seniores": "#D97706", "femminile": "#FF69B4", "gara-libera": "#059669"
+	"nbc": "#DC2626", "istituzionale": "#0066cc", "coppie-base": "#4F46E5",
+	"seniores": "#D97706", "femminile": "#FF69B4", "gara-libera": "#059669"
 };
 
 const GITHUB_CONFIG = {
-  owner: "fisbb-toscana",
-  repo: "calendario-gare",
-  branch: "main",
-  filePath: "percorsi.json",
-  filePathPlayers: "giocatori.json",
-  filePathClubs: "csb.json"
+	owner: "fisbb-toscana",
+	repo: "calendario-gare",
+	branch: "main",
+	filePath: "percorsi.json",
+	filePathPlayers: "giocatori.json",
+	filePathClubs: "csb.json"
 };
 
 const MATCH_PHASES = [
-  "1° turno",
-  "2° turno",
-  "Finale di batteria",
-  "Spareggio",
-  "512simi di finale",
-  "256simi di finale",
-  "128simi di finale",
-  "64simi di finale",
-  "32simi di finale",
-  "16simi di finale",
-  "Ottavi di finale",
-  "Quarti di finale",
-  "Semifinale",
-  "Finale"
+	"1° turno",
+	"2° turno",
+	"Finale di batteria",
+	"Spareggio",
+	"512simi di finale",
+	"256simi di finale",
+	"128simi di finale",
+	"64simi di finale",
+	"32simi di finale",
+	"16simi di finale",
+	"Ottavi di finale",
+	"Quarti di finale",
+	"Semifinale",
+	"Finale"
 ];
 
 const demoUsers = [
-  { id: "emanuele", nome: "Emanuele", cognome: "Terzuoli", nome_visualizzato: "Emanuele Terzuoli", pin: "1234", categoria: "Master", csb: "CSB Dimostrativo", attivo: true },
-  { id: "utente-demo", nome: "Utente", cognome: "Demo", nome_visualizzato: "Utente Dimostrativo", pin: "5678", categoria: "Prima", csb: "CSB Demo", attivo: true }
+	{ id: "emanuele", nome: "Emanuele", cognome: "Terzuoli", nome_visualizzato: "Emanuele Terzuoli", pin: "1234", categoria: "Master", csb: "CSB Dimostrativo", attivo: true },
+	{ id: "utente-demo", nome: "Utente", cognome: "Demo", nome_visualizzato: "Utente Dimostrativo", pin: "5678", categoria: "Prima", csb: "CSB Demo", attivo: true }
 ];
 const demoEvents = [
-  { id: "demo-marameo", title: "1° TROFEO NETWIN NEWS - 25° ANNIVERSARIO MARAMEO", className: "gara-libera", sede: "MARAMEO A.S.D. (PT)", start: "2025-09-25", end_date: "2025-10-05", specialita: "Tutti Doppi a 1000 punti" },
-  { id: "demo-biliardo", title: "1° TROFEO IL BILIARDO", className: "gara-libera", sede: "IL BILIARDO (PI)", start: "2025-10-13", end_date: "2025-11-01", specialita: "Tutti Doppi a 800 punti" }
+	{ id: "demo-marameo", title: "1° TROFEO NETWIN NEWS - 25° ANNIVERSARIO MARAMEO", className: "gara-libera", sede: "MARAMEO A.S.D. (PT)", start: "2025-09-25", end_date: "2025-10-05", specialita: "Tutti Doppi a 1000 punti" },
+	{ id: "demo-biliardo", title: "1° TROFEO IL BILIARDO", className: "gara-libera", sede: "IL BILIARDO (PI)", start: "2025-10-13", end_date: "2025-11-01", specialita: "Tutti Doppi a 800 punti" }
 ];
 const demoPaths = [
-  { id: "emanuele-marameo", utente_id: "emanuele", gara_id: "demo-marameo", stagione: "2025-2026", data_giocata: "2025-09-30", iscrizione: 35, premio: 0, risultato: "Eliminato ai 32esimi", ranking: 9, batteria_superata: true, note: "", incontri: [
-    { id: 1, ordine: 1, fase: "1° turno", avversario: "Quintavalle", categoria: "Prima", esito: "V" },
-    { id: 2, ordine: 2, fase: "2° turno", avversario: "Berretta", categoria: "Master", esito: "V" },
-    { id: 3, ordine: 3, fase: "3° turno", avversario: "Barbini", categoria: "Nazionale", esito: "V" },
-    { id: 4, ordine: 4, fase: "32esimi", avversario: "Caratozzolo", categoria: "Nazionale Pro", esito: "P" }
-  ]},
+	{ id: "emanuele-marameo", utente_id: "emanuele", gara_id: "demo-marameo", stagione: "2025-2026", data_giocata: "2025-09-30", iscrizione: 35, premio: 0, risultato: "Eliminato ai 32esimi", ranking: 9, batteria_superata: true, note: "", incontri: [
+		{ id: 1, ordine: 1, fase: "1° turno", avversario: "Quintavalle", categoria: "Prima", esito: "V" },
+		{ id: 2, ordine: 2, fase: "2° turno", avversario: "Berretta", categoria: "Master", esito: "V" },
+		{ id: 3, ordine: 3, fase: "3° turno", avversario: "Barbini", categoria: "Nazionale", esito: "V" },
+		{ id: 4, ordine: 4, fase: "32esimi", avversario: "Caratozzolo", categoria: "Nazionale Pro", esito: "P" }
+	]},
   { id: "emanuele-biliardo", utente_id: "emanuele", gara_id: "demo-biliardo", stagione: "2025-2026", data_giocata: "2025-10-21", iscrizione: 30, premio: 136, risultato: "Eliminato ai quarti", ranking: 10, batteria_superata: true, note: "Buon percorso complessivo.", incontri: [
-    { id: 1, ordine: 1, fase: "1° turno", avversario: "Malasoma", categoria: "Prima", esito: "V" },
-    { id: 2, ordine: 2, fase: "2° turno", avversario: "Ferri", categoria: "Prima", esito: "V" },
-    { id: 3, ordine: 3, fase: "3° turno", avversario: "Galassi", categoria: "Prima", esito: "V" },
-    { id: 4, ordine: 4, fase: "Quarti", avversario: "Martinelli", categoria: "Master", esito: "P" }
-  ]}
+		{ id: 1, ordine: 1, fase: "1° turno", avversario: "Malasoma", categoria: "Prima", esito: "V" },
+		{ id: 2, ordine: 2, fase: "2° turno", avversario: "Ferri", categoria: "Prima", esito: "V" },
+		{ id: 3, ordine: 3, fase: "3° turno", avversario: "Galassi", categoria: "Prima", esito: "V" },
+		{ id: 4, ordine: 4, fase: "Quarti", avversario: "Martinelli", categoria: "Master", esito: "P" }
+	]}
 ];
 const demoClubs = [
-  {
-    id: "F19B36",
-    codice_affiliazione: "F19B36",
-    denominazione: "C.S.B. BILIARDI BASSA MAREA A.S.DILETTANTISTICA",
-    regione: "Toscana",
-    provenienza: "federale",
-    attivo: true
-  }
+	{
+		id: "F19B36",
+		codice_affiliazione: "F19B36",
+		denominazione: "C.S.B. BILIARDI BASSA MAREA A.S.DILETTANTISTICA",
+		regione: "Toscana",
+		provenienza: "federale",
+		attivo: true
+	}
 ];
 
 const demoPlayers = [
-  {
-    id: "FB51A412",
-    codice_tessera: "FB51A412",
-    nome: "Emanuele",
-    cognome: "Terzuoli",
-    nome_visualizzato: "Emanuele Terzuoli",
-    categoria: "Master",
-    csb_id: "F19B36",
-    regione: "Toscana",
-    provenienza: "federale",
-    attivo: true
-  }
+	{
+		id: "FB51A412",
+		codice_tessera: "FB51A412",
+		nome: "Emanuele",
+		cognome: "Terzuoli",
+		nome_visualizzato: "Emanuele Terzuoli",
+		categoria: "Master",
+		csb_id: "F19B36",
+		regione: "Toscana",
+		provenienza: "federale",
+		attivo: true
+	}
 ];
 
 let users = [];
@@ -90,78 +90,80 @@ let clubsById = new Map();
 let currentMatchEditorRow = null;
 
 async function loadJson(url) {
-  const response = await fetch(url, { cache: "no-store" });
-  if (!response.ok) throw new Error(`${url}: HTTP ${response.status}`);
-  return response.json();
+	const response = await fetch(url, { cache: "no-store" });
+	if (!response.ok) throw new Error(`${url}: HTTP ${response.status}`);
+	return response.json();
 }
 
 async function loadData() {
-  let fallback = false;
-  try { users = await loadJson("utenti.json"); } catch (e) { console.warn(e); users = structuredClone(demoUsers); fallback = true; }
-  try { paths = await loadJson("percorsi.json"); } catch (e) { console.warn(e); paths = structuredClone(demoPaths); fallback = true; }
-  try { events = await loadJson("gare.json"); } catch (e) { console.warn(e); events = structuredClone(demoEvents); fallback = true; }
+	let fallback = false;
+	try { users = await loadJson("utenti.json"); } catch (e) { console.warn(e); users = structuredClone(demoUsers); fallback = true; }
+	try { paths = await loadJson("percorsi.json"); } catch (e) { console.warn(e); paths = structuredClone(demoPaths); fallback = true; }
+	try { events = await loadJson("gare.json"); } catch (e) { console.warn(e); events = structuredClone(demoEvents); fallback = true; }
 	try {
-	  players = await loadJson("giocatori.json");
+		players = await loadJson("giocatori.json");
 	} catch (error) {
-	  console.warn(
-		 "Caricamento giocatori.json non riuscito:",
-		 error
-	  );
+		console.warn(
+		"Caricamento giocatori.json non riuscito:",
+		error
+		);
 
-	  players = structuredClone(demoPlayers);
-	  fallback = true;
+		players = structuredClone(demoPlayers);
+		fallback = true;
 	}
 
 	try {
-	  clubs = await loadJson("csb.json");
+		clubs = await loadJson("csb.json");
 	} catch (error) {
-	  console.warn(
-		 "Caricamento csb.json non riuscito:",
-		 error
-	  );
+		console.warn(
+		"Caricamento csb.json non riuscito:",
+		error
+		);
 
-	  clubs = structuredClone(demoClubs);
-	  fallback = true;
+		clubs = structuredClone(demoClubs);
+		fallback = true;
 	}
-  
-  offlineMode = fallback;
-  document.getElementById("offlineNotice").hidden = !offlineMode;
+
+	offlineMode = fallback;
+	document.getElementById("offlineNotice").hidden = !offlineMode;
 	buildPlayerIndexes();
-  initializeApp();
+	try {
+		await loadRankingConfig();
+	} catch (error) {
+		console.error("Caricamento ranking-config.json non riuscito:", error);
+	}
+
+	initializeApp();
 }
 
-function buildPhaseOptions(
-  selectedPhase = "1° turno"
-) {
-  const phases = [...MATCH_PHASES];
+function buildPhaseOptions(selectedPhase = "1° turno") {
+	const phases = [...MATCH_PHASES];
 
-  /*
-    Se lo storico contiene una fase non prevista dalla nuova lista,
-    la aggiungiamo per non perdere il valore esistente.
-  */
-  if (
-    selectedPhase &&
-    !phases.includes(selectedPhase)
-  ) {
-    phases.push(selectedPhase);
-  }
+	/*
+	Se lo storico contiene una fase non prevista dalla nuova lista,
+	la aggiungiamo per non perdere il valore esistente.
+	*/
+	if (
+		selectedPhase &&
+		!phases.includes(selectedPhase)
+	) {
+		phases.push(selectedPhase);
+	}
 
-  return phases
-    .map(phase => {
-      const selected =
-        phase === selectedPhase
-          ? "selected"
-          : "";
+	return phases.map(phase => {
+		const selected =
+		phase === selectedPhase
+		? "selected"
+		: "";
 
-      return (
-        `<option value="${escapeAttr(phase)}" ${selected}>` +
-        `${escapeHtml(phase)}` +
-        `</option>`
-      );
-    })
-    .join("");
+		return (
+		`<option value="${escapeAttr(phase)}" ${selected}>` +
+		`${escapeHtml(phase)}` +
+		`</option>`
+		);
+	}).join("");
+
 }
-
 
 function getNextMatchPhase() {
   const rows = [
@@ -320,6 +322,57 @@ function getPlayerDisplayName(player) {
     player.codice_tessera ||
     player.id
   );
+}
+
+function collectMatchesFromEditor() {
+	return [...document.querySelectorAll(".match-editor-row")]
+		.map((row, index) => ({
+			ordine: index + 1,
+			fase: row.querySelector(".match-phase-input")?.value.trim() || "",
+			avversario: row.querySelector(".match-opponent-input")?.value.trim() || "",
+			categoria: row.querySelector(".match-category-input")?.value || "",
+			esito: row.querySelector(".match-result-input")?.value || ""
+		}))
+		.filter(match => match.avversario !== "");
+}
+
+function updateAutomaticRanking() {
+	const rankingInput = document.getElementById("editRanking");
+	const detail = document.getElementById("rankingCalculationDetail");
+	const profile = document.getElementById("editRankingProfile")?.value || "";
+	const bonusProfile = document.getElementById("editRankingBonusProfile")?.value || "";
+	const matches = collectMatchesFromEditor();
+
+	if (!profile || matches.length === 0) {
+		rankingInput.value = "";
+		if (detail) detail.textContent = matches.length === 0 ? "Ranking non ancora calcolabile" : "Seleziona la regola ranking";
+		return;
+	}
+
+	const calculation = calculateRankingBreakdown({
+		profile,
+		bonusProfile,
+		athleteCategory: currentUser?.categoria,
+		matches
+	});
+
+	if (calculation.error) {
+		rankingInput.value = "";
+		if (detail) detail.textContent = calculation.error;
+		return;
+	}
+
+	const invalidRows = calculation.rows.filter(row => row.points === null);
+	if (invalidRows.length > 0) {
+		rankingInput.value = "";
+		if (detail) detail.textContent = `${invalidRows.length} incontro/i con categorie non previste dalla matrice`;
+		return;
+	}
+
+	rankingInput.value = calculation.total;
+	if (detail) {
+		detail.textContent = `Partite: ${calculation.matchTotal >= 0 ? "+" : ""}${calculation.matchTotal} · Bonus: +${calculation.bonus} · Totale: ${calculation.total >= 0 ? "+" : ""}${calculation.total}`;
+	}
 }
 
 function initializeApp() {
@@ -790,6 +843,9 @@ function bindEvents() {
   document.getElementById("menuClose").addEventListener("click", () => toggleMenu(false));
   document.getElementById("sidebarOverlay").addEventListener("click", () => toggleMenu(false));
   
+  document.getElementById("editRankingProfile")?.addEventListener("change", updateAutomaticRanking);
+  document.getElementById("editRankingBonusProfile")?.addEventListener("change", updateAutomaticRanking);
+
   document.getElementById("githubSettingsBtn").addEventListener("click", openGitHubSettings);
   document.getElementById("githubClose").addEventListener("click", () => document.getElementById("githubDialog").close());
   document.getElementById("githubForm").addEventListener("submit", saveGitHubSettings);
@@ -1916,6 +1972,9 @@ function openEdit(id = null) {
       "matchesEditor"
     );
 
+	document.getElementById("editRankingProfile").value = path?.ranking_profile || "";
+	document.getElementById("editRankingBonusProfile").value = path?.ranking_bonus_profile || "";
+
   editor.innerHTML = "";
 
   const matches =
@@ -1933,7 +1992,14 @@ function openEdit(id = null) {
   if (matches.length === 0) {
     addMatchEditorRow();
   }
-  
+
+	if (!path?.ranking_profile) {
+	  document.getElementById("editRanking").value = path?.ranking ?? "";
+	  document.getElementById("rankingCalculationDetail").textContent = "Ranking storico inserito manualmente";
+	} else {
+	  updateAutomaticRanking();
+	}
+
 	updateTournamentResult();
 
   document
@@ -2097,18 +2163,15 @@ function addMatchEditorRow(match = null) {
 	const phaseSelect =
   row.querySelector(".match-phase-input");
 
-	phaseSelect.addEventListener(
-	  "change",
-	  updateTournamentResult
-	);
+	phaseSelect.addEventListener("change", updateTournamentResult);
+	phaseSelect.addEventListener("change", updateAutomaticRanking);
 
 	const resultSelect =
 	  row.querySelector(".match-result-input");
 
-	resultSelect.addEventListener(
-	  "change",
-	  updateTournamentResult
-	);
+	resultSelect.addEventListener("change", updateTournamentResult);
+	resultSelect.addEventListener("change", updateAutomaticRanking);
+
 
   const opponentInput =
     row.querySelector(".match-opponent-input");
@@ -2124,6 +2187,8 @@ function addMatchEditorRow(match = null) {
     "change",
     () => handleOpponentSelection(row)
   );
+
+	opponentInput.addEventListener("change", updateAutomaticRanking);
 
   opponentInput.addEventListener(
     "blur",
@@ -2174,11 +2239,16 @@ function addMatchEditorRow(match = null) {
         }
 
         row.remove();
+		  updateAutomaticRanking();
 		  updateTournamentResult();
       }
     );
 
+	row.querySelector(".match-category-input").addEventListener("change", updateAutomaticRanking);
+
   container.appendChild(row);
+
+	updateAutomaticRanking();
 	updateTournamentResult();
 	
 }
@@ -2735,6 +2805,10 @@ const matches = [
 	  return;
 	}
 
+	const rankingProfile = document.getElementById("editRankingProfile").value;
+	const rankingBonusProfile = document.getElementById("editRankingBonusProfile").value;
+	const rankingValue = document.getElementById("editRanking").value;
+
   const path = {
     id: participationId,
     utente_id: currentUser.id,
@@ -2760,10 +2834,14 @@ const matches = [
 
     risultato: calculatedResult,
 
-    ranking:
-      rankingValue === ""
-        ? null
-        : number(rankingValue),
+	ranking_profile: rankingProfile || null,
+	ranking_bonus_profile: rankingBonusProfile || null,
+	ranking: rankingValue === "" ? null : Number(rankingValue),
+
+	if (rankingProfile && rankingValue === "") {
+	  alert("Il ranking non puo essere calcolato. Controlla categoria dell'atleta, categorie degli avversari e regola ranking.");
+	  return;
+	}
 
     batteria_superata:
       document
