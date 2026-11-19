@@ -1325,15 +1325,15 @@
     "data_giocata": "2026-09-14",
     "iscrizione": 30,
     "premio": 150,
-    "risultato": "Sedicesimi di finale",
+    "risultato": "16simi di finale",
     "ranking_profile": "territoriale_senza_handicap",
     "ranking_bonus_profile": null,
-    "ranking": 1,
+    "ranking": 4,
     "batteria_superata": true,
     "note": "",
     "incontri": [
       {
-        "id": 1795103304351,
+        "id": 1795103913981,
         "ordine": 1,
         "fase": "1° turno",
         "avversario": "Daniele Severino Innocenti",
@@ -1344,7 +1344,7 @@
         "csb": "MARAMEO"
       },
       {
-        "id": 1795103304352,
+        "id": 1795103913982,
         "ordine": 2,
         "fase": "2° turno",
         "avversario": "Piero Bianchi",
@@ -1355,7 +1355,7 @@
         "csb": "SALA VAL DI SERCHIO"
       },
       {
-        "id": 1795103304353,
+        "id": 1795103913983,
         "ordine": 3,
         "fase": "Finale di batteria",
         "avversario": "Paolo Brogi",
@@ -1366,9 +1366,9 @@
         "csb": "ACC. BIL. PONTEDERA"
       },
       {
-        "id": 1795103304354,
+        "id": 1795103913984,
         "ordine": 4,
-        "fase": "Trentaduesimi di finale",
+        "fase": "32simi di finale",
         "avversario": "Tiziano Lazzereschi",
         "categoria": "Terza",
         "esito": "V",
@@ -1377,9 +1377,9 @@
         "csb": "ACC. BIL. PONTEDERA"
       },
       {
-        "id": 1795103304355,
+        "id": 1795103913985,
         "ordine": 5,
-        "fase": "Sedicesimi di finale",
+        "fase": "16simi di finale",
         "avversario": "Francesco Galli",
         "categoria": "Prima",
         "esito": "P",
