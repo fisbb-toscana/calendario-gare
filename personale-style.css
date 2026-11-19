@@ -305,6 +305,13 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .rank-positive { color: #15803d; font-weight: 800; }
 .rank-negative { color: #b91c1c; font-weight: 800; }
 .rank-zero { color: var(--muted); font-weight: 800; }
+.ranking-calculation-detail {
+  display: block;
+  margin-top: 4px;
+  color: #64748b;
+  font-size: 0.68rem;
+  font-weight: 650;
+}
 .empty-row { text-align: center; color: #94a3b8; padding: 32px !important; font-style: italic; }
 .mobile-list { display: none; }
 .app-dialog { border: 0; padding: 0; border-radius: 16px; width: min(720px, calc(100vw - 28px)); max-height: calc(100vh - 28px); box-shadow: 0 24px 70px rgba(15,23,42,.32); }
