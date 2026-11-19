@@ -2833,11 +2833,6 @@ const matches = [
 	ranking_bonus_profile: rankingBonusProfile || null,
 	ranking: rankingValue === "" ? null : Number(rankingValue),
 
-	if (rankingProfile && rankingValue === "") {
-	  alert("Il ranking non puo essere calcolato. Controlla categoria dell'atleta, categorie degli avversari e regola ranking.");
-	  return;
-	}
-
     batteria_superata:
       document
         .getElementById(
@@ -2857,6 +2852,11 @@ const matches = [
 
     ...externalData
   };
+
+	if (rankingProfile && rankingValue === "") {
+	  alert("Il ranking non puo essere calcolato. Controlla categoria dell'atleta, categorie degli avversari e regola ranking.");
+	  return;
+	}
 
   const pathIndex =
     paths.findIndex(item =>
