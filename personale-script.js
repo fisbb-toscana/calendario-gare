@@ -356,6 +356,26 @@ function updateAutomaticRanking() {
 		matches
 	});
 
+console.log("=== CALCOLO RANKING ===");
+console.log("Profilo:", profile);
+console.log("Bonus:", bonusProfile);
+console.log(
+  "Categoria atleta:",
+  currentUser?.categoria
+);
+console.log("Incontri:", matches);
+console.log("Calcolo:", calculation);
+
+console.table(
+  calculation.rows.map(item => ({
+    fase: item.match.fase,
+    avversario: item.match.avversario,
+    categoria: item.match.categoria,
+    esito: item.match.esito,
+    punti: item.points
+  }))
+);
+
 	if (calculation.error) {
 		rankingInput.value = "";
 		if (detail) detail.textContent = calculation.error;
