@@ -2849,11 +2849,6 @@ const matches = [
 	const rankingBonusProfile = document.getElementById("editRankingBonusProfile").value;
 	const rankingValue = document.getElementById("editRanking").value;
 
-	const calculatedResult =
-	  matches.length === 0
-		 ? "Da disputare"
-		 : calculateTournamentResult();
-
 	if (matches.length > 0 && !calculatedResult) {
 	  alert(
 		 "Non e stato possibile determinare il risultato del torneo. " +
