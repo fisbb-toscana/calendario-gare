@@ -1588,13 +1588,13 @@ function renderSummary() {
 
   document.getElementById(
     "summaryRanking"
-  ).textContent =
-    signed(ranking);
+  ).textContent = 
+    rankingTotale;
 	 
   document.getElementById(
     "summaryRankingDetail"
   ).textContent =
-    `${rankingTotale} punti totali`;
+    `${signed(ranking)} da inizio stagione`;
 	 
   const balanceElement =
     document.getElementById(
