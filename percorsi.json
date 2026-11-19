@@ -1596,12 +1596,14 @@
     "iscrizione": 40,
     "premio": 0,
     "risultato": "Finale di batteria",
+    "ranking_profile": "nazionale_nbc_gp",
+    "ranking_bonus_profile": "gran_prix",
     "ranking": 6,
     "batteria_superata": false,
     "note": "",
     "incontri": [
       {
-        "id": 1794909070465,
+        "id": 1795103102181,
         "ordine": 1,
         "fase": "1° turno",
         "avversario": "Massimiliano Viola",
@@ -1612,7 +1614,7 @@
         "csb": "OROPA"
       },
       {
-        "id": 1794909070466,
+        "id": 1795103102182,
         "ordine": 2,
         "fase": "2° turno",
         "avversario": "Riccardo Scavo",
@@ -1623,7 +1625,7 @@
         "csb": "DONKEY BILLIARDS"
       },
       {
-        "id": 1794909070467,
+        "id": 1795103102183,
         "ordine": 3,
         "fase": "Finale di batteria",
         "avversario": "Simone Spagna",
