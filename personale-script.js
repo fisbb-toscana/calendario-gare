@@ -343,6 +343,17 @@ function updateAutomaticRanking() {
 	const bonusProfile = document.getElementById("editRankingBonusProfile")?.value || "";
 	const matches = collectMatchesFromEditor();
 
+  if (matches.length === 0) {
+    rankingInput.value = "";
+
+    if (detail) {
+      detail.textContent =
+        "Ranking da calcolare dopo la disputa della gara";
+    }
+
+    return;
+  }
+
 	if (!profile || matches.length === 0) {
 		rankingInput.value = "";
 		if (detail) detail.textContent = matches.length === 0 ? "Ranking non ancora calcolabile" : "Seleziona la regola ranking";
@@ -356,25 +367,27 @@ function updateAutomaticRanking() {
 		matches
 	});
 
-console.log("=== CALCOLO RANKING ===");
-console.log("Profilo:", profile);
-console.log("Bonus:", bonusProfile);
-console.log(
-  "Categoria atleta:",
-  currentUser?.categoria
-);
-console.log("Incontri:", matches);
-console.log("Calcolo:", calculation);
+	/* VERIFICA CALCOLO DEL RANKING IN CONSOLE
+	console.log("=== CALCOLO RANKING ===");
+	console.log("Profilo:", profile);
+	console.log("Bonus:", bonusProfile);
+	console.log(
+	  "Categoria atleta:",
+	  currentUser?.categoria
+	);
+	console.log("Incontri:", matches);
+	console.log("Calcolo:", calculation);
 
-console.table(
-  calculation.rows.map(item => ({
-    fase: item.match.fase,
-    avversario: item.match.avversario,
-    categoria: item.match.categoria,
-    esito: item.match.esito,
-    punti: item.points
-  }))
-);
+	console.table(
+	  calculation.rows.map(item => ({
+		 fase: item.match.fase,
+		 avversario: item.match.avversario,
+		 categoria: item.match.categoria,
+		 esito: item.match.esito,
+		 punti: item.points
+	  }))
+	);
+	*/
 
 	if (calculation.error) {
 		rankingInput.value = "";
@@ -2806,6 +2819,32 @@ const matches = [
     match.avversario !== ""
   );
 
+	const isPlayed = matches.length > 0;
+
+	if (
+	  isPlayed &&
+	  !rankingProfile
+	) {
+	  alert(
+		 "Se hai inserito degli incontri devi " +
+		 "selezionare la regola per il calcolo " +
+		 "del ranking."
+	  );
+
+	  document.getElementById(
+		 "editRankingProfile"
+	  ).focus();
+
+	  return;
+	}
+
+	if (isPlayed && rankingProfile && rankingValue === "") {
+	  alert("Il ranking non puo essere calcolato. Controlla categoria dell'atleta, categorie degli avversari e regola ranking.");
+	  return;
+	}
+
+	const calculatedResult = isPlayed ? calculateTournamentResult() : "Da disputare";
+
 	const rankingProfile = document.getElementById("editRankingProfile").value;
 	const rankingBonusProfile = document.getElementById("editRankingBonusProfile").value;
 	const rankingValue = document.getElementById("editRanking").value;
@@ -2847,11 +2886,23 @@ const matches = [
         ).value
       ),
 
-    risultato: calculatedResult,
+	ranking_profile:
+	  isPlayed
+		 ? rankingProfile || null
+		 : null,
 
-	ranking_profile: rankingProfile || null,
-	ranking_bonus_profile: rankingBonusProfile || null,
-	ranking: rankingValue === "" ? null : Number(rankingValue),
+	ranking_bonus_profile:
+	  isPlayed
+		 ? rankingBonusProfile || null
+		 : null,
+
+	ranking:
+	  isPlayed && rankingValue !== ""
+		 ? Number(rankingValue)
+		 : null,
+
+	risultato:
+	  calculatedResult,
 
     batteria_superata:
       document
@@ -2872,11 +2923,6 @@ const matches = [
 
     ...externalData
   };
-
-	if (rankingProfile && rankingValue === "") {
-	  alert("Il ranking non puo essere calcolato. Controlla categoria dell'atleta, categorie degli avversari e regola ranking.");
-	  return;
-	}
 
   const pathIndex =
     paths.findIndex(item =>
